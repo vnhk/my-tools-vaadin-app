@@ -1,6 +1,8 @@
 package com.bervan.toolsapp.views;
 
 
+import com.bervan.englishtextstats.EnglishTextLayout;
+import com.bervan.toolsapp.views.englishepub.NotLearnedWordsView;
 import com.bervan.toolsapp.views.interview.InterviewHomeView;
 import com.bervan.toolsapp.views.helloworld.HelloWorldView;
 import com.vaadin.flow.component.Component;
@@ -117,7 +119,8 @@ public class MainLayout extends AppLayout {
         return new MenuItemInfo[]{ //
                 new MenuItemInfo("Hello World", "la la-globe", HelloWorldView.class), //
 
-                new MenuItemInfo("Interview App", "la la-file", InterviewHomeView.class), //
+                new MenuItemInfo("Interview", "la la-file", InterviewHomeView.class), //
+                new MenuItemInfo("Epub English Words", "la la-file", NotLearnedWordsView.class), //
 
         };
     }
