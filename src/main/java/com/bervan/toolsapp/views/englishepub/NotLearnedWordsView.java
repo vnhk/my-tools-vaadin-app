@@ -8,7 +8,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@PageTitle("Not learned yet...")
 @Route(value = AbstractNotLearnedWordsView.ROUTE_NAME, layout = MainLayout.class)
 @RouteAlias(value = AbstractNotLearnedWordsView.ROUTE_NAME, layout = MainLayout.class)
 public class NotLearnedWordsView extends AbstractNotLearnedWordsView {

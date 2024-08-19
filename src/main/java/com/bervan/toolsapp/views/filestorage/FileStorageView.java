@@ -9,7 +9,6 @@ import com.vaadin.flow.router.RouteAlias;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-@PageTitle("Storage")
 @Route(value = AbstractFileStorageView.ROUTE_NAME, layout = MainLayout.class)
 @RouteAlias(value = AbstractFileStorageView.ROUTE_NAME, layout = MainLayout.class)
 public class FileStorageView extends AbstractFileStorageView {

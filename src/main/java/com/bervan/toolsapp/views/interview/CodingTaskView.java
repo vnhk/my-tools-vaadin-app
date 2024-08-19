@@ -8,7 +8,6 @@ import com.vaadin.flow.router.RouteAlias;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.bervan.toolsapp.views.MainLayout;
 
-@PageTitle("Coding Tasks")
 @Route(value = AbstractCodingTaskView.ROUTE_NAME, layout = MainLayout.class)
 @RouteAlias(value = AbstractCodingTaskView.ROUTE_NAME, layout = MainLayout.class)
 public class CodingTaskView extends AbstractCodingTaskView {
