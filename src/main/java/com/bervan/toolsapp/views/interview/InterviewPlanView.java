@@ -1,6 +1,6 @@
 package com.bervan.toolsapp.views.interview;
 
-import com.bervan.interviewapp.onevalue.OneValueService;
+import com.bervan.common.onevalue.OneValueService;
 import com.bervan.interviewapp.view.AbstractInterviewPlanView;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
