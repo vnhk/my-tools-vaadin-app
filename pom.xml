@@ -81,11 +81,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.bervan</groupId>
-            <artifactId>interview-app</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>com.vaadin</groupId>
             <!-- Replace artifactId with vaadin-core to use only free components -->
             <artifactId>vaadin</artifactId>
@@ -126,6 +121,11 @@
             <artifactId>webdrivermanager</artifactId>
             <version>5.0.3</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.bervan</groupId>
+            <artifactId>file-storage-app</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.bervan</groupId>
