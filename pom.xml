@@ -135,6 +135,12 @@
         </dependency>
         <dependency>
             <groupId>com.bervan</groupId>
+            <artifactId>learning-language-app</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.bervan</groupId>
             <artifactId>english-stats-app</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>

@@ -6,6 +6,7 @@ import com.bervan.toolsapp.views.englishepub.NotLearnedWordsView;
 import com.bervan.toolsapp.views.filestorage.FileStorageView;
 import com.bervan.toolsapp.views.interview.InterviewHomeView;
 import com.bervan.toolsapp.views.helloworld.HelloWorldView;
+import com.bervan.toolsapp.views.learninglanguage.LearningAppHomeView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -121,6 +122,7 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Hello World", "la la-globe", HelloWorldView.class), //
                 new MenuItemInfo("Interview", "la la-file", InterviewHomeView.class), //
                 new MenuItemInfo("Epub English Words", "la la-file", NotLearnedWordsView.class), //
+                new MenuItemInfo("Learning Language App", "la la-file", LearningAppHomeView.class), //
                 new MenuItemInfo("File Storage", "la la-file", FileStorageView.class), //
 
         };
