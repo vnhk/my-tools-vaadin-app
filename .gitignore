@@ -4,6 +4,8 @@
 .project
 .classpath
 
+/src/main/resources/application-dev.properties
+
 *.iml
 .DS_Store
 
