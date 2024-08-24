@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * The entry point of the Spring Boot application.
@@ -16,6 +17,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  *
  */
 @SpringBootApplication
+@EnableScheduling
 @ComponentScan(basePackages = "com.bervan.*")
 @EnableJpaRepositories(basePackages = "com.bervan.*", repositoryBaseClass = BaseRepositoryImpl.class)
 @EntityScan(basePackages = "com.bervan.*")
