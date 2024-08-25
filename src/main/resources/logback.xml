@@ -5,7 +5,10 @@
         </encoder>
     </appender>
 
-    <root level="debug">
+    <root level="warn">
         <appender-ref ref="STDOUT" />
     </root>
+
+    <logger name="com.bervan" level="debug"/>
+
 </configuration>
