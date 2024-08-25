@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.filestorage;
 
+import com.bervan.common.model.BervanLogger;
 import com.bervan.filestorage.service.FileServiceManager;
 import com.bervan.filestorage.service.LoadStorageAndIntegrateWithDB;
 import com.bervan.filestorage.view.AbstractFileStorageView;
@@ -14,8 +15,10 @@ import org.springframework.beans.factory.annotation.Value;
 public class FileStorageView extends AbstractFileStorageView {
 
     public FileStorageView(@Autowired FileServiceManager service,
-                           @Value("${spring.servlet.multipart.max-file-size}") String maxFileSize, LoadStorageAndIntegrateWithDB loadStorageAndIntegrateWithDB) {
-        super(service, maxFileSize, loadStorageAndIntegrateWithDB);
+                           @Value("${spring.servlet.multipart.max-file-size}") String maxFileSize,
+                           LoadStorageAndIntegrateWithDB loadStorageAndIntegrateWithDB,
+                           BervanLogger logger) {
+        super(service, maxFileSize, loadStorageAndIntegrateWithDB, logger);
     }
 
 }

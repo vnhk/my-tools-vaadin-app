@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.interview;
 
+import com.bervan.common.model.BervanLogger;
 import com.bervan.interviewapp.codingtask.CodingTaskService;
 import com.bervan.interviewapp.interviewquestions.InterviewQuestionService;
 import com.bervan.common.onevalue.OneValueService;
@@ -11,8 +12,8 @@ import com.bervan.toolsapp.views.MainLayout;
 @Route(value = AbstractImportExportView.ROUTE_NAME, layout = MainLayout.class)
 @RouteAlias(value = AbstractImportExportView.ROUTE_NAME, layout = MainLayout.class)
 public class ImportExportInterviewDataView extends AbstractImportExportView {
-    public ImportExportInterviewDataView(CodingTaskService codingTaskService, OneValueService oneValueService, InterviewQuestionService interviewQuestionService) {
-        super(codingTaskService, oneValueService, interviewQuestionService);
+    public ImportExportInterviewDataView(CodingTaskService codingTaskService, OneValueService oneValueService, InterviewQuestionService interviewQuestionService,  BervanLogger logger) {
+        super(codingTaskService, oneValueService, interviewQuestionService, logger);
     }
 
 }
