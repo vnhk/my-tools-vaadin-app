@@ -74,7 +74,7 @@ public class NotLearnedWordsView extends AbstractNotLearnedWordsView {
             String examplesTranslated = translatorService.translate(examples);
             record.setInSentenceTranslation(examplesTranslated);
         }
-        translationRecordService.add(record);
+        translationRecordService.save(record);
 
     }
 
