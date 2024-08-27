@@ -1,6 +1,6 @@
 package com.bervan.toolsapp.views.filestorage;
 
-import com.bervan.common.model.BervanLogger;
+import com.bervan.core.model.BervanLogger;
 import com.bervan.filestorage.service.FileServiceManager;
 import com.bervan.filestorage.service.LoadStorageAndIntegrateWithDB;
 import com.bervan.filestorage.view.AbstractFileStorageView;

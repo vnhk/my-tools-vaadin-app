@@ -1,6 +1,6 @@
 package com.bervan.toolsapp.views.interview;
 
-import com.bervan.common.model.BervanLogger;
+import com.bervan.core.model.BervanLogger;
 import com.bervan.interviewapp.codingtask.CodingTaskService;
 import com.bervan.interviewapp.interviewquestions.InterviewQuestionService;
 import com.bervan.common.onevalue.OneValueService;

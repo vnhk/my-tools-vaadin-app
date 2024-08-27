@@ -1,6 +1,6 @@
 package com.bervan.toolsapp;
 
-import com.bervan.common.model.BervanLogger;
+import com.bervan.core.model.BervanLogger;
 import com.bervan.history.model.BaseRepositoryImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,42 +37,42 @@ public class Application extends SpringBootServletInitializer {
     public BervanLogger bervanLogger() {
         return new BervanLogger() {
             @Override
-            public void logError(String message) {
+            public void error(String message) {
                 logger.error(message);
             }
 
             @Override
-            public void logInfo(String message) {
+            public void info(String message) {
                 logger.info(message);
             }
 
             @Override
-            public void logDebug(String message) {
+            public void debug(String message) {
                 logger.debug(message);
             }
 
             @Override
-            public void logWarn(String message) {
+            public void warn(String message) {
                 logger.warn(message);
             }
 
             @Override
-            public void logError(String message, Throwable throwable) {
+            public void error(String message, Throwable throwable) {
                 logger.error(message, throwable);
             }
 
             @Override
-            public void logWarn(String message, Throwable throwable) {
+            public void warn(String message, Throwable throwable) {
                 logger.warn(message, throwable);
             }
 
             @Override
-            public void logError(Throwable throwable) {
+            public void error(Throwable throwable) {
                 logger.error("Error:", throwable);
             }
 
             @Override
-            public void logWarn(Throwable throwable) {
+            public void warn(Throwable throwable) {
                 logger.warn("Error:", throwable);
             }
         };
