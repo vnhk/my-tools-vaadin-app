@@ -1,10 +1,40 @@
+html {
+  --lumo-primary-color: #e64833;
+  --lumo-font-family: 'Roboto';
+}
+
 [slot='drawer'] {
-  background-image: linear-gradient(0deg, var(--lumo-shade-5pct), var(--lumo-shade-5pct));
+  /*background-color: #FBE9D0;*/
+  background-color: #90aead;
+}
+
+.body {
+  background-color: #fbe9d0;
+}
+
+/*.bervan-page {*/
+/*    background-color: #fbe9d0;*/
+/*}*/
+
+vaadin-app-layout {
+  background-color: #fbe9d0;
+  color: white;
+}
+
+.selected-route-button {
+  background-color: #e64833 !important;
+}
+
+.option-button {
+  background-color: #90aead;
+  color: white;
+  text-decoration: none;
 }
 
 [slot='drawer'] nav a {
   text-decoration: none;
   transition: color 140ms;
+  color: #244855;
 }
 
 [slot='drawer'] nav a .la {
@@ -23,11 +53,11 @@
 }
 
 [slot='drawer'] nav a[highlight] {
-  color: var(--lumo-primary-text-color);
+  color: white
 }
 
 [slot='drawer'] nav a[highlight]::before {
-  background-color: var(--lumo-primary-color-10pct);
+  background-color: rgba(203, 187, 184, 0.42)
 }
 
 [slot='drawer'] footer vaadin-context-menu {
@@ -61,17 +91,20 @@
 
 .view-header {
   align-items: center;
-  background-color: var(--lumo-base-color);
+  background-color: #244855;
   border-bottom: 1px solid;
-  border-color: var(--lumo-contrast-10pct);
   box-sizing: border-box;
   display: flex;
   height: var(--lumo-size-xl);
   width: 100%;
 }
 
+.bervan-table-view vaadin-grid {
+  background-color: #244855;
+}
+
 .view-toggle {
-  color: var(--lumo-secondary-text-color);
+  color: white;
 }
 
 .app-name {
@@ -114,4 +147,9 @@
   padding-right: var(--lumo-space-m);
   padding-bottom: var(--lumo-space-xs);
   padding-top: var(--lumo-space-xs);
+}
+
+vaadin-grid::part(header-cell) {
+  --vaadin-grid-cell-background: #90aead;
+  --vaadin-grid-header-color: white;
 }
