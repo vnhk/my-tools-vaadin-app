@@ -9,15 +9,20 @@ html {
 }
 
 .body {
-  background-color: #fbe9d0;
+
 }
 
-/*.bervan-page {*/
-/*    background-color: #fbe9d0;*/
-/*}*/
+vaadin-text-field, vaadin-text-area::part(input-field)  {
+  --vaadin-input-field-background: #fbe9d0 !important;
+  --vaadin-input-field-border-color:  #fbe9d0 !important;
+  --vaadin-input-field-hover-highlight: #fbe9d0 !important;;
+}
+
+vaadin-grid::part(row) {
+
+}
 
 vaadin-app-layout {
-  background-color: #fbe9d0;
   color: white;
 }
 
@@ -151,5 +156,9 @@ vaadin-app-layout {
 
 vaadin-grid::part(header-cell) {
   --vaadin-grid-cell-background: #90aead;
+  --vaadin-grid-header-color: white;
+}
+vaadin-grid::part(cell) {
+  --vaadin-grid-cell-background: #fbe9d0;
   --vaadin-grid-header-color: white;
 }
