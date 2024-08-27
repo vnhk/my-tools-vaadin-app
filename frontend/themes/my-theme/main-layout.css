@@ -1,21 +1,33 @@
 html {
-  --lumo-primary-color: #e64833;
+  --lumo-primary-color: #f4976c;
+  --lumo-secondary-text-color: #ffffff;
   --lumo-font-family: 'Roboto';
+  /*bgcolor*/
+  --lumo-base-color: #545454;
+  --lumo-body-text-color: #f4976c;
+  --vaadin-input-field-background: white;
+  --vaadin-input-field-label-color: white;
+  --vaadin-input-field-focused-label-color: var(--lumo-primary-color);
+  --vaadin-checkbox-background: white;
+  --vaadin-input-field-hover-highlight: white;
+}
+
+h1, h2, h3 {
+  color: var(--vaadin-input-field-label-color);
 }
 
 [slot='drawer'] {
-  /*background-color: #FBE9D0;*/
-  background-color: #90aead;
+  background-color: var(--lumo-primary-color);
 }
 
 .body {
-
+  color: #e8b097;
 }
 
-vaadin-text-field, vaadin-text-area::part(input-field)  {
-  --vaadin-input-field-background: #fbe9d0 !important;
-  --vaadin-input-field-border-color:  #fbe9d0 !important;
-  --vaadin-input-field-hover-highlight: #fbe9d0 !important;;
+vaadin-text-field, vaadin-text-area::part(input-field) {
+  --vaadin-input-field-background: white !important;
+  --vaadin-input-field-border-color: white !important;
+  --vaadin-input-field-hover-highlight: white !important;;
 }
 
 vaadin-grid::part(row) {
@@ -23,23 +35,32 @@ vaadin-grid::part(row) {
 }
 
 vaadin-app-layout {
-  color: white;
+  color: #e8b097;
 }
 
 .selected-route-button {
-  background-color: #e64833 !important;
+  background-color: var(--lumo-primary-color) !important;
+  color: var(--lumo-secondary-text-color) !important;
+}
+
+vaadin-grid::part(header-cell) {
+  --vaadin-grid-cell-background: #fbe8a6 !important;
+}
+
+vaadin-grid::part(cell) {
+  --vaadin-grid-cell-background: white;
 }
 
 .option-button {
-  background-color: #90aead;
-  color: white;
+  background-color: #fbe8a6;
+  color: var(--lumo-body-text-color);
   text-decoration: none;
 }
 
 [slot='drawer'] nav a {
   text-decoration: none;
   transition: color 140ms;
-  color: #244855;
+  color: var(--vaadin-input-field-label-color);
 }
 
 [slot='drawer'] nav a .la {
@@ -62,7 +83,7 @@ vaadin-app-layout {
 }
 
 [slot='drawer'] nav a[highlight]::before {
-  background-color: rgba(203, 187, 184, 0.42)
+  background-color: rgba(248, 246, 246, 0.06)
 }
 
 [slot='drawer'] footer vaadin-context-menu {
@@ -96,16 +117,11 @@ vaadin-app-layout {
 
 .view-header {
   align-items: center;
-  background-color: #244855;
-  border-bottom: 1px solid;
+  background-color: var(--lumo-primary-color);
   box-sizing: border-box;
   display: flex;
   height: var(--lumo-size-xl);
   width: 100%;
-}
-
-.bervan-table-view vaadin-grid {
-  background-color: #244855;
 }
 
 .view-toggle {
@@ -132,7 +148,6 @@ vaadin-app-layout {
 
 .menu-item-container {
   border-bottom: 1px solid;
-  border-color: var(--lumo-contrast-10pct);
   flex-grow: 1;
   overflow: auto;
 }
@@ -152,13 +167,4 @@ vaadin-app-layout {
   padding-right: var(--lumo-space-m);
   padding-bottom: var(--lumo-space-xs);
   padding-top: var(--lumo-space-xs);
-}
-
-vaadin-grid::part(header-cell) {
-  --vaadin-grid-cell-background: #90aead;
-  --vaadin-grid-header-color: white;
-}
-vaadin-grid::part(cell) {
-  --vaadin-grid-cell-background: #fbe9d0;
-  --vaadin-grid-header-color: white;
 }
