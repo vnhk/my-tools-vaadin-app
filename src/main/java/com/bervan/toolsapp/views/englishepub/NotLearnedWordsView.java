@@ -11,7 +11,9 @@ import com.bervan.languageapp.service.TranslationRecordService;
 import com.bervan.languageapp.service.TranslatorService;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.grid.ItemClickEvent;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
@@ -32,18 +34,17 @@ public class NotLearnedWordsView extends AbstractNotLearnedWordsView {
     }
 
     @Override
-    protected void doOnColumnClick(ItemClickEvent<Word> event) {
-        super.doOnColumnClick(event);
+    protected void buildOnColumnClickDialogContent(Dialog dialog, VerticalLayout dialogLayout, HorizontalLayout headerLayout, String clickedColumn, Word item) {
+        super.buildOnColumnClickDialogContent(dialog, dialogLayout, headerLayout, clickedColumn, item);
 
-        Word item = event.getItem();
         Button addAsFlashcard = new Button("Add as flashcard.");
         addAsFlashcard.addClickListener(e -> {
             data.remove(item);
             grid.getDataProvider().refreshAll();
             service.save(item);
-            dialog.close();
 
             addAsFlashcard(item);
+            dialog.close();
         });
 
         dialogButtonsLayout.add(addAsFlashcard);
