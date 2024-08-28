@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.englishepub;
 
+import com.bervan.core.model.BervanLogger;
 import com.bervan.englishtextstats.AbstractNotLearnedWordsView;
 import com.bervan.englishtextstats.EpubPathLayout;
 import com.bervan.englishtextstats.Word;
@@ -23,8 +24,8 @@ public class NotLearnedWordsView extends AbstractNotLearnedWordsView {
     private final TranslatorService translatorService;
     private final ExampleOfUsageService exampleOfUsageService;
 
-    public NotLearnedWordsView(WordService service, EpubPathLayout epubPathLayout, TranslationRecordService translationRecordService, TranslatorService translatorService, ExampleOfUsageService exampleOfUsageService) {
-        super(service, epubPathLayout);
+    public NotLearnedWordsView(WordService service, EpubPathLayout epubPathLayout, TranslationRecordService translationRecordService, TranslatorService translatorService, ExampleOfUsageService exampleOfUsageService, BervanLogger log) {
+        super(service, epubPathLayout, log);
         this.translationRecordService = translationRecordService;
         this.translatorService = translatorService;
         this.exampleOfUsageService = exampleOfUsageService;

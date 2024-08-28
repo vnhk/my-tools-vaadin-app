@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.learninglanguage;
 
+import com.bervan.core.model.BervanLogger;
 import com.bervan.languageapp.service.ExampleOfUsageService;
 import com.bervan.languageapp.service.TextToSpeechService;
 import com.bervan.languageapp.service.TranslationRecordService;
@@ -14,8 +15,8 @@ import com.vaadin.flow.router.RouteAlias;
 public class LearningAppHomeView extends AbstractLearningAppHomeView {
 
     public LearningAppHomeView(TranslationRecordService translatorRecordService,
-                               ExampleOfUsageService exampleOfUsageService, TextToSpeechService textToSpeechService, TranslatorService translatorService) {
-        super(translatorRecordService, exampleOfUsageService, textToSpeechService, translatorService);
+                               ExampleOfUsageService exampleOfUsageService, TextToSpeechService textToSpeechService, TranslatorService translatorService, BervanLogger log) {
+        super(translatorRecordService, exampleOfUsageService, textToSpeechService, translatorService, log);
     }
 
 }
