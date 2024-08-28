@@ -16,7 +16,7 @@ a {
   color: var(--lumo-primary-color);
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   color: var(--vaadin-input-field-label-color);
 }
 
@@ -48,11 +48,21 @@ vaadin-app-layout {
 }
 
 vaadin-grid::part(header-cell) {
-  --vaadin-grid-cell-background: #fbe8a6 !important;
+  background-color: #fbe8a6 !important;
+  color: white !important;
+  font-weight: bold;
+  border-bottom: 2px solid black;
+  padding: 10px;
 }
 
+vaadin-grid-sorter {
+  color: white !important;
+}
+
+
 vaadin-grid::part(cell) {
-  --vaadin-grid-cell-background: white;
+  background-color: white;
+  color: var(--lumo-primary-color);
 }
 
 .option-button {
