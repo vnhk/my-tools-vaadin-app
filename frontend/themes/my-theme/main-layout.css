@@ -18,12 +18,20 @@ html {
   --vaadin-input-field-icon-color: var(--lumo-third-text-color);;
 }
 
+vaadin-icon {
+  color: var(--lumo-third-text-color) !important;
+}
+
+vaadin-icon:hover {
+  color: #5f5f60 !important;
+}
+
 vaadin-text-field::part(input-field) {
-  color: var(--lumo-third-text-color); 
+  color: var(--lumo-third-text-color);
 }
 
 vaadin-combo-box::part(input-field) {
-  color: var(--lumo-third-text-color); 
+  color: var(--lumo-third-text-color);
 }
 
 vaadin-combo-box-item {
