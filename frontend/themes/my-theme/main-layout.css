@@ -102,6 +102,10 @@ vaadin-grid::part(cell) {
   text-decoration: none;
 }
 
+.option-button-warning {
+  background-color: orangered;
+}
+
 [slot='drawer'] nav a {
   text-decoration: none;
   transition: color 140ms;
