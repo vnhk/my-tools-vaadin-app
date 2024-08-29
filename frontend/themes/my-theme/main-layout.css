@@ -15,6 +15,7 @@ html {
   --vaadin-input-field-hovered-label-color: var(--lumo-primary-color);
   --vaadin-input-field-focused-label-color: var(--lumo-primary-color);
   --vaadin-checkbox-background: white;
+  --vaadin-checkbox-label-color: var(--lumo-third-text-color);
   --vaadin-input-field-icon-color: var(--lumo-third-text-color);;
 }
 
