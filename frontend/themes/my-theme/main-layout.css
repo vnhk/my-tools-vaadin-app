@@ -19,6 +19,30 @@ html {
   --vaadin-input-field-icon-color: var(--lumo-third-text-color);;
 }
 
+vaadin-upload-file {
+  color: var(--lumo-third-text-color) !important;
+}
+
+vaadin-upload > vaadin-button::part(label) {
+  color: var(--lumo-primary-color) !important;
+  /*  button Upload File*/
+}
+
+vaadin-upload-file::part(status) {
+  color: var(--lumo-third-text-color) !important;
+  /*  processing file info*/
+}
+
+vaadin-upload > [slot="drop-label-icon"] {
+  color: var(--lumo-primary-color) !important;
+  /*  icon upload */
+}
+
+vaadin-upload > [slot="drop-label"] {
+  color: var(--lumo-primary-color) !important;
+  /*  drop field text */
+}
+
 vaadin-icon {
   color: var(--lumo-third-text-color) !important;
 }
