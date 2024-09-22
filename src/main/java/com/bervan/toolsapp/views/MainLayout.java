@@ -1,18 +1,24 @@
 package com.bervan.toolsapp.views;
 
 
+import com.bervan.core.model.BervanLogger;
+import com.bervan.pocketapp.pocket.PocketService;
 import com.bervan.toolsapp.views.englishepub.NotLearnedWordsView;
 import com.bervan.toolsapp.views.filestorage.FileStorageView;
 import com.bervan.toolsapp.views.interview.InterviewHomeView;
 import com.bervan.toolsapp.views.learninglanguage.LearningAppHomeView;
+import com.bervan.toolsapp.views.pocketapp.PocketSideMenuView;
 import com.bervan.toolsapp.views.pocketapp.PocketTableView;
 import com.bervan.toolsapp.views.shopapp.ProductsView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 
@@ -20,6 +26,9 @@ import com.vaadin.flow.router.RouterLink;
  * The main view is a top-level placeholder for other views.
  */
 public class MainLayout extends AppLayout {
+
+    private final BervanLogger log;
+    private final PocketService pocketService;
 
     /**
      * A simple navigation item component, based on ListItem element.
@@ -63,10 +72,48 @@ public class MainLayout extends AppLayout {
 
     private H1 viewTitle;
 
-    public MainLayout() {
+    public MainLayout(BervanLogger log, PocketService pocketService) {
+        this.log = log;
+        this.pocketService = pocketService;
+
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
         addToDrawer(createDrawerContent());
+        PocketSideMenuView pocketSideMenu = new PocketSideMenuView(pocketService, log);
+        Div sideMenu = createSideMenu(pocketSideMenu);
+        sideMenu.setVisible(false);
+        Button menuButton = new Button(VaadinIcon.CLIPBOARD.create());
+        menuButton.addClassName("option-button");
+        menuButton.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
+
+        menuButton.getStyle().set("position", "fixed").set("top", "10px").set("right", "10px");
+        menuButton.addClickListener(event -> {
+            pocketSideMenu.reloadItems();
+            sideMenu.setVisible(!sideMenu.isVisible());
+        });
+
+        sideMenu.setVisible(false);
+
+        addToNavbar(sideMenu);
+        addToNavbar(menuButton);
+    }
+
+    private Div createSideMenu(Component pocketSideMenu) {
+        Div sideMenu = new Div();
+        sideMenu.getStyle().set("width", "350px")
+                .set("height", "100vh")
+                .set("background-color", "#f8f9fa")
+                .set("box-shadow", "0px 0px 10px rgba(0, 0, 0, 0.1)")
+                .set("position", "fixed")
+                .set("top", "0")
+                .set("right", "0")
+                .set("padding", "10px");
+
+        VerticalLayout menuLayout = new VerticalLayout();
+        menuLayout.add(pocketSideMenu);
+
+        sideMenu.add(menuLayout);
+        return sideMenu;
     }
 
     private Component createHeaderContent() {
@@ -87,8 +134,7 @@ public class MainLayout extends AppLayout {
         H2 appName = new H2("Tools");
         appName.addClassNames("app-name");
 
-        com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appName,
-                createNavigation(), createFooter());
+        com.vaadin.flow.component.html.Section section = new com.vaadin.flow.component.html.Section(appName, createNavigation(), createFooter());
         section.addClassNames("drawer-section");
         return section;
     }
