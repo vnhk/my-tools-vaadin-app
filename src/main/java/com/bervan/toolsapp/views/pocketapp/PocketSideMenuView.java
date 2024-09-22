@@ -57,14 +57,15 @@ public class PocketSideMenuView extends VerticalLayout {
         itemsLayout.removeAll();
         divs = new ArrayList<>();
         Optional<Pocket> pocket = pocketService.loadByName(pocketName);
-        pocketItems = pocket.get().getPocketItems().stream().sorted(Comparator.comparing(PocketItem::getOrderInPocket)).toList();
-        for (PocketItem pocketItem : pocketItems) {
-            Div div = createDraggableDiv(pocketItem);
-            div.setClassName("pocket-tile-in-menu");
-            div.add(new H4(pocketItem.getContent()));
-            divs.add(div);
+        if (pocket.isPresent()) {
+            pocketItems = pocket.get().getPocketItems().stream().filter(e -> !e.getDeleted()).sorted(Comparator.comparing(PocketItem::getOrderInPocket)).toList();
+            for (PocketItem pocketItem : pocketItems) {
+                Div div = createDraggableDiv(pocketItem);
+                div.setClassName("pocket-tile-in-menu");
+                divs.add(div);
+            }
+            itemsLayout.add(divs.toArray(new Div[0]));
         }
-        itemsLayout.add(divs.toArray(new Div[0]));
     }
 
 
