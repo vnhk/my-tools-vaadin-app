@@ -51,7 +51,7 @@ public class NotLearnedWordsView extends AbstractNotLearnedWordsView {
     }
 
     protected void addAsFlashcard(Word item) {
-        String name = item.getName();
+        String name = item.getTableFilterableColumnValue();
         String translated = translatorService.translate(name);
         List<String> exampleOfUsage = exampleOfUsageService.createExampleOfUsage(name);
         String examples = exampleOfUsage.toString().replace("[", "").replace("]", "");

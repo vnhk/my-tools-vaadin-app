@@ -5,6 +5,7 @@ import com.bervan.toolsapp.views.englishepub.NotLearnedWordsView;
 import com.bervan.toolsapp.views.filestorage.FileStorageView;
 import com.bervan.toolsapp.views.interview.InterviewHomeView;
 import com.bervan.toolsapp.views.learninglanguage.LearningAppHomeView;
+import com.bervan.toolsapp.views.pocketapp.PocketTableView;
 import com.bervan.toolsapp.views.shopapp.ProductsView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -112,6 +113,7 @@ public class MainLayout extends AppLayout {
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
                 new MenuItemInfo("Interview", "la la-desktop", InterviewHomeView.class), //
+                new MenuItemInfo("Pocket", "la la-get-pocket", PocketTableView.class), //
                 new MenuItemInfo("Epub English Words", "la la-book", NotLearnedWordsView.class), //
                 new MenuItemInfo("Learning Language", "la la-language", LearningAppHomeView.class), //
                 new MenuItemInfo("File Storage", "la la-cloud-upload", FileStorageView.class), //
