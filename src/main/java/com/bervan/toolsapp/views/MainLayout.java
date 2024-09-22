@@ -3,6 +3,7 @@ package com.bervan.toolsapp.views;
 
 import com.bervan.core.model.BervanLogger;
 import com.bervan.pocketapp.pocket.PocketService;
+import com.bervan.pocketapp.pocketitem.PocketItemService;
 import com.bervan.toolsapp.views.englishepub.NotLearnedWordsView;
 import com.bervan.toolsapp.views.filestorage.FileStorageView;
 import com.bervan.toolsapp.views.interview.InterviewHomeView;
@@ -29,6 +30,7 @@ public class MainLayout extends AppLayout {
 
     private final BervanLogger log;
     private final PocketService pocketService;
+    private final PocketItemService pocketItemService;
 
     /**
      * A simple navigation item component, based on ListItem element.
@@ -72,14 +74,15 @@ public class MainLayout extends AppLayout {
 
     private H1 viewTitle;
 
-    public MainLayout(BervanLogger log, PocketService pocketService) {
+    public MainLayout(BervanLogger log, PocketService pocketService, PocketItemService pocketItemService) {
         this.log = log;
         this.pocketService = pocketService;
+        this.pocketItemService = pocketItemService;
 
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
         addToDrawer(createDrawerContent());
-        PocketSideMenuView pocketSideMenu = new PocketSideMenuView(pocketService, log);
+        PocketSideMenuView pocketSideMenu = new PocketSideMenuView(this.pocketItemService, pocketService, log);
         Div sideMenu = createSideMenu(pocketSideMenu);
         sideMenu.setVisible(false);
         Button menuButton = new Button(VaadinIcon.CLIPBOARD.create());
