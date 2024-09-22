@@ -12,6 +12,7 @@ import com.bervan.toolsapp.views.pocketapp.PocketSideMenuView;
 import com.bervan.toolsapp.views.pocketapp.PocketTableView;
 import com.bervan.toolsapp.views.shopapp.ProductsView;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
@@ -20,8 +21,13 @@ import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.dom.Element;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.shared.Registration;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -29,8 +35,9 @@ import com.vaadin.flow.router.RouterLink;
 public class MainLayout extends AppLayout {
 
     private final BervanLogger log;
-    private final PocketService pocketService;
     private final PocketItemService pocketItemService;
+    private static Div sideMenu;
+    private static Registration clickListenerRegistration;
 
     /**
      * A simple navigation item component, based on ListItem element.
@@ -50,6 +57,7 @@ public class MainLayout extends AppLayout {
 
             link.add(new LineAwesomeIcon(iconClass), text);
             add(link);
+            addClickListener(listItemClickEvent -> hideMenu());
         }
 
         public Class<?> getView() {
@@ -76,14 +84,13 @@ public class MainLayout extends AppLayout {
 
     public MainLayout(BervanLogger log, PocketService pocketService, PocketItemService pocketItemService) {
         this.log = log;
-        this.pocketService = pocketService;
         this.pocketItemService = pocketItemService;
 
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
         addToDrawer(createDrawerContent());
         PocketSideMenuView pocketSideMenu = new PocketSideMenuView(this.pocketItemService, pocketService, log);
-        Div sideMenu = createSideMenu(pocketSideMenu);
+        sideMenu = createSideMenu(pocketSideMenu);
         sideMenu.setVisible(false);
         Button menuButton = new Button(VaadinIcon.CLIPBOARD.create());
         menuButton.addClassName("option-button");
@@ -92,13 +99,64 @@ public class MainLayout extends AppLayout {
         menuButton.getStyle().set("position", "fixed").set("top", "10px").set("right", "10px");
         menuButton.addClickListener(event -> {
             pocketSideMenu.reloadItems();
-            sideMenu.setVisible(!sideMenu.isVisible());
+            toggleMenuVisibility();
         });
 
         sideMenu.setVisible(false);
 
         addToNavbar(sideMenu);
         addToNavbar(menuButton);
+    }
+
+    private void toggleMenuVisibility() {
+        if (sideMenu.isVisible()) {
+            hideMenu();
+        } else {
+            showMenu();
+        }
+    }
+
+    private static void showMenu() {
+        sideMenu.setVisible(true);
+        registerClickListener();
+    }
+
+    private static void hideMenu() {
+        sideMenu.setVisible(false);
+        unregisterClickListener();
+    }
+
+    private static void registerClickListener() {
+        clickListenerRegistration = UI.getCurrent().getCurrentView().getElement().addEventListener("click", event -> {
+
+            List<Component> collect = sideMenu.getChildren().collect(Collectors.toList());
+            boolean isPocketClicked = isPocketClicked(collect, event.getSource());
+
+            if (!isPocketClicked && !sideMenu.getElement().equals(event.getSource())) {
+                hideMenu();
+            }
+        });
+    }
+
+    private static boolean isPocketClicked(List<Component> collect, Element source) {
+        for (Component component : collect) {
+            if (component.getElement().equals(source)) {
+                return true;
+            } else {
+                if (isPocketClicked(component.getChildren().collect(Collectors.toList()), source)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private static void unregisterClickListener() {
+        if (clickListenerRegistration != null) {
+            clickListenerRegistration.remove();
+            clickListenerRegistration = null;
+        }
     }
 
     private Div createSideMenu(Component pocketSideMenu) {
