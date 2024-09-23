@@ -161,7 +161,7 @@ public class MainLayout extends AppLayout {
 
     private Div createSideMenu(Component pocketSideMenu) {
         Div sideMenu = new Div();
-        sideMenu.getStyle().set("width", "350px")
+        sideMenu.getStyle().set("width", "450px")
                 .set("height", "100vh")
                 .set("background-color", "#f8f9fa")
                 .set("box-shadow", "0px 0px 10px rgba(0, 0, 0, 0.1)")

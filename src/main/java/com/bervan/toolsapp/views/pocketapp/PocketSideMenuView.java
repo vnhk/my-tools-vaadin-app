@@ -5,7 +5,9 @@ import com.bervan.pocketapp.pocket.Pocket;
 import com.bervan.pocketapp.pocket.PocketService;
 import com.bervan.pocketapp.pocketitem.PocketItem;
 import com.bervan.pocketapp.pocketitem.PocketItemService;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.dnd.DragSource;
 import com.vaadin.flow.component.dnd.DropEffect;
 import com.vaadin.flow.component.dnd.DropTarget;
@@ -13,7 +15,13 @@ import com.vaadin.flow.component.dnd.EffectAllowed;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
+import com.vaadin.flow.component.html.Hr;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 
 import java.util.*;
@@ -78,7 +86,64 @@ public class PocketSideMenuView extends VerticalLayout {
         div.getStyle().set("padding", "10px");
         div.getStyle().set("border", "1px solid black");
         div.getStyle().set("background-color", "#f0f0f0");
-        div.setWidth("200px");
+        div.getStyle().set("overflow", "hidden");
+        div.setWidth("300px");
+        div.setMinHeight("200px");
+        div.setMaxHeight("200px");
+
+
+        Button info = new Button(VaadinIcon.INFO_CIRCLE.create());
+        info.addClassName("option-button");
+        info.addClickListener(event -> {
+            Dialog dialog = new Dialog();
+            dialog.setWidth("80vw");
+
+            VerticalLayout dialogLayout = new VerticalLayout();
+
+            HorizontalLayout headerLayout = getDialogTopBarLayout(dialog);
+
+            TextArea field = new TextArea("Content");
+            field.setWidth("100%");
+            field.setHeight("200px");
+            field.setValue(pocketItem.getContent());
+
+            Div buttons = new Div();
+
+            Button deleteButton = new Button(VaadinIcon.TRASH.create());
+            deleteButton.addClassName("option-button");
+            deleteButton.addClassName("option-button-warning");
+            deleteButton.getStyle().setMarginRight("5px");
+            deleteButton.addClickListener(buttonClickEvent -> {
+                pocketItemService.delete(pocketItem);
+                reloadItems();
+                dialog.close();
+            });
+
+            buttons.add(deleteButton);
+
+            Button editButton = new Button(VaadinIcon.EDIT.create());
+            editButton.addClassName("option-button");
+            editButton.addClickListener(buttonClickEvent -> {
+                pocketItem.setContent(field.getValue());
+                pocketItemService.save(pocketItem);
+                reloadItems();
+                dialog.close();
+            });
+
+            buttons.add(editButton);
+
+            dialogLayout.add(headerLayout, field, new Hr(), buttons);
+
+            dialog.add(dialogLayout);
+
+            dialog.open();
+        });
+
+        Div bottom = new Div();
+        bottom.getStyle().set("position", "relative");
+        bottom.getStyle().set("top", "120px");
+        bottom.add(new Hr(), info);
+        div.add(bottom);
 
         DragSource<Div> dragSource = DragSource.create(div);
         dragSource.setEffectAllowed(EffectAllowed.MOVE);
@@ -96,6 +161,17 @@ public class PocketSideMenuView extends VerticalLayout {
         });
 
         return div;
+    }
+
+    private HorizontalLayout getDialogTopBarLayout(Dialog dialog) {
+        Button closeButton = new Button(new Icon(VaadinIcon.CLOSE));
+        closeButton.addClassName("option-button");
+
+        closeButton.addClickListener(e -> dialog.close());
+        HorizontalLayout headerLayout = new HorizontalLayout(closeButton);
+        headerLayout.setWidthFull();
+        headerLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
+        return headerLayout;
     }
 
     private void handleDropEvent(Div draggedDiv, Div targetDiv) {
