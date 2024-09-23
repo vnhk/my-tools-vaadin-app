@@ -87,10 +87,10 @@ public class PocketSideMenuView extends VerticalLayout {
         div.getStyle().set("border", "1px solid black");
         div.getStyle().set("background-color", "#f0f0f0");
         div.getStyle().set("overflow", "hidden");
+        div.getStyle().set("position", "relative");
         div.setWidth("300px");
         div.setMinHeight("200px");
         div.setMaxHeight("200px");
-
 
         Button info = new Button(VaadinIcon.INFO_CIRCLE.create());
         info.addClassName("option-button");
@@ -140,8 +140,9 @@ public class PocketSideMenuView extends VerticalLayout {
         });
 
         Div bottom = new Div();
-        bottom.getStyle().set("position", "relative");
-        bottom.getStyle().set("top", "120px");
+        bottom.getStyle().set("position", "absolute");
+        bottom.getStyle().set("bottom", "20px");
+        bottom.getStyle().set("width", "100%");
         bottom.add(new Hr(), info);
         div.add(bottom);
 
