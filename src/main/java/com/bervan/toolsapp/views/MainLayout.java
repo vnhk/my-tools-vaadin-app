@@ -225,7 +225,6 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Learning Language", "la la-language", LearningAppHomeView.class), //
                 new MenuItemInfo("File Storage", "la la-cloud-upload", FileStorageView.class), //
                 new MenuItemInfo("Shopping", "la la-shopping-cart", ProductsView.class), //
-                new MenuItemInfo("Backup", "la la-backup", BackupView.class), //
 
 
         };
