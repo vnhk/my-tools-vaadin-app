@@ -1,15 +1,26 @@
 html {
-  --lumo-primary-color: #f56300;
-  --lumo-secondary-color: #0066cc;
-  --lumo-secondary-rgba-color: 0, 102, 204;
+  /*button background (selected/important)*/
+  --lumo-primary-color: #070f54;
+  /*button background, table header background, */
+  --lumo-secondary-color: rgba(0, 176, 215);
+  /*drawer menu selected option background*/
+  --lumo-secondary-rgba-color: 0, 176, 215;
+  /*menu text color, */
   --lumo-secondary-text-color: #ffffff;
-  --lumo-third-text-color: #424245;
+  /*h1-h4, field text value */
+  --lumo-third-text-color: #9bbee1;
   --lumo-font-family: 'Roboto';
   /*bgcolor*/
-  --lumo-base-color: #e6e6e6;
+  --lumo-base-color: #fdfdfd;
+  /*inputs background color*/
   --lumo-base-secondary-color: #f5f5f7;
-  --menu-bar-color: #424245;
+  /*drawer menu background*/
+  --menu-bar-color: rgb(10, 48, 119);
+  /*table rows text*/
+  --table-cell-text-color: rgb(7, 7, 7);
+  /*button text color*/
   --lumo-body-text-color: white;
+
   --vaadin-input-field-background: var(--lumo-base-secondary-color);
   --vaadin-input-field-label-color: var(--lumo-third-text-color);
   --vaadin-input-field-hovered-label-color: var(--lumo-primary-color);
@@ -127,7 +138,7 @@ vaadin-grid-sorter {
 
 vaadin-grid::part(cell) {
   background-color: white;
-  color: var(--menu-bar-color);
+  color: var(--table-cell-text-color);
 }
 
 .option-button {
