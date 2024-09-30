@@ -221,7 +221,7 @@ public class MainLayout extends AppLayout {
         return new MenuItemInfo[]{ //
                 new MenuItemInfo("Interview", "la la-desktop", InterviewHomeView.class), //
                 new MenuItemInfo("Pocket", "la la-get-pocket", PocketTableView.class), //
-                new MenuItemInfo("Epub English Words", "la la-book", NotLearnedWordsView.class), //
+                new MenuItemInfo("Ebook English Words", "la la-book", NotLearnedWordsView.class), //
                 new MenuItemInfo("Learning Language", "la la-language", LearningAppHomeView.class), //
                 new MenuItemInfo("File Storage", "la la-cloud-upload", FileStorageView.class), //
                 new MenuItemInfo("Shopping", "la la-shopping-cart", ProductsView.class), //
