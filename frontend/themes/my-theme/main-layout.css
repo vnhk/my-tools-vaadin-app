@@ -9,6 +9,22 @@ html {
   --vaadin-input-field-icon-color: var(--lumo-third-text-color);;
 }
 
+vaadin-notification-card[theme="success"]::part(overlay) {
+  background-color: var(--vaadin-notification-card-bgColor-success) !important;
+}
+
+vaadin-notification-card[theme="warning"]::part(overlay) {
+  background-color: var(--vaadin-notification-card-bgColor-warning) !important;
+}
+
+vaadin-notification-card[theme="primary"]::part(overlay) {
+  background-color: var(--vaadin-notification-card-bgColor-primary) !important;
+}
+
+vaadin-notification-card[theme="error"]::part(overlay) {
+  background-color: var(--vaadin-notification-card-bgColor-error) !important;
+}
+
 .pocket-tile-in-menu {
   border: 2px solid black;
   padding: 15px;

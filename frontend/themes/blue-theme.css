@@ -1,5 +1,5 @@
 html {
-    /*button background (selected/important)*/
+    /*button background (selected/important), loading progress bar */
     --lumo-primary-color: #070f54;
     /*button background, table header background, */
     --lumo-secondary-color: rgba(0, 176, 215);
@@ -22,4 +22,8 @@ html {
     --lumo-body-text-color: white;
     /*checkbox not checked bg color*/
     --vaadin-checkbox-background: #838386;
+    --vaadin-notification-card-bgColor-primary: blue;
+    --vaadin-notification-card-bgColor-warning: orange;
+    --vaadin-notification-card-bgColor-error: red;
+    --vaadin-notification-card-bgColor-success: blue;
 }
