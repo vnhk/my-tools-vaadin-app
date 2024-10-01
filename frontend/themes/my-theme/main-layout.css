@@ -6,7 +6,11 @@ html {
   --vaadin-input-field-hovered-label-color: var(--lumo-primary-color);
   --vaadin-input-field-focused-label-color: var(--lumo-primary-color);
   --vaadin-checkbox-label-color: var(--lumo-third-text-color);
-  --vaadin-input-field-icon-color: var(--lumo-third-text-color);;
+  --vaadin-input-field-icon-color: var(--lumo-third-text-color);
+}
+
+.v-loading-indicator {
+  background-color: var(--vaadin-progress-bar-color) !important;
 }
 
 vaadin-notification-card[theme="success"]::part(overlay) {
