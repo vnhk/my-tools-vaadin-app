@@ -27,4 +27,5 @@ html {
     --vaadin-notification-card-bgColor-error: red;
     --vaadin-notification-card-bgColor-success: blue;
     --vaadin-progress-bar-color: white;
+    --vaadin-tooltip-bgColor: #838386;
 }

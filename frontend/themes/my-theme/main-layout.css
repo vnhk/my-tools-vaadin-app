@@ -9,6 +9,10 @@ html {
   --vaadin-input-field-icon-color: var(--lumo-third-text-color);
 }
 
+vaadin-tooltip-overlay::part(overlay) {
+  background-color: var(--vaadin-tooltip-bgColor);
+}
+
 .v-loading-indicator {
   background-color: var(--vaadin-progress-bar-color) !important;
 }
