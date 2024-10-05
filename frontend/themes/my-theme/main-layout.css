@@ -9,6 +9,10 @@ html {
   --vaadin-input-field-icon-color: var(--lumo-third-text-color);
 }
 
+.ql-editor {
+  color: var(--ql-editor-text-color);
+}
+
 vaadin-tooltip-overlay::part(overlay) {
   background-color: var(--vaadin-tooltip-bgColor);
 }

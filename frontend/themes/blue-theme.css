@@ -1,6 +1,7 @@
 html {
     /*button background (selected/important), loading progress bar */
     --lumo-primary-color: #070f54;
+    --ql-editor-text-color: #070f54;
     /*button background, table header background, */
     --lumo-secondary-color: rgba(0, 176, 215);
     /*drawer menu selected option background*/
