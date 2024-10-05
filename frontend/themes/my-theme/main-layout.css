@@ -151,6 +151,10 @@ vaadin-app-layout {
   overflow-x: scroll;
 }
 
+vaadin-button vaadin-icon {
+  color: var(--vaadin-icon-in-button-color) !important;
+}
+
 .selected-route-button {
   background-color: var(--lumo-primary-color) !important;
   color: var(--lumo-secondary-text-color) !important;
