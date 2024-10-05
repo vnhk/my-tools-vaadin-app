@@ -9,6 +9,14 @@ html {
   --vaadin-input-field-icon-color: var(--lumo-third-text-color);
 }
 
+.ql-toolbar {
+  margin-bottom: 10px;
+}
+
+.ql-container {
+  border: 2px solid #5f5f60 !important;
+}
+
 .ql-editor {
   color: var(--ql-editor-text-color);
 }

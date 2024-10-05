@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.pocketapp;
 
+import com.bervan.common.WysiwygTextArea;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.pocketapp.pocket.Pocket;
 import com.bervan.pocketapp.pocket.PocketService;
@@ -21,7 +22,6 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 
 import java.util.*;
@@ -78,7 +78,7 @@ public class PocketSideMenuView extends VerticalLayout {
 
 
     private Div createDraggableDiv(PocketItem pocketItem) {
-        Div div = new Div(new H4(pocketItem.getContent()));
+        Div div = new Div(new H4(pocketItem.getSummary()));
         TextField idHolder = new TextField();
         idHolder.setVisible(false);
         idHolder.setValue(pocketItem.getId().toString());
@@ -97,15 +97,15 @@ public class PocketSideMenuView extends VerticalLayout {
         info.addClickListener(event -> {
             Dialog dialog = new Dialog();
             dialog.setWidth("80vw");
+            dialog.setHeight("90vh");
 
             VerticalLayout dialogLayout = new VerticalLayout();
 
             HorizontalLayout headerLayout = getDialogTopBarLayout(dialog);
 
-            TextArea field = new TextArea("Content");
+            WysiwygTextArea field = new WysiwygTextArea("editor_pocket_side_menu", pocketItem.getContent());
             field.setWidth("100%");
-            field.setHeight("200px");
-            field.setValue(pocketItem.getContent());
+            field.setHeight("60vh");
 
             Div buttons = new Div();
 
