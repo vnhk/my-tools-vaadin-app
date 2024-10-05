@@ -23,6 +23,7 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.dom.Style;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -41,7 +42,8 @@ public class PocketSideMenuView extends VerticalLayout {
         this.log = log;
         this.pocketService = pocketService;
         this.pocketItemService = pocketItemService;
-
+        itemsLayout.getStyle().setOverflow(Style.Overflow.SCROLL);
+        itemsLayout.setHeight("80vh");
 
         Set<String> pocketsName = pocketService.load().stream().map(Pocket::getName).collect(Collectors.toSet());
         pocketSelector = new ComboBox<>("", pocketsName);
@@ -89,8 +91,8 @@ public class PocketSideMenuView extends VerticalLayout {
         div.getStyle().set("overflow", "hidden");
         div.getStyle().set("position", "relative");
         div.setWidth("300px");
-        div.setMinHeight("200px");
-        div.setMaxHeight("200px");
+        div.setMinHeight("100px");
+        div.setMaxHeight("100px");
 
         Button info = new Button(VaadinIcon.INFO_CIRCLE.create());
         info.addClassName("option-button");
