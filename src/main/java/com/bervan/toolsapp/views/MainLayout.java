@@ -91,7 +91,6 @@ public class MainLayout extends AppLayout {
         addToDrawer(createDrawerContent());
         PocketSideMenuView pocketSideMenu = new PocketSideMenuView(this.pocketItemService, pocketService, log);
         sideMenu = createSideMenu(pocketSideMenu);
-        sideMenu.setVisible(false);
         Button menuButton = new Button(VaadinIcon.CLIPBOARD.create());
         menuButton.addClassName("option-button");
         menuButton.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
@@ -102,14 +101,12 @@ public class MainLayout extends AppLayout {
             toggleMenuVisibility();
         });
 
-        sideMenu.setVisible(false);
-
         addToNavbar(sideMenu);
         addToNavbar(menuButton);
     }
 
     private void toggleMenuVisibility() {
-        if (sideMenu.isVisible()) {
+        if (sideMenu.getClassNames().contains("visible")) {
             hideMenu();
         } else {
             showMenu();
@@ -117,12 +114,12 @@ public class MainLayout extends AppLayout {
     }
 
     private static void showMenu() {
-        sideMenu.setVisible(true);
+        sideMenu.addClassName("visible");
         registerClickListener();
     }
 
     private static void hideMenu() {
-        sideMenu.setVisible(false);
+        sideMenu.removeClassName("visible");
         unregisterClickListener();
     }
 
@@ -161,15 +158,7 @@ public class MainLayout extends AppLayout {
 
     private Div createSideMenu(Component pocketSideMenu) {
         Div sideMenu = new Div();
-        sideMenu.getStyle().set("width", "450px")
-                .set("height", "100vh")
-                .set("background-color", "#f8f9fa")
-                .set("box-shadow", "0px 0px 10px rgba(0, 0, 0, 0.1)")
-                .set("position", "fixed")
-                .set("top", "0")
-                .set("right", "0")
-                .set("padding", "10px");
-
+        sideMenu.addClassName("side-menu");
         VerticalLayout menuLayout = new VerticalLayout();
         menuLayout.add(pocketSideMenu);
 
