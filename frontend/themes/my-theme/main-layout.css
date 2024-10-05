@@ -140,14 +140,15 @@ vaadin-app-layout {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
-  right: -100vw; /* hiden */
+  right: -150vw; /* hidden */
   padding: 10px;
   transition: right 0.5s ease;
-  overflow-x: scroll;
+  overflow: hidden;
 }
 
 .side-menu.visible {
   right: 0; /* Visible */
+  overflow-x: scroll;
 }
 
 .selected-route-button {
