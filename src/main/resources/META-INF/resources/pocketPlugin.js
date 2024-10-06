@@ -8,6 +8,7 @@
 // @match        *://*/*
 // @grant        GM_xmlhttpRequest
 // @connect      localhost
+// @connect      192.168.1.205:8091
 // @require      https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js
 // @run-at       document-start
 // @resource     IMPORTED_CSS https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css
