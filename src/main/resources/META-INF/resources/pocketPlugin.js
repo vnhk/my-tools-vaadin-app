@@ -128,6 +128,8 @@
         // Create dropdown for pocketName
         const pocketLabel = document.createElement('label');
         pocketLabel.textContent = 'Pocket Name:';
+        pocketLabel.style.color = 'black';
+
         const pocketSelect = document.createElement('select');
         const pockets = await loadPocketNames(HOST);
         pockets.forEach(pocket => {
@@ -140,14 +142,17 @@
         // Create input for summary
         const summaryLabel = document.createElement('label');
         summaryLabel.textContent = 'Summary:';
+        summaryLabel.style.color = 'black';
         const summaryInput = document.createElement('input');
         summaryInput.type = 'text';
+        summaryInput.style.color = 'black';
         summaryInput.style.width = '100%';
         summaryInput.style.marginBottom = '10px';
 
         // Create div for Quill editor
         const contentLabel = document.createElement('label');
         contentLabel.textContent = 'Content:';
+        contentLabel.style.color = 'black';
         const quillContainer = document.createElement('div');
         quillContainer.id = 'quillEditor';
         quillContainer.style.height = '400px';
