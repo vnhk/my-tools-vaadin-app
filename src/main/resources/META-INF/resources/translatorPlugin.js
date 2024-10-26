@@ -1,11 +1,12 @@
 // ==UserScript==
-// @name         Enhanced Translation Tool with Save Validation and Generate Examples Option
+// @name         Enhanced Translation Tool
 // @namespace    http://tampermonkey.net/
 // @version      2024-10-26
 // @description  Plugin for translation and saving with animated loading, validation checks, and generate examples option in request body
-// @match        *://*/*
 // @grant        GM_xmlhttpRequest
+// @match        *://*/*
 // @connect      localhost
+// @connect      192.168.1.205
 // @run-at       document-start
 // ==/UserScript==
 
@@ -73,6 +74,7 @@
         const englishTextArea = document.createElement('textarea');
         englishTextArea.placeholder = 'English Text';
         englishTextArea.style.width = '100%';
+        englishTextArea.style.minHeight = '200px';
         englishTextArea.style.margin = '15px 0 10px 0';
         englishTextArea.style.color = 'black';
         englishTextArea.value = markedText || '';
@@ -80,7 +82,6 @@
         // Translate Button
         const translateButton = document.createElement('button');
         translateButton.textContent = 'Translate';
-        translateButton.style.marginTop = '10px';
         translateButton.style.padding = '10px 20px';
         translateButton.style.backgroundColor = '#007bff';
         translateButton.style.color = '#fff';
@@ -93,11 +94,14 @@
         translationContainer.style.position = 'relative';
         translationContainer.style.marginBottom = '10px';
 
+
         const polishTextArea = document.createElement('textarea');
         polishTextArea.placeholder = 'Polish Translation';
         polishTextArea.style.width = '100%';
         polishTextArea.style.color = 'black';
         polishTextArea.style.resize = 'none';
+        polishTextArea.style.minHeight = '200px';
+        polishTextArea.style.marginTop = '10px';
 
         const progressIcon = document.createElement('div');
         progressIcon.style.position = 'absolute';
@@ -245,7 +249,7 @@
     function saveTranslation(translationRequest) {
         GM_xmlhttpRequest({
             method: 'POST',
-            url: 'http://${HOST}/language-learning/translation',
+            url: `http://${HOST}/language-learning/translation`,
             data: JSON.stringify(translationRequest),
             headers: {
                 'Content-Type': 'application/json'
