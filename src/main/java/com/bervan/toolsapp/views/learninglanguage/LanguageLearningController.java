@@ -43,7 +43,7 @@ public class LanguageLearningController {
             if (request.generateExample) {
                 List<String> exampleOfUsage = exampleOfUsageService.createExampleOfUsage(request.englishText);
                 String examples = exampleOfUsage.toString();
-                if (!examples.isBlank()) {
+                if (!examples.isBlank() && exampleOfUsage.size() > 0) {
                     if (examples.length() > 250) {
                         StringBuilder builder = new StringBuilder();
                         for (String s : exampleOfUsage) {
