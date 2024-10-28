@@ -39,7 +39,7 @@ public class PocketItemsListView extends VerticalLayout {
         this.log = log;
         this.pocketService = pocketService;
         this.pocketItemService = pocketItemService;
-        itemsLayout.getStyle().setOverflow(Style.Overflow.SCROLL);
+        itemsLayout.setClassName("pocket-items-layout");
         itemsLayout.setHeight("90vh");
         itemsLayout.setWidth(getWidthInPx() + "px");
 
@@ -83,14 +83,7 @@ public class PocketItemsListView extends VerticalLayout {
         idHolder.setVisible(false);
         idHolder.setValue(pocketItem.getId().toString());
         div.add(idHolder);
-        div.getStyle().set("padding", "10px");
-        div.getStyle().set("border", "1px solid black");
-        div.getStyle().set("background-color", "#f0f0f0");
-        div.getStyle().set("overflow", "hidden");
-        div.getStyle().set("position", "relative");
         div.setWidth(getWidthInPx() - 80 + "px");
-        div.setMinHeight("100px");
-        div.setMaxHeight("100px");
 
         Button info = new Button(VaadinIcon.INFO_CIRCLE.create());
         info.addClassName("option-button");

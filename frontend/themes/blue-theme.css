@@ -19,6 +19,8 @@ html {
     --menu-bar-color: rgb(10, 48, 119);
     /*table rows text*/
     --table-cell-text-color: rgb(7, 7, 7);
+    /*table rows bg*/
+    --table-cell-bgColor: white;
     /*button text color*/
     --lumo-body-text-color: white;
     /*checkbox not checked bg color*/
@@ -30,4 +32,7 @@ html {
     --vaadin-progress-bar-color: white;
     --vaadin-tooltip-bgColor: #838386;
     --vaadin-icon-in-button-color: white;
+    --pocket-menu-drawer-bgColor: white;
+    --pocket-tile-in-menu-bgColor: white;
+    --pocket-tile-in-menu-textColor: white;
 }

@@ -1,0 +1,38 @@
+html {
+    /*button background (selected/important), loading progress bar */
+    --lumo-primary-color: #3c4c66;
+    --ql-editor-text-color: #a4c3ff;
+    /*button background, table header background */
+    --lumo-secondary-color: rgba(80, 100, 160);
+    /*drawer menu selected option background */
+    --lumo-secondary-rgba-color: 80, 100, 160;
+    /*menu text color */
+    --lumo-secondary-text-color: #bbbbbb;
+    /*h1-h4, field text value */
+    --lumo-third-text-color: #9fc5f8;
+    --lumo-font-family: 'Roboto';
+    /*bgcolor */
+    --lumo-base-color: #2b2b2b;
+    /*inputs background color */
+    --lumo-base-secondary-color: #3c3f41;
+    /*drawer menu background */
+    --menu-bar-color: #313335;
+    /*table rows text */
+    --table-cell-text-color: #a9b7c6;
+    /*table rows bg*/
+    --table-cell-bgColor: #313335;
+    /*button text color */
+    --lumo-body-text-color: #ffffff;
+    /*checkbox not checked bg color */
+    --vaadin-checkbox-background: #4a4a4a;
+    --vaadin-notification-card-bgColor-primary: #497ecb;
+    --vaadin-notification-card-bgColor-warning: #d1a745;
+    --vaadin-notification-card-bgColor-error: #c05450;
+    --vaadin-notification-card-bgColor-success: #619e4d;
+    --vaadin-progress-bar-color: #a9b7c6;
+    --vaadin-tooltip-bgColor: #4a4a4a;
+    --vaadin-icon-in-button-color: #ffffff;
+    --pocket-menu-drawer-bgColor: #4a4a4a;
+    --pocket-tile-in-menu-bgColor: #3c4c66;
+    --pocket-tile-in-menu-textColor: white;
+}

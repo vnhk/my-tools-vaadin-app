@@ -1,4 +1,4 @@
-@import "../blue-theme.css";
+@import "../darkula-theme.css";
 
 html {
   --vaadin-input-field-background: var(--lumo-base-secondary-color);
@@ -43,15 +43,6 @@ vaadin-notification-card[theme="primary"]::part(overlay) {
 
 vaadin-notification-card[theme="error"]::part(overlay) {
   background-color: var(--vaadin-notification-card-bgColor-error) !important;
-}
-
-.pocket-tile-in-menu {
-  border: 2px solid black;
-  padding: 15px;
-  margin-bottom: 10px;
-  width: 100%;
-  max-height: 100px;
-  min-height: 100px;
 }
 
 vaadin-upload-file {
@@ -114,13 +105,43 @@ a {
   color: var(--lumo-primary-color);
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5 {
   color: var(--vaadin-input-field-label-color);
 }
 
 [slot='drawer'] {
   background-color: var(--menu-bar-color);
 }
+
+.side-menu {
+  background-color: var(--pocket-menu-drawer-bgColor) !important;
+}
+
+.pocket-items-layout {
+  overflow: hidden; /* hides the scrollbars */
+  overflow-y: scroll; /* enables vertical scrolling without scrollbar */
+  overflow-x: scroll; /* enables horizontal scrolling without scrollbar */
+  scrollbar-width: none; /* for Firefox */
+}
+
+.pocket-items-layout::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Edge */
+}
+
+
+.pocket-tile-in-menu {
+  border: 2px solid black;
+  padding: 15px;
+  margin-bottom: 10px;
+  width: 100%;
+  max-height: 100px;
+  min-height: 100px;
+  background-color: var(--pocket-tile-in-menu-bgColor);
+  color: var(--pocket-tile-in-menu-textColor);
+  overflow: hidden;
+  position: relative;
+}
+
 
 .body {
 
@@ -174,7 +195,7 @@ vaadin-grid-sorter {
 
 
 vaadin-grid::part(cell) {
-  background-color: white;
+  background-color: var(--table-cell-bgColor);
   color: var(--table-cell-text-color);
 }
 
