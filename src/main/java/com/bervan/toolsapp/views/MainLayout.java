@@ -1,6 +1,7 @@
 package com.bervan.toolsapp.views;
 
 
+import com.bervan.toolsapp.views.spreadsheetapp.SpreadsheetsView;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.pocketapp.pocket.PocketService;
 import com.bervan.pocketapp.pocketitem.PocketItemService;
@@ -10,7 +11,6 @@ import com.bervan.toolsapp.views.interview.InterviewHomeView;
 import com.bervan.toolsapp.views.learninglanguage.LearningAppHomeView;
 import com.bervan.toolsapp.views.pocketapp.PocketSideMenuView;
 import com.bervan.toolsapp.views.pocketapp.PocketTableView;
-import com.bervan.toolsapp.views.shopapp.ProductsView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -213,9 +213,7 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Ebook English Words", "la la-book", NotLearnedWordsView.class), //
                 new MenuItemInfo("Learning Language", "la la-language", LearningAppHomeView.class), //
                 new MenuItemInfo("File Storage", "la la-cloud-upload", FileStorageView.class), //
-                new MenuItemInfo("Shopping", "la la-shopping-cart", ProductsView.class), //
-
-
+                new MenuItemInfo("Spreadsheets", "la la-note", SpreadsheetsView.class), //
         };
     }
 
