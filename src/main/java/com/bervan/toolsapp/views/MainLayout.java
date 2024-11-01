@@ -213,7 +213,7 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Ebook English Words", "la la-book", NotLearnedWordsView.class), //
                 new MenuItemInfo("Learning Language", "la la-language", LearningAppHomeView.class), //
                 new MenuItemInfo("File Storage", "la la-cloud-upload", FileStorageView.class), //
-                new MenuItemInfo("Spreadsheets", "la la-note", SpreadsheetsView.class), //
+                new MenuItemInfo("Spreadsheets", "las la-file-excel", SpreadsheetsView.class), //
         };
     }
 
