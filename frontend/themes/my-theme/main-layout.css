@@ -9,6 +9,36 @@ html {
   --vaadin-input-field-icon-color: var(--lumo-third-text-color);
 }
 
+navigation-buttons > .option-button {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.bervan-table-view {
+  margin-top: -70px;
+}
+
+.bervan-table {
+  min-height: 68vh;
+  max-height: 68vh;
+}
+
+/* Add a 1px divider between rows */
+.bervan-table::part(row) {
+  border-bottom: 1px solid #000000; /* Adjust color and thickness as needed */
+  min-height: 50px;
+  max-height: 100px;
+}
+
+/* Add a divider between columns */
+.bervan-table::part(cell) {
+  border-right: 1px solid #000000; /* Adjust color and thickness as needed */
+}
+
+.bervan-table::part(cell):last-child {
+  border-right: none; /* Remove the border from the last column */
+}
+
 .ql-toolbar {
   margin-bottom: 10px;
 }
