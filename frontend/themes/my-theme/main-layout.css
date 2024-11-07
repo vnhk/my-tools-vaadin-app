@@ -27,12 +27,22 @@ navigation-buttons > .option-button {
 .bervan-table::part(row) {
   border-bottom: 1px solid #000000; /* Adjust color and thickness as needed */
   min-height: 50px;
-  max-height: 100px;
+  max-height: 200px;
 }
 
 /* Add a divider between columns */
 .bervan-table::part(cell) {
+  overflow-y: scroll;
   border-right: 1px solid #000000; /* Adjust color and thickness as needed */
+  /* Hide scrollbar for WebKit browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  /* Hide scrollbar for WebKit browsers */
+}
+
+/* Hide scrollbar for WebKit browsers (Chrome, Safari, etc.) */
+.bervan-table::part(cell)::-webkit-scrollbar {
+  display: none;
 }
 
 .bervan-table::part(cell):last-child {
