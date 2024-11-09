@@ -1,10 +1,11 @@
 package com.bervan.toolsapp.views.learninglanguage;
 
 class TranslationRecordRequest {
-    String englishText;
-    String polishText;
-    Boolean saveWithSound;
-    Boolean generateExample;
+    private String englishText;
+    private String polishText;
+    private Boolean saveWithSound;
+    private Boolean generateExample;
+    private String apiKey;
 
     public Boolean getGenerateExample() {
         return generateExample;
@@ -36,5 +37,13 @@ class TranslationRecordRequest {
 
     public void setSaveWithSound(Boolean saveWithSound) {
         this.saveWithSound = saveWithSound;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 }

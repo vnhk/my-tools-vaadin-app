@@ -1,9 +1,10 @@
 package com.bervan.toolsapp.views.pocketapp;
 
 class PocketRequest {
-    String pocketName;
-    String summary;
-    String content;
+    private String pocketName;
+    private String summary;
+    private String content;
+    private String apiKey;
 
     public String getContent() {
         return content;
@@ -27,5 +28,13 @@ class PocketRequest {
 
     public void setPocketName(String pocketName) {
         this.pocketName = pocketName;
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 }

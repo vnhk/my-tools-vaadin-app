@@ -7,19 +7,25 @@ import com.bervan.languageapp.service.TextToSpeechService;
 import com.bervan.languageapp.service.TranslationRecordService;
 import com.bervan.languageapp.service.TranslatorService;
 import com.google.common.base.Strings;
+import jakarta.annotation.security.PermitAll;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@PermitAll
 public class LanguageLearningController {
     private final TranslationRecordService translationRecordService;
     private final ExampleOfUsageService exampleOfUsageService;
     private final TextToSpeechService textToSpeechService;
     private final TranslatorService translationService;
     private final BervanLogger log;
+    @Value("${api.keys}")
+    private List<String> API_KEYS = new ArrayList<>();
 
     public LanguageLearningController(TranslationRecordService translationRecordService, ExampleOfUsageService exampleOfUsageService,
                                       TextToSpeechService textToSpeechService, TranslatorService translationService, BervanLogger log) {
@@ -33,15 +39,19 @@ public class LanguageLearningController {
     @PostMapping(path = "/language-learning/translation")
     @CrossOrigin(origins = "*")
     public ResponseEntity<String> addTranslation(@RequestBody TranslationRecordRequest request) {
+        if (!this.API_KEYS.contains(request.getApiKey())) {
+            throw new RuntimeException("INVALID ACCESS");
+        }
+
         try {
             TranslationRecord record = new TranslationRecord();
             record.setDeleted(false);
             record.setFactor(1);
-            record.setSourceText(request.englishText);
-            record.setTextTranslation(request.polishText);
+            record.setSourceText(request.getEnglishText());
+            record.setTextTranslation(request.getPolishText());
 
-            if (request.generateExample) {
-                List<String> exampleOfUsage = exampleOfUsageService.createExampleOfUsage(request.englishText);
+            if (request.getGenerateExample()) {
+                List<String> exampleOfUsage = exampleOfUsageService.createExampleOfUsage(request.getEnglishText());
                 String examples = exampleOfUsage.toString();
                 if (!examples.isBlank() && exampleOfUsage.size() > 0) {
                     if (examples.length() > 250) {
@@ -62,8 +72,8 @@ public class LanguageLearningController {
                 }
             }
 
-            if (request.saveWithSound) {
-                record.setTextSound(textToSpeechService.getTextSpeech(request.englishText));
+            if (request.getSaveWithSound()) {
+                record.setTextSound(textToSpeechService.getTextSpeech(request.getEnglishText()));
                 if (!Strings.isNullOrEmpty(record.getInSentence())) {
                     record.setInSentenceSound(textToSpeechService.getTextSpeech(record.getInSentence()));
                 }
@@ -78,9 +88,12 @@ public class LanguageLearningController {
         }
     }
 
-    @GetMapping(path = "/language-learning/translate")
+    @PostMapping(path = "/language-learning/translate")
     @CrossOrigin(origins = "*")
-    public ResponseEntity<String> translate(@RequestParam String text) {
-        return new ResponseEntity<>(translationService.translate(text), HttpStatus.OK);
+    public ResponseEntity<String> translate(@RequestBody TranslationRecordRequest request) {
+        if (!this.API_KEYS.contains(request.getApiKey())) {
+            throw new RuntimeException("INVALID ACCESS");
+        }
+        return new ResponseEntity<>(translationService.translate(request.getEnglishText()), HttpStatus.OK);
     }
 }
