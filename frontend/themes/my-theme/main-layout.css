@@ -9,6 +9,10 @@ html {
   --vaadin-input-field-icon-color: var(--lumo-third-text-color);
 }
 
+#vaadinLoginFormWrapper {
+  background-color: white;
+}
+
 navigation-buttons > .option-button {
   margin-left: 3px;
   margin-right: 3px;
