@@ -1,5 +1,7 @@
 package com.bervan.toolsapp.views.pocketapp;
 
+import com.bervan.common.service.ApiKeyService;
+import com.bervan.common.user.User;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.pocketapp.pocket.Pocket;
 import com.bervan.pocketapp.pocket.PocketService;
@@ -9,7 +11,10 @@ import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +26,15 @@ public class PocketController {
     private final PocketItemService pocketItemService;
     private final PocketService pocketService;
     private final BervanLogger log;
+    private final ApiKeyService apiKeyService;
     @Value("${api.keys}")
     private List<String> API_KEYS = new ArrayList<>();
 
-    public PocketController(PocketItemService pocketItemService, PocketService pocketService, BervanLogger log) {
+    public PocketController(PocketItemService pocketItemService, PocketService pocketService, BervanLogger log, ApiKeyService apiKeyService) {
         this.pocketItemService = pocketItemService;
         this.pocketService = pocketService;
         this.log = log;
+        this.apiKeyService = apiKeyService;
     }
 
     @PostMapping(path = "/pocket/pocket-item")
@@ -41,6 +48,8 @@ public class PocketController {
             pocketItem.setContent(request.getContent());
             pocketItem.setDeleted(false);
             pocketItem.setSummary(request.getSummary());
+            pocketItem.setOwner(apiKeyService.getUserByAPIKey(request.getApiKey()));
+
             PocketItem saved = pocketItemService.save(pocketItem, request.getPocketName());
 
             return ResponseEntity.ok(saved.getId() + " saved.");
@@ -58,6 +67,7 @@ public class PocketController {
         if (!this.API_KEYS.contains(request.getApiKey())) {
             throw new RuntimeException("INVALID ACCESS");
         }
-        return new ResponseEntity<>(pocketService.load().stream().map(Pocket::getName).collect(Collectors.toList()), HttpStatus.OK);
+        User userByAPIKey = apiKeyService.getUserByAPIKey(request.getApiKey());
+        return new ResponseEntity<>(pocketService.loadForOwner(userByAPIKey).stream().map(Pocket::getName).collect(Collectors.toList()), HttpStatus.OK);
     }
 }

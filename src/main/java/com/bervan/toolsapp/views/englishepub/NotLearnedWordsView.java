@@ -63,10 +63,10 @@ public class NotLearnedWordsView extends AbstractNotLearnedWordsView {
         record.setTextTranslation(translated);
         record.setFactor(1);
         if (!examples.isBlank()) {
-            if (examples.length() > 250) {
+            if (examples.length() > 500) {
                 StringBuilder builder = new StringBuilder();
                 for (String s : exampleOfUsage) {
-                    if (builder.length() + s.length() + 1 > 250) {
+                    if (builder.length() + s.length() + 1 > 500) {
                         break;
                     }
                     builder.append(s);

@@ -1,5 +1,7 @@
 package com.bervan.toolsapp.views.learninglanguage;
 
+import com.bervan.common.service.ApiKeyService;
+import com.bervan.common.user.User;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.languageapp.TranslationRecord;
 import com.bervan.languageapp.service.ExampleOfUsageService;
@@ -11,7 +13,10 @@ import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +29,18 @@ public class LanguageLearningController {
     private final TextToSpeechService textToSpeechService;
     private final TranslatorService translationService;
     private final BervanLogger log;
+    private final ApiKeyService apiKeyService;
     @Value("${api.keys}")
     private List<String> API_KEYS = new ArrayList<>();
 
     public LanguageLearningController(TranslationRecordService translationRecordService, ExampleOfUsageService exampleOfUsageService,
-                                      TextToSpeechService textToSpeechService, TranslatorService translationService, BervanLogger log) {
+                                      TextToSpeechService textToSpeechService, TranslatorService translationService, BervanLogger log, ApiKeyService apiKeyService) {
         this.translationRecordService = translationRecordService;
         this.exampleOfUsageService = exampleOfUsageService;
         this.textToSpeechService = textToSpeechService;
         this.translationService = translationService;
         this.log = log;
+        this.apiKeyService = apiKeyService;
     }
 
     @PostMapping(path = "/language-learning/translation")
@@ -49,15 +56,16 @@ public class LanguageLearningController {
             record.setFactor(1);
             record.setSourceText(request.getEnglishText());
             record.setTextTranslation(request.getPolishText());
+            record.setOwner(apiKeyService.getUserByAPIKey(request.getApiKey()));
 
             if (request.getGenerateExample()) {
                 List<String> exampleOfUsage = exampleOfUsageService.createExampleOfUsage(request.getEnglishText());
                 String examples = exampleOfUsage.toString();
                 if (!examples.isBlank() && exampleOfUsage.size() > 0) {
-                    if (examples.length() > 250) {
+                    if (examples.length() > 500) {
                         StringBuilder builder = new StringBuilder();
                         for (String s : exampleOfUsage) {
-                            if (builder.length() + s.length() + 1 > 250) {
+                            if (builder.length() + s.length() + 1 > 500) {
                                 break;
                             }
                             builder.append(s);
