@@ -16,11 +16,13 @@ public class SecurityConfig extends VaadinWebSecurity {
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
 //            authorizationManagerRequestMatcherRegistry.requestMatchers("*/**").authenticated();
             authorizationManagerRequestMatcherRegistry.requestMatchers("/login").permitAll();
+            authorizationManagerRequestMatcherRegistry.requestMatchers("/line-awesome/**", "/static/**", "/images/**").permitAll();
         });
 
         http.formLogin(httpSecurityFormLoginConfigurer -> {
             httpSecurityFormLoginConfigurer.loginPage("/login").permitAll();
-            httpSecurityFormLoginConfigurer.defaultSuccessUrl("/hello");
+            httpSecurityFormLoginConfigurer.defaultSuccessUrl("/");
+            httpSecurityFormLoginConfigurer.successForwardUrl("/");
         });
 
         http.logout(httpSecurityLogoutConfigurer -> {

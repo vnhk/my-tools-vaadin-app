@@ -1,9 +1,11 @@
 package com.bervan.toolsapp;
 
+import com.bervan.common.BervanBaseRepositoryImpl;
 import com.bervan.core.model.BervanLogger;
-import com.bervan.history.model.BaseRepositoryImpl;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.ActiveMQPrefetchPolicy;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +17,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+
+import java.util.UUID;
 
 /**
  * The entry point of the Spring Boot application.
@@ -26,8 +31,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @ComponentScan(basePackages = "com.bervan.*")
-@EnableJpaRepositories(basePackages = "com.bervan.*", repositoryBaseClass = BaseRepositoryImpl.class)
+@EnableJpaRepositories(basePackages = "com.bervan.*", repositoryBaseClass = BervanBaseRepositoryImpl.class)
 @EntityScan(basePackages = "com.bervan.*")
+@EnableMethodSecurity
 public class Application extends SpringBootServletInitializer {
     private Logger logger = LoggerFactory.getLogger(Application.class);
 

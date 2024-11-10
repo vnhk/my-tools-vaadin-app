@@ -9,12 +9,14 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import jakarta.annotation.security.PermitAll;
 
+import java.util.UUID;
+
 
 @Route(value = AbstractSpreadsheetsView.ROUTE_NAME, layout = MainLayout.class)
 @RouteAlias(value = AbstractSpreadsheetsView.ROUTE_NAME, layout = MainLayout.class)
 @PermitAll
 public class SpreadsheetsView extends AbstractSpreadsheetsView {
-    public SpreadsheetsView(BaseService<Spreadsheet> service, BervanLogger log) {
+    public SpreadsheetsView(BaseService<UUID, Spreadsheet> service, BervanLogger log) {
         super(service, log);
     }
 }
