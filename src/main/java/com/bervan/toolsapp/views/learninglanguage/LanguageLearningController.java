@@ -56,7 +56,7 @@ public class LanguageLearningController {
             record.setFactor(1);
             record.setSourceText(request.getEnglishText());
             record.setTextTranslation(request.getPolishText());
-            record.setOwner(apiKeyService.getUserByAPIKey(request.getApiKey()));
+            record.addOwner(apiKeyService.getUserByAPIKey(request.getApiKey()));
 
             if (request.getGenerateExample()) {
                 List<String> exampleOfUsage = exampleOfUsageService.createExampleOfUsage(request.getEnglishText());

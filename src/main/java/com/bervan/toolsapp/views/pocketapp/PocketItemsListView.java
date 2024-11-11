@@ -64,9 +64,9 @@ public class PocketItemsListView extends VerticalLayout {
     private void reloadItems(PocketService pocketService, VerticalLayout itemsLayout, String pocketName) {
         itemsLayout.removeAll();
         divs = new ArrayList<>();
-        Optional<Pocket> pocket = pocketService.loadByName(pocketName);
-        if (pocket.isPresent()) {
-            pocketItems = pocket.get().getPocketItems().stream().filter(e -> !e.getDeleted()).sorted(Comparator.comparing(PocketItem::getOrderInPocket)).toList();
+        List<Pocket> pocket = pocketService.loadByName(pocketName);
+        if (pocket.size() > 0) {
+            pocketItems = pocket.get(0).getPocketItems().stream().filter(e -> !e.getDeleted()).sorted(Comparator.comparing(PocketItem::getOrderInPocket)).toList();
             for (PocketItem pocketItem : pocketItems) {
                 Div div = createDraggableDiv(pocketItem);
                 div.setClassName("pocket-tile-in-menu");

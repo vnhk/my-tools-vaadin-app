@@ -48,7 +48,7 @@ public class PocketController {
             pocketItem.setContent(request.getContent());
             pocketItem.setDeleted(false);
             pocketItem.setSummary(request.getSummary());
-            pocketItem.setOwner(apiKeyService.getUserByAPIKey(request.getApiKey()));
+            pocketItem.addOwner(apiKeyService.getUserByAPIKey(request.getApiKey()));
 
             PocketItem saved = pocketItemService.save(pocketItem, request.getPocketName());
 
