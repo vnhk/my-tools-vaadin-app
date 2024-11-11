@@ -14,6 +14,7 @@
     'use strict';
 
     const HOST = "192.168.1.205:8091";
+    const API_KEY = "ABCD";
 
     let shiftTCount = 0;
     let formVisible = false;
@@ -215,7 +216,8 @@
                 englishText: englishTextArea.value,
                 polishText: polishTextArea.value,
                 saveWithSound: saveWithSoundCheckbox.checked,
-                generateExample: generateExamplesCheckbox.checked
+                generateExample: generateExamplesCheckbox.checked,
+                apiKey: `${API_KEY}`
             };
             saveTranslation(translationRequest);
 
@@ -227,10 +229,19 @@
 
     // Function to fetch translation for given text
     function fetchTranslation(text) {
+        const translationRequest = {
+            englishText: text,
+            apiKey: API_KEY
+        };
+
         return new Promise((resolve, reject) => {
             GM_xmlhttpRequest({
-                method: 'GET',
-                url: `http://${HOST}/language-learning/translate?text=${encodeURIComponent(text)}`,
+                method: 'POST',
+                url: `http://${HOST}/language-learning/translate`,
+                data: JSON.stringify(translationRequest),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 onload: function(response) {
                     if (response.status === 200) {
                         resolve(response.responseText);

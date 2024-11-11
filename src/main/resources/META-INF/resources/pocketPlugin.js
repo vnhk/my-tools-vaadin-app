@@ -22,16 +22,25 @@
     GM_addStyle(my_css);
 
     const HOST = "192.168.1.205:8091";
+    const API_KEY = "ABCD";
 
     // Load pocket names using GM_xmlhttpRequest to avoid CORS issues
     async function loadPocketNames(host) {
         let pre_url = 'http://';
 
+        const pocketRequest = {
+            apiKey: API_KEY
+        };
+
         return new Promise((resolve, reject) => {
             GM_xmlhttpRequest({
-                method: 'GET',
-                url: pre_url+host+'/pocket/pocket-names',
-                onload: function(response) {
+                method: 'POST',
+                url: pre_url + host + '/pocket/pocket-names',
+                data: JSON.stringify(pocketRequest),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                onload: function (response) {
                     if (response.status === 200) {
                         const pocketNames = JSON.parse(response.responseText);
                         resolve(pocketNames);
@@ -39,7 +48,7 @@
                         reject('Error loading pocket names');
                     }
                 },
-                onerror: function(err) {
+                onerror: function (err) {
                     reject(err);
                 }
             });
@@ -191,7 +200,8 @@
             const pocketRequest = {
                 content: quill.root.innerHTML,
                 summary: summaryInput.value,
-                pocketName: pocketSelect.value
+                pocketName: pocketSelect.value,
+                apiKey: API_KEY
             };
 
             addToPocket(HOST, pocketRequest);
