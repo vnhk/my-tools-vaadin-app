@@ -9,6 +9,13 @@ html {
   --vaadin-input-field-icon-color: var(--lumo-third-text-color);
 }
 
+.vaadin-text-area-container {
+  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
 #vaadinLoginFormWrapper {
   background-color: white;
 }
@@ -166,6 +173,17 @@ h1, h2, h3, h4, h5 {
   overflow-y: scroll; /* enables vertical scrolling without scrollbar */
   overflow-x: scroll; /* enables horizontal scrolling without scrollbar */
   scrollbar-width: none; /* for Firefox */
+}
+
+.spreadsheet-cell {
+  overflow: hidden; /* hides the scrollbars */
+  overflow-y: scroll; /* enables vertical scrolling without scrollbar */
+  overflow-x: scroll; /* enables horizontal scrolling without scrollbar */
+  scrollbar-width: none; /* for Firefox */
+}
+
+.spreadsheet-cell::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Edge */
 }
 
 .pocket-items-layout::-webkit-scrollbar {
