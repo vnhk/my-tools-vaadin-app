@@ -21,7 +21,6 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.dom.Style;
 
 import java.util.*;
 
@@ -73,6 +72,19 @@ public class PocketItemsListView extends VerticalLayout {
                 divs.add(div);
             }
             itemsLayout.add(divs.toArray(new Div[0]));
+            fixMobiles(itemsLayout);
+        }
+
+    }
+
+    private void fixMobiles(VerticalLayout itemsLayout) {
+        if (divs.size() > 0) { //fix for mobiles
+            Div divBottom = new Div();
+            divBottom.setClassName("pocket-tile-in-menu");
+            divBottom.addClassName("pocket-tile-in-menu-transparent");
+            divBottom.setWidth(divs.get(0).getWidth());
+            divBottom.setHeight(divs.get(0).getHeight());
+            itemsLayout.add(divBottom);
         }
     }
 
@@ -182,6 +194,7 @@ public class PocketItemsListView extends VerticalLayout {
 
             itemsLayout.removeAll();
             itemsLayout.add(divs.toArray(new Div[0]));
+            fixMobiles(itemsLayout);
 
             for (int i = 0; i < divs.size(); i++) {
                 TextField idHolder = (TextField) divs.get(i).getComponentAt(1);
@@ -189,8 +202,6 @@ public class PocketItemsListView extends VerticalLayout {
                         .findFirst().get();
                 pocketItem.setOrderInPocket(i);
                 pocketItemService.save(pocketItem);
-
-
             }
         }
     }

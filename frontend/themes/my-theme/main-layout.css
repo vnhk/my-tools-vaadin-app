@@ -204,6 +204,11 @@ h1, h2, h3, h4, h5 {
   position: relative;
 }
 
+.pocket-tile-in-menu-transparent {
+  background-color: transparent;
+  color: transparent;
+  border-color: transparent;
+}
 
 .body {
 
