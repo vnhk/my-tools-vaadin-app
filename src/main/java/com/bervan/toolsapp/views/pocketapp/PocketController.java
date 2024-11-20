@@ -50,7 +50,7 @@ public class PocketController {
             pocketItem.setSummary(request.getSummary());
             pocketItem.addOwner(apiKeyService.getUserByAPIKey(request.getApiKey()));
 
-            PocketItem saved = pocketItemService.save(pocketItem, request.getPocketName());
+            PocketItem saved = pocketItemService.save(pocketItem, request.getPocketName(), apiKeyService.getUserByAPIKey(request.getApiKey()).getId());
 
             return ResponseEntity.ok(saved.getId() + " saved.");
         } catch (Exception e) {

@@ -35,7 +35,7 @@
         return new Promise((resolve, reject) => {
             GM_xmlhttpRequest({
                 method: 'POST',
-                url: pre_url + host + '/pocket/pocket-names',
+                url: pre_url + host + '/pocket/get-pocket-names',
                 data: JSON.stringify(pocketRequest),
                 headers: {
                     'Content-Type': 'application/json'
