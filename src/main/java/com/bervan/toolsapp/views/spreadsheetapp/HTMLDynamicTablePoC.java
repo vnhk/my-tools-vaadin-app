@@ -134,14 +134,14 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         addTopRowButtons();
         Div tableContainer = new Div(tableHtml);
 
-        Button refreshTable = new Button("Refresh table", e -> {
+        Button refreshTableButton = new Button("Refresh table", e -> {
             refreshTable();
             showSuccessNotification("Table refreshed");
         });
 
-        refreshTable.setClassName("option-button");
+        refreshTableButton.setClassName("option-button");
 
-        add(tableContainer, addRowButton, addColumnButton, refreshTable, saveButton);
+        add(tableContainer, addRowButton, addColumnButton, refreshTableButton, saveButton);
 
         refreshTable();
     }
@@ -154,18 +154,18 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                 "const table = this.querySelector('table');" +
                         "table.addEventListener('focusin', event => {" +
                         "   const cell = event.target;" +
-                        "   if (cell.hasAttribute('contenteditable')) {" +
+//                        "   if (cell.hasAttribute('contenteditable')) {" +
                         "       const id = cell.id;" +
                         "       $0.$server.cellFocusIn(id);" +
-                        "   }" +
+//                        "   }" +
                         "});" +
                         "table.addEventListener('focusout', event => {" +
                         "   const cell = event.target;" +
-                        "   if (cell.hasAttribute('contenteditable')) {" +
+//                        "   if (cell.hasAttribute('contenteditable')) {" +
                         "       const id = cell.id;" +
                         "       const value = cell.innerText;" +
                         "       $0.$server.updateCellValue(id, value);" +
-                        "   }" +
+//                        "   }" +
                         "});", getElement()
         );
     }
@@ -267,7 +267,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
 
                 if (cell.isFunction) {
                     cell.buildFunction(cell.getFunctionValue());
-                    calculateFunctionValue(cell);
+                    // No need to calculate here, it's done elsewhere
                 }
                 String val = cell.value != null ? cell.value : "";
                 tableBuilder.append(val);
@@ -310,9 +310,18 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                 Notification.show("Error in formula calculation.");
             }
 
-            // Refresh the table display
-            refreshTable();
+            // Update the cell in the client-side
+            updateCellInClient(cell.cellId, cell.value);
         }
+    }
+
+    // New method to update a cell in the client-side
+    private void updateCellInClient(String cellId, String value) {
+        getElement().executeJs(
+                "const cell = document.getElementById($0);" +
+                        "if (cell) { cell.innerText = $1; }",
+                cellId, value
+        );
     }
 
     @ClientCallable
@@ -334,6 +343,9 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         if (cell.isFunction) {
             calculateFunctionValue(cell);
         }
+
+        // Update the cell in the client-side
+        updateCellInClient(cell.cellId, cell.value);
 
         // Now, find and update any cells that depend on this cell
         for (Cell dependentCell : getDependentCells(cell.cellId)) {
@@ -418,7 +430,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
     }
 
     private void refreshAllFunctions() {
-        // Recalculate all functions
+        // Recalculate all functions and update them individually
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[0].length; j++) {
                 Cell cell = cells[i][j];
@@ -428,11 +440,11 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                     } catch (Exception e) {
                         e.printStackTrace();
                         cell.value = "ERROR";
+                        updateCellInClient(cell.cellId, cell.value);
                     }
                 }
             }
         }
-        // After recalculation, refresh the table to display updated values
-        refreshTable();
+        // No need to refresh the table since cells have been updated individually
     }
 }
