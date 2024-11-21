@@ -131,6 +131,12 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         });
         saveButton.setClassName("option-button");
 
+        // Copy Table button
+        Button copyTableButton = new Button("Copy Table", event -> {
+            showCopyTableDialog();
+        });
+        copyTableButton.setClassName("option-button");
+
         addTopRowButtons();
         Div tableContainer = new Div(tableHtml);
 
@@ -141,7 +147,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
 
         refreshTableButton.setClassName("option-button");
 
-        add(tableContainer, addRowButton, addColumnButton, refreshTableButton, saveButton);
+        add(tableContainer, addRowButton, addColumnButton, refreshTableButton, saveButton, copyTableButton);
 
         refreshTable();
     }
@@ -446,5 +452,71 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
             }
         }
         // No need to refresh the table since cells have been updated individually
+    }
+
+    @ClientCallable
+    public void showSuccessNotification(String message) {
+        Notification.show(message);
+    }
+
+    @ClientCallable
+    public void showErrorNotification(String message) {
+        Notification.show(message);
+    }
+
+    // New method to show the copy table dialog
+    private void showCopyTableDialog() {
+        Dialog dialog = new Dialog();
+        dialog.setWidth("80vw");
+
+        VerticalLayout layout = new VerticalLayout();
+
+        // Generate the table content as plain text
+        String tableText = generateTableText();
+
+        com.vaadin.flow.component.textfield.TextArea textArea = new com.vaadin.flow.component.textfield.TextArea();
+        textArea.setWidthFull();
+        textArea.setHeight("400px");
+        textArea.setValue(tableText);
+        textArea.setReadOnly(true);
+
+        // Instructions for the user
+        Span instructions = new Span("Select all the text below and copy it to your clipboard:");
+
+        // Add components to layout
+        layout.add(instructions, textArea);
+
+        Button closeButton = new Button("Close", e -> dialog.close());
+        closeButton.setClassName("option-button");
+
+        layout.add(closeButton);
+
+        dialog.add(layout);
+        dialog.open();
+    }
+
+    // Method to generate the table content as plain text
+    private String generateTableText() {
+        StringBuilder sb = new StringBuilder();
+
+        // Build header row
+        sb.append("#\t");
+        for (int col = 0; col < columns; col++) {
+            sb.append(getColumnName(col)).append("\t");
+        }
+        sb.append("\n");
+
+        // Build data rows
+        for (int row = 0; row < rows; row++) {
+            sb.append(row).append("\t");
+            for (int col = 0; col < columns; col++) {
+                Cell cell = cells[row][col];
+                String val = cell.value != null ? cell.value : "";
+                sb.append(val).append("\t");
+            }
+            sb.append("\n");
+        }
+
+        return sb.toString();
     }
 }
