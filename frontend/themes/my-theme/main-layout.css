@@ -9,6 +9,39 @@ html {
   --vaadin-input-field-icon-color: var(--lumo-third-text-color);
 }
 
+.spreadsheet-table {
+  border: 2px solid white;
+  border-collapse: collapse;
+  font-size: 26px;
+}
+
+.spreadsheet-header {
+  border: 2px solid white;
+  padding: 5px;
+  min-width: 100px;
+  min-height: 30px;
+}
+
+.spreadsheet-header-row {
+  background-color: var(--lumo-secondary-color);
+}
+
+.spreadsheet-row-number {
+  border: 2px solid white;
+  padding: 5px;
+  background-color: var(--lumo-secondary-color);
+  min-width: 50px;
+  min-height: 30px;
+}
+
+.spreadsheet-cell {
+  border: 2px solid white;
+  padding: 5px;
+  min-width: 100px;
+  min-height: 30px;
+}
+
+
 .vaadin-text-area-container {
   overflow: auto;
   overflow-x: hidden;

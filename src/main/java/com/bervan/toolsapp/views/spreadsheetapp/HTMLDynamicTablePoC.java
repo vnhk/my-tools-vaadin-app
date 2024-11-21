@@ -108,12 +108,14 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
             updateCellsArray();
             refreshTable();
         });
+        addRowButton.setClassName("option-button");
 
         Button addColumnButton = new Button("Add Column", event -> {
             columns++;
             updateCellsArray();
             refreshTable();
         });
+        addColumnButton.setClassName("option-button");
 
         // Save button
         Button saveButton = new Button("Save", event -> {
@@ -127,6 +129,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                 Notification.show("Failed to save table.");
             }
         });
+        saveButton.setClassName("option-button");
 
         addTopRowButtons();
         Div tableContainer = new Div(tableHtml);
@@ -135,6 +138,8 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
             refreshTable();
             showSuccessNotification("Table refreshed");
         });
+
+        refreshTable.setClassName("option-button");
 
         add(tableContainer, addRowButton, addColumnButton, refreshTable, saveButton);
 
@@ -226,17 +231,17 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
 
     private String buildTable() {
         StringBuilder tableBuilder = new StringBuilder();
-        tableBuilder.append("<table style='border: 2px solid white; border-collapse: collapse; font-size: 26px;'>");
+        tableBuilder.append("<table class='spreadsheet-table'>");
 
         // Build header row with column labels
-        tableBuilder.append("<tr>");
-        tableBuilder.append("<th style='border: 2px solid white; padding: 5px; min-width: 50px; min-height: 30px;'>#</th>");
+        tableBuilder.append("<tr class='spreadsheet-header-row'>");
+        tableBuilder.append("<th class='spreadsheet-row-number'>#</th>");
         for (int col = 0; col < columns; col++) {
             String columnLabel = getColumnName(col);
             String cellId = "header_" + col;
             tableBuilder.append("<th ")
                     .append("id='").append(cellId).append("' ")
-                    .append("style='border: 2px solid white; padding: 5px; min-width: 100px; min-height: 30px;'>");
+                    .append("class='spreadsheet-header'>");
             tableBuilder.append(columnLabel);
             tableBuilder.append("</th>");
         }
@@ -247,7 +252,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
             tableBuilder.append("<tr>");
 
             // Row number cell
-            tableBuilder.append("<td style='border: 2px solid white; padding: 5px; background-color: #f0f0f0; min-width: 50px; min-height: 30px;'>")
+            tableBuilder.append("<td class='spreadsheet-row-number'>")
                     .append(row)
                     .append("</td>");
 
@@ -258,9 +263,8 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                 tableBuilder.append("<td ")
                         .append("id='").append(cellId).append("' ")
                         .append("contenteditable='true' ")
-                        .append("style='border: 2px solid white; padding: 5px; min-width: 100px; min-height: 30px;'>");
+                        .append("class='spreadsheet-cell'>");
 
-                // Display calculated value
                 if (cell.isFunction) {
                     cell.buildFunction(cell.getFunctionValue());
                     calculateFunctionValue(cell);
@@ -350,11 +354,11 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         Dialog dialog = new Dialog();
         dialog.setWidth("80vw");
 
-
         Button okButton = new Button("Ok", e -> {
             dialog.close();
         });
         okButton.setClassName("option-button");
+
         // Add components to dialog
         VerticalLayout verticalLayout = new VerticalLayout();
         verticalLayout.add(getDialogTopBarLayout(dialog));
@@ -374,7 +378,6 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         // Open the dialog
         dialog.open();
     }
-
 
     private void calculateFunctionValue(Cell cell) {
         String functionName = cell.functionName;
