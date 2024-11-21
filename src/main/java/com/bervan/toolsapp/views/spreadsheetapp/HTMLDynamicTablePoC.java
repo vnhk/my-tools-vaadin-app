@@ -12,11 +12,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.contextmenu.MenuItem;
+import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
@@ -102,23 +104,67 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         // Refresh all functions before building the table
         refreshAllFunctions();
 
-        // Buttons to add rows and columns
-        Button addRowButton = new Button("Add Row", event -> {
+        // Create the MenuBar
+        MenuBar menuBar = new MenuBar();
+
+        // File menu
+        MenuItem fileMenu = menuBar.addItem("File");
+        fileMenu.addClassName("option-button");
+        fileMenuOptions(fileMenu);
+
+        // Edit menu
+        MenuItem editMenu = menuBar.addItem("Edit");
+        editMenu.addClassName("option-button");
+        editMenuOptions(editMenu);
+
+        // Help menu
+        MenuItem helpMenu = menuBar.addItem("Help");
+        helpMenu.addClassName("option-button");
+
+        helpMenuOptions(helpMenu);
+
+        // Now, create the table container
+        Div tableContainer = new Div(tableHtml);
+
+        // Add the MenuBar and table to the layout
+        add(menuBar, tableContainer);
+
+        // Refresh the table
+        refreshTable();
+    }
+
+    private void helpMenuOptions(MenuItem helpMenu) {
+        SubMenu helpSubMenu = helpMenu.getSubMenu();
+        MenuItem showFunctionsItem = helpSubMenu.addItem("Show Available Functions", event -> {
+            showAvailableFunctionsModal();
+        });
+    }
+
+    private void editMenuOptions(MenuItem editMenu) {
+        SubMenu editSubMenu = editMenu.getSubMenu();
+
+        MenuItem addRowItem = editSubMenu.addItem("Add Row", event -> {
             rows++;
             updateCellsArray();
             refreshTable();
         });
-        addRowButton.setClassName("option-button");
 
-        Button addColumnButton = new Button("Add Column", event -> {
+        MenuItem addColumnItem = editSubMenu.addItem("Add Column", event -> {
             columns++;
             updateCellsArray();
             refreshTable();
         });
-        addColumnButton.setClassName("option-button");
 
-        // Save button
-        Button saveButton = new Button("Save", event -> {
+        MenuItem refreshTableItem = editSubMenu.addItem("Refresh Table", event -> {
+            refreshTable();
+            showSuccessNotification("Table refreshed");
+        });
+    }
+
+    private void fileMenuOptions(MenuItem fileMenu) {
+        SubMenu fileSubMenu = fileMenu.getSubMenu();
+
+        MenuItem saveItem = fileSubMenu.addItem("Save", event -> {
             try {
                 String body = objectMapper.writeValueAsString(cells);
                 spreadsheetEntity.setBody(body);
@@ -129,27 +175,10 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                 Notification.show("Failed to save table.");
             }
         });
-        saveButton.setClassName("option-button");
 
-        // Copy Table button
-        Button copyTableButton = new Button("Copy Table", event -> {
+        MenuItem copyTableItem = fileSubMenu.addItem("Copy Table", event -> {
             showCopyTableDialog();
         });
-        copyTableButton.setClassName("option-button");
-
-        addTopRowButtons();
-        Div tableContainer = new Div(tableHtml);
-
-        Button refreshTableButton = new Button("Refresh table", e -> {
-            refreshTable();
-            showSuccessNotification("Table refreshed");
-        });
-
-        refreshTableButton.setClassName("option-button");
-
-        add(tableContainer, addRowButton, addColumnButton, refreshTableButton, saveButton, copyTableButton);
-
-        refreshTable();
     }
 
     private void refreshTable() {
@@ -359,15 +388,6 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         }
     }
 
-    private void addTopRowButtons() {
-        Button showFunctionsButton = new Button("Show available functions", e -> showAvailableFunctionsModal());
-        showFunctionsButton.setClassName("option-button");
-
-        HorizontalLayout topLayout = new HorizontalLayout();
-        topLayout.add(showFunctionsButton);
-        add(topLayout);
-    }
-
     private void showAvailableFunctionsModal() {
         Dialog dialog = new Dialog();
         dialog.setWidth("80vw");
@@ -396,6 +416,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         // Open the dialog
         dialog.open();
     }
+
 
     private void calculateFunctionValue(Cell cell) {
         String functionName = cell.functionName;
@@ -464,7 +485,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         Notification.show(message);
     }
 
-    // New method to show the copy table dialog
+    // Method to show the copy table dialog
     private void showCopyTableDialog() {
         Dialog dialog = new Dialog();
         dialog.setWidth("80vw");
