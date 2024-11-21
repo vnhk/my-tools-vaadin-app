@@ -154,18 +154,18 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                 "const table = this.querySelector('table');" +
                         "table.addEventListener('focusin', event => {" +
                         "   const cell = event.target;" +
-//                        "   if (cell.hasAttribute('contenteditable')) {" +
+                        "   if (cell.hasAttribute('contenteditable')) {" +
                         "       const id = cell.id;" +
                         "       $0.$server.cellFocusIn(id);" +
-//                        "   }" +
+                        "   }" +
                         "});" +
                         "table.addEventListener('focusout', event => {" +
                         "   const cell = event.target;" +
-//                        "   if (cell.hasAttribute('contenteditable')) {" +
+                        "   if (cell.hasAttribute('contenteditable')) {" +
                         "       const id = cell.id;" +
                         "       const value = cell.innerText;" +
                         "       $0.$server.updateCellValue(id, value);" +
-//                        "   }" +
+                        "   }" +
                         "});", getElement()
         );
     }
