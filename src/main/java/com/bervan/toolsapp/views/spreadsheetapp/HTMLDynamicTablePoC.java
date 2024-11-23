@@ -142,6 +142,14 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         refreshTable();
     }
 
+    private String buildTable(int columns, int rows, Cell[][] cells) {
+        return buildTable(columns, rows, cells, null, true);
+    }
+
+    private String buildTable(int columns, int rows, Cell[][] cells, Set<String> changedCellIds) {
+        return buildTable(columns, rows, cells, changedCellIds, true);
+    }
+
     private void helpMenuOptions(MenuItem helpMenu) {
         SubMenu helpSubMenu = helpMenu.getSubMenu();
         MenuItem showFunctionsItem = helpSubMenu.addItem("Show Available Functions", event -> {
@@ -202,14 +210,36 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
     }
 
     private void showHistoryTable(int historyIndex) {
-        //mark as red all different values compared to current
+        // Mark as red all different values compared to current
         HistorySpreadsheet historySpreadsheet = sorted.get(historyIndex);
         String tableHTML = "";
         try {
             Cell[][] historyCells = objectMapper.readValue(historySpreadsheet.getBody(), Cell[][].class);
-            int historyRows = cells.length;
-            int historyColumns = cells[0].length;
-            tableHTML = buildTable(historyColumns, historyRows, historyCells);
+            int historyRows = historyCells.length;
+            int historyColumns = historyCells[0].length;
+
+            // Compute the set of cell IDs that have changed
+            Set<String> changedCellIds = new HashSet<>();
+
+            for (int row = 0; row < historyRows; row++) {
+                for (int col = 0; col < historyColumns; col++) {
+                    Cell currentCell = null;
+                    if (row < cells.length && col < cells[0].length) {
+                        currentCell = cells[row][col];
+                    }
+                    Cell historyCell = historyCells[row][col];
+
+                    String currentValue = currentCell != null && currentCell.value != null ? currentCell.value : "";
+                    String historyValue = historyCell.value != null ? historyCell.value : "";
+
+                    if (!currentValue.equals(historyValue)) {
+                        changedCellIds.add(historyCell.cellId);
+                    }
+                }
+            }
+
+            tableHTML = buildTable(historyColumns, historyRows, historyCells, changedCellIds, false);
+
         } catch (Exception e) {
             e.printStackTrace();
             showErrorNotification("Could not show history change!");
@@ -324,7 +354,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         }
     }
 
-    private String buildTable(int columns, int rows, Cell[][] cells) {
+    private String buildTable(int columns, int rows, Cell[][] cells, Set<String> changedCellIds, boolean isEditable) {
         StringBuilder tableBuilder = new StringBuilder();
         tableBuilder.append("<table class='spreadsheet-table'>");
 
@@ -357,12 +387,18 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
 
                 tableBuilder.append("<td ")
                         .append("id='").append(cellId).append("' ")
-                        .append("contenteditable='true' ")
-                        .append("class='spreadsheet-cell'>");
+                        .append("contenteditable='").append(isEditable).append("' ")
+                        .append("class='spreadsheet-cell'");
+
+                // If the cell is in changedCellIds, add style
+                if (changedCellIds != null && changedCellIds.contains(cellId)) {
+                    tableBuilder.append(" style='background-color:red; color:white;' ");
+                }
+
+                tableBuilder.append(">");
 
                 if (cell.isFunction) {
                     cell.buildFunction(cell.getFunctionValue());
-                    // No need to calculate here, it's done elsewhere
                 }
                 String val = cell.value != null ? cell.value : "";
                 tableBuilder.append(val);
