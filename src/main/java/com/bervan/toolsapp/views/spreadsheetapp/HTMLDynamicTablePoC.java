@@ -4,22 +4,25 @@ import com.bervan.common.AbstractPageView;
 import com.bervan.common.service.AuthService;
 import com.bervan.spreadsheet.functions.SpreadsheetFunction;
 import com.bervan.spreadsheet.model.Cell;
+import com.bervan.spreadsheet.model.HistorySpreadsheet;
 import com.bervan.spreadsheet.model.Spreadsheet;
+import com.bervan.spreadsheet.service.HistorySpreadsheetRepository;
 import com.bervan.spreadsheet.service.SpreadsheetRepository;
 import com.bervan.spreadsheet.utils.SpreadsheetUtils;
 import com.bervan.toolsapp.views.MainLayout;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.flow.component.ClientCallable;
-import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.OptionalParameter;
@@ -28,7 +31,9 @@ import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Route(value = HTMLDynamicTablePoC.ROUTE_NAME + "/:name?", layout = MainLayout.class)
 @PermitAll
@@ -37,17 +42,22 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
 
     @Autowired
     private SpreadsheetRepository spreadsheetRepository;
+    @Autowired
+    private HistorySpreadsheetRepository historySpreadsheetRepository;
 
     @Autowired
     private List<SpreadsheetFunction> spreadsheetFunctions;
 
     private Spreadsheet spreadsheetEntity;
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private Html tableHtml;
+    private Div tableHtml;
+    private final Div historyHtml = new Div();
     private int rows;
     private int columns;
     private Cell[][] cells;
+    private boolean historyShow = false;
+    private List<HistorySpreadsheet> sorted = new ArrayList<>();
 
     // Map for quick access to cells by their ID
     private Map<String, Cell> cellMap = new HashMap<>();
@@ -99,7 +109,8 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         }
 
         // Initial table
-        tableHtml = new Html(buildTable());
+        tableHtml = new Div();
+        tableHtml.getElement().setProperty("innerHTML", buildTable(columns, rows, cells));
 
         // Refresh all functions before building the table
         refreshAllFunctions();
@@ -123,11 +134,8 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
 
         helpMenuOptions(helpMenu);
 
-        // Now, create the table container
-        Div tableContainer = new Div(tableHtml);
-
         // Add the MenuBar and table to the layout
-        add(menuBar, tableContainer);
+        add(menuBar, (tableHtml), new Hr(), historyHtml);
 
         // Refresh the table
         refreshTable();
@@ -169,6 +177,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                 String body = objectMapper.writeValueAsString(cells);
                 spreadsheetEntity.setBody(body);
                 spreadsheetRepository.save(spreadsheetEntity);
+                reloadHistory();
                 Notification.show("Table saved successfully.");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -179,29 +188,79 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         MenuItem copyTableItem = fileSubMenu.addItem("Copy Table", event -> {
             showCopyTableDialog();
         });
+
+        MenuItem showHistory = fileSubMenu.addItem("History", event -> {
+            historyShow = !historyShow;
+            if (historyShow) {
+                reloadHistory();
+                if (sorted.size() > 0) {
+                    showHistoryTable(0);
+                }
+            }
+        });
+    }
+
+    private void showHistoryTable(int historyIndex) {
+        //mark as red all different values compared to current
+        HistorySpreadsheet historySpreadsheet = sorted.get(historyIndex);
+        String tableHTML = "";
+        try {
+            Cell[][] historyCells = objectMapper.readValue(historySpreadsheet.getBody(), Cell[][].class);
+            int historyRows = cells.length;
+            int historyColumns = cells[0].length;
+            tableHTML = buildTable(historyColumns, historyRows, historyCells);
+        } catch (Exception e) {
+            e.printStackTrace();
+            showErrorNotification("Could not show history change!");
+        }
+
+        String headerHTML = historySpreadsheet.getUpdateDate().toLocalDate().format(DateTimeFormatter.ISO_LOCAL_DATE);
+        Div historyContent = new Div();
+        historyContent.getElement().setProperty("innerHTML", headerHTML + "<br>" + tableHTML);
+
+        // Create navigation buttons
+        Button leftButton = new Button("Previous");
+        leftButton.setEnabled(historyIndex > 0); // Disable if at the first history
+        leftButton.addClickListener(event -> showHistoryTable(historyIndex - 1));
+        leftButton.addClassName("option-button");
+
+        Button rightButton = new Button("Next");
+        rightButton.addClassName("option-button");
+        rightButton.setEnabled(historyIndex < sorted.size() - 1); // Disable if at the last history
+        rightButton.addClickListener(event -> showHistoryTable(historyIndex + 1));
+
+        // Add buttons to the layout
+        Div buttonContainer = new Div();
+        buttonContainer.add(leftButton, rightButton);
+
+        // Remove old content and re-add new components
+        historyHtml.getElement().removeAllChildren();
+        historyHtml.getElement().appendChild(historyContent.getElement(), buttonContainer.getElement());
+    }
+
+    private void reloadHistory() {
+        List<HistorySpreadsheet> history = historySpreadsheetRepository.findAllByHistoryOwnerId(spreadsheetEntity.getId());
+        sorted = history.stream().sorted(Comparator.comparing(HistorySpreadsheet::getUpdateDate).reversed()).collect(Collectors.toList());
     }
 
     private void refreshTable() {
-        tableHtml.getElement().setProperty("innerHTML", buildTable());
+        tableHtml.getElement().setProperty("innerHTML", buildTable(columns, rows, cells));
 
         // Listen for changes in the cells
-        getElement().executeJs(
-                "const table = this.querySelector('table');" +
-                        "table.addEventListener('focusin', event => {" +
-                        "   const cell = event.target;" +
-                        "   if (cell.hasAttribute('contenteditable')) {" +
-                        "       const id = cell.id;" +
-                        "       $0.$server.cellFocusIn(id);" +
-                        "   }" +
-                        "});" +
-                        "table.addEventListener('focusout', event => {" +
-                        "   const cell = event.target;" +
-                        "   if (cell.hasAttribute('contenteditable')) {" +
-                        "       const id = cell.id;" +
-                        "       const value = cell.innerText;" +
-                        "       $0.$server.updateCellValue(id, value);" +
-                        "   }" +
-                        "});", getElement()
+        getElement().executeJs("const table = this.querySelector('table');" + "table.addEventListener('focusin', event => {" + "   const cell = event.target;" +
+                "   if (cell.hasAttribute('contenteditable')) {" +
+                "       const id = cell.id;" +
+                "       $0.$server.cellFocusIn(id);" +
+                "   }" +
+                "});" +
+                "table.addEventListener('focusout', event => {" +
+                "   const cell = event.target;" +
+                "   if (cell.hasAttribute('contenteditable')) {" +
+                "       const id = cell.id;" +
+                "       const value = cell.innerText;" +
+                "       $0.$server.updateCellValue(id, value);" +
+                "   }" +
+                "});", getElement()
         );
     }
 
@@ -264,7 +323,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         }
     }
 
-    private String buildTable() {
+    private String buildTable(int columns, int rows, Cell[][] cells) {
         StringBuilder tableBuilder = new StringBuilder();
         tableBuilder.append("<table class='spreadsheet-table'>");
 
@@ -495,7 +554,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         // Generate the table content as plain text
         String tableText = generateTableText();
 
-        com.vaadin.flow.component.textfield.TextArea textArea = new com.vaadin.flow.component.textfield.TextArea();
+        TextArea textArea = new TextArea();
         textArea.setWidthFull();
         textArea.setHeight("400px");
         textArea.setValue(tableText);
