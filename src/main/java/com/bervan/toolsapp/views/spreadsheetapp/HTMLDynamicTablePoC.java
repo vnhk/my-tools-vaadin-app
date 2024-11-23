@@ -21,6 +21,7 @@ import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.router.BeforeEvent;
@@ -220,22 +221,22 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
 
         // Create navigation buttons
         Button leftButton = new Button("Previous");
-        leftButton.setEnabled(historyIndex > 0); // Disable if at the first history
+        leftButton.setVisible(historyIndex > 0); // Disable if at the first history
         leftButton.addClickListener(event -> showHistoryTable(historyIndex - 1));
         leftButton.addClassName("option-button");
 
         Button rightButton = new Button("Next");
         rightButton.addClassName("option-button");
-        rightButton.setEnabled(historyIndex < sorted.size() - 1); // Disable if at the last history
+        rightButton.setVisible(historyIndex < sorted.size() - 1); // Disable if at the last history
         rightButton.addClickListener(event -> showHistoryTable(historyIndex + 1));
 
         // Add buttons to the layout
-        Div buttonContainer = new Div();
+        HorizontalLayout buttonContainer = new HorizontalLayout();
         buttonContainer.add(leftButton, rightButton);
 
         // Remove old content and re-add new components
         historyHtml.getElement().removeAllChildren();
-        historyHtml.getElement().appendChild(historyContent.getElement(), buttonContainer.getElement());
+        historyHtml.getElement().appendChild(historyContent.getElement(), new Hr().getElement(), buttonContainer.getElement());
     }
 
     private void reloadHistory() {
