@@ -1,6 +1,8 @@
 package com.bervan.toolsapp.views.spreadsheetapp;
 
 import com.bervan.common.AbstractPageView;
+import com.bervan.common.BervanTextField;
+import com.bervan.common.model.UtilsMessage;
 import com.bervan.common.service.AuthService;
 import com.bervan.spreadsheet.functions.SpreadsheetFunction;
 import com.bervan.spreadsheet.model.Cell;
@@ -13,6 +15,7 @@ import com.bervan.toolsapp.views.MainLayout;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -35,6 +38,8 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.bervan.spreadsheet.utils.SpreadsheetUtils.sortColumns;
 
 @Route(value = HTMLDynamicTablePoC.ROUTE_NAME + "/:name?", layout = MainLayout.class)
 @PermitAll
@@ -155,6 +160,56 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         return buildTable(columns, rows, cells, changedCellIds, true);
     }
 
+    private void sortColumnsModal() {
+        Dialog dialog = new Dialog();
+        dialog.setWidth("30vw");
+
+        // Fields for input
+        BervanTextField columnsField = new BervanTextField("Type columns (comma separated)", "E,F");
+        BervanTextField rowsField = new BervanTextField("Type rows (colon separated)", "0:10");
+
+        // Dropdowns
+        ComboBox<String> columnDropdown = new ComboBox<>();
+        columnDropdown.setLabel("Select Sort Column");
+        ComboBox<String> orderDropdown = new ComboBox<>("Select Order", "Ascending", "Descending");
+
+        // Add a listener to update the column dropdown based on the columns field
+        columnsField.addValueChangeListener(event -> {
+            String columnsText = event.getValue();
+            if (columnsText != null && !columnsText.trim().isEmpty()) {
+                List<String> columnOptions = Arrays.stream(columnsText.split(","))
+                        .map(String::trim)
+                        .filter(col -> !col.isEmpty())
+                        .collect(Collectors.toList());
+
+                columnDropdown.setItems(columnOptions);
+            } else {
+                columnDropdown.clear();
+            }
+        });
+
+        Button okButton = new Button("Sort columns", e -> {
+            UtilsMessage utilsMessage = sortColumns(cells, columnDropdown.getValue(),
+                    orderDropdown.getValue(), columnsField.getValue(), rowsField.getValue());
+            if (utilsMessage.isSuccess) {
+                refreshTable();
+                showSuccessNotification(utilsMessage.message);
+                dialog.close();
+            } else if (utilsMessage.isError) {
+                showErrorNotification(utilsMessage.message);
+            }
+        });
+        okButton.setClassName("option-button");
+        // Add components to dialog
+        VerticalLayout verticalLayout = new VerticalLayout();
+        verticalLayout.add(getDialogTopBarLayout(dialog), columnsField, rowsField, columnDropdown, orderDropdown, okButton);
+        dialog.add(verticalLayout);
+
+        // Open the dialog
+        dialog.open();
+    }
+
+
     private void helpMenuOptions(MenuItem helpMenu) {
         SubMenu helpSubMenu = helpMenu.getSubMenu();
         MenuItem showFunctionsItem = helpSubMenu.addItem("Show Available Functions", event -> {
@@ -175,6 +230,10 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
             columns++;
             updateCellsArray();
             refreshTable();
+        });
+
+        MenuItem sortColumnsItem = editSubMenu.addItem("Sort Columns", event -> {
+            sortColumnsModal();
         });
 
         MenuItem refreshTableItem = editSubMenu.addItem("Refresh Table", event -> {
