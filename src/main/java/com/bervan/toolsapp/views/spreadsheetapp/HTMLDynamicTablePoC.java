@@ -136,7 +136,12 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         helpMenuOptions(helpMenu);
 
         // Add the MenuBar and table to the layout
-        add(menuBar, (tableHtml), new Hr(), historyHtml);
+        Button saveButton = new Button("Save");
+        saveButton.addClassName("option-button");
+        saveButton.addClickListener(event -> {
+           save();
+        });
+        add(menuBar, (tableHtml), saveButton, new Hr(), historyHtml);
 
         // Refresh the table
         refreshTable();
@@ -182,16 +187,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         SubMenu fileSubMenu = fileMenu.getSubMenu();
 
         MenuItem saveItem = fileSubMenu.addItem("Save", event -> {
-            try {
-                String body = objectMapper.writeValueAsString(cells);
-                spreadsheetEntity.setBody(body);
-                spreadsheetRepository.save(spreadsheetEntity);
-                reloadHistory();
-                Notification.show("Table saved successfully.");
-            } catch (IOException e) {
-                e.printStackTrace();
-                Notification.show("Failed to save table.");
-            }
+            save();
         });
 
         MenuItem copyTableItem = fileSubMenu.addItem("Copy Table", event -> {
@@ -207,6 +203,19 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                 }
             }
         });
+    }
+
+    private void save() {
+        try {
+            String body = objectMapper.writeValueAsString(cells);
+            spreadsheetEntity.setBody(body);
+            spreadsheetRepository.save(spreadsheetEntity);
+            reloadHistory();
+            Notification.show("Table saved successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Notification.show("Failed to save table.");
+        }
     }
 
     private void showHistoryTable(int historyIndex) {
