@@ -64,6 +64,8 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
     private Cell[][] cells;
     private boolean historyShow = false;
     private List<HistorySpreadsheet> sorted = new ArrayList<>();
+    private final Set<Cell> selectedCells = new HashSet<>();
+    private Button clearSelectionButton;
 
     // Map for quick access to cells by their ID
     private Map<String, Cell> cellMap = new HashMap<>();
@@ -144,12 +146,30 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         Button saveButton = new Button("Save");
         saveButton.addClassName("option-button");
         saveButton.addClickListener(event -> {
-           save();
+            save();
         });
-        add(menuBar, (tableHtml), saveButton, new Hr(), historyHtml);
 
-        // Refresh the table
+        clearSelectionButton = new Button("Clear Selection", event -> {
+            clearSelection();
+        });
+        clearSelectionButton.addClassName("option-button");
+        clearSelectionButton.setVisible(false);
+
+        add(clearSelectionButton, menuBar, tableHtml, saveButton, new Hr(), historyHtml);
+
         refreshTable();
+    }
+
+    private void refreshClearSelectionButtonVisibility() {
+        clearSelectionButton.setVisible(!selectedCells.isEmpty());
+    }
+
+    private void clearSelection() {
+        for (Cell cell : selectedCells) {
+            getElement().executeJs("document.getElementById($0).style.backgroundColor = ''", cell.cellId);
+        }
+        selectedCells.clear();
+        refreshClearSelectionButtonVisibility();
     }
 
     private String buildTable(int columns, int rows, Cell[][] cells) {
@@ -204,6 +224,59 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         VerticalLayout verticalLayout = new VerticalLayout();
         verticalLayout.add(getDialogTopBarLayout(dialog), columnsField, rowsField, columnDropdown, orderDropdown, okButton);
         dialog.add(verticalLayout);
+
+        if (!selectedCells.isEmpty()) {
+            Map<String, List<Cell>> columnsMap = new HashMap<>();
+
+            for (Cell cell : selectedCells) {
+                String column = cell.columnSymbol;
+                columnsMap.putIfAbsent(column, new ArrayList<>());
+                columnsMap.get(column).add(cell);
+            }
+
+            boolean allSameSize = columnsMap.values().stream().map(List::size).distinct().count() == 1;
+
+            if (allSameSize) {
+                List<Integer> referenceRowNumbers = columnsMap.values().iterator().next().stream().map(cell -> cell.rowNumber).sorted().toList();
+
+                boolean allRowsMatch = columnsMap.values().stream().allMatch(cells -> {
+                    List<Integer> rowNumbers = cells.stream().map(cell -> cell.rowNumber).sorted().toList();
+                    return rowNumbers.equals(referenceRowNumbers);
+                });
+
+                if (allRowsMatch) {
+                    boolean allContinuous = true;
+                    int minRow = 0;
+                    int maxRow = 0;
+                    for (Map.Entry<String, List<Cell>> entry : columnsMap.entrySet()) {
+                        String column = entry.getKey();
+                        List<Cell> cells = entry.getValue();
+
+                        minRow = cells.stream().mapToInt(c -> c.rowNumber).min().orElseThrow();
+                        maxRow = cells.stream().mapToInt(c -> c.rowNumber).max().orElseThrow();
+
+                        Set<Integer> rowNumbers = cells.stream().map(cell -> cell.rowNumber).collect(Collectors.toSet());
+
+                        for (int i = minRow; i <= maxRow; i++) {
+                            if (!rowNumbers.contains(i)) {
+                                allContinuous = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (allContinuous) {
+                        showPrimaryNotification("Sort column properties applied based on selection!");
+                        columnsField.setValue(String.join(",", columnsMap.keySet()));
+                        rowsField.setValue(minRow + ":" + maxRow);
+                    } else {
+                        showErrorNotification("Sort column properties cannot be applied based on selection!");
+                    }
+                } else {
+                    showErrorNotification("Sort column properties cannot be applied based on selection!");
+                }
+            }
+        }
 
         // Open the dialog
         dialog.open();
@@ -345,22 +418,57 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
     private void refreshTable() {
         tableHtml.getElement().setProperty("innerHTML", buildTable(columns, rows, cells));
 
-        // Listen for changes in the cells
-        getElement().executeJs("const table = this.querySelector('table');" + "table.addEventListener('focusin', event => {" + "   const cell = event.target;" +
-                "   if (cell.hasAttribute('contenteditable')) {" +
-                "       const id = cell.id;" +
-                "       $0.$server.cellFocusIn(id);" +
-                "   }" +
-                "});" +
-                "table.addEventListener('focusout', event => {" +
-                "   const cell = event.target;" +
-                "   if (cell.hasAttribute('contenteditable')) {" +
-                "       const id = cell.id;" +
-                "       const value = cell.innerText;" +
-                "       $0.$server.updateCellValue(id, value);" +
-                "   }" +
-                "});", getElement()
-        );
+        getElement().executeJs("""
+                const table = this.querySelector('table');
+                                
+                table.addEventListener('click', event => {
+                    const cell = event.target;
+                    if (cell.tagName === 'TD' && cell.id) {
+                        if (event.shiftKey) {
+                            // Obsługa Shift+Click do zaznaczania komórek
+                            if (cell.style.backgroundColor === 'green') {
+                                cell.style.backgroundColor = '';
+                                $0.$server.removeSelectedCell(cell.id);
+                            } else {
+                                cell.style.backgroundColor = 'green';
+                                $0.$server.addSelectedCell(cell.id);
+                            }
+                        } else if (cell.hasAttribute('contenteditable')) {
+                            // Zwykłe kliknięcie - wywołaj cellFocusIn
+                            const id = cell.id;
+                            $0.$server.cellFocusIn(id);
+                        }
+                    }
+                });
+                        
+                table.addEventListener('focusout', event => {
+                    const cell = event.target;
+                    if (cell.hasAttribute('contenteditable')) {
+                        // Wywołaj updateCellValue przy odkliknięciu
+                        const id = cell.id;
+                        const value = cell.innerText;
+                        $0.$server.updateCellValue(id, value);
+                    }
+                });
+                """, getElement());
+    }
+
+    @ClientCallable
+    public void addSelectedCell(String cellId) {
+        Cell cell = cellMap.get(cellId);
+        if (cell != null) {
+            selectedCells.add(cell);
+            refreshClearSelectionButtonVisibility();
+        }
+    }
+
+    @ClientCallable
+    public void removeSelectedCell(String cellId) {
+        Cell cell = cellMap.get(cellId);
+        if (cell != null) {
+            selectedCells.remove(cell);
+            refreshClearSelectionButtonVisibility();
+        }
     }
 
     private void initializeCells() {
