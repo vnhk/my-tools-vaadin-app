@@ -45,6 +45,7 @@ import static com.bervan.spreadsheet.utils.SpreadsheetUtils.sortColumns;
 @PermitAll
 public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParameter<String> {
     public static final String ROUTE_NAME = "/spreadsheet-app/poc";
+    private static final int MAX_RECURSION_DEPTH = 100;
 
     @Autowired
     private SpreadsheetRepository spreadsheetRepository;
@@ -676,7 +677,23 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         }
     }
 
+
     private void recalculateCell(Cell cell) {
+        recalculateCell(cell, new HashSet<>(), 0);
+    }
+
+    private void recalculateCell(Cell cell, Set<String> visitedCells, int depth) {
+        if (depth > MAX_RECURSION_DEPTH) {
+            System.out.println("Recursion limit exceeded for cell: " + cell.cellId);
+            return;
+        }
+
+        if (visitedCells.contains(cell.cellId)) {
+            return;
+        }
+
+        visitedCells.add(cell.cellId);
+
         if (cell.isFunction) {
             calculateFunctionValue(cell);
         }
@@ -686,7 +703,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
 
         // Now, find and update any cells that depend on this cell
         for (Cell dependentCell : getDependentCells(cell.cellId)) {
-            recalculateCell(dependentCell);
+            recalculateCell(dependentCell, visitedCells, depth + 1);
         }
     }
 
@@ -795,7 +812,64 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         VerticalLayout layout = new VerticalLayout();
 
         // Generate the table content as plain text
-        String tableText = generateTableText();
+        String tableText = "";
+
+        if (!selectedCells.isEmpty()) {
+            Map<String, List<Cell>> columnsMap = new HashMap<>();
+
+            for (Cell cell : selectedCells) {
+                String column = cell.columnSymbol;
+                columnsMap.putIfAbsent(column, new ArrayList<>());
+                columnsMap.get(column).add(cell);
+            }
+
+            boolean allSameSize = columnsMap.values().stream().map(List::size).distinct().count() == 1;
+
+            if (allSameSize) {
+                List<Integer> referenceRowNumbers = columnsMap.values().iterator().next().stream().map(cell -> cell.rowNumber).sorted().toList();
+
+                boolean allRowsMatch = columnsMap.values().stream().allMatch(cells -> {
+                    List<Integer> rowNumbers = cells.stream().map(cell -> cell.rowNumber).sorted().toList();
+                    return rowNumbers.equals(referenceRowNumbers);
+                });
+
+                if (allRowsMatch) {
+                    boolean allContinuous = true;
+                    int minRow = 0;
+                    int maxRow = 0;
+                    for (Map.Entry<String, List<Cell>> entry : columnsMap.entrySet()) {
+                        String column = entry.getKey();
+                        List<Cell> cells = entry.getValue();
+
+                        minRow = cells.stream().mapToInt(c -> c.rowNumber).min().orElseThrow();
+                        maxRow = cells.stream().mapToInt(c -> c.rowNumber).max().orElseThrow();
+
+                        Set<Integer> rowNumbers = cells.stream().map(cell -> cell.rowNumber)
+                                .collect(Collectors.toSet());
+
+                        for (int i = minRow; i <= maxRow; i++) {
+                            if (!rowNumbers.contains(i)) {
+                                allContinuous = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (allContinuous) {
+                        showPrimaryNotification("Copy table properties applied based on selection!");
+                        tableText = generateTableText(selectedCells.stream().toList());
+                    } else {
+                        showErrorNotification("Copy table properties cannot be applied!");
+                    }
+                } else {
+                    showErrorNotification("Copy table properties cannot be applied!");
+                }
+            }
+        }
+
+        if (tableText.isEmpty()) {
+            tableText = generateTableText();
+        }
 
         TextArea textArea = new TextArea();
         textArea.setWidthFull();
@@ -834,7 +908,46 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
             sb.append(row).append("\t");
             for (int col = 0; col < columns; col++) {
                 Cell cell = cells[row][col];
-                String val = cell.value != null ? cell.value : "";
+                String val = cell.value != null ? cell.value.replaceAll("\n", " ")
+                        .replaceAll("\t", " ") : "";
+                sb.append(val).append("\t");
+            }
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+
+    private String generateTableText(List<Cell> cellList) {
+        if (cellList == null || cellList.isEmpty()) {
+            return "No data available.";
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        int minRow = cellList.stream().mapToInt(e -> e.rowNumber).min().orElse(0);
+        int maxRow = cellList.stream().mapToInt(e -> e.rowNumber).max().orElse(0);
+        int minCol = cellList.stream().mapToInt(e -> e.columnNumber).min().orElse(0);
+        int maxCol = cellList.stream().mapToInt(e -> e.columnNumber).max().orElse(0);
+
+        sb.append("#\t");
+        for (int col = minCol; col <= maxCol; col++) {
+            sb.append(getColumnName(col)).append("\t");
+        }
+        sb.append("\n");
+
+        Map<String, Cell> cellMap = cellList.stream()
+                .collect(Collectors.toMap(
+                        cell -> cell.columnNumber + "_" + cell.rowNumber,
+                        cell -> cell
+                ));
+
+        for (int row = minRow; row <= maxRow; row++) {
+            sb.append(row).append("\t");
+            for (int col = minCol; col <= maxCol; col++) {
+                Cell cell = cellMap.get(col + "_" + row);
+                String val = (cell != null && cell.value != null) ? cell.value.replaceAll("\n", " ")
+                        .replaceAll("\t", " ") : "";
                 sb.append(val).append("\t");
             }
             sb.append("\n");
