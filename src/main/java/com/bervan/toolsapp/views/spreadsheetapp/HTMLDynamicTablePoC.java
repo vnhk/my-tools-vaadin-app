@@ -425,7 +425,6 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                     const cell = event.target;
                     if (cell.tagName === 'TD' && cell.id) {
                         if (event.shiftKey) {
-                            // Obsługa Shift+Click do zaznaczania komórek
                             if (cell.style.backgroundColor === 'green') {
                                 cell.style.backgroundColor = '';
                                 $0.$server.removeSelectedCell(cell.id);
@@ -434,9 +433,41 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                                 $0.$server.addSelectedCell(cell.id);
                             }
                         } else if (cell.hasAttribute('contenteditable')) {
-                            // Zwykłe kliknięcie - wywołaj cellFocusIn
                             const id = cell.id;
                             $0.$server.cellFocusIn(id);
+                        }
+                    } else if (cell.tagName === 'TH') {
+                        if (event.shiftKey) {
+                            let allTd = document.querySelectorAll("td");
+                            let atLeastOneMarkedAlready = false;
+                            let atLeastOneNotMarkedAlready = false;
+                            let tdToSwitch = [];
+                            for(let i = 0 ; i < allTd.length; i++) {
+                               if(allTd[i].id.startsWith(cell.innerText)) {
+                                 tdToSwitch.push(allTd[i]);
+                                 
+                                 if(allTd[i].style.backgroundColor === 'green') {
+                                    atLeastOneMarkedAlready = true;
+                                 } else {
+                                    atLeastOneNotMarkedAlready = true;
+                                 }
+                               }
+                            }
+                            
+                            for(let i = 0; i < tdToSwitch.length; i++) {
+                                if(atLeastOneMarkedAlready && atLeastOneNotMarkedAlready) {
+                                   tdToSwitch[i].style.backgroundColor = 'green';
+                                   $0.$server.addSelectedCell(tdToSwitch[i].id);
+                                } else {
+                                     if (tdToSwitch[i].style.backgroundColor === 'green') {
+                                        tdToSwitch[i].style.backgroundColor = '';
+                                        $0.$server.removeSelectedCell(tdToSwitch[i].id);
+                                     } else {
+                                        tdToSwitch[i].style.backgroundColor = 'green';
+                                        $0.$server.addSelectedCell(tdToSwitch[i].id);
+                                     }
+                                }
+                            }
                         }
                     }
                 });
@@ -444,7 +475,6 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                 table.addEventListener('focusout', event => {
                     const cell = event.target;
                     if (cell.hasAttribute('contenteditable')) {
-                        // Wywołaj updateCellValue przy odkliknięciu
                         const id = cell.id;
                         const value = cell.innerText;
                         $0.$server.updateCellValue(id, value);
