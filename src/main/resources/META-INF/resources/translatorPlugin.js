@@ -12,6 +12,7 @@
 
 (function() {
     'use strict';
+    let formContainer;
 
     const HOST = "192.168.1.205:8091";
     const API_KEY = "ABCD";
@@ -42,7 +43,7 @@
         const markedText = window.getSelection().toString().trim();
 
         // Create form overlay container
-        const formContainer = document.createElement('div');
+        formContainer = document.createElement('div');
         formContainer.style.position = 'fixed';
         formContainer.style.top = '50%';
         formContainer.style.left = '50%';
@@ -55,6 +56,8 @@
         formContainer.style.zIndex = '9999';
         formContainer.style.borderRadius = '8px';
         formContainer.style.color = 'black';
+
+        makeDraggable(formContainer);
 
         // Close button
         const closeButton = document.createElement('button');
@@ -285,4 +288,35 @@
         icon.style.display = isLoading ? 'block' : 'none';
     }
 
+    // Function to make the modal draggable
+    function makeDraggable(element) {
+        let offsetX = 0, offsetY = 0, isDragging = false;
+
+        // Add a mouse down listener to enable dragging
+        element.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            offsetX = e.clientX - element.getBoundingClientRect().left;
+            offsetY = e.clientY - element.getBoundingClientRect().top;
+            element.style.cursor = 'move';
+        });
+
+        // Listen for mouse movement to move the modal
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                const x = e.clientX - offsetX;
+                const y = e.clientY - offsetY;
+                element.style.left = `${x}px`;
+                element.style.top = `${y}px`;
+                element.style.transform = 'none'; // Disable centering when dragging
+            }
+        });
+
+        // Listen for mouse up to stop dragging
+        document.addEventListener('mouseup', () => {
+            if (isDragging) {
+                isDragging = false;
+                element.style.cursor = 'default';
+            }
+        });
+    }
 })();
