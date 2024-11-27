@@ -14,6 +14,7 @@ import com.bervan.spreadsheet.utils.SpreadsheetUtils;
 import com.bervan.toolsapp.views.MainLayout;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.flow.component.ClientCallable;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.contextmenu.MenuItem;
@@ -24,6 +25,7 @@ import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -148,9 +150,10 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         editMenuOptions(editMenu);
 
         // Styling menu
-        stylingMenu = menuBar.addItem("Column Styling");
+        stylingMenu = menuBar.addItem("Styling");
         stylingMenu.addClassName("option-button");
         stylingMenuOptions(stylingMenu);
+        stylingMenu.setVisible(false); // Initially hidden
 
         // Help menu
         MenuItem helpMenu = menuBar.addItem("Help");
@@ -361,6 +364,10 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
             save();
         });
 
+        MenuItem pasteItem = fileSubMenu.addItem("Paste", event -> {
+            handlePasteAction();
+        });
+
         MenuItem copyTableItem = fileSubMenu.addItem("Copy Table", event -> {
             showCopyTableDialog();
         });
@@ -482,7 +489,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                         if (event.shiftKey) {
                             let allTd = document.querySelectorAll("td");
                             let atLeastOneMarkedAlready = false;
-                            let atLeastOneNotMarkedAlready = false;
+                            let atLeastOneNotMarkedAlready = true;
                             let tdToSwitch = [];
                             for(let i = 0 ; i < allTd.length; i++) {
                                if(allTd[i].id.startsWith(event.target.innerText)) {
@@ -535,7 +542,9 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
 
     @ClientCallable
     public void updateStylingMenuVisibility(boolean visible) {
-
+        UI.getCurrent().access(() -> {
+            stylingMenu.setVisible(visible);
+        });
     }
 
     @ClientCallable
@@ -855,7 +864,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
 
     @ClientCallable
     public void showErrorNotification(String message) {
-        Notification.show(message);
+        Notification.show(message).addThemeVariants(NotificationVariant.LUMO_ERROR);
     }
 
     // Method to show the copy table dialog
@@ -1099,5 +1108,138 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         VerticalLayout layout = new VerticalLayout(urlField, buttons);
         dialog.add(layout);
         dialog.open();
+    }
+
+    // New method to handle the Paste action
+    private void handlePasteAction() {
+        if (focusedCell == null) {
+            showErrorNotification("No cell is focused. Please focus on a cell to determine the starting point for pasting.");
+            return;
+        }
+
+        // Show a dialog to get the clipboard content
+        Dialog dialog = new Dialog();
+        dialog.setWidth("600px");
+        dialog.setHeight("400px");
+
+        TextArea clipboardContentArea = new TextArea("Paste your data here");
+        clipboardContentArea.setWidthFull();
+        clipboardContentArea.setHeight("250px");
+
+        Button pasteButton = new Button("Paste", event -> {
+            String clipboardContent = clipboardContentArea.getValue();
+            if (clipboardContent == null || clipboardContent.isEmpty()) {
+                showErrorNotification("Clipboard is empty.");
+                return;
+            }
+
+            // Process the clipboard content
+            processClipboardContent(clipboardContent);
+            dialog.close();
+        });
+
+        Button cancelButton = new Button("Cancel", event -> {
+            dialog.close();
+        });
+
+        HorizontalLayout buttonsLayout = new HorizontalLayout(pasteButton, cancelButton);
+        VerticalLayout dialogLayout = new VerticalLayout(clipboardContentArea, buttonsLayout);
+        dialog.add(dialogLayout);
+        dialog.open();
+    }
+
+    private void processClipboardContent(String clipboardContent) {
+        // Split the content into rows
+        String[] rowsData = clipboardContent.split("\n");
+        int dataRowCount = rowsData.length;
+        int dataColumnCount = 0;
+
+        List<List<String>> data = new ArrayList<>();
+
+        for (String rowData : rowsData) {
+            // Split each row into columns
+            String[] columnsData = rowData.split("\t");
+            dataColumnCount = Math.max(dataColumnCount, columnsData.length);
+            List<String> rowValues = Arrays.asList(columnsData);
+            data.add(rowValues);
+        }
+
+        // Determine starting position
+        int startColumn = focusedCell.columnNumber;
+        int startRow = 0; // You can adjust this if you want to start from a specific row
+
+        // Check if the table needs to be expanded
+        int requiredRows = startRow + dataRowCount;
+        int requiredColumns = startColumn + dataColumnCount;
+
+        boolean needExpansion = requiredRows > rows || requiredColumns > columns;
+
+        if (needExpansion) {
+            rows = Math.max(rows, requiredRows);
+            columns = Math.max(columns, requiredColumns);
+            updateCellsArray();
+        }
+
+        // Check if any existing cells will be overwritten
+        boolean willOverwrite = false;
+        for (int i = 0; i < dataRowCount; i++) {
+            for (int j = 0; j < dataColumnCount; j++) {
+                int currentRow = startRow + i;
+                int currentColumn = startColumn + j;
+                if (currentRow < cells.length && currentColumn < cells[0].length) {
+                    Cell cell = cells[currentRow][currentColumn];
+                    if (cell != null && (cell.value != null && !cell.value.isEmpty())) {
+                        willOverwrite = true;
+                        break;
+                    }
+                }
+            }
+            if (willOverwrite) {
+                break;
+            }
+        }
+
+        if (willOverwrite) {
+            // Ask for confirmation
+            Dialog confirmDialog = new Dialog();
+            confirmDialog.setWidth("400px");
+            confirmDialog.setHeight("200px");
+            Span message = new Span("Some cells already contain data. Are you sure you want to overwrite them?");
+            Button yesButton = new Button("Yes", event -> {
+                pasteDataIntoCells(data, startRow, startColumn);
+                confirmDialog.close();
+            });
+            Button noButton = new Button("No", event -> {
+                confirmDialog.close();
+            });
+            HorizontalLayout buttonsLayout = new HorizontalLayout(yesButton, noButton);
+            VerticalLayout dialogLayout = new VerticalLayout(message, buttonsLayout);
+            confirmDialog.add(dialogLayout);
+            confirmDialog.open();
+        } else {
+            pasteDataIntoCells(data, startRow, startColumn);
+        }
+    }
+
+    private void pasteDataIntoCells(List<List<String>> data, int startRow, int startColumn) {
+        for (int i = 0; i < data.size(); i++) {
+            List<String> rowData = data.get(i);
+            for (int j = 0; j < rowData.size(); j++) {
+                String cellValue = rowData.get(j);
+                int currentRow = startRow + i;
+                int currentColumn = startColumn + j;
+                if (currentRow < cells.length && currentColumn < cells[0].length) {
+                    Cell cell = cells[currentRow][currentColumn];
+                    if (cell != null) {
+                        cell.value = cellValue;
+                        cell.htmlContent = cellValue;
+                        // Update the cell in the client-side
+                        updateCellInClient(cell.cellId, cell.htmlContent);
+                    }
+                }
+            }
+        }
+        refreshTable();
+        showSuccessNotification("Data pasted successfully.");
     }
 }
