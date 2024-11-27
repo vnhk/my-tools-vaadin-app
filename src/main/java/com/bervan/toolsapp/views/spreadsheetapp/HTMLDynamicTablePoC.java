@@ -14,7 +14,6 @@ import com.bervan.spreadsheet.utils.SpreadsheetUtils;
 import com.bervan.toolsapp.views.MainLayout;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.flow.component.ClientCallable;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.contextmenu.MenuItem;
@@ -150,10 +149,9 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         editMenuOptions(editMenu);
 
         // Styling menu
-        stylingMenu = menuBar.addItem("Styling");
+        stylingMenu = menuBar.addItem("Styling Column");
         stylingMenu.addClassName("option-button");
         stylingMenuOptions(stylingMenu);
-        stylingMenu.setVisible(false); // Initially hidden
 
         // Help menu
         MenuItem helpMenu = menuBar.addItem("Help");
@@ -542,9 +540,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
 
     @ClientCallable
     public void updateStylingMenuVisibility(boolean visible) {
-        UI.getCurrent().access(() -> {
-            stylingMenu.setVisible(visible);
-        });
+
     }
 
     @ClientCallable
