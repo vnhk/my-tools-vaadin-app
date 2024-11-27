@@ -32,6 +32,7 @@ import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.OptionalParameter;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
@@ -67,6 +68,15 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
     private List<HistorySpreadsheet> sorted = new ArrayList<>();
     private final Set<Cell> selectedCells = new HashSet<>();
     private Button clearSelectionButton;
+
+    private MenuItem stylingMenu;
+    private MenuItem boldMenuItem;
+    private MenuItem italicMenuItem;
+    private MenuItem underlineMenuItem;
+    private MenuItem linkMenuItem;
+    private MenuItem imageMenuItem;
+
+    private Cell focusedCell; // Keep track of the currently focused cell
 
     // Map for quick access to cells by their ID
     private Map<String, Cell> cellMap = new HashMap<>();
@@ -137,10 +147,14 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         editMenu.addClassName("option-button");
         editMenuOptions(editMenu);
 
+        // Styling menu
+        stylingMenu = menuBar.addItem("Column Styling");
+        stylingMenu.addClassName("option-button");
+        stylingMenuOptions(stylingMenu);
+
         // Help menu
         MenuItem helpMenu = menuBar.addItem("Help");
         helpMenu.addClassName("option-button");
-
         helpMenuOptions(helpMenu);
 
         // Add the MenuBar and table to the layout
@@ -162,7 +176,8 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
     }
 
     private void refreshClearSelectionButtonVisibility() {
-        clearSelectionButton.setVisible(!selectedCells.isEmpty());
+        boolean hasSelection = !selectedCells.isEmpty();
+        clearSelectionButton.setVisible(hasSelection);
     }
 
     private void clearSelection() {
@@ -283,7 +298,6 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         dialog.open();
     }
 
-
     private void helpMenuOptions(MenuItem helpMenu) {
         SubMenu helpSubMenu = helpMenu.getSubMenu();
         MenuItem showFunctionsItem = helpSubMenu.addItem("Show Available Functions", event -> {
@@ -313,6 +327,30 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         MenuItem refreshTableItem = editSubMenu.addItem("Refresh Table", event -> {
             refreshTable();
             showSuccessNotification("Table refreshed");
+        });
+    }
+
+    private void stylingMenuOptions(MenuItem stylingMenu) {
+        SubMenu stylingSubMenu = stylingMenu.getSubMenu();
+
+        boldMenuItem = stylingSubMenu.addItem("Bold", event -> {
+            applyStyleToFocusedCell("bold");
+        });
+
+        italicMenuItem = stylingSubMenu.addItem("Italic", event -> {
+            applyStyleToFocusedCell("italic");
+        });
+
+        underlineMenuItem = stylingSubMenu.addItem("Underline", event -> {
+            applyStyleToFocusedCell("underline");
+        });
+
+        linkMenuItem = stylingSubMenu.addItem("Add Link", event -> {
+            applyLinkToFocusedCell();
+        });
+
+        imageMenuItem = stylingSubMenu.addItem("Insert Image", event -> {
+            insertImageInFocusedCell();
         });
     }
 
@@ -421,10 +459,11 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
 
         getElement().executeJs("""
                 const table = this.querySelector('table');
-                                
+                let focusedCellId = null;
+
                 table.addEventListener('click', event => {
-                    const cell = event.target;
-                    if (cell.tagName === 'TD' && cell.id) {
+                    const cell = event.target.closest('td');
+                    if (cell && cell.id) {
                         if (event.shiftKey) {
                             if (cell.style.backgroundColor === 'green') {
                                 cell.style.backgroundColor = '';
@@ -435,18 +474,20 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                             }
                         } else if (cell.hasAttribute('contenteditable')) {
                             const id = cell.id;
+                            focusedCellId = id;
                             $0.$server.cellFocusIn(id);
+                            $0.$server.updateStylingMenuVisibility(true);
                         }
-                    } else if (cell.tagName === 'TH') {
+                    } else if (event.target.tagName === 'TH') {
                         if (event.shiftKey) {
                             let allTd = document.querySelectorAll("td");
                             let atLeastOneMarkedAlready = false;
                             let atLeastOneNotMarkedAlready = false;
                             let tdToSwitch = [];
                             for(let i = 0 ; i < allTd.length; i++) {
-                               if(allTd[i].id.startsWith(cell.innerText)) {
+                               if(allTd[i].id.startsWith(event.target.innerText)) {
                                  tdToSwitch.push(allTd[i]);
-                                 
+
                                  if(allTd[i].style.backgroundColor === 'green') {
                                     atLeastOneMarkedAlready = true;
                                  } else {
@@ -454,7 +495,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                                  }
                                }
                             }
-                            
+
                             for(let i = 0; i < tdToSwitch.length; i++) {
                                 if(atLeastOneMarkedAlready && atLeastOneNotMarkedAlready) {
                                    tdToSwitch[i].style.backgroundColor = 'green';
@@ -472,16 +513,29 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                         }
                     }
                 });
-                        
+
                 table.addEventListener('focusout', event => {
                     const cell = event.target;
                     if (cell.hasAttribute('contenteditable')) {
                         const id = cell.id;
-                        const value = cell.innerText;
-                        $0.$server.updateCellValue(id, value);
+                        const htmlContent = cell.innerHTML;
+                        $0.$server.updateCellValue(id, htmlContent);
+                    }
+                });
+
+                window.addEventListener('click', event => {
+                    const cell = event.target.closest('td');
+                    const menuBar = document.querySelector('vaadin-menu-bar');
+                    if (!cell && !menuBar.contains(event.target)) {
+                        $0.$server.updateStylingMenuVisibility(false);
                     }
                 });
                 """, getElement());
+    }
+
+    @ClientCallable
+    public void updateStylingMenuVisibility(boolean visible) {
+
     }
 
     @ClientCallable
@@ -502,12 +556,18 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         }
     }
 
+    @ClientCallable
+    public void cellFocusIn(String cellId) {
+        focusedCell = cellMap.get(cellId);
+    }
+
     private void initializeCells() {
         cells = new Cell[rows][columns];
         cellMap.clear();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 Cell cell = new Cell("", j, i);
+                cell.htmlContent = "";
                 cells[i][j] = cell;
                 cellMap.put(cell.cellId, cell);
             }
@@ -529,6 +589,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
             for (int j = 0; j < columns; j++) {
                 if (newCells[i][j] == null) {
                     Cell cell = new Cell("", j, i);
+                    cell.htmlContent = "";
                     newCells[i][j] = cell;
                     cellMap.put(cell.cellId, cell);
                 } else {
@@ -556,6 +617,9 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                 cell.rowNumber = i;
                 cell.columnSymbol = getColumnName(j);
                 cell.cellId = cell.columnSymbol + cell.rowNumber;
+                if (cell.htmlContent == null) {
+                    cell.htmlContent = cell.value != null ? cell.value : "";
+                }
                 cellMap.put(cell.cellId, cell);
             }
         }
@@ -607,7 +671,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                 if (cell.isFunction) {
                     cell.buildFunction(cell.getFunctionValue());
                 }
-                String val = cell.value != null ? cell.value : "";
+                String val = cell.htmlContent != null ? cell.htmlContent : "";
                 tableBuilder.append(val);
                 tableBuilder.append("</td>");
             }
@@ -624,10 +688,14 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
     }
 
     @ClientCallable
-    public void updateCellValue(String cellId, String value) {
+    public void updateCellValue(String cellId, String htmlContent) {
         Cell cell = cellMap.get(cellId);
         if (cell != null) {
-            // Update the cell's raw value
+            // Update the cell's htmlContent
+            cell.htmlContent = htmlContent;
+
+            // Extract plain text value from htmlContent
+            String value = Jsoup.parse(htmlContent).text();
             cell.value = value;
 
             // If value starts with '=', it's a function
@@ -649,34 +717,18 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
             }
 
             // Update the cell in the client-side
-            updateCellInClient(cell.cellId, cell.value);
+            updateCellInClient(cell.cellId, cell.htmlContent);
         }
     }
 
     // New method to update a cell in the client-side
-    private void updateCellInClient(String cellId, String value) {
+    private void updateCellInClient(String cellId, String htmlContent) {
         getElement().executeJs(
                 "const cell = document.getElementById($0);" +
-                        "if (cell) { cell.innerText = $1; }",
-                cellId, value
+                        "if (cell) { cell.innerHTML = $1; }",
+                cellId, htmlContent
         );
     }
-
-    @ClientCallable
-    public void cellFocusIn(String cellId) {
-        Cell cell = cellMap.get(cellId);
-        if (cell != null) {
-            // If the cell is a function, display the function expression
-            if (cell.isFunction) {
-                getElement().executeJs(
-                        "const cell = document.getElementById($0);" +
-                                "if (cell) { cell.innerText = $1; }",
-                        cellId, cell.getFunctionValue()
-                );
-            }
-        }
-    }
-
 
     private void recalculateCell(Cell cell) {
         recalculateCell(cell, new HashSet<>(), 0);
@@ -699,7 +751,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         }
 
         // Update the cell in the client-side
-        updateCellInClient(cell.cellId, cell.value);
+        updateCellInClient(cell.cellId, cell.htmlContent);
 
         // Now, find and update any cells that depend on this cell
         for (Cell dependentCell : getDependentCells(cell.cellId)) {
@@ -736,7 +788,6 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         dialog.open();
     }
 
-
     private void calculateFunctionValue(Cell cell) {
         String functionName = cell.functionName;
         Optional<? extends SpreadsheetFunction> first = spreadsheetFunctions.stream()
@@ -745,8 +796,10 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
 
         if (first.isPresent()) {
             cell.value = String.valueOf(first.get().calculate(cell.getRelatedCellsId(), getRows()));
+            cell.htmlContent = cell.value; // Update htmlContent
         } else {
             cell.value = "NO FUNCTION";
+            cell.htmlContent = cell.value;
         }
     }
 
@@ -786,7 +839,8 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
                     } catch (Exception e) {
                         e.printStackTrace();
                         cell.value = "ERROR";
-                        updateCellInClient(cell.cellId, cell.value);
+                        cell.htmlContent = cell.value;
+                        updateCellInClient(cell.cellId, cell.htmlContent);
                     }
                 }
             }
@@ -908,7 +962,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
             sb.append(row).append("\t");
             for (int col = 0; col < columns; col++) {
                 Cell cell = cells[row][col];
-                String val = cell.value != null ? cell.value.replaceAll("\n", " ")
+                String val = (cell != null && cell.htmlContent != null) ? Jsoup.parse(cell.htmlContent).text().replaceAll("\n", " ")
                         .replaceAll("\t", " ") : "";
                 sb.append(val).append("\t");
             }
@@ -946,7 +1000,7 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
             sb.append(row).append("\t");
             for (int col = minCol; col <= maxCol; col++) {
                 Cell cell = cellMap.get(col + "_" + row);
-                String val = (cell != null && cell.value != null) ? cell.value.replaceAll("\n", " ")
+                String val = (cell != null && cell.htmlContent != null) ? Jsoup.parse(cell.htmlContent).text().replaceAll("\n", " ")
                         .replaceAll("\t", " ") : "";
                 sb.append(val).append("\t");
             }
@@ -954,5 +1008,96 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         }
 
         return sb.toString();
+    }
+
+    private void applyStyleToFocusedCell(String style) {
+        if (focusedCell == null) {
+            showErrorNotification("No cell is focused.");
+            return;
+        }
+        String openTag = "";
+        String closeTag = "";
+        switch (style) {
+            case "bold":
+                openTag = "<b>";
+                closeTag = "</b>";
+                break;
+            case "italic":
+                openTag = "<i>";
+                closeTag = "</i>";
+                break;
+            case "underline":
+                openTag = "<u>";
+                closeTag = "</u>";
+                break;
+            default:
+                showErrorNotification("Unknown style: " + style);
+                return;
+        }
+        String content = focusedCell.htmlContent != null ? focusedCell.htmlContent : "";
+        // Avoid duplicating tags if they already exist
+        if (!content.contains(openTag)) {
+            focusedCell.htmlContent = openTag + content + closeTag;
+        }
+        refreshTable();
+        showSuccessNotification("Style applied to focused cell.");
+    }
+
+    private void applyLinkToFocusedCell() {
+        if (focusedCell == null) {
+            showErrorNotification("No cell is focused.");
+            return;
+        }
+        // Show a dialog to get the URL
+        Dialog dialog = new Dialog();
+        dialog.setWidth("400px");
+
+        BervanTextField urlField = new BervanTextField("URL", "https://example.com");
+        Button okButton = new Button("OK", e -> {
+            String url = urlField.getValue();
+            if (url == null || url.isEmpty()) {
+                showErrorNotification("URL cannot be empty.");
+                return;
+            }
+            String content = focusedCell.htmlContent != null ? focusedCell.htmlContent : focusedCell.value;
+            focusedCell.htmlContent = "<a href=\"" + url + "\">" + content + "</a>";
+            refreshTable();
+            showSuccessNotification("Link applied to focused cell.");
+            dialog.close();
+        });
+        Button cancelButton = new Button("Cancel", e -> dialog.close());
+        HorizontalLayout buttons = new HorizontalLayout(okButton, cancelButton);
+        VerticalLayout layout = new VerticalLayout(urlField, buttons);
+        dialog.add(layout);
+        dialog.open();
+    }
+
+    private void insertImageInFocusedCell() {
+        if (focusedCell == null) {
+            showErrorNotification("No cell is focused.");
+            return;
+        }
+        // Show a dialog to get the image URL
+        Dialog dialog = new Dialog();
+        dialog.setWidth("400px");
+
+        BervanTextField urlField = new BervanTextField("Image URL", "https://example.com/image.png");
+        Button okButton = new Button("OK", e -> {
+            String url = urlField.getValue();
+            if (url == null || url.isEmpty()) {
+                showErrorNotification("Image URL cannot be empty.");
+                return;
+            }
+            focusedCell.htmlContent = "<img src=\"" + url + "\" alt=\"Image\" />";
+            focusedCell.value = ""; // Maybe set value to empty
+            refreshTable();
+            showSuccessNotification("Image inserted into focused cell.");
+            dialog.close();
+        });
+        Button cancelButton = new Button("Cancel", e -> dialog.close());
+        HorizontalLayout buttons = new HorizontalLayout(okButton, cancelButton);
+        VerticalLayout layout = new VerticalLayout(urlField, buttons);
+        dialog.add(layout);
+        dialog.open();
     }
 }
