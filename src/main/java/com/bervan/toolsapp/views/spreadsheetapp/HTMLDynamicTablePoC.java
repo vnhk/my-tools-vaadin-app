@@ -463,78 +463,74 @@ public class HTMLDynamicTablePoC extends AbstractPageView implements HasUrlParam
         tableHtml.getElement().setProperty("innerHTML", buildTable(columns, rows, cells));
 
         getElement().executeJs("""
-                const table = this.querySelector('table');
-                let focusedCellId = null;
+                    const table = this.querySelector('table');
+                    let focusedCellId = null;
 
-                table.addEventListener('click', event => {
-                    const cell = event.target.closest('td');
-                    if (cell && cell.id) {
-                        if (event.shiftKey) {
-                            if (cell.style.backgroundColor === 'green') {
-                                cell.style.backgroundColor = '';
-                                $0.$server.removeSelectedCell(cell.id);
-                            } else {
-                                cell.style.backgroundColor = 'green';
-                                $0.$server.addSelectedCell(cell.id);
-                            }
-                        } else if (cell.hasAttribute('contenteditable')) {
-                            const id = cell.id;
-                            focusedCellId = id;
-                            $0.$server.cellFocusIn(id);
-                            $0.$server.updateStylingMenuVisibility(true);
-                        }
-                    } else if (event.target.tagName === 'TH') {
-                        if (event.shiftKey) {
-                            let allTd = document.querySelectorAll("td");
-                            let atLeastOneMarkedAlready = false;
-                            let atLeastOneNotMarkedAlready = true;
-                            let tdToSwitch = [];
-                            for(let i = 0 ; i < allTd.length; i++) {
-                               if(allTd[i].id.startsWith(event.target.innerText)) {
-                                 tdToSwitch.push(allTd[i]);
-
-                                 if(allTd[i].style.backgroundColor === 'green') {
-                                    atLeastOneMarkedAlready = true;
-                                 } else {
-                                    atLeastOneNotMarkedAlready = true;
-                                 }
-                               }
-                            }
-
-                            for(let i = 0; i < tdToSwitch.length; i++) {
-                                if(atLeastOneMarkedAlready && atLeastOneNotMarkedAlready) {
-                                   tdToSwitch[i].style.backgroundColor = 'green';
-                                   $0.$server.addSelectedCell(tdToSwitch[i].id);
+                    table.addEventListener('click', event => {
+                        const cell = event.target.closest('td');
+                        if (cell && cell.id) {
+                            if (event.shiftKey) {
+                                if (cell.style.backgroundColor === 'green') {
+                                    cell.style.backgroundColor = '';
+                                    $0.$server.removeSelectedCell(cell.id);
                                 } else {
-                                     if (tdToSwitch[i].style.backgroundColor === 'green') {
-                                        tdToSwitch[i].style.backgroundColor = '';
-                                        $0.$server.removeSelectedCell(tdToSwitch[i].id);
-                                     } else {
+                                    cell.style.backgroundColor = 'green';
+                                    $0.$server.addSelectedCell(cell.id);
+                                }
+                            } else if (cell.hasAttribute('contenteditable')) {
+                                const id = cell.id;
+                                focusedCellId = id;
+                                $0.$server.cellFocusIn(id);
+                                $0.$server.updateStylingMenuVisibility(true);
+                            }
+                        } else if (event.target.tagName === 'TH') {
+                            if (event.shiftKey) {
+                                let allTd = document.querySelectorAll("td");
+                                let atLeastOneMarkedAlready = false;
+                                let atLeastOneNotMarkedAlready = false;
+                                let tdToSwitch = [];
+
+                                for (let i = 0; i < allTd.length; i++) {
+                                    if (allTd[i].id.startsWith(event.target.innerText)) {
+                                        tdToSwitch.push(allTd[i]);
+
+                                        if (allTd[i].style.backgroundColor === 'green') {
+                                            atLeastOneMarkedAlready = true;
+                                        } else {
+                                            atLeastOneNotMarkedAlready = true;
+                                        }
+                                    }
+                                }
+
+                                for (let i = 0; i < tdToSwitch.length; i++) {
+                                    if (atLeastOneNotMarkedAlready) {
                                         tdToSwitch[i].style.backgroundColor = 'green';
                                         $0.$server.addSelectedCell(tdToSwitch[i].id);
-                                     }
+                                    } else {
+                                        tdToSwitch[i].style.backgroundColor = '';
+                                        $0.$server.removeSelectedCell(tdToSwitch[i].id);
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
 
-                table.addEventListener('focusout', event => {
-                    const cell = event.target;
-                    if (cell.hasAttribute('contenteditable')) {
-                        const id = cell.id;
-                        const htmlContent = cell.innerHTML;
-                        $0.$server.updateCellValue(id, htmlContent);
-                    }
-                });
+                    table.addEventListener('focusout', event => {
+                        const cell = event.target;
+                        if (cell.hasAttribute('contenteditable')) {
+                            const id = cell.id;
+                            const htmlContent = cell.innerHTML;
+                            $0.$server.updateCellValue(id, htmlContent);
+                        }
+                    });
 
-                window.addEventListener('click', event => {
-                    const cell = event.target.closest('td');
-                    const menuBar = document.querySelector('vaadin-menu-bar');
-                    if (!cell && !menuBar.contains(event.target)) {
-                        $0.$server.updateStylingMenuVisibility(false);
-                    }
-                });
+                    window.addEventListener('click', event => {
+                        const cell = event.target.closest('td');
+                        const menuBar = document.querySelector('vaadin-menu-bar');
+                        if (!cell && !menuBar.contains(event.target)) {
+                            $0.$server.updateStylingMenuVisibility(false);
+                        }
+                    });
                 """, getElement());
     }
 
