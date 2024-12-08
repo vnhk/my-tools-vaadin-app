@@ -15,6 +15,10 @@ html {
   font-size: 15px;
 }
 
+.selected-cell {
+  background-color: green;
+}
+
 .spreadsheet-header {
   border: 2px solid white;
   padding: 5px;
