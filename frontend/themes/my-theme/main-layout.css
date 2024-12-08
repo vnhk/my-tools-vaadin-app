@@ -12,14 +12,14 @@ html {
 .spreadsheet-table {
   border: 2px solid white;
   border-collapse: collapse;
-  font-size: 26px;
+  font-size: 15px;
 }
 
 .spreadsheet-header {
   border: 2px solid white;
   padding: 5px;
-  min-width: 100px;
-  min-height: 30px;
+  min-width: 50px;
+  min-height: 15px;
 }
 
 .spreadsheet-header-row {
@@ -31,14 +31,15 @@ html {
   padding: 5px;
   background-color: var(--lumo-secondary-color);
   min-width: 50px;
-  min-height: 30px;
+  min-height: 15px;
 }
 
 .spreadsheet-cell {
   border: 2px solid white;
   padding: 5px;
-  min-width: 100px;
-  min-height: 30px;
+  font-size: 15px;
+  min-width: 50px;
+  min-height: 15px;
 }
 
 
