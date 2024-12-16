@@ -4,6 +4,7 @@ package com.bervan.toolsapp.views;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.pocketapp.pocket.PocketService;
 import com.bervan.pocketapp.pocketitem.PocketItemService;
+import com.bervan.toolsapp.views.canvasapp.CanvasPagesView;
 import com.bervan.toolsapp.views.englishepub.NotLearnedWordsView;
 import com.bervan.toolsapp.views.filestorage.FileStorageView;
 import com.bervan.toolsapp.views.interview.InterviewHomeView;
@@ -214,6 +215,7 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Learning Language", "la la-language", LearningAppHomeView.class), //
                 new MenuItemInfo("File Storage", "la la-cloud-upload", FileStorageView.class), //
                 new MenuItemInfo("Spreadsheets", "las la-file-excel", SpreadsheetsView.class), //
+                new MenuItemInfo("Notepad", "las la-file-doc", CanvasPagesView.class), //
         };
     }
 
