@@ -4,6 +4,8 @@
 .project
 .classpath
 
+src/main/bundles/dev.bundle
+
 /src/main/resources/application-dev.properties
 /src/main/resources/application-docker.properties
 
