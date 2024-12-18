@@ -3,19 +3,18 @@
 // @namespace    http://tampermonkey.net/
 // @version      2024-10-26
 // @description  Plugin for translation and saving with animated loading, validation checks, and generate examples option in request body
-// @grant        GM_xmlhttpRequest
 // @match        *://*/*
 // @connect      localhost
 // @connect      192.168.1.205
 // @run-at       document-start
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
     let formContainer;
 
-    const HOST = "192.168.1.205:8091";
-    const API_KEY = "ABCD";
+    const HOST = "https://192.168.1.205:8091";
+    const API_KEY = "ABCD"; // Replace with your actual API key
 
     let shiftTCount = 0;
     let formVisible = false;
@@ -230,63 +229,37 @@
         });
     }
 
-    // Function to fetch translation for given text
-    function fetchTranslation(text) {
-        const translationRequest = {
-            englishText: text,
-            apiKey: API_KEY
-        };
-
-        return new Promise((resolve, reject) => {
-            GM_xmlhttpRequest({
-                method: 'POST',
-                url: `http://${HOST}/language-learning/translate`,
-                data: JSON.stringify(translationRequest),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                onload: function(response) {
-                    if (response.status === 200) {
-                        resolve(response.responseText);
-                    } else {
-                        reject('Translation request failed');
-                    }
-                },
-                onerror: function(err) {
-                    reject(err);
-                }
-            });
+    // Function to fetch translation
+    async function fetchTranslation(text) {
+        const response = await fetch(`${HOST}/language-learning/translate`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({englishText: text, apiKey: API_KEY})
         });
+        if (!response.ok) {
+            throw new Error('Failed to fetch translation');
+        }
+        return response.text();
     }
 
-    // Function to save translation data
-    function saveTranslation(translationRequest) {
-        GM_xmlhttpRequest({
+    // Function to save translation
+    async function saveTranslation(data) {
+        const response = await fetch(`${HOST}/language-learning/translation`, {
             method: 'POST',
-            url: `http://${HOST}/language-learning/translation`,
-            data: JSON.stringify(translationRequest),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            onload: function(response) {
-                if (response.status === 200) {
-                    console.log('Saved translation:', response.responseText);
-                } else {
-                    console.error('Error:', response.responseText);
-                    alert("Save failed: " + response.responseText);
-                }
-            },
-            onerror: function(err) {
-                console.error('Save error:', err);
-                alert("Error in plugin: " + err);
-            }
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
         });
+        if (!response.ok) {
+            throw new Error('Failed to save translation');
+        }
+        return response.text();
     }
 
     // Function to toggle loading icon visibility
     function toggleLoading(isLoading, icon) {
         icon.style.display = isLoading ? 'block' : 'none';
     }
+
 
     // Function to make the modal draggable
     function makeDraggable(element) {

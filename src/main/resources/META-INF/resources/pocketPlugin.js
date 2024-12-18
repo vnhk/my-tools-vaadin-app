@@ -6,7 +6,6 @@
 // @author       You
 // @icon         https://cdn2.iconfinder.com/data/icons/social-icons-33/128/Pocket-512.png
 // @match        *://*/*
-// @grant        GM_xmlhttpRequest
 // @connect      localhost
 // @connect      192.168.1.205
 // @require      https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js
@@ -16,80 +15,66 @@
 // @grant        GM_addStyle
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
     const my_css = GM_getResourceText("IMPORTED_CSS");
     GM_addStyle(my_css);
 
-    const HOST = "192.168.1.205:8091";
-    const API_KEY = "ABCD";
+    const HOST = "https://192.168.1.205:8091";
+    const API_KEY = "YOUR_API_KEY_HERE"; // Replace with your actual API key
 
-    // Load pocket names using GM_xmlhttpRequest to avoid CORS issues
-    async function loadPocketNames(host) {
-        let pre_url = 'http://';
+    // Function to load pocket names using `fetch`
+    async function loadPocketNames() {
+        console.log("Fetching pocket names...");
 
-        const pocketRequest = {
-            apiKey: API_KEY
-        };
-
-        return new Promise((resolve, reject) => {
-            GM_xmlhttpRequest({
-                method: 'POST',
-                url: pre_url + host + '/pocket/get-pocket-names',
-                data: JSON.stringify(pocketRequest),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                onload: function (response) {
-                    if (response.status === 200) {
-                        const pocketNames = JSON.parse(response.responseText);
-                        resolve(pocketNames);
-                    } else {
-                        reject('Error loading pocket names');
-                    }
-                },
-                onerror: function (err) {
-                    reject(err);
-                }
-            });
+        const response = await fetch(`${HOST}/pocket/get-pocket-names`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({apiKey: API_KEY}),
         });
+
+        if (!response.ok) {
+            console.error("Error loading pocket names:", response.statusText);
+            throw new Error("Failed to fetch pocket names.");
+        }
+
+        const pocketNames = await response.json();
+        console.log("Pocket names fetched:", pocketNames);
+        return pocketNames;
     }
 
-    // Function to add data to pocket using GM_xmlhttpRequest
+    // Function to add data to pocket using `fetch`
     async function addToPocket(host, pocketRequest) {
-        return new Promise((resolve, reject) => {
-            GM_xmlhttpRequest({
-                method: 'POST',
-                url: `http://${host}/pocket/pocket-item`,
-                data: JSON.stringify(pocketRequest),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                onload: function(response) {
-                    if (response.status === 200) {
-                        console.log('Response from server:', response.responseText);
-                        resolve(response.responseText);
-                    } else {
-                        console.error('Error:', response.responseText);
-                        alert("Failed: " + response.responseText);
-                        reject(response.responseText);
-                    }
-                },
-                onerror: function(err) {
-                    console.error('Error sending request:', err);
-                    alert("Error in plugin: " + err);
-                    reject(err);
-                }
-            });
+        console.log("Adding to pocket:", pocketRequest);
+
+        const response = await fetch(`${host}/pocket/pocket-item`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(pocketRequest),
         });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error("Error adding to pocket:", errorText);
+            alert("Failed: " + errorText);
+            throw new Error(errorText);
+        }
+
+        const result = await response.json();
+        console.log("Response from server:", result);
+        return result;
     }
 
     let shiftPCount = 0;
     let formVisible = false;
 
     // Monitor for Shift + P key press
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'P' && e.shiftKey) {
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "P" && e.shiftKey) {
             shiftPCount++;
             if (shiftPCount === 3) {
                 if (!formVisible) {
@@ -204,7 +189,12 @@
                 apiKey: API_KEY
             };
 
-            addToPocket(HOST, pocketRequest);
+            try {
+                addToPocket(HOST, pocketRequest);
+                console.log("Pocket added successfully");
+            } catch (err) {
+                console.error("Error submitting pocket:", err);
+            }
 
             // Close the form after submission
             formContainer.remove();
