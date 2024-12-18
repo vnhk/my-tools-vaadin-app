@@ -16,7 +16,10 @@ public class SecurityConfig extends VaadinWebSecurity {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
+        http
+                .requiresChannel(channel ->
+                        channel.anyRequest().requiresSecure()
+                ).authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/login", "/pocket/**", "/language-learning/**").permitAll();
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/line-awesome/**", "/static/**", "/images/**").permitAll();
                 })
