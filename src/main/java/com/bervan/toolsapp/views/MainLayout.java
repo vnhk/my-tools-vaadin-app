@@ -12,6 +12,7 @@ import com.bervan.toolsapp.views.learninglanguage.LearningAppHomeView;
 import com.bervan.toolsapp.views.pocketapp.PocketSideMenuView;
 import com.bervan.toolsapp.views.pocketapp.PocketTableView;
 import com.bervan.toolsapp.views.spreadsheetapp.SpreadsheetsView;
+import com.bervan.toolsapp.views.streamingplatformapp.VideoListView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -215,7 +216,8 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Learning Language", "la la-language", LearningAppHomeView.class), //
                 new MenuItemInfo("File Storage", "la la-cloud-upload", FileStorageView.class), //
                 new MenuItemInfo("Spreadsheets", "las la-file-excel", SpreadsheetsView.class), //
-                new MenuItemInfo("Notepad", "las la-file-doc", CanvasPagesView.class), //
+                new MenuItemInfo("Notepad", "las la-chalkboard", CanvasPagesView.class), //
+                new MenuItemInfo("Streaming", "las la-video", VideoListView.class), //
         };
     }
 
