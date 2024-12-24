@@ -1,7 +1,7 @@
 package com.bervan.toolsapp.views.canvasapp;
 
-import com.bervan.canvasapp.CanvasService;
-import com.bervan.canvasapp.view.AbstractCanvasPagesView;
+import com.bervan.streamingapp.CanvasService;
+import com.bervan.streamingapp.view.AbstractCanvasPagesView;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.router.Route;
