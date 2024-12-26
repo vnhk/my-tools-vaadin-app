@@ -2,7 +2,6 @@ package com.bervan.toolsapp.views.learninglanguage;
 
 import com.bervan.languageapp.service.ExampleOfUsageService;
 import com.bervan.languageapp.service.TranslationRecordService;
-import com.bervan.languageapp.view.AbstractLearningView;
 import com.bervan.languageapp.view.AbstractQuizView;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.router.Route;
