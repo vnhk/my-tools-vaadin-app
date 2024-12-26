@@ -9,6 +9,31 @@ html {
   --vaadin-input-field-icon-color: var(--lumo-third-text-color);
 }
 
+.a1-level {
+  border: 5px solid green;
+}
+
+.a2-level {
+  border: 5px solid dodgerblue;
+}
+
+.b1-level {
+  border: 5px solid blue;
+}
+
+.b2-level {
+  border: 5px solid yellow;
+}
+
+.c1-level {
+  border: 5px solid orange;
+}
+
+.c2-level {
+  border: 5px solid red;
+}
+
+
 .content-container {
   font-family: Arial, sans-serif;
 }
