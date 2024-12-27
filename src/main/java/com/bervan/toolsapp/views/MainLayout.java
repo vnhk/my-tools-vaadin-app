@@ -231,6 +231,7 @@ public class MainLayout extends AppLayout {
     @Override
     protected void afterNavigation() {
         super.afterNavigation();
+        setDrawerOpened(false);
         viewTitle.setText(getCurrentPageTitle());
     }
 
