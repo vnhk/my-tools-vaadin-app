@@ -18,26 +18,21 @@ import org.springframework.web.cors.CorsConfiguration;
 @EnableWebSecurity
 public class SecurityConfig extends VaadinWebSecurity {
 
-    private final AuthenticationProvider customAuthenticationProvider;
     private final AuthenticationProvider otpAuthenticationProvider;
 
     public SecurityConfig(
-            CustomAuthenticationProvider customAuthenticationProvider,
-            OtpAuthenticationProvider otpAuthenticationProvider
+            CustomAuthenticationProvider customAuthenticationProvider
     ) {
-        this.customAuthenticationProvider = customAuthenticationProvider;
-        this.otpAuthenticationProvider = otpAuthenticationProvider;
+        this.otpAuthenticationProvider = customAuthenticationProvider;
     }
 
 
     @Bean
     public AuthenticationManager authenticationManager(
             HttpSecurity http,
-            CustomAuthenticationProvider customProvider,
-            OtpAuthenticationProvider otpProvider
+            CustomAuthenticationProvider otpProvider
     ) throws Exception {
         AuthenticationManagerBuilder authBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authBuilder.authenticationProvider(customProvider);
         authBuilder.authenticationProvider(otpProvider);
         return authBuilder.build();
     }
@@ -56,7 +51,6 @@ public class SecurityConfig extends VaadinWebSecurity {
                     httpSecurityFormLoginConfigurer.defaultSuccessUrl("/");
                     httpSecurityFormLoginConfigurer.successForwardUrl("/");
                 })
-                .authenticationProvider(customAuthenticationProvider)
                 .authenticationProvider(otpAuthenticationProvider)
                 .logout(httpSecurityLogoutConfigurer -> {
                     httpSecurityLogoutConfigurer.logoutUrl("/logout");
@@ -75,11 +69,5 @@ public class SecurityConfig extends VaadinWebSecurity {
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
         );
 
-    }
-
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }

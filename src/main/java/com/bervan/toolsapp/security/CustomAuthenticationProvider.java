@@ -1,43 +1,59 @@
 package com.bervan.toolsapp.security;
 
 import com.bervan.common.user.User;
-import com.bervan.common.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomAuthenticationProvider implements AuthenticationProvider {
+public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
 
     @Autowired
-    private UserRepository userRepository;
+    private final OTPService otpService;
+
+    public CustomAuthenticationProvider(OTPService otpService, UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+        super();
+        this.setUserDetailsService(userDetailsService);
+        this.setPasswordEncoder(passwordEncoder);
+        this.otpService = otpService;
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String username = authentication.getName();
-        String password = authentication.getCredentials().toString();
+        if (authentication instanceof OtpAuthenticationToken authRequest) {
+            String otp = authRequest.getOtp();
+            User user = otpService.login(otp);
 
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new BadCredentialsException("Incorrect credentials"));
+            OtpAuthenticationToken usernamePasswordAuthenticationToken = new OtpAuthenticationToken(
+                    user,
+                    null,
+                    user.getAuthorities(),
+                    otp
+            );
 
-        if (!user.getPassword().equals(password)) {
-            throw new BadCredentialsException("Incorrect credentials");
+            Authentication authenticate = super.authenticate(usernamePasswordAuthenticationToken);
+
+            return authenticate;
+        } else {
+            return super.authenticate(authentication);
         }
+    }
 
-        return new UsernamePasswordAuthenticationToken(
-                user,
-                null,
-                user.getAuthorities()
-        );
+    @Override
+    protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+        if (!(authentication instanceof OtpAuthenticationToken)) {
+            super.additionalAuthenticationChecks(userDetails, authentication);
+        }
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return  false;
-//                OtpAuthenticationToken.class.isAssignableFrom(authentication);
+        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
     }
 }
