@@ -29,6 +29,13 @@ public class OTPGenerateView extends VerticalLayout {
         setJustifyContentMode(JustifyContentMode.CENTER);
         setAlignItems(Alignment.CENTER);
 
+        //add dropdown (default STREAMING) STREAMING, READ, WRITE, that will generate code
+        //and role and in authprovider we set role STREAMING_ONLY that means we can only access streaming app
+        //it has to be done by method secr
+
+        //generate otp as button visible in all views (like bucket) and code determines also url and after login
+        //user is navigated there
+
         Button generateOtpButton = new Button("Generate OTP", event -> generateAndDisplayOTP());
 
         add(otpLabel, generateOtpButton);
