@@ -1,6 +1,7 @@
 package com.bervan.toolsapp.views;
 
 
+import com.bervan.common.service.AuthService;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.pocketapp.pocket.PocketService;
 import com.bervan.pocketapp.pocketitem.PocketItemService;
@@ -9,6 +10,7 @@ import com.bervan.toolsapp.views.englishepub.NotLearnedWordsView;
 import com.bervan.toolsapp.views.filestorage.FileStorageView;
 import com.bervan.toolsapp.views.interview.InterviewHomeView;
 import com.bervan.toolsapp.views.learninglanguage.LearningAppHomeView;
+import com.bervan.toolsapp.views.otpview.OTPGenerateView;
 import com.bervan.toolsapp.views.pocketapp.PocketSideMenuView;
 import com.bervan.toolsapp.views.pocketapp.PocketTableView;
 import com.bervan.toolsapp.views.spreadsheetapp.SpreadsheetsView;
@@ -210,6 +212,7 @@ public class MainLayout extends AppLayout {
 
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
+                new MenuItemInfo("OTP", "la la-guard", OTPGenerateView.class), //
                 new MenuItemInfo("Interview", "la la-desktop", InterviewHomeView.class), //
                 new MenuItemInfo("Pocket", "la la-get-pocket", PocketTableView.class), //
                 new MenuItemInfo("Ebook English Words", "la la-book", NotLearnedWordsView.class), //
