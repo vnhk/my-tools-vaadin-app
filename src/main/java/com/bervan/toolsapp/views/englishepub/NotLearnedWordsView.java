@@ -16,13 +16,13 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
-import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
 
 @Route(value = AbstractNotLearnedWordsView.ROUTE_NAME, layout = MainLayout.class)
 @RouteAlias(value = AbstractNotLearnedWordsView.ROUTE_NAME, layout = MainLayout.class)
-@PermitAll
+@RolesAllowed("USER")
 public class NotLearnedWordsView extends AbstractNotLearnedWordsView {
     private final TranslationRecordService translationRecordService;
     private final TranslatorService translatorService;

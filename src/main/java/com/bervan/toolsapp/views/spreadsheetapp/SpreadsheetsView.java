@@ -7,14 +7,14 @@ import com.bervan.core.model.BervanLogger;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
-import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.util.UUID;
 
 
 @Route(value = AbstractSpreadsheetsView.ROUTE_NAME, layout = MainLayout.class)
 @RouteAlias(value = AbstractSpreadsheetsView.ROUTE_NAME, layout = MainLayout.class)
-@PermitAll
+@RolesAllowed("USER")
 public class SpreadsheetsView extends AbstractSpreadsheetsView {
     public SpreadsheetsView(BaseService<UUID, Spreadsheet> service, BervanLogger log) {
         super(service, log);

@@ -4,11 +4,11 @@ import com.bervan.interviewapp.view.AbstractInterviewHomeView;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.bervan.toolsapp.views.MainLayout;
-import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = AbstractInterviewHomeView.ROUTE_NAME, layout = MainLayout.class)
 @RouteAlias(value = AbstractInterviewHomeView.ROUTE_NAME, layout = MainLayout.class)
-@PermitAll
+@RolesAllowed("USER")
 public class InterviewHomeView extends AbstractInterviewHomeView {
 
     public InterviewHomeView() {

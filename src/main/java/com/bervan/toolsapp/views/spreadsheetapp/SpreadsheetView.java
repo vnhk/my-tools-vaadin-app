@@ -8,13 +8,13 @@ import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
-import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
 
 @Route(value = AbstractSpreadsheetView.ROUTE_NAME, layout = MainLayout.class)
 @RouteAlias(value = AbstractSpreadsheetView.ROUTE_NAME, layout = MainLayout.class)
-@PermitAll
+@RolesAllowed("USER")
 public class SpreadsheetView extends AbstractSpreadsheetView implements HasUrlParameter<String> {
 
     public SpreadsheetView(SpreadsheetService service, BervanLogger logger, List<? extends SpreadsheetFunction> spreadsheetFunctions) {

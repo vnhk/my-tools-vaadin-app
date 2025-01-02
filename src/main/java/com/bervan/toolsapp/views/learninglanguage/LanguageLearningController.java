@@ -1,7 +1,6 @@
 package com.bervan.toolsapp.views.learninglanguage;
 
 import com.bervan.common.service.ApiKeyService;
-import com.bervan.common.user.User;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.languageapp.TranslationRecord;
 import com.bervan.languageapp.service.ExampleOfUsageService;

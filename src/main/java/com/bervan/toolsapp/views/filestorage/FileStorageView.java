@@ -7,13 +7,13 @@ import com.bervan.filestorage.view.AbstractFileStorageView;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
-import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 @Route(value = AbstractFileStorageView.ROUTE_NAME, layout = MainLayout.class)
 @RouteAlias(value = AbstractFileStorageView.ROUTE_NAME, layout = MainLayout.class)
-@PermitAll
+@RolesAllowed("USER")
 public class FileStorageView extends AbstractFileStorageView {
 
     public FileStorageView(@Autowired FileServiceManager service,

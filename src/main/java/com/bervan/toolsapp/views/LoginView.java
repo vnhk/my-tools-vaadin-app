@@ -13,6 +13,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +23,7 @@ import static com.bervan.toolsapp.security.OTPService.CODE_LENGTH;
 
 @Route("login")
 @PageTitle("Login")
+@PermitAll
 public class LoginView extends AbstractPageView {
 
     private final OTPService otpService;

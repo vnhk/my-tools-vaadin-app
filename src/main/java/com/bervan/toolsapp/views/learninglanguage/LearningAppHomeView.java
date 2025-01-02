@@ -9,11 +9,11 @@ import com.bervan.languageapp.view.AbstractLearningAppHomeView;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
-import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = AbstractLearningAppHomeView.ROUTE_NAME, layout = MainLayout.class)
 @RouteAlias(value = AbstractLearningAppHomeView.ROUTE_NAME, layout = MainLayout.class)
-@PermitAll
+@RolesAllowed("USER")
 public class LearningAppHomeView extends AbstractLearningAppHomeView {
 
     public LearningAppHomeView(TranslationRecordService translatorRecordService,

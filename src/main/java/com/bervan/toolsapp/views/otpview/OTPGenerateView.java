@@ -9,13 +9,13 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
-import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.util.UUID;
 
 @Route(value = "generate-otp", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
-@PermitAll
+@RolesAllowed("USER")
 public class OTPGenerateView extends AbstractPageView {
 
     private final OTPService otpService;
