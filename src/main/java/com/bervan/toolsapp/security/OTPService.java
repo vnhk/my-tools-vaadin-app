@@ -2,12 +2,12 @@ package com.bervan.toolsapp.security;
 
 import com.bervan.common.user.User;
 import com.bervan.common.user.UserRepository;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import com.bervan.common.user.UserToUserRelation;
+import com.bervan.core.model.BervanLogger;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,12 +20,23 @@ public class OTPService {
     private final Map<String, Long> otpExpiry = new ConcurrentHashMap<>();
     private static final long OTP_VALIDITY_DURATION = 300_000;
     private final UserRepository userRepository;
+    private final BervanLogger logger;
 
-    public OTPService(UserRepository userRepository) {
+    public OTPService(UserRepository userRepository, BervanLogger logger) {
         this.userRepository = userRepository;
+        this.logger = logger;
     }
 
-    public String generateOTP(UUID userId) {
+    public String generateOTP(UUID userId, String role) {
+        List<UserToUserRelation> childrenWithRole = userRepository.findById(userId).get().getChildrenRelations().stream().filter(e -> e.getChild().getRole().equals(role))
+                .toList();
+
+        if (childrenWithRole.size() != 1) {
+            logger.error("Incorrect configuration. Sub users with role = " + role + ": " + childrenWithRole.size());
+            throw new RuntimeException("Incorrect configuration!");
+        }
+        userId = childrenWithRole.get(0).getChild().getId();
+
         String otp = String.format("%0" + CODE_LENGTH + "d", random.nextInt(1_000_000));
         otpStorage.put(otp, userId);
         otpExpiry.put(otp, System.currentTimeMillis() + OTP_VALIDITY_DURATION);
@@ -52,11 +63,4 @@ public class OTPService {
         }
         return false;
     }
-
-//    private void login(UUID userId) {
-//        User user = userRepository.findById(userId).get();
-//        Authentication authentication = new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities());
-////        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        SecurityContextHolder.createEmptyContext().setAuthentication(authentication);
-//    }
 }

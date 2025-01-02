@@ -1,11 +1,12 @@
 package com.bervan.toolsapp.views.otpview;
 
+import com.bervan.common.AbstractPageView;
 import com.bervan.common.service.AuthService;
+import com.bervan.core.model.BervanLogger;
 import com.bervan.toolsapp.security.OTPService;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import jakarta.annotation.security.PermitAll;
@@ -15,13 +16,15 @@ import java.util.UUID;
 @Route(value = "generate-otp", layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
 @PermitAll
-public class OTPGenerateView extends VerticalLayout {
+public class OTPGenerateView extends AbstractPageView {
 
     private final OTPService otpService;
     private final H3 otpLabel;
+    private final BervanLogger logger;
 
-    public OTPGenerateView(OTPService otpService) {
+    public OTPGenerateView(OTPService otpService, BervanLogger logger) {
         this.otpService = otpService;
+        this.logger = logger;
         this.otpLabel = new H3("Click the button to generate OTP");
 
         addClassName("otp-generate-view");
@@ -42,8 +45,15 @@ public class OTPGenerateView extends VerticalLayout {
     }
 
     private void generateAndDisplayOTP() {
-        UUID userId = AuthService.getLoggedUserId();
-        String otpCode = otpService.generateOTP(userId);
-        otpLabel.setText("Your OTP code is: " + otpCode);
+        try {
+            UUID userId = AuthService.getLoggedUserId();
+            String role = "ROLE_STREAMING";
+            String otpCode = otpService.generateOTP(userId, role);
+            otpLabel.setText("Your OTP code is: " + otpCode);
+        } catch (Exception e) {
+            logger.error(e);
+            showErrorNotification("Could not generate OTP token!");
+        }
+
     }
 }
