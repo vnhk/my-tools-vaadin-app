@@ -95,18 +95,20 @@ public class MainLayout extends AppLayout {
         addToDrawer(createDrawerContent());
         PocketSideMenuView pocketSideMenu = new PocketSideMenuView(this.pocketItemService, pocketService, log);
         sideMenu = createSideMenu(pocketSideMenu);
-        Button menuButton = new Button(VaadinIcon.CLIPBOARD.create());
-        menuButton.addClassName("option-button");
-        menuButton.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
+        Button pocketMenuButton = new Button(VaadinIcon.CLIPBOARD.create());
+        pocketMenuButton.addClassName("option-button");
+        pocketMenuButton.addThemeVariants(ButtonVariant.LUMO_CONTRAST);
 
-        menuButton.getStyle().set("position", "fixed").set("top", "10px").set("right", "10px");
-        menuButton.addClickListener(event -> {
+        pocketMenuButton.getStyle().set("position", "fixed").set("top", "10px").set("right", "10px");
+        pocketMenuButton.addClickListener(event -> {
             pocketSideMenu.reloadItems();
             toggleMenuVisibility();
         });
 
-        addToNavbar(sideMenu);
-        addToNavbar(menuButton);
+        if (AuthService.getUserRole().equals("ROLE_USER")) {
+            addToNavbar(sideMenu);
+            addToNavbar(pocketMenuButton);
+        }
     }
 
     private void toggleMenuVisibility() {
@@ -211,17 +213,24 @@ public class MainLayout extends AppLayout {
     }
 
     private MenuItemInfo[] createMenuItems() {
-        return new MenuItemInfo[]{ //
-                new MenuItemInfo("OTP", "la la-guard", OTPGenerateView.class), //
-                new MenuItemInfo("Interview", "la la-desktop", InterviewHomeView.class), //
-                new MenuItemInfo("Pocket", "la la-get-pocket", PocketTableView.class), //
-                new MenuItemInfo("Ebook English Words", "la la-book", NotLearnedWordsView.class), //
-                new MenuItemInfo("Learning Language", "la la-language", LearningAppHomeView.class), //
-                new MenuItemInfo("File Storage", "la la-cloud-upload", FileStorageView.class), //
-                new MenuItemInfo("Spreadsheets", "las la-file-excel", SpreadsheetsView.class), //
-                new MenuItemInfo("Notepad", "las la-chalkboard", CanvasPagesView.class), //
-                new MenuItemInfo("Streaming", "las la-video", VideoListView.class), //
-        };
+        if (AuthService.getUserRole().equals("ROLE_USER")) {
+            return new MenuItemInfo[]{ //
+                    new MenuItemInfo("OTP", "la la-guard", OTPGenerateView.class), //
+                    new MenuItemInfo("Interview", "la la-desktop", InterviewHomeView.class), //
+                    new MenuItemInfo("Pocket", "la la-get-pocket", PocketTableView.class), //
+                    new MenuItemInfo("Ebook English Words", "la la-book", NotLearnedWordsView.class), //
+                    new MenuItemInfo("Learning Language", "la la-language", LearningAppHomeView.class), //
+                    new MenuItemInfo("File Storage", "la la-cloud-upload", FileStorageView.class), //
+                    new MenuItemInfo("Spreadsheets", "las la-file-excel", SpreadsheetsView.class), //
+                    new MenuItemInfo("Notepad", "las la-chalkboard", CanvasPagesView.class), //
+                    new MenuItemInfo("Streaming", "las la-video", VideoListView.class), //
+            };
+        } else if (AuthService.getUserRole().equals("ROLE_STREAMING"))
+            return new MenuItemInfo[]{ //
+                    new MenuItemInfo("Streaming", "las la-video", VideoListView.class), //
+            };
+
+        return new MenuItemInfo[0];
     }
 
     private Footer createFooter() {

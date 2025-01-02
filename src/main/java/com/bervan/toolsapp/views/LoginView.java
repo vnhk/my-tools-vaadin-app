@@ -1,6 +1,7 @@
 package com.bervan.toolsapp.views;
 
 import com.bervan.common.AbstractPageView;
+import com.bervan.common.service.AuthService;
 import com.bervan.toolsapp.security.OTPService;
 import com.bervan.toolsapp.security.OtpAuthenticationToken;
 import com.vaadin.flow.component.button.Button;
@@ -14,7 +15,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
@@ -92,6 +92,11 @@ public class LoginView extends AbstractPageView {
                 HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                 SecurityContextHolder.getContext()
         );
-        getUI().ifPresent(ui -> ui.navigate(""));
+
+        if (AuthService.getUserRole().equals("ROLE_STREAMING")) {
+            getUI().ifPresent(ui -> ui.navigate("/streaming-platform"));
+        } else {
+            getUI().ifPresent(ui -> ui.navigate(""));
+        }
     }
 }
