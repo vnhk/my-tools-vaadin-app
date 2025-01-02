@@ -40,7 +40,7 @@ public class OTPGenerateView extends AbstractPageView {
         //user is navigated there
 
         Button generateOtpButton = new Button("Generate OTP", event -> generateAndDisplayOTP());
-
+        generateOtpButton.addClassName("option-button");
         add(otpLabel, generateOtpButton);
     }
 
