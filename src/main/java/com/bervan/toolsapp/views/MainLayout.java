@@ -215,7 +215,7 @@ public class MainLayout extends AppLayout {
     private MenuItemInfo[] createMenuItems() {
         if (AuthService.getUserRole().equals("ROLE_USER")) {
             return new MenuItemInfo[]{ //
-                    new MenuItemInfo("OTP", "la la-guard", OTPGenerateView.class), //
+                    new MenuItemInfo("OTP", "la la-barcode", OTPGenerateView.class), //
                     new MenuItemInfo("Interview", "la la-desktop", InterviewHomeView.class), //
                     new MenuItemInfo("Pocket", "la la-get-pocket", PocketTableView.class), //
                     new MenuItemInfo("Ebook English Words", "la la-book", NotLearnedWordsView.class), //
