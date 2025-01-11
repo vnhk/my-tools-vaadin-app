@@ -9,6 +9,10 @@ html {
   --vaadin-input-field-icon-color: var(--lumo-third-text-color);
 }
 
+.movie-tile {
+  background: var(--lumo-base-secondary-color);
+}
+
 .a1-level {
   border: 5px solid green;
 }
