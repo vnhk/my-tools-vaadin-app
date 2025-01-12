@@ -3,9 +3,7 @@ package com.bervan.toolsapp.views.streamingplatformapp;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.englishtextstats.WordService;
 import com.bervan.filestorage.model.Metadata;
-import com.bervan.languageapp.service.ExampleOfUsageService;
-import com.bervan.languageapp.service.TranslationRecordService;
-import com.bervan.languageapp.service.TranslatorService;
+import com.bervan.languageapp.service.AddFlashcardService;
 import com.bervan.streamingapp.VideoManager;
 import com.bervan.streamingapp.view.AbstractVideoPlayerView;
 import com.bervan.toolsapp.views.MainLayout;
@@ -26,18 +24,14 @@ public class VideoPlayerView extends AbstractVideoPlayerView {
     private final VideoManager videoManager;
     private final BervanLogger logger;
     private final WordService wordService;
-    private final TranslationRecordService translationRecordService;
-    private final TranslatorService translatorService;
-    private final ExampleOfUsageService exampleOfUsageService;
+    private final AddFlashcardService addAsFlashcardService;
 
-    public VideoPlayerView(VideoManager videoManager, BervanLogger logger, WordService wordService, TranslationRecordService translationRecordService, TranslatorService translatorService, ExampleOfUsageService exampleOfUsageService) {
+    public VideoPlayerView(VideoManager videoManager, BervanLogger logger, WordService wordService, AddFlashcardService addAsFlashcardService) {
         super(logger, videoManager);
         this.videoManager = videoManager;
         this.logger = logger;
+        this.addAsFlashcardService = addAsFlashcardService;
         this.wordService = wordService;
-        this.translationRecordService = translationRecordService;
-        this.translatorService = translatorService;
-        this.exampleOfUsageService = exampleOfUsageService;
     }
 
     @Override
@@ -66,6 +60,6 @@ public class VideoPlayerView extends AbstractVideoPlayerView {
             return;
         }
 
-        add(new EnglishInVideoNotLearned(wordService, translationRecordService, translatorService, exampleOfUsageService, logger, enSubtitle.get().getPath() + File.separator + enSubtitle.get().getFilename()));
+        add(new EnglishInVideoNotLearned(wordService, addAsFlashcardService, logger, enSubtitle.get().getPath() + File.separator + enSubtitle.get().getFilename()));
     }
 }

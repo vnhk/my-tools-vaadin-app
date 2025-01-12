@@ -6,10 +6,7 @@ import com.bervan.englishtextstats.AbstractNotLearnedWordsView;
 import com.bervan.englishtextstats.EbookPathLayout;
 import com.bervan.englishtextstats.Word;
 import com.bervan.englishtextstats.WordService;
-import com.bervan.languageapp.TranslationRecord;
-import com.bervan.languageapp.service.ExampleOfUsageService;
-import com.bervan.languageapp.service.TranslationRecordService;
-import com.bervan.languageapp.service.TranslatorService;
+import com.bervan.languageapp.service.AddFlashcardService;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -19,21 +16,15 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import jakarta.annotation.security.RolesAllowed;
 
-import java.util.List;
-
 @Route(value = AbstractNotLearnedWordsView.ROUTE_NAME, layout = MainLayout.class)
 @RouteAlias(value = AbstractNotLearnedWordsView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
 public class NotLearnedWordsView extends AbstractNotLearnedWordsView {
-    private final TranslationRecordService translationRecordService;
-    private final TranslatorService translatorService;
-    private final ExampleOfUsageService exampleOfUsageService;
+    private final AddFlashcardService addAsFlashcardService;
 
-    public NotLearnedWordsView(OneValueService oneValueService, WordService service, TranslationRecordService translationRecordService, TranslatorService translatorService, ExampleOfUsageService exampleOfUsageService, BervanLogger log) {
+    public NotLearnedWordsView(OneValueService oneValueService, WordService service, BervanLogger log, AddFlashcardService addAsFlashcardService) {
         super(service, new EbookPathLayout(oneValueService, service), log);
-        this.translationRecordService = translationRecordService;
-        this.translatorService = translatorService;
-        this.exampleOfUsageService = exampleOfUsageService;
+        this.addAsFlashcardService = addAsFlashcardService;
     }
 
     @Override
@@ -46,42 +37,10 @@ public class NotLearnedWordsView extends AbstractNotLearnedWordsView {
             grid.getDataProvider().refreshAll();
             service.save(item);
 
-            addAsFlashcard(item);
+            addAsFlashcardService.addAsFlashcard(item);
             dialog.close();
         });
 
         dialogButtonsLayout.add(addAsFlashcard);
     }
-
-    protected void addAsFlashcard(Word item) {
-        String name = item.getTableFilterableColumnValue();
-        String translated = translatorService.translate(name);
-        List<String> exampleOfUsage = exampleOfUsageService.createExampleOfUsage(name);
-        String examples = exampleOfUsage.toString().replace("[", "").replace("]", "");
-
-        TranslationRecord record = new TranslationRecord();
-        record.setSourceText(name);
-        record.setTextTranslation(translated);
-        record.setFactor(1);
-        if (!examples.isBlank()) {
-            if (examples.length() > 500) {
-                StringBuilder builder = new StringBuilder();
-                for (String s : exampleOfUsage) {
-                    if (builder.length() + s.length() + 1 > 500) {
-                        break;
-                    }
-                    builder.append(s);
-                    builder.append(",");
-                }
-                examples = builder.substring(0, builder.length() - 2);
-            }
-
-            record.setInSentence(examples);
-            String examplesTranslated = translatorService.translate(examples);
-            record.setInSentenceTranslation(examplesTranslated);
-        }
-        translationRecordService.save(record);
-
-    }
-
 }

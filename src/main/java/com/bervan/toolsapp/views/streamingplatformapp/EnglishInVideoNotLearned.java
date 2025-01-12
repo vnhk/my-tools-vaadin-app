@@ -5,10 +5,7 @@ import com.bervan.common.EmptyLayout;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.englishtextstats.Word;
 import com.bervan.englishtextstats.WordService;
-import com.bervan.languageapp.TranslationRecord;
-import com.bervan.languageapp.service.ExampleOfUsageService;
-import com.bervan.languageapp.service.TranslationRecordService;
-import com.bervan.languageapp.service.TranslatorService;
+import com.bervan.languageapp.service.AddFlashcardService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
@@ -18,26 +15,18 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.UUID;
 
 public class EnglishInVideoNotLearned extends AbstractTableView<UUID, Word> {
-    private final TranslationRecordService translationRecordService;
-    private final TranslatorService translatorService;
-    private final ExampleOfUsageService exampleOfUsageService;
     protected HorizontalLayout dialogButtonsLayout;
+    protected final AddFlashcardService addAsFlashcardService;
 
     public EnglishInVideoNotLearned(WordService service,
-                                    TranslationRecordService translationRecordService,
-                                    TranslatorService translatorService,
-                                    ExampleOfUsageService exampleOfUsageService,
+                                    AddFlashcardService addAsFlashcardService,
                                     BervanLogger log,
                                     String englishSubtitlesPath) {
         super(new EmptyLayout(), service, log, Word.class);
-        this.translationRecordService = translationRecordService;
-        this.translatorService = translatorService;
-        this.exampleOfUsageService = exampleOfUsageService;
-
+        this.addAsFlashcardService = addAsFlashcardService;
         renderCommonComponents();
         service.setPath(englishSubtitlesPath);
         refreshData();
@@ -99,42 +88,10 @@ public class EnglishInVideoNotLearned extends AbstractTableView<UUID, Word> {
             grid.getDataProvider().refreshAll();
             service.save(item);
 
-            addAsFlashcard(item);
+            addAsFlashcardService.addAsFlashcard(item);
             dialog.close();
         });
 
         dialogButtonsLayout.add(addAsFlashcard);
     }
-
-    protected void addAsFlashcard(Word item) {
-        String name = item.getTableFilterableColumnValue();
-        String translated = translatorService.translate(name);
-        List<String> exampleOfUsage = exampleOfUsageService.createExampleOfUsage(name);
-        String examples = exampleOfUsage.toString().replace("[", "").replace("]", "");
-
-        TranslationRecord record = new TranslationRecord();
-        record.setSourceText(name);
-        record.setTextTranslation(translated);
-        record.setFactor(1);
-        if (!examples.isBlank()) {
-            if (examples.length() > 500) {
-                StringBuilder builder = new StringBuilder();
-                for (String s : exampleOfUsage) {
-                    if (builder.length() + s.length() + 1 > 500) {
-                        break;
-                    }
-                    builder.append(s);
-                    builder.append(",");
-                }
-                examples = builder.substring(0, builder.length() - 2);
-            }
-
-            record.setInSentence(examples);
-            String examplesTranslated = translatorService.translate(examples);
-            record.setInSentenceTranslation(examplesTranslated);
-        }
-        translationRecordService.save(record);
-
-    }
-
 }
