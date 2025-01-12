@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.streamingplatformapp;
 
+import com.bervan.common.service.AuthService;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.englishtextstats.WordService;
 import com.bervan.filestorage.model.Metadata;
@@ -55,11 +56,13 @@ public class VideoPlayerView extends AbstractVideoPlayerView {
         Optional<Metadata> enSubtitle = subtitles.stream().filter(e -> e.getFilename().endsWith("en" + "." + e.getExtension()))
                 .findFirst();
 
-        if(enSubtitle.isEmpty()) {
+        if (enSubtitle.isEmpty()) {
             logger.error("Could not find english subtitles based on provided video id!");
             return;
         }
 
-        add(new EnglishInVideoNotLearned(wordService, addAsFlashcardService, logger, enSubtitle.get().getPath() + File.separator + enSubtitle.get().getFilename()));
+        if (AuthService.getUserRole().equals("ROLE_USER")) {
+            add(new EnglishInVideoNotLearned(wordService, addAsFlashcardService, logger, enSubtitle.get().getPath() + File.separator + enSubtitle.get().getFilename()));
+        }
     }
 }
