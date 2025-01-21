@@ -156,8 +156,8 @@ navigation-buttons > .option-button {
 }
 
 .bervan-table {
-  min-height: 68vh;
-  max-height: 68vh;
+  min-height: 10vh;
+  max-height: 50vh;
 }
 
 /* Add a 1px divider between rows */
