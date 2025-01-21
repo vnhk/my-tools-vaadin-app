@@ -33,8 +33,7 @@ public class NotLearnedWordsView extends AbstractNotLearnedWordsView {
 
         Button addAsFlashcard = new Button("Add as flashcard.");
         addAsFlashcard.addClickListener(e -> {
-            data.remove(item);
-            grid.getDataProvider().refreshAll();
+            refreshDataAfterUpdate();
             service.save(item);
 
             addAsFlashcardService.addAsFlashcard(item);

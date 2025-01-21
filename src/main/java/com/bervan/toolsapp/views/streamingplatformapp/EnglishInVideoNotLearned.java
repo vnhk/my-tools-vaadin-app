@@ -73,9 +73,8 @@ public class EnglishInVideoNotLearned extends AbstractTableView<UUID, Word> {
         saveButton.addClassName("option-button");
 
         saveButton.addClickListener(e -> {
-            data.remove(item);
-            grid.getDataProvider().refreshAll();
             service.save(item);
+            refreshDataAfterUpdate();
             dialog.close();
         });
 
@@ -84,10 +83,8 @@ public class EnglishInVideoNotLearned extends AbstractTableView<UUID, Word> {
         dialogLayout.add(headerLayout, field, dialogButtonsLayout);
         Button addAsFlashcard = new Button("Add as flashcard.");
         addAsFlashcard.addClickListener(e -> {
-            data.remove(item);
-            grid.getDataProvider().refreshAll();
+            refreshDataAfterUpdate();
             service.save(item);
-
             addAsFlashcardService.addAsFlashcard(item);
             dialog.close();
         });
