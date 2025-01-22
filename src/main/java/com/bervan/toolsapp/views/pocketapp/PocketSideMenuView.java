@@ -18,7 +18,9 @@ public class PocketSideMenuView extends HorizontalLayout {
     List<PocketItemsListView> pocketItemsListViews = new ArrayList<>();
 
     public PocketSideMenuView(PocketItemService pocketItemService, PocketService pocketService, BervanLogger log) {
-        Set<String> pocketsName = pocketService.load(Pageable.ofSize(10000)).stream().map(Pocket::getName).collect(Collectors.toSet());
+        Set<String> pocketsName = pocketService.load(Pageable.ofSize(10000))
+                .stream().map(Pocket::getName)
+                .collect(Collectors.toSet());
         for (String pocketName : pocketsName) {
             PocketItemsListView pocketItemsListView = new PocketItemsListView(pocketItemService, pocketService, log, pocketName, pocketsName);
             pocketItemsListViews.add(pocketItemsListView);

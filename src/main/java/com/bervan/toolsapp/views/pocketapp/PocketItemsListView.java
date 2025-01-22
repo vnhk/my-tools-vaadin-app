@@ -1,6 +1,7 @@
 package com.bervan.toolsapp.views.pocketapp;
 
 import com.bervan.common.WysiwygTextArea;
+import com.bervan.common.service.AuthService;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.pocketapp.pocket.Pocket;
 import com.bervan.pocketapp.pocket.PocketService;
@@ -65,7 +66,8 @@ public class PocketItemsListView extends VerticalLayout {
         divs = new ArrayList<>();
         List<Pocket> pocket = pocketService.loadByName(pocketName);
         if (pocket.size() > 0) {
-            pocketItems = pocket.get(0).getPocketItems().stream().filter(e -> !e.getDeleted()).sorted(Comparator.comparing(PocketItem::getOrderInPocket)).toList();
+            pocketItems = pocket.get(0).getPocketItems().stream().filter(e -> !e.getDeleted() && AuthService.hasAccess(e.getOwners()))
+                    .sorted(Comparator.comparing(PocketItem::getOrderInPocket)).toList();
             for (PocketItem pocketItem : pocketItems) {
                 Div div = createDraggableDiv(pocketItem);
                 div.setClassName("pocket-tile-in-menu");
