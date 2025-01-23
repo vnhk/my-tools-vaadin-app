@@ -1,4 +1,4 @@
-@import "../darkula-theme.css";
+@import "../earth-theme.css";
 
 html {
   --vaadin-input-field-background: var(--lumo-base-secondary-color);
@@ -7,6 +7,8 @@ html {
   --vaadin-input-field-focused-label-color: var(--lumo-primary-color);
   --vaadin-checkbox-label-color: var(--lumo-third-text-color);
   --vaadin-input-field-icon-color: var(--lumo-third-text-color);
+  --vaadin-input-field-border-color: black;
+  --vaadin-input-field-border-width: 1px;
 }
 
 .movie-tile {
@@ -317,6 +319,9 @@ h1, h2, h3, h4, h5 {
   display: none; /* for Chrome, Safari, and Edge */
 }
 
+.pocket-tile-in-menu h4 {
+  color:  var(--pocket-tile-in-menu-textColor);
+}
 
 .pocket-tile-in-menu {
   border: 2px solid black;
