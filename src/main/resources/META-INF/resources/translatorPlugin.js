@@ -80,6 +80,7 @@
         englishTextArea.style.minHeight = '200px';
         englishTextArea.style.margin = '15px 0 10px 0';
         englishTextArea.style.color = 'black';
+        englishTextArea.style.backgroundColor = 'white';
         englishTextArea.value = markedText || '';
 
         // Translate Button
@@ -102,6 +103,7 @@
         polishTextArea.placeholder = 'Polish Translation';
         polishTextArea.style.width = '100%';
         polishTextArea.style.color = 'black';
+        polishTextArea.style.backgroundColor = 'white';
         polishTextArea.style.resize = 'none';
         polishTextArea.style.minHeight = '200px';
         polishTextArea.style.marginTop = '10px';

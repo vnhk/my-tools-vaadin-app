@@ -195,7 +195,8 @@ navigation-buttons > .option-button {
 }
 
 .ql-editor {
-  color: var(--ql-editor-text-color);
+  color: black;
+  background-color: white;
 }
 
 vaadin-tooltip-overlay::part(overlay) {

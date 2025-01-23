@@ -137,9 +137,11 @@
         const summaryLabel = document.createElement('label');
         summaryLabel.textContent = 'Summary:';
         summaryLabel.style.color = 'black';
+        summaryLabel.style.backgroundColor = 'white';
         const summaryInput = document.createElement('input');
         summaryInput.type = 'text';
         summaryInput.style.color = 'black';
+        summaryInput.style.backgroundColor = 'white';
         summaryInput.style.width = '100%';
         summaryInput.style.marginBottom = '10px';
 
@@ -147,6 +149,8 @@
         const contentLabel = document.createElement('label');
         contentLabel.textContent = 'Content:';
         contentLabel.style.color = 'black';
+        contentLabel.style.backgroundColor = 'white';
+
         const quillContainer = document.createElement('div');
         quillContainer.id = 'quillEditor';
         quillContainer.style.height = '400px';
