@@ -94,7 +94,7 @@ public class EnglishInVideoNotLearned extends AbstractTableView<UUID, Word> {
             grid.getDataProvider().refreshAll();
             service.save(item);
 
-            addAsFlashcardService.addAsFlashcard(item);
+            addAsFlashcardService.addAsFlashcardAsync(item);
             dialog.close();
         });
 

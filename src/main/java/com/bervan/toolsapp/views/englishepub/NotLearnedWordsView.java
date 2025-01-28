@@ -37,7 +37,7 @@ public class NotLearnedWordsView extends AbstractNotLearnedWordsView {
             grid.getDataProvider().refreshAll();
             service.save(item);
 
-            addAsFlashcardService.addAsFlashcard(item);
+            addAsFlashcardService.addAsFlashcardAsync(item);
             dialog.close();
         });
 
