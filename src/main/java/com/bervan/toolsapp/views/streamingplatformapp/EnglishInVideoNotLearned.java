@@ -15,6 +15,7 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 
 import java.util.Comparator;
+import java.util.Set;
 import java.util.UUID;
 
 public class EnglishInVideoNotLearned extends AbstractTableView<UUID, Word> {
@@ -32,6 +33,11 @@ public class EnglishInVideoNotLearned extends AbstractTableView<UUID, Word> {
         refreshData();
 
         contentLayout.remove(addButton);
+    }
+
+    @Override
+    protected Set<Word> loadData() {
+        return super.loadData();
     }
 
     @Override
