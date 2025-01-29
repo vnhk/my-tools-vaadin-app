@@ -13,6 +13,7 @@ import com.bervan.toolsapp.views.learninglanguage.LearningAppHomeView;
 import com.bervan.toolsapp.views.otpview.OTPGenerateView;
 import com.bervan.toolsapp.views.pocketapp.PocketSideMenuView;
 import com.bervan.toolsapp.views.pocketapp.PocketTableView;
+import com.bervan.toolsapp.views.projectmgmtapp.TaskDetails;
 import com.bervan.toolsapp.views.spreadsheetapp.SpreadsheetsView;
 import com.bervan.toolsapp.views.streamingplatformapp.VideoListView;
 import com.vaadin.flow.component.Component;
@@ -220,6 +221,7 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Pocket", "la la-get-pocket", PocketTableView.class), //
                     new MenuItemInfo("Ebook English Words", "la la-book", NotLearnedWordsView.class), //
                     new MenuItemInfo("Learning Language", "la la-language", LearningAppHomeView.class), //
+                    new MenuItemInfo("Project Management", "la la-project", TaskDetails.class), //
                     new MenuItemInfo("File Storage", "la la-cloud-upload", FileStorageView.class), //
                     new MenuItemInfo("Spreadsheets", "las la-file-excel", SpreadsheetsView.class), //
                     new MenuItemInfo("Notepad", "las la-chalkboard", CanvasPagesView.class), //
