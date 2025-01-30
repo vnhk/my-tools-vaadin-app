@@ -190,6 +190,7 @@ navigation-buttons > .option-button {
 
 .ql-toolbar {
   margin-bottom: 10px;
+  background-color: var(--vaadin-input-field-icon-color);
 }
 
 .ql-container {
