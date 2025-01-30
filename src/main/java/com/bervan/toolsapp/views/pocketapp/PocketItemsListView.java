@@ -66,7 +66,7 @@ public class PocketItemsListView extends VerticalLayout {
         divs = new ArrayList<>();
         List<Pocket> pocket = pocketService.loadByName(pocketName);
         if (pocket.size() > 0) {
-            pocketItems = pocket.get(0).getPocketItems().stream().filter(e -> !e.getDeleted() && AuthService.hasAccess(e.getOwners()))
+            pocketItems = pocket.get(0).getPocketItems().stream().filter(e -> !e.isDeleted() && AuthService.hasAccess(e.getOwners()))
                     .sorted(Comparator.comparing(PocketItem::getOrderInPocket)).toList();
             for (PocketItem pocketItem : pocketItems) {
                 Div div = createDraggableDiv(pocketItem);
