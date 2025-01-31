@@ -222,7 +222,7 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Pocket", "la la-get-pocket", PocketTableView.class), //
                     new MenuItemInfo("Ebook English Words", "la la-book", NotLearnedWordsView.class), //
                     new MenuItemInfo("Learning Language", "la la-language", LearningAppHomeView.class), //
-                    new MenuItemInfo("Project Management", "la la-project", ProjectListView.class), //
+                    new MenuItemInfo("Project Management", "la la-project-diagram", ProjectListView.class), //
                     new MenuItemInfo("File Storage", "la la-cloud-upload", FileStorageView.class), //
                     new MenuItemInfo("Spreadsheets", "las la-file-excel", SpreadsheetsView.class), //
                     new MenuItemInfo("Notepad", "las la-chalkboard", CanvasPagesView.class), //
