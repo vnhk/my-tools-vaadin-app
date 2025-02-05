@@ -49,9 +49,6 @@ html {
     --selected-cell-background: green;
     --spreadsheet-header-row-background: var(--lumo-secondary-color);
     --spreadsheet-row-number-background: var(--lumo-secondary-color);
-    --ql-toolbar-background: --vaadin-input-field-icon-color;
-    --ql-editor-content-background-color: white;
-    --ql-editor-content-text-color: black;
     --menu-item-text-color: var(--lumo-third-text-color);
     --view-toggle-icon-color: white;
 
@@ -83,4 +80,9 @@ html {
 
     /*what is it*/
     --vaadin-upload-file-color: white;
+
+    --ql-editor-content-background: white;
+    --ql-toolbar-background: white;
+    --ql-editor-content-background-color: white;
+    --ql-editor-content-text-color: black;
 }
