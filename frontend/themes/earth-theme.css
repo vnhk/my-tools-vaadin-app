@@ -52,7 +52,6 @@ html {
     --ql-toolbar-background: --vaadin-input-field-icon-color;
     --ql-editor-content-background-color: white;
     --ql-editor-content-text-color: black;
-    --vaadin-upload-file-color: var(--lumo-third-text-color);
     --menu-item-text-color: var(--lumo-third-text-color);
     --view-toggle-icon-color: white;
 
@@ -70,4 +69,18 @@ html {
 
     --selected-route-button-color: var(--lumo-secondary-text-color);
     --selected-route-button-background: var(--lumo-primary-color);
+
+    --vaadin-icon-hover-color: #bdb8b8;
+
+    /*does not work*/
+    --vaadin-icon-color: white;
+
+    --drop-file-here-input-color: white;
+    --drop-file-here-icon-color: white;
+    --processing-file-info-label-color: white;
+    --upload-button-text-color: white;
+    --upload-button-background: var(--lumo-primary-color);
+
+    /*what is it*/
+    --vaadin-upload-file-color: white;
 }

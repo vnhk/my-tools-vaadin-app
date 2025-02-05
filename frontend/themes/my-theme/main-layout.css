@@ -238,32 +238,40 @@ vaadin-upload-file {
   /*color: var(--lumo-third-text-color) !important;*/
 }
 
+vaadin-upload > vaadin-button {
+  background-color: var(--upload-button-background);
+}
+
 vaadin-upload > vaadin-button::part(label) {
-  color: var(--lumo-primary-color) !important;
+  /*color: var(--lumo-primary-color) !important;*/
+  color: var(--upload-button-text-color) !important;
   /*  button Upload File*/
 }
 
 vaadin-upload-file::part(status) {
-  color: var(--lumo-third-text-color) !important;
+  color: var(--processing-file-info-label-color) !important;
   /*  processing file info*/
 }
 
 vaadin-upload > [slot="drop-label-icon"] {
-  color: var(--lumo-primary-color) !important;
+  /*color: var(--lumo-primary-color) !important;*/
+  color: var(--drop-file-here-icon-color) !important;
   /*  icon upload */
 }
 
 vaadin-upload > [slot="drop-label"] {
-  color: var(--lumo-primary-color) !important;
+  /*color: var(--lumo-primary-color) !important;*/
+  color: var(--drop-file-here-input-color) !important;
   /*  drop field text */
 }
 
 vaadin-icon {
-  color: var(--lumo-third-text-color) !important;
+  /*color: var(--lumo-third-text-color) !important;*/
+  color: var(--vaadin-icon-color) !important;
 }
 
 vaadin-icon:hover {
-  color: #5f5f60 !important;
+  color: var(--vaadin-icon-hover-color) !important;
 }
 
 vaadin-text-field::part(input-field) {
