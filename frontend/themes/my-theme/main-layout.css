@@ -385,13 +385,16 @@ vaadin-button vaadin-icon {
 }
 
 .selected-route-button {
-  background-color: var(--lumo-primary-color) !important;
-  color: var(--lumo-secondary-text-color) !important;
+  /*background-color: var(--lumo-primary-color) !important;*/
+  background-color: var(--selected-route-button-background) !important;
+  /*color: var(--lumo-secondary-text-color) !important;*/
+  color: var(--selected-route-button-color) !important;
 }
 
 vaadin-grid::part(header-cell) {
-  background-color: var(--lumo-secondary-color) !important;
-  color: white !important;
+  /*background-color: var(--lumo-secondary-color) !important;*/
+  background-color: var(--table-header-row-background) !important;
+  color: var(--table-header-row-color) !important;
   font-weight: bold;
   border-bottom: 2px solid black;
   padding: 10px;
@@ -408,8 +411,8 @@ vaadin-grid::part(cell) {
 }
 
 .option-button {
-  background-color: var(--lumo-secondary-color);
-  color: var(--lumo-body-text-color);
+  background-color: var(--button-background-color);
+  color: var(--button-color);
   text-decoration: none;
 }
 
@@ -420,7 +423,8 @@ vaadin-grid::part(cell) {
 [slot='drawer'] nav a {
   text-decoration: none;
   transition: color 140ms;
-  color: var(--lumo-secondary-text-color);
+  /*color: var(--lumo-secondary-text-color);*/
+  color: var(--menu-link-app-color);
 }
 
 [slot='drawer'] nav a .la {
@@ -439,7 +443,7 @@ vaadin-grid::part(cell) {
 }
 
 [slot='drawer'] nav a[highlight] {
-  color: white
+  color: rgba(var(--menu-selected-app-color));
 }
 
 [slot='drawer'] nav a[highlight]::before {

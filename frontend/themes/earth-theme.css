@@ -56,8 +56,18 @@ html {
     --menu-item-text-color: var(--lumo-third-text-color);
     --view-toggle-icon-color: white;
 
-      /*colorPickerTest: rgb(152, 85, 11);*/
+    /*colorPickerTest: rgb(152, 85, 11);*/
     --menu-selected-app-background: 152, 85, 11;
     --menu-selected-app-background-opacity: 0.25;
+    --menu-selected-app-color: white;
+    --menu-link-app-color: var(--lumo-third-text-color);
 
+    --button-background-color: var(--lumo-base-secondary-color);
+    --button-color: white;
+
+    --table-header-row-background: var(--lumo-secondary-color);
+    --table-header-row-color: white;
+
+    --selected-route-button-color: var(--lumo-secondary-text-color);
+    --selected-route-button-background: var(--lumo-primary-color);
 }
