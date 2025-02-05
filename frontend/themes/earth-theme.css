@@ -35,4 +35,29 @@ html {
     --pocket-menu-drawer-bgColor: #6a5d4d; /* Earthy brown */
     --pocket-tile-in-menu-bgColor: #a7a58e; /* Muted olive */
     --pocket-tile-in-menu-textColor: #ffffff; /* Pure white */
+
+    /*-------------------------*/
+    --vaadin-input-field-background: var(--lumo-base-secondary-color);
+    --vaadin-input-field-label-color: var(--lumo-third-text-color);
+    --vaadin-input-field-hovered-label-color: var(--lumo-primary-color);
+    --vaadin-input-field-focused-label-color: var(--lumo-primary-color);
+    --vaadin-checkbox-label-color: var(--lumo-third-text-color);
+    --vaadin-input-field-icon-color: var(--lumo-third-text-color);
+    --vaadin-input-field-border-color: black;
+    --vaadin-input-field-border-width: 1px;
+    --movie-tile-background: var(--lumo-base-secondary-color);
+    --selected-cell-background: green;
+    --spreadsheet-header-row-background: var(--lumo-secondary-color);
+    --spreadsheet-row-number-background: var(--lumo-secondary-color);
+    --ql-toolbar-background: --vaadin-input-field-icon-color;
+    --ql-editor-content-background-color: white;
+    --ql-editor-content-text-color: black;
+    --vaadin-upload-file-color: var(--lumo-third-text-color);
+    --menu-item-text-color: var(--lumo-third-text-color);
+    --view-toggle-icon-color: white;
+
+      /*colorPickerTest: rgb(152, 85, 11);*/
+    --menu-selected-app-background: 152, 85, 11;
+    --menu-selected-app-background-opacity: 0.25;
+
 }

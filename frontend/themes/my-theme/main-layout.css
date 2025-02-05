@@ -1,18 +1,19 @@
 @import "../earth-theme.css";
 
 html {
-  --vaadin-input-field-background: var(--lumo-base-secondary-color);
-  --vaadin-input-field-label-color: var(--lumo-third-text-color);
-  --vaadin-input-field-hovered-label-color: var(--lumo-primary-color);
-  --vaadin-input-field-focused-label-color: var(--lumo-primary-color);
-  --vaadin-checkbox-label-color: var(--lumo-third-text-color);
-  --vaadin-input-field-icon-color: var(--lumo-third-text-color);
-  --vaadin-input-field-border-color: black;
-  --vaadin-input-field-border-width: 1px;
+  /*--vaadin-input-field-background: var(--lumo-base-secondary-color);*/
+  /*--vaadin-input-field-label-color: var(--lumo-third-text-color);*/
+  /*--vaadin-input-field-hovered-label-color: var(--lumo-primary-color);*/
+  /*--vaadin-input-field-focused-label-color: var(--lumo-primary-color);*/
+  /*--vaadin-checkbox-label-color: var(--lumo-third-text-color);*/
+  /*--vaadin-input-field-icon-color: var(--lumo-third-text-color);*/
+  /*--vaadin-input-field-border-color: black;*/
+  /*--vaadin-input-field-border-width: 1px;*/
 }
 
 .movie-tile {
-  background: var(--lumo-base-secondary-color);
+  /*background: var(--lumo-base-secondary-color);*/
+  background: var(--movie-tile-background);
 }
 
 .a1-level {
@@ -44,60 +45,60 @@ html {
   font-family: Arial, sans-serif;
 }
 
-.tree-view ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
+/*.tree-view ul {*/
+/*  list-style-type: none;*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*}*/
 
-.tree-view li {
-  margin: 10px 0;
-  padding-left: 20px;
-  position: relative;
-}
+/*.tree-view li {*/
+/*  margin: 10px 0;*/
+/*  padding-left: 20px;*/
+/*  position: relative;*/
+/*}*/
 
-.tree-view .folder-toggle {
-  cursor: pointer;
-  font-weight: bold;
-  display: inline-block;
-  margin-bottom: 5px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
+/*.tree-view .folder-toggle {*/
+/*  cursor: pointer;*/
+/*  font-weight: bold;*/
+/*  display: inline-block;*/
+/*  margin-bottom: 5px;*/
+/*  padding: 5px 10px;*/
+/*  border-radius: 5px;*/
+/*  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);*/
+/*}*/
 
-.tree-view .file-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 5px 0;
-}
+/*.tree-view .file-item {*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  gap: 10px;*/
+/*  margin: 5px 0;*/
+/*}*/
 
-.tree-view .file-name {
-  flex-grow: 1;
-}
+/*.tree-view .file-name {*/
+/*  flex-grow: 1;*/
+/*}*/
 
-.tree-view .file-button {
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 14px;
-}
+/*.tree-view .file-button {*/
+/*  padding: 5px 10px;*/
+/*  background-color: #007bff;*/
+/*  color: white;*/
+/*  border: none;*/
+/*  border-radius: 3px;*/
+/*  cursor: pointer;*/
+/*  font-size: 14px;*/
+/*}*/
 
-.tree-view .file-button:hover {
-  background-color: #0056b3;
-}
+/*.tree-view .file-button:hover {*/
+/*  background-color: #0056b3;*/
+/*}*/
 
-.tree-view .nested {
-  display: none;
-}
+/*.tree-view .nested {*/
+/*  display: none;*/
+/*}*/
 
-.tree-view .active {
-  display: block;
-}
+/*.tree-view .active {*/
+/*  display: block;*/
+/*}*/
 
 .spreadsheet-table {
   border: 2px solid white;
@@ -106,7 +107,8 @@ html {
 }
 
 .selected-cell {
-  background-color: green;
+  /*background-color: green;*/
+  background-color: var(--selected-cell-background);
 }
 
 .spreadsheet-header {
@@ -117,13 +119,15 @@ html {
 }
 
 .spreadsheet-header-row {
-  background-color: var(--lumo-secondary-color);
+  /*background-color: var(--lumo-secondary-color);*/
+  background-color: var(--spreadsheet-header-row-background);
 }
 
 .spreadsheet-row-number {
   border: 2px solid white;
   padding: 5px;
-  background-color: var(--lumo-secondary-color);
+  /*background-color: var(--lumo-secondary-color);*/
+  background-color: var(--spreadsheet-row-number-background);
   min-width: 50px;
   min-height: 15px;
 }
@@ -190,7 +194,8 @@ navigation-buttons > .option-button {
 
 .ql-toolbar {
   margin-bottom: 10px;
-  background-color: var(--vaadin-input-field-icon-color);
+  /*background-color: var(--vaadin-input-field-icon-color);*/
+  background-color: var(--ql-toolbar-background);
 }
 
 .ql-container {
@@ -198,8 +203,10 @@ navigation-buttons > .option-button {
 }
 
 .ql-editor {
-  color: black;
-  background-color: white;
+  /*color: black;*/
+  color: var(--ql-editor-content-text-color);
+  /*background-color: white;*/
+  background-color: var(--ql-editor-content-background-color);
 }
 
 vaadin-tooltip-overlay::part(overlay) {
@@ -227,7 +234,8 @@ vaadin-notification-card[theme="error"]::part(overlay) {
 }
 
 vaadin-upload-file {
-  color: var(--lumo-third-text-color) !important;
+  color: var(--vaadin-upload-file-color) !important;
+  /*color: var(--lumo-third-text-color) !important;*/
 }
 
 vaadin-upload > vaadin-button::part(label) {
@@ -435,7 +443,8 @@ vaadin-grid::part(cell) {
 }
 
 [slot='drawer'] nav a[highlight]::before {
-  background-color: rgba(var(--lumo-secondary-rgba-color), 0.25)
+  /*background-color: rgba(var(--lumo-secondary-rgba-color), 0.25)*/
+  background-color: rgba(var(--menu-selected-app-background), var(--menu-selected-app-background-opacity));
 }
 
 [slot='drawer'] footer vaadin-context-menu {
@@ -449,7 +458,8 @@ vaadin-grid::part(cell) {
   margin-right: var(--lumo-space-s);
   padding: var(--lumo-space-s);
   position: relative;
-  color: var(--lumo-secondary-text-color);
+  color: var(--menu-item-text-color);
+  /*color: var(--lumo-secondary-text-color);*/
 }
 
 .menu-item-text {
@@ -477,7 +487,8 @@ vaadin-grid::part(cell) {
 }
 
 .view-toggle {
-  color: white;
+  /*color: white;*/
+  color: var(--view-toggle-icon-color);
 }
 
 .app-name {
