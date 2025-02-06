@@ -19,6 +19,7 @@ import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -115,18 +116,16 @@ public class PocketItemsListView extends VerticalLayout {
             field.setHeight("60vh");
 
             Div buttons = new Div();
+            HorizontalLayout buttonLayout = new HorizontalLayout();
 
             Button deleteButton = new Button(VaadinIcon.TRASH.create());
             deleteButton.addClassName("option-button");
             deleteButton.addClassName("option-button-warning");
-            deleteButton.getStyle().setMarginRight("5px");
             deleteButton.addClickListener(buttonClickEvent -> {
                 pocketItemService.delete(pocketItem);
                 reloadItems();
                 dialog.close();
             });
-
-            buttons.add(deleteButton);
 
             Button editButton = new Button(VaadinIcon.EDIT.create());
             editButton.addClassName("option-button");
@@ -137,9 +136,13 @@ public class PocketItemsListView extends VerticalLayout {
                 dialog.close();
             });
 
-            buttons.add(editButton);
+            buttonLayout.add(editButton, deleteButton);
+            buttonLayout.setWidthFull();
 
-            dialogLayout.add(headerLayout, field, new Hr(), buttons);
+            buttonLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
+            buttons.add(buttonLayout);
+
+            dialogLayout.add(headerLayout, field, new Hr(), buttonLayout);
 
             dialog.add(dialogLayout);
 
