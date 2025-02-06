@@ -85,4 +85,5 @@ html {
     --ql-toolbar-background: white;
     --ql-editor-content-background-color: white;
     --ql-editor-content-text-color: black;
+    --table-pageable-details-color: white;
 }

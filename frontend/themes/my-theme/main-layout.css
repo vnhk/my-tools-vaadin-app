@@ -94,6 +94,10 @@ navigation-buttons > .option-button {
   margin-top: -70px;
 }
 
+.table-pageable-details {
+  color: var(--table-pageable-details-color);
+}
+
 .bervan-table {
   min-height: 10vh;
   max-height: 50vh;

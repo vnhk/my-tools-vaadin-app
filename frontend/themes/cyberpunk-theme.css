@@ -26,7 +26,7 @@ html {
     --table-cell-bgColor: #101010; /* Slightly lighter dark gray */
     --table-header-row-background: #1a1a1a; /* Dark Gray/Almost Black */
     --table-header-row-color: #00ffff; /* Cyan */
-
+    --table-pageable-details-color: #00ff00; /* Neon Green */
     /* Button Text */
     --lumo-body-text-color: #000000; /* Black */
 
@@ -64,7 +64,7 @@ html {
     --vaadin-input-field-border-width: 1px;
 
     /* Other Cyberpunk Colors */
-    --movie-tile-background: #101010; /* Slightly lighter dark gray */
+    --movie-tile-background: rgba(220, 218, 218, 0.11);
     --selected-cell-background: #008000; /* Darker Green */
     --spreadsheet-header-row-background: #1a1a1a; /* Dark Gray/Almost Black */
     --spreadsheet-row-number-background: #1a1a1a; /* Dark Gray/Almost Black */
