@@ -1,4 +1,4 @@
-@import "../darkula-theme.css";
+@import "../cyberpunk-theme.css";
 
 html {
 
@@ -381,7 +381,7 @@ vaadin-grid::part(cell) {
 }
 
 [slot='drawer'] nav a[highlight] {
-  color: rgba(var(--menu-selected-app-color));
+  color: var(--menu-selected-app-color);
 }
 
 [slot='drawer'] nav a[highlight]::before {
