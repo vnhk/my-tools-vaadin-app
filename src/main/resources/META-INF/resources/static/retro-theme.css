@@ -1,0 +1,93 @@
+html {
+    /* Retro Theme */
+
+    /* Primary Colors (Accents) */
+    --lumo-primary-color: #ffcc00; /* Golden Yellow */
+    --ql-editor-text-color: #008000; /* Dark Green */
+
+    /* Secondary Colors (Backgrounds, Panels) */
+    --lumo-secondary-color: #f0f0f0; /* Light Gray/Off-White */
+    --lumo-secondary-rgba-color: 240, 240, 240; /* Corresponding RGBA */
+    --lumo-secondary-text-color: #000080; /* Dark Blue */
+
+    /* Tertiary Colors (Text, Icons) */
+    --lumo-third-text-color: #808080; /* Gray */
+    --lumo-font-family: 'Courier New', monospace; /* Or a retro font like 'VT323' */
+
+    /* Base Background */
+    --lumo-base-color: #ffffff; /* White */
+    --lumo-base-secondary-color: #f8f8f8; /* Slightly lighter white */
+
+    /* Menu Bar */
+    --menu-bar-color: #e0e0e0; /* Light Gray */
+
+    /* Table Colors */
+    --table-cell-text-color: #000000; /* Black */
+    --table-cell-bgColor: #ffffff; /* White */
+    --table-header-row-background: #e0e0e0; /* Light Gray */
+    --table-header-row-color: #000080; /* Dark Blue */
+    --table-pageable-details-color: #008000; /* Dark Green */
+
+    /* Button Text */
+    --lumo-body-text-color: #000000; /* Black */
+
+    /* Checkbox */
+    --vaadin-checkbox-background: #ffffff; /* White */
+
+    /* Notifications */
+    --vaadin-notification-card-bgColor-primary: #ffff00; /* Yellow */
+    --vaadin-notification-card-bgColor-warning: #ffa500; /* Orange */
+    --vaadin-notification-card-bgColor-error: #ff0000; /* Red */
+    --vaadin-notification-card-bgColor-success: #008000; /* Dark Green */
+
+    /* Progress Bar */
+    --vaadin-progress-bar-color: #008000; /* Dark Green */
+
+    /* Tooltip */
+    --vaadin-tooltip-bgColor: #f0f0f0; /* Light Gray */
+
+    /* Icons in Buttons */
+    --vaadin-icon-in-button-color: #000080; /* Dark Blue */
+
+    /* Pocket Menu */
+    --pocket-menu-drawer-bgColor: #e0e0e0; /* Light Gray */
+    --pocket-tile-in-menu-bgColor: #f0f0f0; /* Light Gray */
+    --pocket-tile-in-menu-textColor: #000080; /* Dark Blue */
+
+    /* Input Fields */
+    --vaadin-input-field-background: #ffffff; /* White */
+    --vaadin-input-field-label-color: #000080; /* Dark Blue */
+    --vaadin-input-field-hovered-label-color: #008000; /* Dark Green */
+    --vaadin-input-field-focused-label-color: #008000; /* Dark Green */
+    --vaadin-checkbox-label-color: #000080; /* Dark Blue */
+    --vaadin-input-field-icon-color: #000080; /* Dark Blue */
+    --vaadin-input-field-border-color: #c0c0c0; /* Light Gray */
+    --vaadin-input-field-border-width: 1px;
+
+    /* Other Retro Colors */
+    --movie-tile-background: rgba(0, 0, 0, 0.1); /* Slightly transparent Black */
+    --selected-cell-background: #a0a0a0; /* Gray */
+    --spreadsheet-header-row-background: #e0e0e0; /* Light Gray */
+    --spreadsheet-row-number-background: #e0e0e0; /* Light Gray */
+    --menu-item-text-color: #000080; /* Dark Blue */
+    --view-toggle-icon-color: #000080; /* Dark Blue */
+    --menu-selected-app-background: rgba(255, 204, 0, 0.2); /* Slightly transparent Yellow */
+    --menu-selected-app-color: #000080; /* Dark Blue */
+    --menu-link-app-color: #000080; /* Dark Blue */
+    --button-background-color: #ffcc00; /* Golden Yellow */
+    --button-color: #000000; /* Black */
+    --selected-route-button-color: #000080; /* Dark Blue */
+    --selected-route-button-background: #ffcc00; /* Golden Yellow */
+    --vaadin-icon-hover-color: #000080; /* Dark Blue */
+    --vaadin-icon-color: #000080; /* Dark Blue */
+    --drop-file-here-input-color: #000080; /* Dark Blue */
+    --drop-file-here-icon-color: #000080; /* Dark Blue */
+    --processing-file-info-label-color: #000080; /* Dark Blue */
+    --upload-button-text-color: #000000; /* Black */
+    --upload-button-background: #ffcc00; /* Golden Yellow */
+    --vaadin-upload-file-color: #000080; /* Dark Blue */
+    --ql-editor-content-background: #afadad; /* White */
+    --ql-toolbar-background: #c0c0c0; /* Light Gray */
+    --ql-editor-content-background-color: #c2c1c1; /* White */
+    --ql-editor-content-text-color: black;
+}

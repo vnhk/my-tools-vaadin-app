@@ -14,7 +14,6 @@ import com.bervan.toolsapp.views.otpview.OTPGenerateView;
 import com.bervan.toolsapp.views.pocketapp.PocketSideMenuView;
 import com.bervan.toolsapp.views.pocketapp.PocketTableView;
 import com.bervan.toolsapp.views.projectmgmtapp.ProjectListView;
-import com.bervan.toolsapp.views.projectmgmtapp.TaskDetailsView;
 import com.bervan.toolsapp.views.spreadsheetapp.SpreadsheetsView;
 import com.bervan.toolsapp.views.streamingplatformapp.VideoListView;
 import com.vaadin.flow.component.Component;
@@ -23,6 +22,7 @@ import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -38,6 +38,7 @@ import java.util.stream.Collectors;
 /**
  * The main view is a top-level placeholder for other views.
  */
+@JsModule("./theme-changer.js")
 public class MainLayout extends AppLayout {
 
     private final BervanLogger log;
@@ -45,9 +46,6 @@ public class MainLayout extends AppLayout {
     private static Div sideMenu;
     private static Registration clickListenerRegistration;
 
-    /**
-     * A simple navigation item component, based on ListItem element.
-     */
     public static class MenuItemInfo extends ListItem {
 
         private final Class<? extends Component> view;
@@ -70,10 +68,6 @@ public class MainLayout extends AppLayout {
             return view;
         }
 
-        /**
-         * Simple wrapper to create icons using LineAwesome iconset. See
-         * https://icons8.com/line-awesome
-         */
         @NpmPackage(value = "line-awesome", version = "1.3.0")
         public static class LineAwesomeIcon extends Span {
             public LineAwesomeIcon(String lineawesomeClassnames) {
@@ -227,10 +221,12 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Spreadsheets", "las la-file-excel", SpreadsheetsView.class), //
                     new MenuItemInfo("Notepad", "las la-chalkboard", CanvasPagesView.class), //
                     new MenuItemInfo("Streaming", "las la-video", VideoListView.class), //
+                    new MenuItemInfo("Settings", "las la-cog", SettingsView.class), //
             };
         } else if (AuthService.getUserRole().equals("ROLE_STREAMING"))
             return new MenuItemInfo[]{ //
                     new MenuItemInfo("Streaming", "las la-video", VideoListView.class), //
+                    new MenuItemInfo("Settings", "las la-cog", SettingsView.class), //
             };
 
         return new MenuItemInfo[0];
