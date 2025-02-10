@@ -4,7 +4,7 @@ import com.bervan.common.AbstractTableView;
 import com.bervan.common.EmptyLayout;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.englishtextstats.Word;
-import com.bervan.englishtextstats.WordService;
+import com.bervan.englishtextstats.service.WordService;
 import com.bervan.languageapp.service.AddFlashcardService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -21,23 +21,22 @@ import java.util.UUID;
 public class EnglishInVideoNotLearned extends AbstractTableView<UUID, Word> {
     protected HorizontalLayout dialogButtonsLayout;
     protected final AddFlashcardService addAsFlashcardService;
-
+    protected String englishSubtitlesPath;
     public EnglishInVideoNotLearned(WordService service,
                                     AddFlashcardService addAsFlashcardService,
                                     BervanLogger log,
                                     String englishSubtitlesPath) {
         super(new EmptyLayout(), service, log, Word.class);
         this.addAsFlashcardService = addAsFlashcardService;
+        this.englishSubtitlesPath = englishSubtitlesPath;
         renderCommonComponents();
-        service.setPath(englishSubtitlesPath);
         refreshData();
-
         contentLayout.remove(addButton);
     }
 
     @Override
     protected List<Word> loadData() {
-        return super.loadData();
+        return ((WordService) service).loadNotKnownWords(englishSubtitlesPath);
     }
 
     @Override

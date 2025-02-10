@@ -2,7 +2,7 @@ package com.bervan.toolsapp.views.streamingplatformapp;
 
 import com.bervan.common.service.AuthService;
 import com.bervan.core.model.BervanLogger;
-import com.bervan.englishtextstats.WordService;
+import com.bervan.englishtextstats.service.WordService;
 import com.bervan.filestorage.model.Metadata;
 import com.bervan.languageapp.service.AddFlashcardService;
 import com.bervan.streamingapp.VideoManager;

@@ -1,11 +1,11 @@
 package com.bervan.toolsapp.views.englishepub;
 
-import com.bervan.common.onevalue.OneValueService;
 import com.bervan.core.model.BervanLogger;
-import com.bervan.englishtextstats.AbstractNotLearnedWordsView;
-import com.bervan.englishtextstats.EbookPathLayout;
 import com.bervan.englishtextstats.Word;
-import com.bervan.englishtextstats.WordService;
+import com.bervan.englishtextstats.service.ExtractedEbookTextRepository;
+import com.bervan.englishtextstats.service.TextNotKnownWordsService;
+import com.bervan.englishtextstats.service.WordService;
+import com.bervan.englishtextstats.view.AbstractNotLearnedWordsView;
 import com.bervan.languageapp.service.AddFlashcardService;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
@@ -22,8 +22,8 @@ import jakarta.annotation.security.RolesAllowed;
 public class NotLearnedWordsView extends AbstractNotLearnedWordsView {
     private final AddFlashcardService addAsFlashcardService;
 
-    public NotLearnedWordsView(OneValueService oneValueService, WordService service, BervanLogger log, AddFlashcardService addAsFlashcardService) {
-        super(service, new EbookPathLayout(oneValueService, service), log);
+    public NotLearnedWordsView(WordService service, TextNotKnownWordsService textNotKnownWordsService, ExtractedEbookTextRepository extractedEbookTextRepository, BervanLogger log, AddFlashcardService addAsFlashcardService) {
+        super(service, extractedEbookTextRepository, textNotKnownWordsService, log);
         this.addAsFlashcardService = addAsFlashcardService;
     }
 
