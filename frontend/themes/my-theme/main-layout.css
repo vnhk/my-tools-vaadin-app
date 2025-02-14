@@ -212,6 +212,10 @@ vaadin-text-field::part(input-field) {
   color: var(--lumo-third-text-color);
 }
 
+vaadin-integer-field::part(input-field) {
+  color: var(--lumo-third-text-color);
+}
+
 vaadin-combo-box::part(input-field) {
   color: var(--lumo-third-text-color);
 }
