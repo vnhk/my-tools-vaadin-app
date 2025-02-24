@@ -55,7 +55,7 @@ COPY /src/main/frontend/index.html ./src/main/frontend/index.html
 COPY /src/main/frontend/theme-changer.js ./src/main/frontend/theme-changer.js
 COPY /configuration ./configuration
 
-COPY . .
+#COPY . .
 RUN mvn clean vaadin:prepare-frontend
 RUN mvn install -Pproduction -DskipTests -U
 
