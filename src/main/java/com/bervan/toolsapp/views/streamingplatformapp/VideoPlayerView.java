@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Route(value = AbstractVideoPlayerView.ROUTE_NAME, layout = MainLayout.class)
-@RouteAlias(value = AbstractVideoPlayerView.ROUTE_NAME, layout = MainLayout.class)
+
 @RolesAllowed({"USER", "STREAMING"})
 public class VideoPlayerView extends AbstractVideoPlayerView {
     private final VideoManager videoManager;

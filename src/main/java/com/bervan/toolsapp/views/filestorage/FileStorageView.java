@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 @Route(value = AbstractFileStorageView.ROUTE_NAME, layout = MainLayout.class)
-@RouteAlias(value = AbstractFileStorageView.ROUTE_NAME, layout = MainLayout.class)
+
 @RolesAllowed("USER")
 public class FileStorageView extends AbstractFileStorageView {
 

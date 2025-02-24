@@ -13,7 +13,7 @@ import java.util.UUID;
 
 
 @Route(value = AbstractSpreadsheetsView.ROUTE_NAME, layout = MainLayout.class)
-@RouteAlias(value = AbstractSpreadsheetsView.ROUTE_NAME, layout = MainLayout.class)
+
 @RolesAllowed("USER")
 public class SpreadsheetsView extends AbstractSpreadsheetsView {
     public SpreadsheetsView(BaseService<UUID, Spreadsheet> service, BervanLogger log) {

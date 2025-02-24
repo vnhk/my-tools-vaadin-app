@@ -17,7 +17,7 @@ import com.vaadin.flow.router.RouteAlias;
 import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = AbstractNotLearnedWordsView.ROUTE_NAME, layout = MainLayout.class)
-@RouteAlias(value = AbstractNotLearnedWordsView.ROUTE_NAME, layout = MainLayout.class)
+
 @RolesAllowed("USER")
 public class NotLearnedWordsView extends AbstractNotLearnedWordsView {
     private final AddFlashcardService addAsFlashcardService;

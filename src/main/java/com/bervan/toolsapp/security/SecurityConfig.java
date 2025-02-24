@@ -46,8 +46,8 @@ public class SecurityConfig extends VaadinWebSecurity {
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {
                     httpSecurityFormLoginConfigurer.loginPage("/login").permitAll();
-                    httpSecurityFormLoginConfigurer.defaultSuccessUrl("/");
-                    httpSecurityFormLoginConfigurer.successForwardUrl("/");
+                    httpSecurityFormLoginConfigurer.defaultSuccessUrl("/generate-otp");
+                    httpSecurityFormLoginConfigurer.successForwardUrl("/generate-otp");
                 })
                 .authenticationProvider(otpAuthenticationProvider)
                 .logout(httpSecurityLogoutConfigurer -> {

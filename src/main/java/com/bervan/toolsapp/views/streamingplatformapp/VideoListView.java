@@ -9,7 +9,7 @@ import com.vaadin.flow.router.RouteAlias;
 import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = AbstractVideoListView.ROUTE_NAME, layout = MainLayout.class)
-@RouteAlias(value = AbstractVideoListView.ROUTE_NAME, layout = MainLayout.class)
+
 @RolesAllowed({"USER", "STREAMING"})
 public class VideoListView extends AbstractVideoListView {
 

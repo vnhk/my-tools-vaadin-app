@@ -98,7 +98,7 @@ public class LoginView extends AbstractPageView {
         if (AuthService.getUserRole().equals("ROLE_STREAMING")) {
             getUI().ifPresent(ui -> ui.navigate("/streaming-platform"));
         } else {
-            getUI().ifPresent(ui -> ui.navigate(""));
+            getUI().ifPresent(ui -> ui.navigate("/generate-otp"));
         }
     }
 }

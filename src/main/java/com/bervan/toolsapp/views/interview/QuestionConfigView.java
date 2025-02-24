@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bervan.toolsapp.views.MainLayout;
 
 @Route(value = AbstractQuestionConfigView.ROUTE_NAME, layout = MainLayout.class)
-@RouteAlias(value = AbstractQuestionConfigView.ROUTE_NAME, layout = MainLayout.class)
+
 @RolesAllowed("USER")
 public class QuestionConfigView extends AbstractQuestionConfigView {
     public QuestionConfigView(@Autowired QuestionConfigService service, BervanLogger log) {

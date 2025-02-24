@@ -13,7 +13,7 @@
 
     <groupId>com.bervan</groupId>
     <artifactId>my-tools-vaadin-app</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>latest</version>
     <name>my-tools-vaadin-app</name>
     <packaging>jar</packaging>
 
@@ -109,7 +109,11 @@
             <artifactId>spring-jms</artifactId>
             <version>6.1.12</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.10.2</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -140,53 +144,68 @@
 
         <dependency>
             <groupId>com.bervan</groupId>
+            <artifactId>core</artifactId>
+            <version>latest</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bervan</groupId>
+            <artifactId>ie-entities</artifactId>
+            <version>latest</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bervan</groupId>
+            <artifactId>history-tables-core</artifactId>
+            <version>latest</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bervan</groupId>
+            <artifactId>common-vaadin</artifactId>
+            <version>latest</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bervan</groupId>
             <artifactId>file-storage-app</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>latest</version>
         </dependency>
         <dependency>
             <groupId>com.bervan</groupId>
             <artifactId>shopping-stats-server-app</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>latest</version>
         </dependency>
         <dependency>
             <groupId>com.bervan</groupId>
             <artifactId>streaming-platform-app</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>latest</version>
         </dependency>
         <dependency>
             <groupId>com.bervan</groupId>
             <artifactId>project-mgmt-app</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>latest</version>
         </dependency>
         <dependency>
             <groupId>com.bervan</groupId>
             <artifactId>interview-app</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>latest</version>
         </dependency>
         <dependency>
             <groupId>com.bervan</groupId>
             <artifactId>canvas-app</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>latest</version>
         </dependency>
         <dependency>
             <groupId>com.bervan</groupId>
             <artifactId>spreadsheet-app</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>latest</version>
         </dependency>
         <dependency>
             <groupId>com.bervan</groupId>
             <artifactId>learning-language-app</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>latest</version>
         </dependency>
         <dependency>
             <groupId>com.bervan</groupId>
-            <artifactId>english-stats-app</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <artifactId>english-text-stats-app</artifactId>
+            <version>latest</version>
         </dependency>
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
@@ -196,12 +215,20 @@
         <dependency>
             <groupId>com.bervan</groupId>
             <artifactId>pocket-app</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>latest</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
         </dependency>
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <defaultGoal>spring-boot:run</defaultGoal>
         <plugins>
             <plugin>
@@ -210,8 +237,6 @@
                 <!-- Clean build and startup time for Vaadin apps sometimes may exceed
                      the default Spring Boot's 30sec timeout.  -->
                 <configuration>
-                    <wait>500</wait>
-                    <maxAttempts>240</maxAttempts>
                 </configuration>
             </plugin>
 
@@ -254,7 +279,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <productionMode>true</productionMode>
+                            <frontendDirectory>${project.basedir}/src/main/frontend</frontendDirectory>
                         </configuration>
                     </plugin>
                 </plugins>

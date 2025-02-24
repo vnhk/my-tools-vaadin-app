@@ -12,7 +12,7 @@ import jakarta.annotation.security.RolesAllowed;
 import java.util.UUID;
 
 @Route(value = AbstractAllTasksListView.ROUTE_NAME, layout = MainLayout.class)
-@RouteAlias(value = AbstractAllTasksListView.ROUTE_NAME, layout = MainLayout.class)
+
 @RolesAllowed("USER")
 public class AllTasksListView extends AbstractAllTasksListView {
 

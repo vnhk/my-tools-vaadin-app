@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bervan.toolsapp.views.MainLayout;
 
 @Route(value = AbstractInterviewPlanView.ROUTE_NAME, layout = MainLayout.class)
-@RouteAlias(value = AbstractInterviewPlanView.ROUTE_NAME, layout = MainLayout.class)
+
 @RolesAllowed("USER")
 public class InterviewPlanView extends AbstractInterviewPlanView {
     public InterviewPlanView(@Autowired OneValueService service) {

@@ -9,7 +9,7 @@ import com.vaadin.flow.router.RouteAlias;
 import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = AbstractCanvasPagesView.ROUTE_NAME, layout = MainLayout.class)
-@RouteAlias(value = AbstractCanvasPagesView.ROUTE_NAME, layout = MainLayout.class)
+
 @RolesAllowed("USER")
 public class CanvasPagesView extends AbstractCanvasPagesView {
 

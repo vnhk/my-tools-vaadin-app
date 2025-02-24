@@ -10,7 +10,7 @@ import jakarta.annotation.security.RolesAllowed;
 import static com.bervan.toolsapp.views.SettingsView.ROUTE;
 
 @Route(value = ROUTE, layout = MainLayout.class)
-@RouteAlias(value = ROUTE, layout = MainLayout.class)
+
 @RolesAllowed({"USER", "STREAMING"})
 public class SettingsView extends VerticalLayout {
     public final static String ROUTE = "settings";

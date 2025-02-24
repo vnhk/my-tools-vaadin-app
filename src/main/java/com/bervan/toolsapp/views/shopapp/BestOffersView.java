@@ -9,7 +9,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
 @Route(value = AbstractBestOffersView.ROUTE_NAME, layout = MainLayout.class)
-@RouteAlias(value = AbstractBestOffersView.ROUTE_NAME, layout = MainLayout.class)
+
 public class BestOffersView extends AbstractBestOffersView {
 
 

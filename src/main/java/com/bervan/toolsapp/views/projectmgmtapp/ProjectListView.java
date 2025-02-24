@@ -13,7 +13,7 @@ import jakarta.annotation.security.RolesAllowed;
 import java.util.UUID;
 
 @Route(value = AbstractProjectListView.ROUTE_NAME, layout = MainLayout.class)
-@RouteAlias(value = AbstractProjectListView.ROUTE_NAME, layout = MainLayout.class)
+
 @RolesAllowed("USER")
 public class ProjectListView extends AbstractProjectListView {
 

@@ -14,7 +14,6 @@ import jakarta.annotation.security.RolesAllowed;
 import java.util.UUID;
 
 @Route(value = "generate-otp", layout = MainLayout.class)
-@RouteAlias(value = "", layout = MainLayout.class)
 @RolesAllowed("USER")
 public class OTPGenerateView extends AbstractPageView {
 

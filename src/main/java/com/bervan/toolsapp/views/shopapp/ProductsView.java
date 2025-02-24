@@ -9,7 +9,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
 @Route(value = AbstractProductView.ROUTE_NAME, layout = MainLayout.class)
-@RouteAlias(value = AbstractProductView.ROUTE_NAME, layout = MainLayout.class)
+
 public class ProductsView extends AbstractProductView {
 
     public ProductsView(ProductViewService productViewService, ProductSearchService productSearchService, BervanLogger log) {

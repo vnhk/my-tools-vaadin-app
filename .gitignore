@@ -25,3 +25,5 @@ error-screenshots/
 webpack.generated.js
 package-lock.json
 /src/main/resources/keystore.p12
+/src/main/bundles/prod.bundle
+/src/main/frontend/generated/

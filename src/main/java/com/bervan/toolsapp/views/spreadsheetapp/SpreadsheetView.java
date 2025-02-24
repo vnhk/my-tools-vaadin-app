@@ -13,7 +13,7 @@ import jakarta.annotation.security.RolesAllowed;
 import java.util.List;
 
 @Route(value = AbstractSpreadsheetView.ROUTE_NAME, layout = MainLayout.class)
-@RouteAlias(value = AbstractSpreadsheetView.ROUTE_NAME, layout = MainLayout.class)
+
 @RolesAllowed("USER")
 public class SpreadsheetView extends AbstractSpreadsheetView implements HasUrlParameter<String> {
 

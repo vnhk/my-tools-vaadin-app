@@ -9,7 +9,7 @@ import com.vaadin.flow.router.RouteAlias;
 import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = AbstractEbooksView.ROUTE_NAME, layout = MainLayout.class)
-@RouteAlias(value = AbstractEbooksView.ROUTE_NAME, layout = MainLayout.class)
+
 @RolesAllowed("USER")
 public class EbooksView extends AbstractEbooksView {
 
