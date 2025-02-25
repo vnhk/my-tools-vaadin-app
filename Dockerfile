@@ -47,7 +47,6 @@ COPY /pom.xml ./pom.xml
 COPY /tsconfig.json ./tsconfig.json
 COPY /types.d.ts ./types.d.ts
 COPY /vite.config.ts ./vite.config.ts
-COPY /vite.generated.ts ./vite.generated.ts
 COPY /src/main/java ./src/main/java
 COPY /src/main/resources ./src/main/resources
 COPY /src/main/frontend/themes ./src/main/frontend/themes
