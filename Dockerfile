@@ -60,6 +60,8 @@ RUN mvn install -Pproduction -DskipTests -U
 
 FROM openjdk:17 AS runtime
 
+WORKDIR /app
+
 COPY --from=builder /app/target/my-tools-vaadin-app.jar ./my-tools-vaadin-app.jar
 COPY --from=builder /app/configuration/ ./configuration/
 
