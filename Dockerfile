@@ -55,7 +55,7 @@ COPY /src/main/frontend/theme-changer.js ./src/main/frontend/theme-changer.js
 COPY /configuration ./configuration
 
 #COPY . .
-RUN mvn clean vaadin:prepare-frontend
+#RUN mvn clean vaadin:prepare-frontend
 RUN mvn install -Pproduction -DskipTests -U
 
 FROM openjdk:17 AS runtime
