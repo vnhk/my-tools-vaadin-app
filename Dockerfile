@@ -58,11 +58,5 @@ COPY /configuration ./configuration
 #RUN mvn clean vaadin:prepare-frontend
 RUN mvn install -Pproduction -DskipTests -U
 
-FROM openjdk:17 AS runtime
+CMD ["java", "-jar", "-Dspring.profiles.active=production", "/target/my-tools-vaadin-app.jar"]
 
-WORKDIR /app
-
-COPY --from=builder /app/target/my-tools-vaadin-app.jar ./my-tools-vaadin-app.jar
-COPY --from=builder /app/configuration/ ./configuration/
-
-CMD ["java", "-jar", "-Dspring.profiles.active=production", "my-tools-vaadin-app.jar"]
