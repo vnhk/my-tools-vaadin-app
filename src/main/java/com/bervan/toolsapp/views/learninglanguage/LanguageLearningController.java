@@ -49,11 +49,23 @@ public class LanguageLearningController {
             throw new RuntimeException("INVALID ACCESS");
         }
 
+        if (request.getLevel() == null) {
+            request.setLevel("N/A");
+        }
+
+        switch (request.getLevel()) {
+            case "A1", "A2", "B1", "B2", "C1", "C2":
+                break;
+            default:
+                request.setLevel("N/A");
+        }
+
         try {
             TranslationRecord record = new TranslationRecord();
             record.setDeleted(false);
             record.setFactor(1);
             record.setSourceText(request.getEnglishText());
+            record.setLevel(request.getLevel());
             record.setTextTranslation(request.getPolishText());
             record.addOwner(apiKeyService.getUserByAPIKey(request.getApiKey()));
 

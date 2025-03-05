@@ -83,6 +83,21 @@
         englishTextArea.style.backgroundColor = 'white';
         englishTextArea.value = markedText || '';
 
+        // Dropdown for English Level
+        const englishLevelDropdown = document.createElement('select');
+        englishLevelDropdown.style.margin = '10px 0'; // Add some margin
+
+        const levels = ['N/A', 'A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+
+        levels.forEach(level => {
+            const option = document.createElement('option');
+            option.value = level;
+            option.textContent = level;
+            englishLevelDropdown.appendChild(option);
+        });
+
+        englishLevelDropdown.value = 'N/A'; // Set initial value
+
         // Translate Button
         const translateButton = document.createElement('button');
         translateButton.textContent = 'Translate';
@@ -148,7 +163,7 @@
         const generateExamplesLabel = document.createElement('label');
         const generateExamplesCheckbox = document.createElement('input');
         generateExamplesCheckbox.type = 'checkbox';
-        generateExamplesCheckbox.checked = false;
+        generateExamplesCheckbox.checked = true;
         generateExamplesLabel.appendChild(generateExamplesCheckbox);
         generateExamplesLabel.appendChild(document.createTextNode(' Generate examples'));
         generateExamplesLabel.style.display = 'block';
@@ -170,6 +185,7 @@
         formContainer.appendChild(englishTextArea);
         formContainer.appendChild(translateButton);
         formContainer.appendChild(translationContainer);
+        formContainer.appendChild(englishLevelDropdown);
         formContainer.appendChild(saveWithSoundLabel);
         formContainer.appendChild(generateExamplesLabel);
         formContainer.appendChild(saveButton);
@@ -219,6 +235,7 @@
             const translationRequest = {
                 englishText: englishTextArea.value,
                 polishText: polishTextArea.value,
+                level: levelDropdown.value,
                 saveWithSound: saveWithSoundCheckbox.checked,
                 generateExample: generateExamplesCheckbox.checked,
                 apiKey: `${API_KEY}`

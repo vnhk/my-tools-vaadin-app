@@ -5,6 +5,7 @@ class TranslationRecordRequest {
     private String polishText;
     private Boolean saveWithSound;
     private Boolean generateExample;
+    private String level;
     private String apiKey;
 
     public Boolean getGenerateExample() {
@@ -45,5 +46,13 @@ class TranslationRecordRequest {
 
     public void setApiKey(String apiKey) {
         this.apiKey = apiKey;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 }
