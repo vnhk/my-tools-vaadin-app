@@ -56,7 +56,7 @@
         formContainer.style.borderRadius = '8px';
         formContainer.style.color = 'black';
 
-        makeDraggable(formContainer);
+        makeDraggable(formContainer, draggButton);
 
         // Close button
         const closeButton = document.createElement('button');
@@ -72,6 +72,17 @@
             formContainer.remove();
             formVisible = false;
         };
+
+        // Close button
+        const draggButton = document.createElement('button');
+        draggButton.textContent = '{DRAG_ME}';
+        draggButton.style.position = 'absolute';
+        draggButton.style.top = '10px';
+        draggButton.style.left = '10px';
+        draggButton.style.border = 'none';
+        draggButton.style.background = 'none';
+        draggButton.style.fontSize = '16px';
+        draggButton.style.cursor = 'pointer';
 
         // TextArea for English Text with top margin adjustment
         const englishTextArea = document.createElement('textarea');
@@ -181,6 +192,7 @@
         saveButton.disabled = true;
 
         // Append elements to form container
+        formContainer.appendChild(draggButton);
         formContainer.appendChild(closeButton);
         formContainer.appendChild(englishTextArea);
         formContainer.appendChild(translateButton);
@@ -281,15 +293,16 @@
 
 
     // Function to make the modal draggable
-    function makeDraggable(element) {
+    function makeDraggable(element, draggButton) {
         let offsetX = 0, offsetY = 0, isDragging = false;
 
         // Add a mouse down listener to enable dragging
-        element.addEventListener('mousedown', (e) => {
+        draggButton.addEventListener('mousedown', (e) => {
             isDragging = true;
             offsetX = e.clientX - element.getBoundingClientRect().left;
             offsetY = e.clientY - element.getBoundingClientRect().top;
             element.style.cursor = 'move';
+            e.preventDefault();
         });
 
         // Listen for mouse movement to move the modal
