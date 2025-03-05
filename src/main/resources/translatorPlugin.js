@@ -56,8 +56,6 @@
         formContainer.style.borderRadius = '8px';
         formContainer.style.color = 'black';
 
-        makeDraggable(formContainer, draggButton);
-
         // Close button
         const closeButton = document.createElement('button');
         closeButton.textContent = 'X';
@@ -83,6 +81,8 @@
         draggButton.style.background = 'none';
         draggButton.style.fontSize = '16px';
         draggButton.style.cursor = 'pointer';
+
+        makeDraggable(formContainer, draggButton);
 
         // TextArea for English Text with top margin adjustment
         const englishTextArea = document.createElement('textarea');
