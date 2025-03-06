@@ -247,7 +247,7 @@
             const translationRequest = {
                 englishText: englishTextArea.value,
                 polishText: polishTextArea.value,
-                level: levelDropdown.value,
+                level: englishLevelDropdown.value,
                 saveWithSound: saveWithSoundCheckbox.checked,
                 generateExample: generateExamplesCheckbox.checked,
                 apiKey: `${API_KEY}`
