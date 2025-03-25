@@ -4,6 +4,7 @@ class TranslationRecordRequest {
     private String englishText;
     private String polishText;
     private Boolean saveWithSound;
+    private Boolean loadNewImages = true;
     private Boolean generateExample;
     private String level;
     private String apiKey;
@@ -54,5 +55,13 @@ class TranslationRecordRequest {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public Boolean getLoadNewImages() {
+        return loadNewImages;
+    }
+
+    public void setLoadNewImages(Boolean loadNewImages) {
+        this.loadNewImages = loadNewImages;
     }
 }

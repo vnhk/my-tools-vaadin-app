@@ -98,6 +98,10 @@ public class LanguageLearningController {
                 }
             }
 
+            if (request.getLoadNewImages()) {
+                translationRecordService.setNewAndReplaceImages(record);
+            }
+
             TranslationRecord saved = translationRecordService.save(record);
 
             return ResponseEntity.ok(saved.getId() + " saved.");
