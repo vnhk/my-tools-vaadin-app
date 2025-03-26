@@ -26,4 +26,5 @@ webpack.generated.js
 package-lock.json
 /src/main/resources/keystore.p12
 /src/main/bundles/prod.bundle
+/src/main/bundles/dev.bundle
 /src/main/frontend/generated/
