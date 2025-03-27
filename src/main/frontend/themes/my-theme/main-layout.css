@@ -484,9 +484,16 @@ vaadin-grid::part(cell) {
 
 
 .flashcard-layout {
-  align-items: center;
-  justify-content: center;
+  /*align-items: center;*/
+  justify-content: left;
   text-align: center;
+}
+
+.flashcard-additional-details {
+  width: 98%;
+  margin-left: 1%;
+  margin-right: 1%;
+  overflow: hidden;
 }
 
 .creating-flashcard-from-buttons {
@@ -504,6 +511,7 @@ vaadin-grid::part(cell) {
   cursor: pointer;
   transition: transform 0.5s;
   width: 500px;
+  min-width: 500px;
   max-height: 400px;
   margin-top: 10px;
   margin-right: 25px;
