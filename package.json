@@ -101,14 +101,14 @@
     "lit": "$lit",
     "@polymer/polymer": "$@polymer/polymer",
     "date-fns": "$date-fns",
-    "line-awesome": "$line-awesome",
     "proj4": "$proj4",
     "@vaadin/react-components": "$@vaadin/react-components",
     "@vaadin/react-components-pro": "$@vaadin/react-components-pro",
     "react-dom": "$react-dom",
     "react-router-dom": "$react-router-dom",
     "react": "$react",
-    "@vaadin/router": "$@vaadin/router"
+    "@vaadin/router": "$@vaadin/router",
+    "line-awesome": "$line-awesome"
   },
   "type": "module"
 }
