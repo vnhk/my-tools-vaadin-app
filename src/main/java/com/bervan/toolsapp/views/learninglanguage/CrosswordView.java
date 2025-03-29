@@ -10,6 +10,6 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class CrosswordView extends AbstractCrosswordView {
     public CrosswordView(CrosswordService crosswordService) {
-        super(crosswordService);
+        super();
     }
 }
