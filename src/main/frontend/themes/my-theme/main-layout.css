@@ -359,6 +359,10 @@ vaadin-grid::part(cell) {
   color: white;
 }
 
+vaadin-confirm-dialog-overlay::part(content){
+  color: var(--button-color);
+}
+
 .option-button-warning {
   background-color: orangered !important;
   color: white;
