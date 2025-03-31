@@ -75,7 +75,7 @@ html {
     --menu-selected-app-color: #00ffff; /* Cyan */
     --menu-link-app-color: #00ffff; /* Cyan */
     --button-background-color: #ff0080; /* Hot Pink */
-    --button-color: #000000; /* Black */
+    --button-color: #ffffff;
     --selected-route-button-color: #00ffff; /* Cyan */
     --selected-route-button-background: #ff0080; /* Hot Pink */
     --vaadin-icon-hover-color: #00ffff; /* Cyan */
