@@ -4,6 +4,10 @@ html {
 
 }
 
+vaadin-grid vaadin-checkbox {
+  --lumo-size-m: 30px;
+}
+
 .movie-tile {
   background: var(--movie-tile-background);
 }
