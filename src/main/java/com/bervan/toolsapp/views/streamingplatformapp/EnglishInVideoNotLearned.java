@@ -41,6 +41,7 @@ public class EnglishInVideoNotLearned extends AbstractTableView<UUID, Word> {
 
     @Override
     protected Grid<Word> getGrid() {
+        super.checkboxesColumnsEnabled = false;
         Grid<Word> grid = new Grid<>(Word.class, false);
         grid.addColumn(new ComponentRenderer<>(word -> formatTextComponent(word.getTableFilterableColumnValue())))
                 .setHeader("Name").setKey("name").setResizable(true);
