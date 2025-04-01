@@ -10,7 +10,6 @@ import com.vaadin.flow.router.RouteAlias;
 import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = AbstractAllPocketItemsView.ROUTE_NAME, layout = MainLayout.class)
-
 @RolesAllowed("USER")
 public class PocketItemsTableView extends AbstractAllPocketItemsView {
 
