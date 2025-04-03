@@ -47,7 +47,10 @@ html {
     --movie-tile-background: #3c3f41; /* Matches input background */
     --selected-cell-background: #508050; /* Darker green */
     --spreadsheet-header-row-background: rgba(80, 100, 160); /* Existing value */
-    --spreadsheet-row-number-background: rgba(80, 100, 160); /* Existing value */
+    --spreadsheet-cell-background: #7e7a7a;
+    --spreadsheet-cell-color: white; /* White */
+    --spreadsheet-header-row-color: white; /* White */
+    --spreadsheet-row-number-color: white; /* White */
     --menu-item-text-color: #9fc5f8; /* Lighter blue */
     --view-toggle-icon-color: #a9b7c6; /* Light gray */
     --menu-selected-app-background: rgba(76, 92, 128, 0.25); /* Darker, slightly transparent blue */

@@ -66,8 +66,12 @@ html {
     /* Other Cyberpunk Colors */
     --movie-tile-background: rgba(220, 218, 218, 0.11);
     --selected-cell-background: #008000; /* Darker Green */
-    --spreadsheet-header-row-background: #1a1a1a; /* Dark Gray/Almost Black */
-    --spreadsheet-row-number-background: #1a1a1a; /* Dark Gray/Almost Black */
+    --spreadsheet-header-row-background: #7e7a7a;
+    --spreadsheet-row-number-background: #7e7a7a;
+    --spreadsheet-cell-background: #1a1a1a;
+    --spreadsheet-cell-color: white; /* White */
+    --spreadsheet-header-row-color: white; /* White */
+    --spreadsheet-row-number-color: white; /* White */
     --menu-item-text-color: #00ffff; /* Cyan */
     --view-toggle-icon-color: #00ffff; /* Cyan */
     --menu-selected-app-background: 255, 0, 128; /* Slightly transparent Hot Pink */

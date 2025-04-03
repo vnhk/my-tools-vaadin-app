@@ -59,17 +59,26 @@ vaadin-grid vaadin-checkbox {
 
 .spreadsheet-header-row {
   background-color: var(--spreadsheet-header-row-background);
+  color: var(--spreadsheet-header-row-color);
+}
+
+.spreadsheet-function-info {
+  background-color: var(--spreadsheet-header-row-background);
+  color: var(--spreadsheet-header-row-color);
 }
 
 .spreadsheet-row-number {
   border: 2px solid white;
   padding: 5px;
   background-color: var(--spreadsheet-row-number-background);
+  color: var(--spreadsheet-row-number-color);
   min-width: 50px;
   min-height: 15px;
 }
 
 .spreadsheet-cell {
+  background-color: var(--spreadsheet-cell-background);
+  color: var(--spreadsheet-cell-color);
   border: 2px solid white;
   padding: 5px;
   font-size: 15px;
