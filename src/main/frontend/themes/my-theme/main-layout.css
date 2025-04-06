@@ -47,7 +47,7 @@ vaadin-grid vaadin-checkbox {
 }
 
 .selected-cell {
-  background-color: var(--selected-cell-background);
+  background-color: var(--selected-cell-background) !important;
 }
 
 .spreadsheet-header {
