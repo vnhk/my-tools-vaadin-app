@@ -1,7 +1,7 @@
 /*@import "../cyberpunk-theme.css";*/
 
 html {
-
+  --spreadsheet-cell-function-color: #000000; /* Define with an appropriate color value */
 }
 
 vaadin-grid vaadin-checkbox {
@@ -74,6 +74,11 @@ vaadin-grid vaadin-checkbox {
   color: var(--spreadsheet-row-number-color);
   min-width: 50px;
   min-height: 15px;
+}
+
+.spreadsheet-cell-function {
+  background-color: var(--spreadsheet-cell-function-background, transparent) !important;
+  color: var(--spreadsheet-cell-function-color, inherit) !important;
 }
 
 .spreadsheet-cell {

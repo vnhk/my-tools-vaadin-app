@@ -68,6 +68,8 @@ html {
     --selected-cell-background: #008000; /* Darker Green */
     --spreadsheet-header-row-background: #7e7a7a;
     --spreadsheet-row-number-background: #7e7a7a;
+    --spreadsheet-cell-function-background: #3f4641;
+    --spreadsheet-cell-function-color: #00ffff;
     --spreadsheet-cell-background: #1a1a1a;
     --spreadsheet-cell-color: white; /* White */
     --spreadsheet-header-row-color: white; /* White */
