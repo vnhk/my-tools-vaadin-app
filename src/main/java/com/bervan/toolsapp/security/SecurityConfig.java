@@ -41,7 +41,8 @@ public class SecurityConfig extends VaadinWebSecurity {
                 .requiresChannel(channel ->
                         channel.anyRequest().requiresSecure()
                 ).authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
-                    authorizationManagerRequestMatcherRegistry.requestMatchers("/login", "/pocket/**", "/language-learning/**").permitAll();
+                    authorizationManagerRequestMatcherRegistry.requestMatchers("/login", "/pocket/**",
+                            "/language-learning/**", "/products/**").permitAll();
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/line-awesome/**", "/static/**", "/images/**").permitAll();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {

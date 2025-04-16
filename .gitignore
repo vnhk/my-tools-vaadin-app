@@ -28,3 +28,4 @@ package-lock.json
 /src/main/bundles/prod.bundle
 /src/main/bundles/dev.bundle
 /src/main/frontend/generated/
+/configuration/configuration.json
