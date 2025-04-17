@@ -1,6 +1,8 @@
 package com.bervan.toolsapp;
 
 import com.bervan.common.BervanBaseRepositoryImpl;
+import com.bervan.common.user.User;
+import com.bervan.common.user.UserRepository;
 import com.bervan.core.model.BervanLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +31,19 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @EnableMethodSecurity
 public class Application extends SpringBootServletInitializer {
     private Logger logger = LoggerFactory.getLogger(Application.class);
+    private final UserRepository userRepository;
+
+    public Application(UserRepository userRepository) {
+        this.userRepository = userRepository;
+
+        if (userRepository.findByUsername("COMMON_USER").isEmpty()) {
+            User save = new User();
+            save.setUsername("COMMON_USER");
+            save.setRole("ROLE_USER");
+            save.setLockedAccount(true);
+            userRepository.save(save);
+        }
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
