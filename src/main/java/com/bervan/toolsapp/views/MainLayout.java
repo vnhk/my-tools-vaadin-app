@@ -222,7 +222,7 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Spreadsheets", "las la-file-excel", SpreadsheetsView.class), //
                     new MenuItemInfo("Notepad", "las la-chalkboard", CanvasPagesView.class), //
                     new MenuItemInfo("Streaming", "las la-video", VideoListView.class), //
-                    new MenuItemInfo("Shopping", "las la-cart", ProductsView.class), //
+                    new MenuItemInfo("Shopping", "la la-shopping-cart", ProductsView.class), //
                     new MenuItemInfo("Settings", "las la-cog", SettingsView.class), //
             };
         } else if (AuthService.getUserRole().equals("ROLE_STREAMING"))
