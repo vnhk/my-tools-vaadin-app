@@ -10,6 +10,7 @@ import com.bervan.toolsapp.views.englishepub.NotLearnedWordsView;
 import com.bervan.toolsapp.views.filestorage.FileStorageView;
 import com.bervan.toolsapp.views.interview.InterviewHomeView;
 import com.bervan.toolsapp.views.learninglanguage.LearningAppHomeView;
+import com.bervan.toolsapp.views.logsapp.LogItemsTableView;
 import com.bervan.toolsapp.views.otpview.OTPGenerateView;
 import com.bervan.toolsapp.views.pocketapp.PocketSideMenuView;
 import com.bervan.toolsapp.views.pocketapp.PocketTableView;
@@ -223,6 +224,7 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Notepad", "las la-chalkboard", CanvasPagesView.class), //
                     new MenuItemInfo("Streaming", "las la-video", VideoListView.class), //
                     new MenuItemInfo("Shopping", "la la-shopping-cart", ProductsView.class), //
+                    new MenuItemInfo("Logs", "las la-log", LogItemsTableView.class), //
                     new MenuItemInfo("Settings", "las la-cog", SettingsView.class), //
             };
         } else if (AuthService.getUserRole().equals("ROLE_STREAMING"))

@@ -4,8 +4,30 @@ html {
   --spreadsheet-cell-function-color: #000000; /* Define with an appropriate color value */
 }
 
+vaadin-date-picker {
+  color: white;
+}
+
+vaadin-time-picker {
+  color: white;
+}
+
 vaadin-grid vaadin-checkbox {
   --lumo-size-m: 30px;
+}
+
+.wrap-text-grid {
+  white-space: normal;
+  word-break: break-word;
+}
+
+vaadin-grid.flex-grid::part(row) {
+  height: auto !important;
+}
+
+vaadin-grid.flex-grid::part(cell) {
+  white-space: normal !important;
+  word-break: break-word !important;
 }
 
 .movie-tile {

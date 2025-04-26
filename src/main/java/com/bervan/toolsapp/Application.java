@@ -51,6 +51,7 @@ public class Application extends SpringBootServletInitializer {
 
     @Bean
     public BervanLogger bervanLogger() {
+
         return new BervanLogger() {
             @Override
             public void error(String message) {
