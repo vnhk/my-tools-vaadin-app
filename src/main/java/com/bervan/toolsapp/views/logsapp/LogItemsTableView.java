@@ -47,6 +47,7 @@ public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
         }
         logSelector.addValueChangeListener(comboBoxStringComponentValueChangeEvent -> {
             appName = comboBoxStringComponentValueChangeEvent.getValue();
+            this.showLastPage = true;
             this.loadData();
             this.refreshData();
         });
