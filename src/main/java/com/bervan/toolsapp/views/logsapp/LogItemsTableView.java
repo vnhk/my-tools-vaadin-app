@@ -14,6 +14,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +26,7 @@ public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
     private final LogService logService;
     private final UserRepository userRepository;
     private ComboBox<String> logSelector;
+    private boolean showLastPage = true;
 
     public LogItemsTableView(LogService logService, BervanLogger log, UserRepository userRepository) {
         super(new LogsAppPageLayout(ROUTE_NAME), logService, log, LogEntity.class);
@@ -73,6 +75,13 @@ public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
                 "applicationName", SearchOperation.EQUALS_OPERATION, appName);
 
         request.addOwnerAccessCriteria(LogEntity.class, userRepository.findByUsername("COMMON_USER").get().getId());
+
+        if (showLastPage) {
+            allFound = countAll(request, new ArrayList<>());
+            maxPages = (int) Math.ceil((double) allFound / pageSize);
+            pageNumber = maxPages - 1;
+            showLastPage = false;
+        }
     }
 
     @Override
