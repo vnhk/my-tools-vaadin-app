@@ -14,6 +14,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -89,5 +90,16 @@ public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
         List<LogEntity> logEntities = super.loadData();
         logEntities.forEach(e -> e.setFullLog(e.getFullLog()));
         return logEntities;
+    }
+
+    @Override
+    protected List<String> getFilterableFields(List<Field> vaadinTableColumns) {
+        List<String> filterableFields = super.getFilterableFields(vaadinTableColumns);
+        filterableFields.remove("fullLog");
+        filterableFields.add("message");
+        filterableFields.add("className");
+        filterableFields.add("methodName");
+
+        return filterableFields;
     }
 }
