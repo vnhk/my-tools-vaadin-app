@@ -1,6 +1,7 @@
 package com.bervan.toolsapp.views.logsapp;
 
 import com.bervan.common.AbstractTableView;
+import com.bervan.common.BervanComboBox;
 import com.bervan.common.search.SearchRequest;
 import com.bervan.common.search.model.Operator;
 import com.bervan.common.search.model.SearchOperation;
@@ -14,7 +15,6 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -36,11 +36,10 @@ public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
 
         checkboxesColumnsEnabled = false;
         pageSize = 500;
-
         addClassName("logs-item-view");
 
         Set<String> appsName = logService.loadAppsName();
-        logSelector = new ComboBox<>("Application:", appsName);
+        logSelector = new BervanComboBox<>(appsName);
         if (!appsName.isEmpty()) {
             appName = appsName.iterator().next();
             logSelector.setValue(appName);
@@ -52,11 +51,10 @@ public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
             this.refreshData();
         });
 
-        contentLayout.add(logSelector);
-
         renderCommonComponents();
         addButton.setVisible(false);
 
+        topLayout.add(logSelector);
         filtersLayout.removeFilterableFields("fullLog");
         filtersLayout.addFilterableFields("message");
         filtersLayout.addFilterableFields("className");
@@ -87,6 +85,9 @@ public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
             allFound = countAll(request, new ArrayList<>());
             maxPages = (int) Math.ceil((double) allFound / pageSize);
             pageNumber = maxPages - 1;
+            if (pageNumber < 0) {
+                pageNumber = 0;
+            }
             showLastPage = false;
         }
     }
