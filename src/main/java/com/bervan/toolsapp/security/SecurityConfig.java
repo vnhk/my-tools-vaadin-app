@@ -37,10 +37,15 @@ public class SecurityConfig extends VaadinWebSecurity {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .requiresChannel(channel ->
-                        channel.anyRequest().requiresSecure()
-                ).authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
+        HttpSecurity httpSecurity;
+        if (Boolean.parseBoolean(System.getProperty("server.ssl.enabled", "false"))) {
+            httpSecurity = http.requiresChannel(channel ->
+                    channel.anyRequest().requiresSecure());
+        } else {
+            httpSecurity = http;
+        }
+
+        httpSecurity.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/login", "/pocket/**",
                             "/language-learning/**", "/products/**").permitAll();
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/line-awesome/**", "/static/**", "/images/**").permitAll();
