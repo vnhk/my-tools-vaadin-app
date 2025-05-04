@@ -91,12 +91,4 @@ public class BaseTest {
         button.click();
         Thread.sleep(400);
     }
-
-    public void ConfirmYesConfirmVaadinDialog(ChromeDriver driver) {
-        WebElement confirmDialog = new WebDriverWait(driver, ofSeconds(10), ofSeconds(1))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//vaadin-confirm-dialog-overlay")));
-
-        WebElement confirmButton = confirmDialog.findElement(By.xpath("//vaadin-button[@slot='confirm-button']"));
-        confirmButton.click();
-    }
 }

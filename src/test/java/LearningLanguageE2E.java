@@ -66,7 +66,7 @@ public class LearningLanguageE2E extends BaseTest {
             super.GoToApp(driver, "Learning Language");
             new WebDriverWait(driver, Duration.ofSeconds(10))
                     .until(ExpectedConditions.urlToBe(baseUrl + "/learning-english-app/home"));
-            Integer itemsInTable = BervanTableCommon.getItemsInTable(driver);
+            Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
             Assertions.assertEquals(0, itemsInTable);
             AddNewItem(driver, "Test Text 0", "Test Translation 0", "Test Examples 0", "Test Examples Translation 0");
             AddNewItem(driver, "Test Text 1", "Test Translation 1", "Test Examples 1", "Test Examples Translation 1");
@@ -74,7 +74,7 @@ public class LearningLanguageE2E extends BaseTest {
 
             Thread.sleep(1500);
 
-            itemsInTable = BervanTableCommon.getItemsInTable(driver);
+            itemsInTable = BervanTableCommon.GetItemsInTable(driver);
             Assertions.assertEquals(3, itemsInTable);
         } finally {
             driver.quit();
@@ -93,7 +93,7 @@ public class LearningLanguageE2E extends BaseTest {
             new WebDriverWait(driver, Duration.ofSeconds(10))
                     .until(ExpectedConditions.urlToBe(baseUrl + "/learning-english-app/home"));
             Thread.sleep(1500);
-            Integer itemsInTable = BervanTableCommon.getItemsInTable(driver);
+            Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
             Assertions.assertEquals(3, itemsInTable);
 
             GoToAnotherViewInApp(driver, "Flashcards");
@@ -101,24 +101,24 @@ public class LearningLanguageE2E extends BaseTest {
             Assertions.assertEquals(3, flashcardsLeftAmount);
 
             GoToAnotherViewInApp(driver, "Home");
-            BervanTableCommon.assertColumnValueAsStr(driver, 8, 0, 10, "true");
-            BervanTableCommon.assertColumnValueAsStr(driver, 8, 1, 10, "true");
-            BervanTableCommon.assertColumnValueAsStr(driver, 8, 2, 10, "true");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 0, 10, "true");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 1, 10, "true");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 2, 10, "true");
 
             BervanTableCommon.clickCheckboxSelectAll(driver);
-            BervanTableCommon.clickCheckboxSelectByRow(driver, 0);
+            BervanTableCommon.ClickCheckboxSelectByRow(driver, 0);
             DeactivateSelected(webDriverWait, driver);
 
-            BervanTableCommon.assertColumnValueAsStr(driver, 8, 0, 10, "true");
-            BervanTableCommon.assertColumnValueAsStr(driver, 8, 1, 10, "false");
-            BervanTableCommon.assertColumnValueAsStr(driver, 8, 2, 10, "false");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 0, 10, "true");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 1, 10, "false");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 2, 10, "false");
 
             GoToAnotherViewInApp(driver, "Flashcards");
             flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
             Assertions.assertEquals(1, flashcardsLeftAmount);
 
             GoToAnotherViewInApp(driver, "Home");
-            BervanTableCommon.clickCheckboxSelectByRow(driver, 0);
+            BervanTableCommon.ClickCheckboxSelectByRow(driver, 0);
             DeactivateSelected(webDriverWait, driver);
 
             GoToAnotherViewInApp(driver, "Flashcards");
@@ -126,14 +126,48 @@ public class LearningLanguageE2E extends BaseTest {
             Assertions.assertEquals(0, flashcardsLeftAmount);
 
             GoToAnotherViewInApp(driver, "Home");
-            BervanTableCommon.clickCheckboxSelectByRow(driver, 0);
-            BervanTableCommon.clickCheckboxSelectByRow(driver, 1);
-            BervanTableCommon.clickCheckboxSelectByRow(driver, 2);
+            BervanTableCommon.ClickCheckboxSelectByRow(driver, 0);
+            BervanTableCommon.ClickCheckboxSelectByRow(driver, 1);
+            BervanTableCommon.ClickCheckboxSelectByRow(driver, 2);
             ActivateSelected(webDriverWait, driver);
 
             GoToAnotherViewInApp(driver, "Flashcards");
             flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
             Assertions.assertEquals(3, flashcardsLeftAmount);
+        } finally {
+            driver.quit();
+        }
+    }
+
+    @Test
+    @Order(4)
+    public void testDeleteRecords() throws InterruptedException {
+        ChromeDriver driver = Config.getDriver();
+        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        try {
+            super.Login(driver);
+            super.GoToApp(driver, "Learning Language");
+            new WebDriverWait(driver, Duration.ofSeconds(10))
+                    .until(ExpectedConditions.urlToBe(baseUrl + "/learning-english-app/home"));
+            Thread.sleep(1500);
+            Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+            Assertions.assertEquals(3, itemsInTable);
+
+            BervanTableCommon.ClickCheckboxSelectByRow(driver, 0);
+            BervanTableCommon.ClickCheckboxSelectByRow(driver, 2);
+            BervanTableCommon.DeleteSelected(webDriverWait, driver);
+
+            itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+            Assertions.assertEquals(1, itemsInTable);
+
+            Thread.sleep(3000);
+
+            Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver,
+                    1, 0, 10, "Test Text 1"));
+
+            BervanTableCommon.DeleteItemByColumnClick(driver, 1, 0, 10);
+            itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+            Assertions.assertEquals(0, itemsInTable);
         } finally {
             driver.quit();
         }
@@ -146,7 +180,7 @@ public class LearningLanguageE2E extends BaseTest {
 
         deActivateButton.click();
         Thread.sleep(400);
-        ConfirmYesConfirmVaadinDialog(driver);
+        BervanTableCommon.ConfirmYesConfirmVaadinDialog(driver);
         Thread.sleep(400);
     }
 
@@ -156,7 +190,7 @@ public class LearningLanguageE2E extends BaseTest {
 
         activateButton.click();
         Thread.sleep(400);
-        ConfirmYesConfirmVaadinDialog(driver);
+        BervanTableCommon.ConfirmYesConfirmVaadinDialog(driver);
         Thread.sleep(400);
     }
 
