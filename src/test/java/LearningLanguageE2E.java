@@ -71,11 +71,31 @@ public class LearningLanguageE2E extends BaseTest {
             AddNewItem(driver, "Test Text 0", "Test Translation 0", "Test Examples 0", "Test Examples Translation 0");
             AddNewItem(driver, "Test Text 1", "Test Translation 1", "Test Examples 1", "Test Examples Translation 1");
             AddNewItem(driver, "Test Text 2", "Test Translation 2", "Test Examples 2", "Test Examples Translation 2");
-
             Thread.sleep(1500);
 
             itemsInTable = BervanTableCommon.GetItemsInTable(driver);
             Assertions.assertEquals(3, itemsInTable);
+
+            BervanTableCommon.AssertColumnValueAsStr(driver, 1, 0, 10, "Test Text 0");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 2, 0, 10, "N/A");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 3, 0, 10, "Test Translation 0");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 4, 0, 10, "Test Examples 0");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 5, 0, 10, "Test Examples Translation 0");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 0, 10, "true");
+
+            BervanTableCommon.AssertColumnValueAsStr(driver, 1, 1, 10, "Test Text 1");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 2, 1, 10, "N/A");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 3, 1, 10, "Test Translation 1");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 4, 1, 10, "Test Examples 1");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 5, 1, 10, "Test Examples Translation 1");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 1, 10, "true");
+
+            BervanTableCommon.AssertColumnValueAsStr(driver, 1, 2, 10, "Test Text 2");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 2, 2, 10, "N/A");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 3, 2, 10, "Test Translation 2");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 4, 2, 10, "Test Examples 2");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 5, 2, 10, "Test Examples Translation 2");
+            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 2, 10, "true");
         } finally {
             driver.quit();
         }
@@ -160,7 +180,7 @@ public class LearningLanguageE2E extends BaseTest {
             itemsInTable = BervanTableCommon.GetItemsInTable(driver);
             Assertions.assertEquals(1, itemsInTable);
 
-            Thread.sleep(3000);
+            Thread.sleep(5000);
 
             Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver,
                     1, 0, 10, "Test Text 1"));

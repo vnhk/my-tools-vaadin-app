@@ -1,4 +1,5 @@
 import jakarta.validation.constraints.NotEmpty;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import static java.time.Duration.ofSeconds;
 
+@Slf4j
 public class BervanTableCommon {
     public static Integer GetItemsInTable(ChromeDriver driver) {
         var pageInfo = driver.findElement(By.xpath("//span[@class='table-pageable-details']"));
@@ -39,7 +41,7 @@ public class BervanTableCommon {
 
     public static boolean AssertColumnValueAsStr(ChromeDriver driver, int colIndex, int rowIndex, int totalColumns, @NotEmpty String expected) throws InterruptedException {
         driver.executeScript("document.querySelector('vaadin-grid').scrollToIndex(arguments[0])", rowIndex);
-        Thread.sleep(500);
+        Thread.sleep(100);
 
         int index = rowIndex * totalColumns + colIndex;
         List<WebElement> allCells = driver.findElements(By.cssSelector("vaadin-grid .bervan-cell-component"));
@@ -48,7 +50,9 @@ public class BervanTableCommon {
             throw new RuntimeException("Cell index out of bounds");
         }
 
-        return expected.equals(allCells.get(index).getText());
+        String text = allCells.get(index).getText();
+        log.info("Text in column: {} (colI:{}, rowI:{})", text, colIndex, rowIndex);
+        return expected.equals(text);
     }
 
     public static void ClickOnGridColumn(ChromeDriver driver, int colIndex, int rowIndex, int totalColumns) throws InterruptedException {
@@ -90,10 +94,11 @@ public class BervanTableCommon {
         Thread.sleep(1500);
     }
 
-    public static void ConfirmYesConfirmVaadinDialog(ChromeDriver driver) {
+    public static void ConfirmYesConfirmVaadinDialog(ChromeDriver driver) throws InterruptedException {
         WebElement confirmDialog = new WebDriverWait(driver, ofSeconds(10), ofSeconds(1)).until(ExpectedConditions.elementToBeClickable(By.xpath("//vaadin-confirm-dialog-overlay")));
 
         WebElement confirmButton = confirmDialog.findElement(By.xpath("//vaadin-button[@slot='confirm-button']"));
+        Thread.sleep(500);
         confirmButton.click();
     }
 }

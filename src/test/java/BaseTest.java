@@ -35,7 +35,7 @@ public class BaseTest {
         System.setProperty("spring.rabbitmq.port", rabbitMQContainer.getAmqpPort().toString());
     }
 
-    public void Login(ChromeDriver driver) {
+    public void Login(ChromeDriver driver) throws InterruptedException {
         createTestUser();
         driver.get(baseUrl + "/login");
 
@@ -47,8 +47,9 @@ public class BaseTest {
         var password = driver.findElement(By.xpath("//vaadin-password-field[@id='vaadinLoginPassword']"));
         username.sendKeys("testUser");
         password.sendKeys("testUser!2#4%6");
+        Thread.sleep(500);
         button.click();
-
+        Thread.sleep(1000);
         driver.get(baseUrl + "/settings");
     }
 
