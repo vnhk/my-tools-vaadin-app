@@ -14,10 +14,10 @@ import static java.time.Duration.ofSeconds;
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
 public class BaseTest {
-    protected UserRepository userRepository;
-    protected UserToUserRelationRepository userToUserRelationRepository;
-    protected RabbitMQContainer rabbitMQContainer;
-    protected String baseUrl = "http://localhost:9091";
+    protected static UserRepository userRepository;
+    protected static UserToUserRelationRepository userToUserRelationRepository;
+    protected static RabbitMQContainer rabbitMQContainer;
+    protected static String baseUrl = "http://localhost:9091";
 
     public BaseTest() {
 

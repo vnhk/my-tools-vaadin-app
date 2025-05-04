@@ -21,12 +21,15 @@ import java.time.Duration;
 @ActiveProfiles("it")
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class LearningLanguageE2E extends BaseTest {
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class LearningLanguageE2ETest extends BaseTest {
 
     @Autowired
     UserRepository userRepository;
     @Autowired
     UserToUserRelationRepository userToUserRelationRepository;
+    private ChromeDriver driver;
+    private WebDriverWait webDriverWait;
 
     private static void AddNewItem(ChromeDriver driver, String testText, String testTranslation, String testExamples, String testExamplesTranslation) throws InterruptedException {
         BervanTableCommon.openAddItemModal(driver);
@@ -47,10 +50,9 @@ public class LearningLanguageE2E extends BaseTest {
         button.click();
     }
 
-    @BeforeEach
-    public void setup() {
-        super.setup(userRepository, userToUserRelationRepository);
-    }
+//    @BeforeEach
+//    public void setup() {
+//    }
 
     private static Integer GetFlashcardsLeftAmount(WebDriverWait webDriverWait) {
         WebElement flashcardLeftInfo = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(., 'Flashcards left:')]")));
@@ -58,14 +60,28 @@ public class LearningLanguageE2E extends BaseTest {
     }
 
     @Test
+    @Order(0)
+    public void setup() throws InterruptedException {
+        super.setup(userRepository, userToUserRelationRepository);
+        driver = Config.getDriver();
+        webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        super.Login(driver);
+        super.GoToApp(driver, "Learning Language");
+    }
+
+    @Test
+    @Order(100)
+    public void teardown() throws InterruptedException {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+
+    @Test
     @Order(1)
     public void testSimpleAddRecords() throws InterruptedException {
-        ChromeDriver driver = Config.getDriver();
-        try {
-            super.Login(driver);
-            super.GoToApp(driver, "Learning Language");
-            new WebDriverWait(driver, Duration.ofSeconds(10))
-                    .until(ExpectedConditions.urlToBe(baseUrl + "/learning-english-app/home"));
+        super.GoToAnotherViewInApp(driver, "Home");
             Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
             Assertions.assertEquals(0, itemsInTable);
             AddNewItem(driver, "Test Text 0", "Test Translation 0", "Test Examples 0", "Test Examples Translation 0");
@@ -96,23 +112,20 @@ public class LearningLanguageE2E extends BaseTest {
             BervanTableCommon.AssertColumnValueAsStr(driver, 4, 2, 10, "Test Examples 2");
             BervanTableCommon.AssertColumnValueAsStr(driver, 5, 2, 10, "Test Examples Translation 2");
             BervanTableCommon.AssertColumnValueAsStr(driver, 8, 2, 10, "true");
-        } finally {
-            driver.quit();
-        }
-
     }
 
     @Test
     @Order(2)
+    public void testRecordsEdit() throws InterruptedException {
+        super.GoToAnotherViewInApp(driver, "Home");
+        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(3, itemsInTable);
+    }
+
+    @Test
+    @Order(3)
     public void testRecordActiveAndInactive() throws InterruptedException {
-        ChromeDriver driver = Config.getDriver();
-        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        try {
-            super.Login(driver);
-            super.GoToApp(driver, "Learning Language");
-            new WebDriverWait(driver, Duration.ofSeconds(10))
-                    .until(ExpectedConditions.urlToBe(baseUrl + "/learning-english-app/home"));
-            Thread.sleep(1500);
+        super.GoToAnotherViewInApp(driver, "Home");
             Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
             Assertions.assertEquals(3, itemsInTable);
 
@@ -154,22 +167,12 @@ public class LearningLanguageE2E extends BaseTest {
             GoToAnotherViewInApp(driver, "Flashcards");
             flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
             Assertions.assertEquals(3, flashcardsLeftAmount);
-        } finally {
-            driver.quit();
-        }
     }
 
     @Test
     @Order(4)
     public void testDeleteRecords() throws InterruptedException {
-        ChromeDriver driver = Config.getDriver();
-        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        try {
-            super.Login(driver);
-            super.GoToApp(driver, "Learning Language");
-            new WebDriverWait(driver, Duration.ofSeconds(10))
-                    .until(ExpectedConditions.urlToBe(baseUrl + "/learning-english-app/home"));
-            Thread.sleep(1500);
+        super.GoToAnotherViewInApp(driver, "Home");
             Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
             Assertions.assertEquals(3, itemsInTable);
 
@@ -188,10 +191,6 @@ public class LearningLanguageE2E extends BaseTest {
             BervanTableCommon.DeleteItemByColumnClick(driver, 1, 0, 10);
             itemsInTable = BervanTableCommon.GetItemsInTable(driver);
             Assertions.assertEquals(0, itemsInTable);
-        } finally {
-            driver.quit();
-        }
-
     }
 
     private void DeactivateSelected(WebDriverWait webDriverWait, ChromeDriver driver) throws InterruptedException {
