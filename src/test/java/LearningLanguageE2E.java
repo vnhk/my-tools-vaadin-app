@@ -52,13 +52,18 @@ public class LearningLanguageE2E extends BaseTest {
         super.setup(userRepository, userToUserRelationRepository);
     }
 
+    private static Integer GetFlashcardsLeftAmount(WebDriverWait webDriverWait) {
+        WebElement flashcardLeftInfo = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(., 'Flashcards left:')]")));
+        return Integer.parseInt(flashcardLeftInfo.getText().split("Flashcards left: ")[1]);
+    }
+
     @Test
     @Order(1)
     public void testSimpleAddRecords() throws InterruptedException {
         ChromeDriver driver = Config.getDriver();
         try {
-            super.login(driver);
-            super.goToApp(driver, "Learning Language");
+            super.Login(driver);
+            super.GoToApp(driver, "Learning Language");
             new WebDriverWait(driver, Duration.ofSeconds(10))
                     .until(ExpectedConditions.urlToBe(baseUrl + "/learning-english-app/home"));
             Integer itemsInTable = BervanTableCommon.getItemsInTable(driver);
@@ -81,39 +86,78 @@ public class LearningLanguageE2E extends BaseTest {
     @Order(2)
     public void testRecordActiveAndInactive() throws InterruptedException {
         ChromeDriver driver = Config.getDriver();
+        WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
         try {
-            super.login(driver);
-            super.goToApp(driver, "Learning Language");
+            super.Login(driver);
+            super.GoToApp(driver, "Learning Language");
             new WebDriverWait(driver, Duration.ofSeconds(10))
                     .until(ExpectedConditions.urlToBe(baseUrl + "/learning-english-app/home"));
             Thread.sleep(1500);
             Integer itemsInTable = BervanTableCommon.getItemsInTable(driver);
             Assertions.assertEquals(3, itemsInTable);
 
+            GoToAnotherViewInApp(driver, "Flashcards");
+            Integer flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
+            Assertions.assertEquals(3, flashcardsLeftAmount);
+
+            GoToAnotherViewInApp(driver, "Home");
             BervanTableCommon.assertColumnValueAsStr(driver, 8, 0, 10, "true");
             BervanTableCommon.assertColumnValueAsStr(driver, 8, 1, 10, "true");
             BervanTableCommon.assertColumnValueAsStr(driver, 8, 2, 10, "true");
 
             BervanTableCommon.clickCheckboxSelectAll(driver);
             BervanTableCommon.clickCheckboxSelectByRow(driver, 0);
-
-            WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            WebElement deActivateButton = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(
-                    "//vaadin-button[contains(.,'Deactivate')]")));
-
-            deActivateButton.click();
-            Thread.sleep(400);
-            confirmYesConfirmVaadinDialog(driver);
-
-            Thread.sleep(400);
+            DeactivateSelected(webDriverWait, driver);
 
             BervanTableCommon.assertColumnValueAsStr(driver, 8, 0, 10, "true");
             BervanTableCommon.assertColumnValueAsStr(driver, 8, 1, 10, "false");
             BervanTableCommon.assertColumnValueAsStr(driver, 8, 2, 10, "false");
+
+            GoToAnotherViewInApp(driver, "Flashcards");
+            flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
+            Assertions.assertEquals(1, flashcardsLeftAmount);
+
+            GoToAnotherViewInApp(driver, "Home");
+            BervanTableCommon.clickCheckboxSelectByRow(driver, 0);
+            DeactivateSelected(webDriverWait, driver);
+
+            GoToAnotherViewInApp(driver, "Flashcards");
+            flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
+            Assertions.assertEquals(0, flashcardsLeftAmount);
+
+            GoToAnotherViewInApp(driver, "Home");
+            BervanTableCommon.clickCheckboxSelectByRow(driver, 0);
+            BervanTableCommon.clickCheckboxSelectByRow(driver, 1);
+            BervanTableCommon.clickCheckboxSelectByRow(driver, 2);
+            ActivateSelected(webDriverWait, driver);
+
+            GoToAnotherViewInApp(driver, "Flashcards");
+            flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
+            Assertions.assertEquals(3, flashcardsLeftAmount);
         } finally {
             driver.quit();
         }
 
+    }
+
+    private void DeactivateSelected(WebDriverWait webDriverWait, ChromeDriver driver) throws InterruptedException {
+        WebElement deActivateButton = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+                "//vaadin-button[contains(.,'Deactivate')]")));
+
+        deActivateButton.click();
+        Thread.sleep(400);
+        ConfirmYesConfirmVaadinDialog(driver);
+        Thread.sleep(400);
+    }
+
+    private void ActivateSelected(WebDriverWait webDriverWait, ChromeDriver driver) throws InterruptedException {
+        WebElement activateButton = webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(
+                "//vaadin-button[contains(.,'Activate')]")));
+
+        activateButton.click();
+        Thread.sleep(400);
+        ConfirmYesConfirmVaadinDialog(driver);
+        Thread.sleep(400);
     }
 
 }

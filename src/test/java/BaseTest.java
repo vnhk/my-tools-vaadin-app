@@ -35,7 +35,7 @@ public class BaseTest {
         System.setProperty("spring.rabbitmq.port", rabbitMQContainer.getAmqpPort().toString());
     }
 
-    public void login(ChromeDriver driver) {
+    public void Login(ChromeDriver driver) {
         createTestUser();
         driver.get(baseUrl + "/login");
 
@@ -48,6 +48,8 @@ public class BaseTest {
         username.sendKeys("testUser");
         password.sendKeys("testUser!2#4%6");
         button.click();
+
+        driver.get(baseUrl + "/settings");
     }
 
     protected void createTestUser() {
@@ -66,7 +68,7 @@ public class BaseTest {
         }
     }
 
-    protected void goToApp(ChromeDriver driver, String subPageText) {
+    protected void GoToApp(ChromeDriver driver, String subPageText) {
         WebElement drawerToggle = new WebDriverWait(driver, ofSeconds(10), ofSeconds(1))
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//vaadin-drawer-toggle")));
 
@@ -81,7 +83,16 @@ public class BaseTest {
         menuItem.click();
     }
 
-    public void confirmYesConfirmVaadinDialog(ChromeDriver driver) {
+    protected void GoToAnotherViewInApp(ChromeDriver driver, String subPageButtonText) throws InterruptedException {
+        WebElement navigationButtons = new WebDriverWait(driver, ofSeconds(10), ofSeconds(1))
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//navigation-buttons")));
+
+        WebElement button = navigationButtons.findElement(By.xpath("//vaadin-button[contains(.,'" + subPageButtonText + "')]"));
+        button.click();
+        Thread.sleep(400);
+    }
+
+    public void ConfirmYesConfirmVaadinDialog(ChromeDriver driver) {
         WebElement confirmDialog = new WebDriverWait(driver, ofSeconds(10), ofSeconds(1))
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//vaadin-confirm-dialog-overlay")));
 
