@@ -1,6 +1,7 @@
 import jakarta.validation.constraints.NotEmpty;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -55,7 +56,7 @@ public class BervanTableCommon {
         return expected.equals(text);
     }
 
-    public static void ClickOnGridColumn(ChromeDriver driver, int colIndex, int rowIndex, int totalColumns) throws InterruptedException {
+    public static WebElement ClickOnGridColumn(ChromeDriver driver, int colIndex, int rowIndex, int totalColumns) throws InterruptedException {
         driver.executeScript("document.querySelector('vaadin-grid').scrollToIndex(arguments[0])", rowIndex);
         Thread.sleep(500);
         int index = rowIndex * totalColumns + colIndex;
@@ -67,7 +68,28 @@ public class BervanTableCommon {
 
         allCells.get(index).click();
         WebDriverWait webDriverWait = new WebDriverWait(driver, ofSeconds(10), ofSeconds(1));
-        WebElement vaadinDialog = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//vaadin-dialog-overlay")));
+        return webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//vaadin-dialog-overlay")));
+    }
+
+    public static void ClickSortableColumn(ChromeDriver driver, String columnText) throws InterruptedException {
+        Thread.sleep(500);
+
+        WebElement sortableCell = driver.findElement(By.xpath("//vaadin-grid-sorter[contains(.,'" + columnText + "')]"));
+        sortableCell.click();
+    }
+
+    public static void EditTextInColumn(ChromeDriver driver, int colIndex, int rowIndex, int totalColumns, String newText) throws InterruptedException {
+        Thread.sleep(1000);
+        WebElement dialog = ClickOnGridColumn(driver, colIndex, rowIndex, totalColumns);
+        WebElement textArea = dialog.findElement(By.xpath("//vaadin-text-area"));
+        Thread.sleep(1000);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", textArea);
+        Thread.sleep(1000);
+        textArea.sendKeys(newText);
+        Thread.sleep(1000);
+        WebElement saveButton = dialog.findElement(By.xpath("//vaadin-button[contains(., 'Save')]"));
+        saveButton.click();
+        Thread.sleep(1500);
     }
 
     public static void DeleteItemByColumnClick(ChromeDriver driver, int colIndex, int rowIndex, int totalColumns) throws InterruptedException {

@@ -24,6 +24,7 @@ import java.time.Duration;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class LearningLanguageE2ETest extends BaseTest {
 
+    private final int TOTAL_COLUMNS = 10;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -32,6 +33,7 @@ public class LearningLanguageE2ETest extends BaseTest {
     private WebDriverWait webDriverWait;
 
     private static void AddNewItem(ChromeDriver driver, String testText, String testTranslation, String testExamples, String testExamplesTranslation) throws InterruptedException {
+        Thread.sleep(500);
         BervanTableCommon.openAddItemModal(driver);
         WebElement element = driver.findElement(By.xpath("//vaadin-text-area[label[text()='Text']]//textarea"));
         element.sendKeys(testText);
@@ -49,10 +51,6 @@ public class LearningLanguageE2ETest extends BaseTest {
         WebElement button = driver.findElement(By.xpath("//vaadin-button[contains(.,'Save')]"));
         button.click();
     }
-
-//    @BeforeEach
-//    public void setup() {
-//    }
 
     private static Integer GetFlashcardsLeftAmount(WebDriverWait webDriverWait) {
         WebElement flashcardLeftInfo = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(., 'Flashcards left:')]")));
@@ -82,36 +80,38 @@ public class LearningLanguageE2ETest extends BaseTest {
     @Order(1)
     public void testSimpleAddRecords() throws InterruptedException {
         super.GoToAnotherViewInApp(driver, "Home");
-            Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
-            Assertions.assertEquals(0, itemsInTable);
-            AddNewItem(driver, "Test Text 0", "Test Translation 0", "Test Examples 0", "Test Examples Translation 0");
-            AddNewItem(driver, "Test Text 1", "Test Translation 1", "Test Examples 1", "Test Examples Translation 1");
-            AddNewItem(driver, "Test Text 2", "Test Translation 2", "Test Examples 2", "Test Examples Translation 2");
-            Thread.sleep(1500);
+        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(0, itemsInTable);
+        AddNewItem(driver, "Text 0", "Test Translation 0", "Test Examples 0", "Test Examples Translation 0");
+        AddNewItem(driver, "Text 1", "Test Translation 1", "Test Examples 1", "Test Examples Translation 1");
+        AddNewItem(driver, "Text 2", "Test Translation 2", "Test Examples 2", "Test Examples Translation 2");
+        Thread.sleep(1500);
 
-            itemsInTable = BervanTableCommon.GetItemsInTable(driver);
-            Assertions.assertEquals(3, itemsInTable);
+        itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(3, itemsInTable);
 
-            BervanTableCommon.AssertColumnValueAsStr(driver, 1, 0, 10, "Test Text 0");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 2, 0, 10, "N/A");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 3, 0, 10, "Test Translation 0");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 4, 0, 10, "Test Examples 0");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 5, 0, 10, "Test Examples Translation 0");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 0, 10, "true");
+        BervanTableCommon.ClickSortableColumn(driver, "Text");
 
-            BervanTableCommon.AssertColumnValueAsStr(driver, 1, 1, 10, "Test Text 1");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 2, 1, 10, "N/A");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 3, 1, 10, "Test Translation 1");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 4, 1, 10, "Test Examples 1");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 5, 1, 10, "Test Examples Translation 1");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 1, 10, "true");
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS, "Text 0"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 2, 0, TOTAL_COLUMNS, "N/A"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 3, 0, TOTAL_COLUMNS, "Test Translation 0"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 4, 0, TOTAL_COLUMNS, "Test Examples 0"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 5, 0, TOTAL_COLUMNS, "Test Examples Translation 0"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 0, TOTAL_COLUMNS, "true"));
 
-            BervanTableCommon.AssertColumnValueAsStr(driver, 1, 2, 10, "Test Text 2");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 2, 2, 10, "N/A");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 3, 2, 10, "Test Translation 2");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 4, 2, 10, "Test Examples 2");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 5, 2, 10, "Test Examples Translation 2");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 2, 10, "true");
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 1, 1, TOTAL_COLUMNS, "Text 1"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 2, 1, TOTAL_COLUMNS, "N/A"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 3, 1, TOTAL_COLUMNS, "Test Translation 1"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 4, 1, TOTAL_COLUMNS, "Test Examples 1"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 5, 1, TOTAL_COLUMNS, "Test Examples Translation 1"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 1, TOTAL_COLUMNS, "true"));
+
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 1, 2, TOTAL_COLUMNS, "Text 2"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 2, 2, TOTAL_COLUMNS, "N/A"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 3, 2, TOTAL_COLUMNS, "Test Translation 2"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 4, 2, TOTAL_COLUMNS, "Test Examples 2"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 5, 2, TOTAL_COLUMNS, "Test Examples Translation 2"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 2, TOTAL_COLUMNS, "true"));
     }
 
     @Test
@@ -120,77 +120,104 @@ public class LearningLanguageE2ETest extends BaseTest {
         super.GoToAnotherViewInApp(driver, "Home");
         Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
         Assertions.assertEquals(3, itemsInTable);
+
+        BervanTableCommon.EditTextInColumn(driver, 1, 0, TOTAL_COLUMNS, "New Test Text 0");
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS, "New Test Text 0"));
+
+        BervanTableCommon.EditTextInColumn(driver, 3, 0, TOTAL_COLUMNS, "New Test Translation 0");
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 3, 0, TOTAL_COLUMNS, "New Test Translation 0"));
+
+        BervanTableCommon.EditTextInColumn(driver, 4, 0, TOTAL_COLUMNS, "New Test Examples 0");
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 4, 0, TOTAL_COLUMNS, "New Test Examples 0"));
+
+        BervanTableCommon.EditTextInColumn(driver, 5, 0, TOTAL_COLUMNS, "New Test Examples Translation 0");
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 5, 0, TOTAL_COLUMNS, "New Test Examples Translation 0"));
+
     }
 
     @Test
     @Order(3)
     public void testRecordActiveAndInactive() throws InterruptedException {
         super.GoToAnotherViewInApp(driver, "Home");
-            Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
-            Assertions.assertEquals(3, itemsInTable);
+        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(3, itemsInTable);
 
-            GoToAnotherViewInApp(driver, "Flashcards");
-            Integer flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
-            Assertions.assertEquals(3, flashcardsLeftAmount);
+        GoToAnotherViewInApp(driver, "Flashcards");
+        Integer flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
+        Assertions.assertEquals(3, flashcardsLeftAmount);
 
-            GoToAnotherViewInApp(driver, "Home");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 0, 10, "true");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 1, 10, "true");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 2, 10, "true");
+        GoToAnotherViewInApp(driver, "Home");
+        BervanTableCommon.ClickSortableColumn(driver, "Text");
 
-            BervanTableCommon.clickCheckboxSelectAll(driver);
-            BervanTableCommon.ClickCheckboxSelectByRow(driver, 0);
-            DeactivateSelected(webDriverWait, driver);
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 0, TOTAL_COLUMNS, "true"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 1, TOTAL_COLUMNS, "true"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 2, TOTAL_COLUMNS, "true"));
 
-            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 0, 10, "true");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 1, 10, "false");
-            BervanTableCommon.AssertColumnValueAsStr(driver, 8, 2, 10, "false");
+        BervanTableCommon.clickCheckboxSelectAll(driver);
+        BervanTableCommon.ClickCheckboxSelectByRow(driver, 0);
+        DeactivateSelected(webDriverWait, driver);
 
-            GoToAnotherViewInApp(driver, "Flashcards");
-            flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
-            Assertions.assertEquals(1, flashcardsLeftAmount);
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 0, TOTAL_COLUMNS, "true"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 1, TOTAL_COLUMNS, "false"));
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 2, TOTAL_COLUMNS, "false"));
 
-            GoToAnotherViewInApp(driver, "Home");
-            BervanTableCommon.ClickCheckboxSelectByRow(driver, 0);
-            DeactivateSelected(webDriverWait, driver);
+        GoToAnotherViewInApp(driver, "Flashcards");
+        flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
+        Assertions.assertEquals(1, flashcardsLeftAmount);
 
-            GoToAnotherViewInApp(driver, "Flashcards");
-            flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
-            Assertions.assertEquals(0, flashcardsLeftAmount);
+        GoToAnotherViewInApp(driver, "Home");
+        BervanTableCommon.ClickSortableColumn(driver, "Text");
 
-            GoToAnotherViewInApp(driver, "Home");
-            BervanTableCommon.ClickCheckboxSelectByRow(driver, 0);
-            BervanTableCommon.ClickCheckboxSelectByRow(driver, 1);
-            BervanTableCommon.ClickCheckboxSelectByRow(driver, 2);
-            ActivateSelected(webDriverWait, driver);
+        Thread.sleep(500);
 
-            GoToAnotherViewInApp(driver, "Flashcards");
-            flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
-            Assertions.assertEquals(3, flashcardsLeftAmount);
+        BervanTableCommon.ClickCheckboxSelectByRow(driver, 0);
+        DeactivateSelected(webDriverWait, driver);
+
+        GoToAnotherViewInApp(driver, "Flashcards");
+        flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
+        Assertions.assertEquals(0, flashcardsLeftAmount);
+
+        GoToAnotherViewInApp(driver, "Home");
+        BervanTableCommon.ClickSortableColumn(driver, "Text");
+
+        Thread.sleep(500);
+
+        BervanTableCommon.ClickCheckboxSelectByRow(driver, 0);
+        BervanTableCommon.ClickCheckboxSelectByRow(driver, 1);
+        BervanTableCommon.ClickCheckboxSelectByRow(driver, 2);
+        ActivateSelected(webDriverWait, driver);
+
+        GoToAnotherViewInApp(driver, "Flashcards");
+        flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
+        Assertions.assertEquals(3, flashcardsLeftAmount);
     }
 
     @Test
     @Order(4)
     public void testDeleteRecords() throws InterruptedException {
         super.GoToAnotherViewInApp(driver, "Home");
-            Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
-            Assertions.assertEquals(3, itemsInTable);
+        BervanTableCommon.ClickSortableColumn(driver, "Text");
 
-            BervanTableCommon.ClickCheckboxSelectByRow(driver, 0);
-            BervanTableCommon.ClickCheckboxSelectByRow(driver, 2);
-            BervanTableCommon.DeleteSelected(webDriverWait, driver);
+        Thread.sleep(500);
 
-            itemsInTable = BervanTableCommon.GetItemsInTable(driver);
-            Assertions.assertEquals(1, itemsInTable);
+        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(3, itemsInTable);
 
-            Thread.sleep(5000);
+        BervanTableCommon.ClickCheckboxSelectByRow(driver, 0);
+        BervanTableCommon.ClickCheckboxSelectByRow(driver, 2);
+        BervanTableCommon.DeleteSelected(webDriverWait, driver);
 
-            Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver,
-                    1, 0, 10, "Test Text 1"));
+        itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(1, itemsInTable);
 
-            BervanTableCommon.DeleteItemByColumnClick(driver, 1, 0, 10);
-            itemsInTable = BervanTableCommon.GetItemsInTable(driver);
-            Assertions.assertEquals(0, itemsInTable);
+        Thread.sleep(5000);
+
+        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver,
+                1, 0, TOTAL_COLUMNS, "Text 1"));
+
+        BervanTableCommon.DeleteItemByColumnClick(driver, 1, 0, TOTAL_COLUMNS);
+        itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(0, itemsInTable);
     }
 
     private void DeactivateSelected(WebDriverWait webDriverWait, ChromeDriver driver) throws InterruptedException {
