@@ -1,8 +1,6 @@
 package com.bervan.toolsapp.views.logsapp;
 
 import com.bervan.common.MenuNavigationComponent;
-import com.bervan.pocketapp.view.AbstractAllPocketItemsView;
-import com.bervan.pocketapp.view.AbstractPocketView;
 
 public final class LogsAppPageLayout extends MenuNavigationComponent {
 
@@ -10,6 +8,7 @@ public final class LogsAppPageLayout extends MenuNavigationComponent {
         super(currentRouteName);
 
         addButtonIfVisible(menuButtonsRow, LogItemsTableView.ROUTE_NAME, "Logs");
+        addButtonIfVisible(menuButtonsRow, LogItemsTableView.ROUTE_NAME, "Trackers");
 
         add(menuButtonsRow);
 
