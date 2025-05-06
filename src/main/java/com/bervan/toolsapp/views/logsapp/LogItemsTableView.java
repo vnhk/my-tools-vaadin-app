@@ -75,6 +75,17 @@ public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
     }
 
     @Override
+    protected List<String> getColumnsToFetchForTable() {
+        List<String> columnsToFetchForTable = super.getColumnsToFetchForTable();
+        columnsToFetchForTable.remove("fullLog");
+        columnsToFetchForTable.add("lineNumber");
+        columnsToFetchForTable.add("className");
+        columnsToFetchForTable.add("methodName");
+        columnsToFetchForTable.add("message");
+        return columnsToFetchForTable;
+    }
+
+    @Override
     protected void customizePreLoad(SearchRequest request) {
         request.addCriterion("APP_NAME_EQ_CRITERION", Operator.OR_OPERATOR, LogEntity.class,
                 "applicationName", SearchOperation.EQUALS_OPERATION, appName);
