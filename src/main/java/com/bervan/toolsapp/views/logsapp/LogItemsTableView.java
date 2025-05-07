@@ -35,7 +35,7 @@ public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
         this.userRepository = userRepository;
 
         checkboxesColumnsEnabled = false;
-        pageSize = 500;
+        pageSize = 50;
         addClassName("logs-item-view");
 
         Set<String> appsName = logService.loadAppsName();
