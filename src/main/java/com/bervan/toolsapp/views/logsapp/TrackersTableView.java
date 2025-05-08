@@ -79,7 +79,7 @@ public class TrackersTableView extends AbstractTableView<Long, LogEntity> {
         request.addCriterion("APP_NAME_EQ_CRITERION", Operator.OR_OPERATOR, LogEntity.class,
                 "applicationName", SearchOperation.EQUALS_OPERATION, appName);
 
-        request.addOwnerAccessCriteria(LogEntity.class, userRepository.findByUsername("COMMON_USER").get().getId());
+        request.setAddOwnerCriterion(false);
 
         if (showLastPage) {
             allFound = countAll(request, new ArrayList<>());
