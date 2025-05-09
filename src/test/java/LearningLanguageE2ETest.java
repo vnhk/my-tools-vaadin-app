@@ -118,6 +118,7 @@ public class LearningLanguageE2ETest extends BaseTest {
     @Order(2)
     public void testRecordsEdit() throws InterruptedException {
         super.GoToAnotherViewInApp(driver, "Home");
+        Thread.sleep(1500);
         Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
         Assertions.assertEquals(3, itemsInTable);
 
@@ -139,6 +140,7 @@ public class LearningLanguageE2ETest extends BaseTest {
     @Order(3)
     public void testRecordActiveAndInactive() throws InterruptedException {
         super.GoToAnotherViewInApp(driver, "Home");
+        Thread.sleep(1500);
         Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
         Assertions.assertEquals(3, itemsInTable);
 
