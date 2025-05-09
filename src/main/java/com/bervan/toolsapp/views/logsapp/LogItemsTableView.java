@@ -12,6 +12,7 @@ import com.bervan.logging.LogService;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.data.provider.SortDirection;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
@@ -91,6 +92,8 @@ public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
                 "applicationName", SearchOperation.EQUALS_OPERATION, appName);
 
         request.setAddOwnerCriterion(false);
+        sortField = "timestamp";
+        sortDirection = SortDirection.ASCENDING;
 
         if (showLastPage) {
             allFound = countAll(request, new ArrayList<>());

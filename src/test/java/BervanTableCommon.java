@@ -123,4 +123,12 @@ public class BervanTableCommon {
         Thread.sleep(500);
         confirmButton.click();
     }
+
+    public static void OpenTableFilters(ChromeDriver driver) throws InterruptedException {
+        WebElement filterButton = new WebDriverWait(driver, ofSeconds(10), ofSeconds(1)).until(ExpectedConditions
+                .elementToBeClickable(By.xpath("//vaadin-icon[@icon='vaadin:filter']")));
+
+        filterButton.click();
+        Thread.sleep(500);
+    }
 }
