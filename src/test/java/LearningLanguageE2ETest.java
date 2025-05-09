@@ -227,9 +227,9 @@ public class LearningLanguageE2ETest extends BaseTest {
                 "//vaadin-button[contains(.,'Deactivate')]")));
 
         deActivateButton.click();
-        Thread.sleep(400);
+        Thread.sleep(1500);
         BervanTableCommon.ConfirmYesConfirmVaadinDialog(driver);
-        Thread.sleep(400);
+        Thread.sleep(1500);
     }
 
     private void ActivateSelected(WebDriverWait webDriverWait, ChromeDriver driver) throws InterruptedException {
