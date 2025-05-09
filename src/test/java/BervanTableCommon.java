@@ -40,7 +40,7 @@ public class BervanTableCommon {
         webElement.click();
     }
 
-    public static boolean AssertColumnValueAsStr(ChromeDriver driver, int colIndex, int rowIndex, int totalColumns, @NotEmpty String expected) throws InterruptedException {
+    public static boolean EqualsColumnValueAsStr(ChromeDriver driver, int colIndex, int rowIndex, int totalColumns, @NotEmpty String expected) throws InterruptedException {
         driver.executeScript("document.querySelector('vaadin-grid').scrollToIndex(arguments[0])", rowIndex);
         Thread.sleep(100);
 
@@ -54,6 +54,23 @@ public class BervanTableCommon {
         String text = allCells.get(index).getText();
         log.info("Text in column: {} (colI:{}, rowI:{})", text, colIndex, rowIndex);
         return expected.equals(text);
+    }
+
+
+    public static boolean ContainsColumnValueAsStr(ChromeDriver driver, int colIndex, int rowIndex, int totalColumns, @NotEmpty String expected) throws InterruptedException {
+        driver.executeScript("document.querySelector('vaadin-grid').scrollToIndex(arguments[0])", rowIndex);
+        Thread.sleep(100);
+
+        int index = rowIndex * totalColumns + colIndex;
+        List<WebElement> allCells = driver.findElements(By.cssSelector("vaadin-grid .bervan-cell-component"));
+
+        if (index >= allCells.size()) {
+            throw new RuntimeException("Cell index out of bounds");
+        }
+
+        String text = allCells.get(index).getText();
+        log.info("Text in column: {} (colI:{}, rowI:{})", text, colIndex, rowIndex);
+        return text.contains(expected);
     }
 
     public static WebElement ClickOnGridColumn(ChromeDriver driver, int colIndex, int rowIndex, int totalColumns) throws InterruptedException {
@@ -123,6 +140,14 @@ public class BervanTableCommon {
         Thread.sleep(500);
         confirmButton.click();
     }
+
+    public static void ClickOnRefreshTableButton(ChromeDriver driver) throws InterruptedException {
+        WebElement refreshTableButton = new WebDriverWait(driver, ofSeconds(10), ofSeconds(1))
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//vaadin-button[.//vaadin-icon[@icon='vaadin:refresh']]")));
+        refreshTableButton.click();
+        Thread.sleep(1500);
+    }
+
 
     public static void OpenTableFilters(ChromeDriver driver) throws InterruptedException {
         WebElement filterButton = new WebDriverWait(driver, ofSeconds(10), ofSeconds(1)).until(ExpectedConditions

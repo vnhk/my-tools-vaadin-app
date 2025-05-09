@@ -40,32 +40,42 @@ public class LogsE2ETest extends BaseTest {
     LogService logService;
     private ChromeDriver driver;
     private WebDriverWait webDriverWait;
+    private Optional<User> commonUser;
 
     @Test
     @Order(0)
     public void setup() throws InterruptedException {
         super.setup(userRepository, userToUserRelationRepository);
-        Optional<User> commonUser = userRepository.findByUsername("COMMON_USER");
-        LogEntity entity = getLogEntity(commonUser, "test-app-1", "INFO", "Example Log Message", LocalDateTime.of(2025, 5, 5, 10, 23), "LogsE2ETest", 50, "exampleMethodName3");
+        commonUser = userRepository.findByUsername("COMMON_USER");
+        LocalDateTime now = LocalDateTime.now();
+        now = now.minusMinutes(40);
+
+        LogEntity entity = getLogEntity(commonUser, "test-app-1", "INFO", "Example Log Message", now.plusSeconds(3), "LogsE2ETest", 50, "exampleMethodName3");
         logService.save(entity);
 
-        entity = getLogEntity(commonUser, "test-app-1", "ERROR", "Example ERROR Message", LocalDateTime.of(2025, 5, 5, 10, 22), "LogsE2ETest", 54, "exampleMethodName2");
+        entity = getLogEntity(commonUser, "test-app-1", "ERROR", "Example ERROR Message", now.plusSeconds(2), "LogsE2ETest", 54, "exampleMethodName2");
         logService.save(entity);
 
-        entity = getLogEntity(commonUser, "test-app-1", "DEBUG", "Example DEBUG Message", LocalDateTime.of(2025, 5, 5, 10, 21), "LogsE2ETest", 56, "exampleMethodName1");
+        entity = getLogEntity(commonUser, "test-app-1", "DEBUG", "Example DEBUG Message", now.plusSeconds(1), "LogsE2ETest", 56, "exampleMethodName1");
         logService.save(entity);
 
         //app 2
-        entity = getLogEntity(commonUser, "test-app-2", "INFO", "Example Log Message", LocalDateTime.of(2025, 5, 5, 10, 24), "LogsE2ETest", 50, "exampleMethodName40");
+        entity = getLogEntity(commonUser, "test-app-2", "INFO", "Example Log Message", now.plusSeconds(4), "LogsE2ETest", 50, "exampleMethodName40");
         logService.save(entity);
 
-        entity = getLogEntity(commonUser, "test-app-2", "ERROR", "Example ERROR Message", LocalDateTime.of(2025, 5, 5, 10, 23), "LogsE2ETest", 54, "exampleMethodName30");
+        entity = getLogEntity(commonUser, "test-app-2", "ERROR", "Example ERROR Message", now.plusSeconds(3), "LogsE2ETest", 54, "exampleMethodName30");
         logService.save(entity);
 
-        entity = getLogEntity(commonUser, "test-app-2", "DEBUG", "Example DEBUG Message", LocalDateTime.of(2025, 5, 5, 10, 22), "LogsE2ETest", 56, "exampleMethodName20");
+        entity = getLogEntity(commonUser, "test-app-2", "DEBUG", "Example DEBUG Message", now.plusSeconds(2), "LogsE2ETest", 56, "exampleMethodName20");
         logService.save(entity);
 
-        entity = getLogEntity(commonUser, "test-app-2", "DEBUG", "Example DEBUG Message", LocalDateTime.of(2025, 5, 5, 10, 21), "LogsE2ETest", 56, "exampleMethodName10");
+        entity = getLogEntity(commonUser, "test-app-2", "DEBUG", "Example DEBUG Message", now.plusSeconds(1), "LogsE2ETest", 56, "exampleMethodName10");
+        logService.save(entity);
+
+        now = LocalDateTime.now();
+        //create log for 2h in past
+
+        entity = getLogEntity(commonUser, "test-app-2", "WARN", "Log happened 2h earlier!", now.minusHours(2), "LogsE2ETest", 56, "exampleMethodName10");
         logService.save(entity);
 
 
@@ -106,14 +116,14 @@ public class LogsE2ETest extends BaseTest {
         Assertions.assertEquals(3, itemsInTable);
 
         //assure logs are correct and in correct order by timestamp!
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 0, 0, TOTAL_COLUMNS, "DEBUG"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS, "2025-05-05 10-21-00:000 LogsE2ETest:exampleMethodName1:56 - Example DEBUG Message"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 0, 0, TOTAL_COLUMNS, "DEBUG"));
+        Assertions.assertTrue(BervanTableCommon.ContainsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS, "LogsE2ETest:exampleMethodName1:56 - Example DEBUG Message"));
 
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 0, 1, TOTAL_COLUMNS, "ERROR"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 1, 1, TOTAL_COLUMNS, "2025-05-05 10-22-00:000 LogsE2ETest:exampleMethodName2:54 - Example ERROR Message"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 0, 1, TOTAL_COLUMNS, "ERROR"));
+        Assertions.assertTrue(BervanTableCommon.ContainsColumnValueAsStr(driver, 1, 1, TOTAL_COLUMNS, "LogsE2ETest:exampleMethodName2:54 - Example ERROR Message"));
 
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 0, 2, TOTAL_COLUMNS, "INFO"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 1, 2, TOTAL_COLUMNS, "2025-05-05 10-23-00:000 LogsE2ETest:exampleMethodName3:50 - Example Log Message"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 0, 2, TOTAL_COLUMNS, "INFO"));
+        Assertions.assertTrue(BervanTableCommon.ContainsColumnValueAsStr(driver, 1, 2, TOTAL_COLUMNS, "LogsE2ETest:exampleMethodName3:50 - Example Log Message"));
     }
 
     @Test
@@ -127,17 +137,53 @@ public class LogsE2ETest extends BaseTest {
         Assertions.assertEquals(4, itemsInTable);
 
         //assure logs are correct and in correct order by timestamp!
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 0, 0, TOTAL_COLUMNS, "DEBUG"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS, "2025-05-05 10-21-00:000 LogsE2ETest:exampleMethodName10:56 - Example DEBUG Message"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 0, 0, TOTAL_COLUMNS, "DEBUG"));
+        Assertions.assertTrue(BervanTableCommon.ContainsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS, "LogsE2ETest:exampleMethodName10:56 - Example DEBUG Message"));
 
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 0, 1, TOTAL_COLUMNS, "DEBUG"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 1, 1, TOTAL_COLUMNS, "2025-05-05 10-22-00:000 LogsE2ETest:exampleMethodName20:56 - Example DEBUG Message"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 0, 1, TOTAL_COLUMNS, "DEBUG"));
+        Assertions.assertTrue(BervanTableCommon.ContainsColumnValueAsStr(driver, 1, 1, TOTAL_COLUMNS, "LogsE2ETest:exampleMethodName20:56 - Example DEBUG Message"));
 
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 0, 2, TOTAL_COLUMNS, "ERROR"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 1, 2, TOTAL_COLUMNS, "2025-05-05 10-23-00:000 LogsE2ETest:exampleMethodName30:54 - Example ERROR Message"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 0, 2, TOTAL_COLUMNS, "ERROR"));
+        Assertions.assertTrue(BervanTableCommon.ContainsColumnValueAsStr(driver, 1, 2, TOTAL_COLUMNS, "LogsE2ETest:exampleMethodName30:54 - Example ERROR Message"));
 
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 0, 3, TOTAL_COLUMNS, "INFO"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 1, 3, TOTAL_COLUMNS, "2025-05-05 10-24-00:000 LogsE2ETest:exampleMethodName40:50 - Example Log Message"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 0, 3, TOTAL_COLUMNS, "INFO"));
+        Assertions.assertTrue(BervanTableCommon.ContainsColumnValueAsStr(driver, 1, 3, TOTAL_COLUMNS, "LogsE2ETest:exampleMethodName40:50 - Example Log Message"));
+    }
+
+    @Test
+    @Order(3)
+    public void testChangeDateRangeFor6h() throws InterruptedException {
+        super.GoToAnotherViewInApp(driver, "Logs");
+
+        ChangeAppName("test-app-2");
+        WebElement button = driver.findElement(By.xpath("//vaadin-button[contains(.,'Last 6h')]"));
+        button.click();
+        Thread.sleep(1500);
+
+        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(5, itemsInTable);
+
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 0, 0, TOTAL_COLUMNS, "WARN"));
+        Assertions.assertTrue(BervanTableCommon.ContainsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS, "LogsE2ETest:exampleMethodName10:56 - Log happened 2h earlier!"));
+    }
+
+    @Test
+    @Order(4)
+    public void testSimulationLogJustAdded() throws InterruptedException {
+        super.GoToAnotherViewInApp(driver, "Logs");
+
+        ChangeAppName("test-app-2");
+
+        LogEntity entity = getLogEntity(commonUser, "test-app-2", "WARN", "New Log!", LocalDateTime.now(), "LogsE2ETest", 56, "exampleMethodName10");
+        logService.save(entity);
+
+        BervanTableCommon.ClickOnRefreshTableButton(driver);
+
+        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(6, itemsInTable);
+
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 0, 5, TOTAL_COLUMNS, "WARN"));
+        Assertions.assertTrue(BervanTableCommon.ContainsColumnValueAsStr(driver, 1, 5, TOTAL_COLUMNS, "LogsE2ETest:exampleMethodName10:56 - New Log!"));
     }
 
     private void ChangeAppName(String appName) throws InterruptedException {

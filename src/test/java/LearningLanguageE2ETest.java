@@ -92,26 +92,26 @@ public class LearningLanguageE2ETest extends BaseTest {
 
         BervanTableCommon.ClickSortableColumn(driver, "Text");
 
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS, "Text 0"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 2, 0, TOTAL_COLUMNS, "N/A"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 3, 0, TOTAL_COLUMNS, "Test Translation 0"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 4, 0, TOTAL_COLUMNS, "Test Examples 0"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 5, 0, TOTAL_COLUMNS, "Test Examples Translation 0"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 0, TOTAL_COLUMNS, "true"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS, "Text 0"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 0, TOTAL_COLUMNS, "N/A"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 3, 0, TOTAL_COLUMNS, "Test Translation 0"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 4, 0, TOTAL_COLUMNS, "Test Examples 0"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 5, 0, TOTAL_COLUMNS, "Test Examples Translation 0"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 8, 0, TOTAL_COLUMNS, "true"));
 
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 1, 1, TOTAL_COLUMNS, "Text 1"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 2, 1, TOTAL_COLUMNS, "N/A"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 3, 1, TOTAL_COLUMNS, "Test Translation 1"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 4, 1, TOTAL_COLUMNS, "Test Examples 1"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 5, 1, TOTAL_COLUMNS, "Test Examples Translation 1"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 1, TOTAL_COLUMNS, "true"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 1, TOTAL_COLUMNS, "Text 1"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 1, TOTAL_COLUMNS, "N/A"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 3, 1, TOTAL_COLUMNS, "Test Translation 1"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 4, 1, TOTAL_COLUMNS, "Test Examples 1"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 5, 1, TOTAL_COLUMNS, "Test Examples Translation 1"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 8, 1, TOTAL_COLUMNS, "true"));
 
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 1, 2, TOTAL_COLUMNS, "Text 2"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 2, 2, TOTAL_COLUMNS, "N/A"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 3, 2, TOTAL_COLUMNS, "Test Translation 2"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 4, 2, TOTAL_COLUMNS, "Test Examples 2"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 5, 2, TOTAL_COLUMNS, "Test Examples Translation 2"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 2, TOTAL_COLUMNS, "true"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 2, TOTAL_COLUMNS, "Text 2"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 2, TOTAL_COLUMNS, "N/A"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 3, 2, TOTAL_COLUMNS, "Test Translation 2"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 4, 2, TOTAL_COLUMNS, "Test Examples 2"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 5, 2, TOTAL_COLUMNS, "Test Examples Translation 2"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 8, 2, TOTAL_COLUMNS, "true"));
     }
 
     @Test
@@ -123,16 +123,16 @@ public class LearningLanguageE2ETest extends BaseTest {
         Assertions.assertEquals(3, itemsInTable);
 
         BervanTableCommon.EditTextInColumn(driver, 1, 0, TOTAL_COLUMNS, "New Test Text 0");
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS, "New Test Text 0"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS, "New Test Text 0"));
 
         BervanTableCommon.EditTextInColumn(driver, 3, 0, TOTAL_COLUMNS, "New Test Translation 0");
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 3, 0, TOTAL_COLUMNS, "New Test Translation 0"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 3, 0, TOTAL_COLUMNS, "New Test Translation 0"));
 
         BervanTableCommon.EditTextInColumn(driver, 4, 0, TOTAL_COLUMNS, "New Test Examples 0");
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 4, 0, TOTAL_COLUMNS, "New Test Examples 0"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 4, 0, TOTAL_COLUMNS, "New Test Examples 0"));
 
         BervanTableCommon.EditTextInColumn(driver, 5, 0, TOTAL_COLUMNS, "New Test Examples Translation 0");
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 5, 0, TOTAL_COLUMNS, "New Test Examples Translation 0"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 5, 0, TOTAL_COLUMNS, "New Test Examples Translation 0"));
 
     }
 
@@ -151,17 +151,17 @@ public class LearningLanguageE2ETest extends BaseTest {
         GoToAnotherViewInApp(driver, "Home");
         BervanTableCommon.ClickSortableColumn(driver, "Text");
 
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 0, TOTAL_COLUMNS, "true"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 1, TOTAL_COLUMNS, "true"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 2, TOTAL_COLUMNS, "true"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 8, 0, TOTAL_COLUMNS, "true"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 8, 1, TOTAL_COLUMNS, "true"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 8, 2, TOTAL_COLUMNS, "true"));
 
         BervanTableCommon.clickCheckboxSelectAll(driver);
         BervanTableCommon.ClickCheckboxSelectByRow(driver, 0);
         DeactivateSelected(webDriverWait, driver);
 
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 0, TOTAL_COLUMNS, "true"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 1, TOTAL_COLUMNS, "false"));
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver, 8, 2, TOTAL_COLUMNS, "false"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 8, 0, TOTAL_COLUMNS, "true"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 8, 1, TOTAL_COLUMNS, "false"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 8, 2, TOTAL_COLUMNS, "false"));
 
         GoToAnotherViewInApp(driver, "Flashcards");
         flashcardsLeftAmount = GetFlashcardsLeftAmount(webDriverWait);
@@ -214,7 +214,7 @@ public class LearningLanguageE2ETest extends BaseTest {
 
         Thread.sleep(5000);
 
-        Assertions.assertTrue(BervanTableCommon.AssertColumnValueAsStr(driver,
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver,
                 1, 0, TOTAL_COLUMNS, "Text 1"));
 
         BervanTableCommon.DeleteItemByColumnClick(driver, 1, 0, TOTAL_COLUMNS);
