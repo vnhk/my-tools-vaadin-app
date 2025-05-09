@@ -1,6 +1,8 @@
 package com.bervan.toolsapp.views.logsapp;
 
 import com.bervan.common.AbstractTableView;
+import com.bervan.common.BervanButton;
+import com.bervan.common.BervanButtonStyle;
 import com.bervan.common.BervanComboBox;
 import com.bervan.common.search.SearchRequest;
 import com.bervan.common.search.model.Operator;
@@ -12,10 +14,12 @@ import com.bervan.logging.LogService;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.data.provider.SortDirection;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -29,11 +33,25 @@ public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
     private final UserRepository userRepository;
     private ComboBox<String> logSelector;
     private boolean showLastPage = true;
+    private final BervanButton defaultLastHour1Button = new BervanButton("Last 1h", click -> {
+        try {
+            filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
+                    .get("FROM").setValue(LocalDateTime.now().minusHours(1));
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        }
+        showLastPage = true;
+        refreshTable.click();
+    }, BervanButtonStyle.PRIMARY);
+    private final HorizontalLayout buttonsWithDateFilters = new HorizontalLayout();
+    private boolean initSearch = true;
 
     public LogItemsTableView(LogService logService, BervanLogger log, UserRepository userRepository) {
         super(new LogsAppPageLayout(ROUTE_NAME), logService, log, LogEntity.class);
         this.logService = logService;
         this.userRepository = userRepository;
+
+        createFilterButtons();
 
         checkboxesColumnsEnabled = false;
         pageSize = 50;
@@ -60,6 +78,100 @@ public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
         filtersLayout.addFilterableFields("message");
         filtersLayout.addFilterableFields("className");
         filtersLayout.addFilterableFields("methodName");
+        topLayout.add(buttonsWithDateFilters);
+
+        defaultLastHour1Button.click();
+    }
+
+    private void createFilterButtons() {
+        buttonsWithDateFilters.add(new BervanButton("Last 5m", click -> {
+            try {
+                filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
+                        .get("FROM").setValue(LocalDateTime.now().minusMinutes(5));
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+            showLastPage = true;
+            super.refreshTable.click();
+        }));
+
+        buttonsWithDateFilters.add(new BervanButton("Last 10m", click -> {
+            try {
+                filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
+                        .get("FROM").setValue(LocalDateTime.now().minusMinutes(10));
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+            showLastPage = true;
+            super.refreshTable.click();
+        }));
+
+        buttonsWithDateFilters.add(new BervanButton("Last 30m", click -> {
+            try {
+                filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
+                        .get("FROM").setValue(LocalDateTime.now().minusMinutes(30));
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+            showLastPage = true;
+            super.refreshTable.click();
+        }));
+        buttonsWithDateFilters.add(defaultLastHour1Button);
+
+        buttonsWithDateFilters.add(new BervanButton("Last 2h", click -> {
+            try {
+                filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
+                        .get("FROM").setValue(LocalDateTime.now().minusHours(2));
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+            showLastPage = true;
+            super.refreshTable.click();
+        }));
+
+        buttonsWithDateFilters.add(new BervanButton("Last 6h", click -> {
+            try {
+                filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
+                        .get("FROM").setValue(LocalDateTime.now().minusHours(6));
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+            showLastPage = true;
+            super.refreshTable.click();
+        }));
+
+        buttonsWithDateFilters.add(new BervanButton("Last 24h", click -> {
+            try {
+                filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
+                        .get("FROM").setValue(LocalDateTime.now().minusHours(24));
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+            showLastPage = true;
+            super.refreshTable.click();
+        }));
+
+        buttonsWithDateFilters.add(new BervanButton("Last 3d", click -> {
+            try {
+                filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
+                        .get("FROM").setValue(LocalDateTime.now().minusHours(24 * 3));
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+            showLastPage = true;
+            super.refreshTable.click();
+        }));
+
+        buttonsWithDateFilters.add(new BervanButton("Last 7d (max)", click -> {
+            try {
+                filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
+                        .get("FROM").setValue(LocalDateTime.now().minusHours(24 * 7));
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException(e);
+            }
+            showLastPage = true;
+            super.refreshTable.click();
+        }));
     }
 
     @Override
@@ -107,7 +219,19 @@ public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
     }
 
     @Override
+    protected void refreshData() {
+        if (initSearch) {
+            initSearch = false;
+            return;
+        }
+        super.refreshData();
+    }
+
+    @Override
     protected List<LogEntity> loadData() {
+        if (initSearch) {
+            return new ArrayList<>();
+        }
         List<LogEntity> logEntities = super.loadData();
         logEntities.forEach(e -> e.setFullLog(e.getFullLog()));
         return logEntities;
