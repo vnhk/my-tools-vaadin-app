@@ -89,7 +89,7 @@ public class BervanTableCommon {
         Thread.sleep(1000);
         WebElement saveButton = dialog.findElement(By.xpath("//vaadin-button[contains(., 'Save')]"));
         saveButton.click();
-        Thread.sleep(1500);
+        Thread.sleep(3000);
     }
 
     public static void DeleteItemByColumnClick(ChromeDriver driver, int colIndex, int rowIndex, int totalColumns) throws InterruptedException {
