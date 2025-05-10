@@ -32,7 +32,7 @@ public class LearningLanguageE2ETest extends BaseTest {
     private ChromeDriver driver;
     private WebDriverWait webDriverWait;
 
-    private static void AddNewItem(ChromeDriver driver, String testText, String testTranslation, String testExamples, String testExamplesTranslation) throws InterruptedException {
+    private void AddNewItem(ChromeDriver driver, String testText, String testTranslation, String testExamples, String testExamplesTranslation) throws InterruptedException {
         Thread.sleep(500);
         BervanTableCommon.openAddItemModal(driver);
         WebElement element = driver.findElement(By.xpath("//vaadin-text-area[label[text()='Text']]//textarea"));

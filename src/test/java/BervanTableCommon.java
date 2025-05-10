@@ -88,6 +88,14 @@ public class BervanTableCommon {
         return webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//vaadin-dialog-overlay")));
     }
 
+    public static void ClickOnVaadinLinkIcon(ChromeDriver driver) throws InterruptedException {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, ofSeconds(10), ofSeconds(1));
+        WebElement until = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//vaadin-icon[@icon='vaadin:link']")));
+
+        until.click();
+        Thread.sleep(500);
+    }
+
     public static void ClickSortableColumn(ChromeDriver driver, String columnText) throws InterruptedException {
         Thread.sleep(500);
 
