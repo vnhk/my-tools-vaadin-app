@@ -188,8 +188,8 @@ public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
     }
 
     @Override
-    protected List<String> getColumnsToFetchForTable() {
-        List<String> columnsToFetchForTable = super.getColumnsToFetchForTable();
+    protected List<String> getFieldsToFetchForTable() {
+        List<String> columnsToFetchForTable = super.getFieldsToFetchForTable();
         columnsToFetchForTable.remove("fullLog");
         columnsToFetchForTable.add("lineNumber");
         columnsToFetchForTable.add("className");

@@ -31,7 +31,8 @@ public class ProjectMgmtE2ETest extends BaseTest {
     UserToUserRelationRepository userToUserRelationRepository;
     @Autowired
     ProductService productService;
-    int TOTAL_COLUMNS = 7;
+    int TOTAL_COLUMNS_PROJECT = 7;
+    int TOTAL_COLUMNS_TASK = 9;
     private ChromeDriver driver;
     private WebDriverWait webDriverWait;
 
@@ -59,10 +60,10 @@ public class ProjectMgmtE2ETest extends BaseTest {
         itemsInTable = BervanTableCommon.GetItemsInTable(driver);
         Assertions.assertEquals(1, itemsInTable);
 
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS, "Project A"));
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 0, TOTAL_COLUMNS, "PR-A"));
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 3, 0, TOTAL_COLUMNS, "Open"));
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 4, 0, TOTAL_COLUMNS, "Medium"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS_PROJECT, "Project A"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 0, TOTAL_COLUMNS_PROJECT, "PR-A"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 3, 0, TOTAL_COLUMNS_PROJECT, "Open"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 4, 0, TOTAL_COLUMNS_PROJECT, "Medium"));
 
         //check description
     }
@@ -80,6 +81,21 @@ public class ProjectMgmtE2ETest extends BaseTest {
         AddNewTaskItem(driver, "Test Task 1", "Task description 1");
         itemsInTable = BervanTableCommon.GetItemsInTable(driver);
         Assertions.assertEquals(1, itemsInTable);
+    }
+
+    @Test
+    @Order(3)
+    public void testAllTasksPageEdit() throws InterruptedException {
+        super.GoToAnotherViewInApp(driver, "All Tasks");
+        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(1, itemsInTable);
+
+        BervanTableCommon.EditTextInColumn(driver, 1, 0, TOTAL_COLUMNS_TASK, "New Value");
+        itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(1, itemsInTable);
+
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS_TASK, "New Value"));
+        //moze kolumnstofetch przed zapisem pobieramy orginal ze wszystkim i aktualizujemy te kolumny z tofech
     }
 
 
