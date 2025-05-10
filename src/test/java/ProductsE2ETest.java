@@ -141,6 +141,29 @@ public class ProductsE2ETest extends BaseTest {
         Assertions.assertEquals(3, CountElementsByClass(driver, "previous-price"));
     }
 
+    @Test
+    @Order(3)
+    public void testBestOffersProduct() throws InterruptedException {
+        productService.createLowerThanAVGForLastXMonths();
+        super.GoToAnotherViewInApp(driver, "Best Offers");
+
+        TypeTextToVaadinText(driver, "Product Name:", "watch 5");
+
+        ClickButtonByText(driver, "Search");
+        Thread.sleep(1500);
+
+        ClickAnchorByText(driver, "Apple Watch 5");
+        Thread.sleep(1500);
+
+        Assertions.assertEquals(3, CountElementsByClass(driver, "previous-price"));
+
+        List<WebElement> elements = driver.findElements(By.xpath("//vaadin-vertical-layout//h4"));
+
+        Assertions.assertEquals("Min: 1250.00 zł (09-05-2025 20:00:00)", elements.get(0).getText());
+        Assertions.assertEquals("Avg: 1962.25 zł", elements.get(1).getText());
+        Assertions.assertEquals("Max: 2500.00 zł (09-05-2025 18:00:00)", elements.get(2).getText());
+    }
+
 
     private Map<String, Object> getProductMap(String offerName, String shop, String[] categories, String offerUrl,
                                               String image, LocalDateTime localDateTime, int price, String productListName,

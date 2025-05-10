@@ -77,6 +77,13 @@ public class BaseTest {
         driver.get(baseUrl + "/settings");
     }
 
+    public void TypeTextToVaadinText(ChromeDriver driver, String label, String text) throws InterruptedException {
+        WebElement element = driver.findElement(By.xpath("//vaadin-text-field[label[contains(.,'" + label + "')]]"));
+        Thread.sleep(250);
+        element.sendKeys(text);
+        Thread.sleep(500);
+    }
+
     protected void createTestUser() {
         if (userRepository.findByUsername("testUser").isEmpty()) {
             User testUser = new User();
