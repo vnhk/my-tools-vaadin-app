@@ -65,64 +65,6 @@ public class ProductsE2ETest extends BaseTest {
 
     @Test
     @Order(1)
-    public void testSimpleAddShopConfigRecords() throws InterruptedException {
-        super.GoToAnotherViewInApp(driver, "Shop Config");
-        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
-        Assertions.assertEquals(0, itemsInTable);
-        AddNewItemShopConfig(driver, "Apple shop", "https://www.appleshop.com");
-        Thread.sleep(1500);
-
-        itemsInTable = BervanTableCommon.GetItemsInTable(driver);
-        Assertions.assertEquals(1, itemsInTable);
-
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS_SHOP_CONFIG, "Apple shop"));
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 0, TOTAL_COLUMNS_SHOP_CONFIG, "https://www.appleshop.com"));
-    }
-
-    @Test
-    @Order(2)
-    public void testRecordsEdit() throws InterruptedException {
-        super.GoToAnotherViewInApp(driver, "Shop Config");
-        Thread.sleep(1500);
-        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
-        Assertions.assertEquals(1, itemsInTable);
-
-        BervanTableCommon.EditTextInColumn(driver, 1, 0, TOTAL_COLUMNS_SHOP_CONFIG, "Apple Shop");
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS_SHOP_CONFIG, "Apple Shop"));
-    }
-
-    @Test
-    @Order(3)
-    public void testSimpleAddProductConfigRecords() throws InterruptedException {
-        super.GoToAnotherViewInApp(driver, "Product Config");
-        ChangeShopName("Apple Shop");
-        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
-        Assertions.assertEquals(0, itemsInTable);
-        AddNewItemProductConfig(driver, "Apple Shop", "Apple Watch", "/smartwatches/apple/apple-watch-1", "15:00", "Apple Devices", "Smartwatches");
-        Thread.sleep(1500);
-
-        itemsInTable = BervanTableCommon.GetItemsInTable(driver);
-        Assertions.assertEquals(1, itemsInTable);
-
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "Apple Watch"));
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "/smartwatches/apple/apple-watch-1"));
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 3, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "15:00"));
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 4, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "[Apple Devices, Smartwatches]"));
-
-        AddNewItemProductConfig(driver, "Apple Shop", "MacBook Air M1", "/notebooks/apple/mac-air-m1-1", "2:00", "Apple Devices", "Notebooks");
-        Thread.sleep(1500);
-
-        itemsInTable = BervanTableCommon.GetItemsInTable(driver);
-        Assertions.assertEquals(2, itemsInTable);
-
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "MacBook Air M1"));
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "/notebooks/apple/mac-air-m1-1"));
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 3, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "02:00"));
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 4, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "[Apple Devices, Notebooks]"));
-    }
-
-    @Test
-    @Order(10)
     public void testPriceDetailsForProduct() throws InterruptedException {
         super.GoToAnotherViewInApp(driver, "Search");
         List<Map<String, Object>> products = new ArrayList<>();
@@ -172,7 +114,7 @@ public class ProductsE2ETest extends BaseTest {
         Assertions.assertEquals("Max: 2500.00 zł (09-05-2025 18:00:00)", elements.get(2).getText());
     }
 
-    @Order(11)
+    @Order(2)
     public void testPriceWasNotAdded() throws InterruptedException {
         List<Map<String, Object>> products = new ArrayList<>();
 
@@ -203,8 +145,16 @@ public class ProductsE2ETest extends BaseTest {
     }
 
     @Test
-    @Order(12)
+    @Order(3)
     public void testBestOffersProduct() throws InterruptedException {
+        //need to add price for today, to be added to actual products and then best offer can be created and fetched
+
+        LocalDateTime localDateTime = LocalDateTime.now().minusHours(5);
+        productService.addProducts(Collections.singletonList(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
+                "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
+                "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
+                localDateTime, 1209, "Smartwatches", "/smartwatches/apple/")));
+
         productService.createLowerThanAVGForLastXMonths();
         super.GoToAnotherViewInApp(driver, "Best Offers");
 
@@ -216,13 +166,71 @@ public class ProductsE2ETest extends BaseTest {
         ClickAnchorByText(driver, "Apple Watch 5");
         Thread.sleep(1500);
 
-        Assertions.assertEquals(3, CountElementsByClass(driver, "previous-price"));
+        Assertions.assertEquals(4, CountElementsByClass(driver, "previous-price"));
 
         List<WebElement> elements = driver.findElements(By.xpath("//vaadin-vertical-layout//h4"));
 
-        Assertions.assertEquals("Min: 1250.00 zł (09-05-2025 20:00:00)", elements.get(0).getText());
-        Assertions.assertEquals("Avg: 1962.25 zł", elements.get(1).getText());
+        Assertions.assertTrue(elements.get(0).getText().contains("Min: 1209.00 zł"));
+        Assertions.assertEquals("Avg: 1811.6 zł", elements.get(1).getText());
         Assertions.assertEquals("Max: 2500.00 zł (09-05-2025 18:00:00)", elements.get(2).getText());
+    }
+
+    @Test
+    @Order(4)
+    public void testSimpleAddShopConfigRecords() throws InterruptedException {
+        super.GoToAnotherViewInApp(driver, "Shop Config");
+        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(0, itemsInTable);
+        AddNewItemShopConfig(driver, "Apple shop", "https://www.appleshop.com");
+        Thread.sleep(1500);
+
+        itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(1, itemsInTable);
+
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS_SHOP_CONFIG, "Apple shop"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 0, TOTAL_COLUMNS_SHOP_CONFIG, "https://www.appleshop.com"));
+    }
+
+    @Test
+    @Order(5)
+    public void testRecordsEdit() throws InterruptedException {
+        super.GoToAnotherViewInApp(driver, "Shop Config");
+        Thread.sleep(1500);
+        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(1, itemsInTable);
+
+        BervanTableCommon.EditTextInColumn(driver, 1, 0, TOTAL_COLUMNS_SHOP_CONFIG, "Apple Shop");
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS_SHOP_CONFIG, "Apple Shop"));
+    }
+
+    @Test
+    @Order(6)
+    public void testSimpleAddProductConfigRecords() throws InterruptedException {
+        super.GoToAnotherViewInApp(driver, "Product Config");
+        ChangeShopName("Apple Shop");
+        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(0, itemsInTable);
+        AddNewItemProductConfig(driver, "Apple Shop", "Apple Watch", "/smartwatches/apple/apple-watch-1", "15:00", "Apple Devices", "Smartwatches");
+        Thread.sleep(1500);
+
+        itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(1, itemsInTable);
+
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "Apple Watch"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "/smartwatches/apple/apple-watch-1"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 3, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "15:00"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 4, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "[Apple Devices, Smartwatches]"));
+
+        AddNewItemProductConfig(driver, "Apple Shop", "MacBook Air M1", "/notebooks/apple/mac-air-m1-1", "2:00", "Apple Devices", "Notebooks");
+        Thread.sleep(1500);
+
+        itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(2, itemsInTable);
+
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "MacBook Air M1"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "/notebooks/apple/mac-air-m1-1"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 3, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "02:00"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 4, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "[Apple Devices, Notebooks]"));
     }
 
 
