@@ -2,12 +2,14 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.time.Duration.ofSeconds;
@@ -163,5 +165,88 @@ public class BervanTableCommon {
 
         filterButton.click();
         Thread.sleep(500);
+    }
+
+    public static void SetTimePickerValue(ChromeDriver driver, String label, String time) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        WebElement timePicker = driver.findElement(By.xpath("//vaadin-time-picker[label[text()='" + label + "']]"));
+
+        js.executeScript("arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('change'));", timePicker, time);
+    }
+
+    public static void SelectMultiSelectComboBoxValues(ChromeDriver driver, String labelText, List<String> valuesToSelect, boolean addIfNotExists) throws InterruptedException {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        WebElement labelElement = driver.findElement(By.xpath("//label[text()='" + labelText + "']"));
+        String inputId = labelElement.getAttribute("for");
+
+        WebElement multiComboBox = driver.findElement(By.xpath("//vaadin-multi-select-combo-box[input[@id='" + inputId + "']]"));
+
+        WebElement input = multiComboBox.findElement(By.tagName("input"));
+
+        for (String value : valuesToSelect) {
+            Thread.sleep(800);
+            js.executeScript("arguments[0].shadowRoot.querySelector('[part=\"toggle-button\"]').click();", multiComboBox);
+            Thread.sleep(800);
+
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+            List<WebElement> items = new ArrayList<>();
+            try {
+                WebElement overlay = wait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName("vaadin-multi-select-combo-box-overlay")));
+                items = overlay.findElements(By.cssSelector("vaadin-multi-select-combo-box-item"));
+            } catch (Exception e) {
+                //no elements in dropdown!
+            }
+
+            boolean found = false;
+            for (WebElement item : items) {
+                if (item.getText().equals(value)) {
+                    item.click();
+                    found = true;
+                    break;
+                }
+            }
+
+
+            if (!found && addIfNotExists) {
+                input.sendKeys(value);
+                input.sendKeys(Keys.ENTER);
+                Thread.sleep(500);
+            }
+
+            Thread.sleep(500);
+        }
+
+        js.executeScript("arguments[0].shadowRoot.querySelector('[part=\"toggle-button\"]').click();", multiComboBox);
+
+        Thread.sleep(500);
+    }
+
+    public static void SelectDropdownValue(ChromeDriver driver, String labelText, String valueToSelect) throws InterruptedException {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        WebElement labelElement = driver.findElement(By.xpath("//label[text()='" + labelText + "']"));
+
+        String inputId = labelElement.getAttribute("for");
+
+        WebElement comboBox = driver.findElement(By.xpath("//vaadin-combo-box[input[@id='" + inputId + "']]"));
+
+        js.executeScript("arguments[0].scrollIntoView(true);", comboBox);
+
+        js.executeScript("arguments[0].shadowRoot.querySelector('[part=\"toggle-button\"]').click();", comboBox);
+        Thread.sleep(1000);
+
+        WebElement overlay = driver.findElement(By.tagName("vaadin-combo-box-overlay"));
+        List<WebElement> items = overlay.findElements(By.cssSelector("vaadin-combo-box-item"));
+
+        for (WebElement item : items) {
+            if (item.getText().equals(valueToSelect)) {
+                item.click();
+                break;
+            }
+        }
+
+        Thread.sleep(1000);
     }
 }

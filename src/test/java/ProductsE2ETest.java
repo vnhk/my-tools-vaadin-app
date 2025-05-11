@@ -5,6 +5,7 @@ import com.bervan.shstat.ProductService;
 import com.bervan.toolsapp.Application;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -39,6 +40,7 @@ public class ProductsE2ETest extends BaseTest {
     private WebDriverWait webDriverWait;
     private Optional<User> commonUser;
     int TOTAL_COLUMNS_SHOP_CONFIG = 3;
+    int TOTAL_COLUMNS_PRODUCT_CONFIG = 5;
 
     @Test
     @Order(0)
@@ -87,6 +89,36 @@ public class ProductsE2ETest extends BaseTest {
 
         BervanTableCommon.EditTextInColumn(driver, 1, 0, TOTAL_COLUMNS_SHOP_CONFIG, "Apple Shop");
         Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS_SHOP_CONFIG, "Apple Shop"));
+    }
+
+    @Test
+    @Order(3)
+    public void testSimpleAddProductConfigRecords() throws InterruptedException {
+        super.GoToAnotherViewInApp(driver, "Product Config");
+        ChangeShopName("Apple Shop");
+        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(0, itemsInTable);
+        AddNewItemProductConfig(driver, "Apple Shop", "Apple Watch", "/smartwatches/apple/apple-watch-1", "15:00", "Apple Devices", "Smartwatches");
+        Thread.sleep(1500);
+
+        itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(1, itemsInTable);
+
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "Apple Watch"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "/smartwatches/apple/apple-watch-1"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 3, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "15:00"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 4, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "[Apple Devices, Smartwatches]"));
+
+        AddNewItemProductConfig(driver, "Apple Shop", "MacBook Air M1", "/notebooks/apple/mac-air-m1-1", "2:00", "Apple Devices", "Notebooks");
+        Thread.sleep(1500);
+
+        itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(2, itemsInTable);
+
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "MacBook Air M1"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "/notebooks/apple/mac-air-m1-1"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 3, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "02:00"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 4, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "[Apple Devices, Notebooks]"));
     }
 
     @Test
@@ -218,13 +250,51 @@ public class ProductsE2ETest extends BaseTest {
     private void AddNewItemShopConfig(ChromeDriver driver, String shop, String baseUrl) throws InterruptedException {
         Thread.sleep(500);
         BervanTableCommon.openAddItemModal(driver);
-        WebElement element = driver.findElement(By.xpath("//vaadin-text-area[label[text()='Shop']]//textarea"));
+        WebElement element = driver.findElement(By.xpath("//vaadin-text-area[label[text()='Shop Name']]//textarea"));
         element.sendKeys(shop);
         element = driver.findElement(By.xpath("//vaadin-text-area[label[text()='Base Url']]//textarea"));
         element.sendKeys(baseUrl);
 
         WebElement button = driver.findElement(By.xpath("//vaadin-button[contains(.,'Save')]"));
         button.click();
+    }
+
+
+    private void AddNewItemProductConfig(ChromeDriver driver, String shopName, String productName, String productUrl, String time, String... categories) throws InterruptedException {
+        Thread.sleep(500);
+        BervanTableCommon.openAddItemModal(driver);
+        WebElement element = driver.findElement(By.xpath("//vaadin-text-area[label[text()='Name']]//textarea"));
+        element.sendKeys(productName);
+        element = driver.findElement(By.xpath("//vaadin-text-area[label[text()='Url']]//textarea"));
+        element.sendKeys(productUrl);
+
+        BervanTableCommon.SetTimePickerValue(driver, "Select Time", time);
+        BervanTableCommon.SelectDropdownValue(driver, "Shop", shopName);
+        BervanTableCommon.SelectMultiSelectComboBoxValues(driver, "Categories", Arrays.stream(categories).toList(), true);
+
+        WebElement button = driver.findElement(By.xpath("//vaadin-button[contains(.,'Save')]"));
+        button.click();
+    }
+
+
+    private void ChangeShopName(String shopName) throws InterruptedException {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript(
+                "document.querySelector('vaadin-combo-box').shadowRoot.querySelector('[part=\"toggle-button\"]').click();"
+        );
+        Thread.sleep(1500);
+
+        WebElement overlay = driver.findElement(By.tagName("vaadin-combo-box-overlay"));
+
+        List<WebElement> items = overlay.findElements(By.cssSelector("vaadin-combo-box-item"));
+        for (WebElement item : items) {
+            if (item.getText().equals(shopName)) {
+                item.click();
+                break;
+            }
+        }
+
+        Thread.sleep(1500);
     }
 
 }
