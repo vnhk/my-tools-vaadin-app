@@ -38,6 +38,7 @@ public class ProductsE2ETest extends BaseTest {
     private ChromeDriver driver;
     private WebDriverWait webDriverWait;
     private Optional<User> commonUser;
+    int TOTAL_COLUMNS_SHOP_CONFIG = 3;
 
     @Test
     @Order(0)
@@ -62,6 +63,34 @@ public class ProductsE2ETest extends BaseTest {
 
     @Test
     @Order(1)
+    public void testSimpleAddShopConfigRecords() throws InterruptedException {
+        super.GoToAnotherViewInApp(driver, "Shop Config");
+        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(0, itemsInTable);
+        AddNewItemShopConfig(driver, "Apple shop", "https://www.appleshop.com");
+        Thread.sleep(1500);
+
+        itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(1, itemsInTable);
+
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS_SHOP_CONFIG, "Apple shop"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 0, TOTAL_COLUMNS_SHOP_CONFIG, "https://www.appleshop.com"));
+    }
+
+    @Test
+    @Order(2)
+    public void testRecordsEdit() throws InterruptedException {
+        super.GoToAnotherViewInApp(driver, "Shop Config");
+        Thread.sleep(1500);
+        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(1, itemsInTable);
+
+        BervanTableCommon.EditTextInColumn(driver, 1, 0, TOTAL_COLUMNS_SHOP_CONFIG, "Apple Shop");
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS_SHOP_CONFIG, "Apple Shop"));
+    }
+
+    @Test
+    @Order(10)
     public void testPriceDetailsForProduct() throws InterruptedException {
         super.GoToAnotherViewInApp(driver, "Search");
         List<Map<String, Object>> products = new ArrayList<>();
@@ -111,7 +140,7 @@ public class ProductsE2ETest extends BaseTest {
         Assertions.assertEquals("Max: 2500.00 zł (09-05-2025 18:00:00)", elements.get(2).getText());
     }
 
-    @Order(2)
+    @Order(11)
     public void testPriceWasNotAdded() throws InterruptedException {
         List<Map<String, Object>> products = new ArrayList<>();
 
@@ -142,7 +171,7 @@ public class ProductsE2ETest extends BaseTest {
     }
 
     @Test
-    @Order(3)
+    @Order(12)
     public void testBestOffersProduct() throws InterruptedException {
         productService.createLowerThanAVGForLastXMonths();
         super.GoToAnotherViewInApp(driver, "Best Offers");
@@ -185,4 +214,17 @@ public class ProductsE2ETest extends BaseTest {
 
         return productMap;
     }
+
+    private void AddNewItemShopConfig(ChromeDriver driver, String shop, String baseUrl) throws InterruptedException {
+        Thread.sleep(500);
+        BervanTableCommon.openAddItemModal(driver);
+        WebElement element = driver.findElement(By.xpath("//vaadin-text-area[label[text()='Shop']]//textarea"));
+        element.sendKeys(shop);
+        element = driver.findElement(By.xpath("//vaadin-text-area[label[text()='Base Url']]//textarea"));
+        element.sendKeys(baseUrl);
+
+        WebElement button = driver.findElement(By.xpath("//vaadin-button[contains(.,'Save')]"));
+        button.click();
+    }
+
 }
