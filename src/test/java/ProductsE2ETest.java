@@ -164,6 +164,25 @@ public class ProductsE2ETest extends BaseTest {
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
                 localDateTime, 1209, "Smartwatches", "/smartwatches/apple/")));
 
+
+        //-1 should be skipped and not affect a price
+        productService.addProducts(Collections.singletonList(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
+                "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
+                "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
+                localDateTime.plusSeconds(50), -1, "Smartwatches", "/smartwatches/apple/")));
+
+        //-1 null/empty be skipped and not affect a price
+        productService.addProducts(Collections.singletonList(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
+                "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
+                "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
+                localDateTime.plusSeconds(50), null, "Smartwatches", "/smartwatches/apple/")));
+
+        //-1 null/empty be skipped and not affect a price
+        productService.addProducts(Collections.singletonList(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
+                "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
+                "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
+                localDateTime.plusSeconds(50), "", "Smartwatches", "/smartwatches/apple/")));
+
         productService.createLowerThanAVGForLastXMonths();
         super.GoToAnotherViewInApp(driver, "Best Offers");
 
@@ -262,7 +281,7 @@ public class ProductsE2ETest extends BaseTest {
     }
 
     private Map<String, Object> getProductMap(String offerName, String shop, String[] categories, String offerUrl,
-                                              String image, LocalDateTime localDateTime, int price, String productListName,
+                                              String image, LocalDateTime localDateTime, Object price, String productListName,
                                               String productListUrl) {
         ZoneId zone = ZoneId.systemDefault();
         long timestamp = localDateTime.atZone(zone).toInstant().toEpochMilli();
