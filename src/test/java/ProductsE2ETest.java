@@ -2,6 +2,9 @@ import com.bervan.common.user.User;
 import com.bervan.common.user.UserRepository;
 import com.bervan.common.user.UserToUserRelationRepository;
 import com.bervan.shstat.ProductService;
+import com.bervan.shstat.ScrapAuditService;
+import com.bervan.shstat.entity.scrap.ScrapAudit;
+import com.bervan.shstat.repository.ProductConfigRepository;
 import com.bervan.toolsapp.Application;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
@@ -16,6 +19,7 @@ import org.springframework.test.context.TestConstructor;
 import org.springframework.test.context.TestPropertySource;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -36,6 +40,11 @@ public class ProductsE2ETest extends BaseTest {
     UserToUserRelationRepository userToUserRelationRepository;
     @Autowired
     ProductService productService;
+    @Autowired
+    ScrapAuditService scrapAuditService;
+    @Autowired
+    ProductConfigRepository productConfigRepository;
+
     private ChromeDriver driver;
     private WebDriverWait webDriverWait;
     private Optional<User> commonUser;
@@ -233,6 +242,20 @@ public class ProductsE2ETest extends BaseTest {
         Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 4, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "[Apple Devices, Notebooks]"));
     }
 
+    @Test
+    @Order(7)
+    public void testScrapAuditForProducts() throws InterruptedException {
+        ScrapAudit scrapAudit = new ScrapAudit();
+        scrapAudit.setDate(LocalDate.now());
+        scrapAudit.setProductConfig(productConfigRepository.findAll().get(0));
+        scrapAudit.addOwner(commonUser.get());
+        scrapAuditService.save(scrapAudit);
+
+        super.GoToAnotherViewInApp(driver, "Scrap Audit");
+
+        Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
+        Assertions.assertEquals(1, itemsInTable);
+    }
 
     private Map<String, Object> getProductMap(String offerName, String shop, String[] categories, String offerUrl,
                                               String image, LocalDateTime localDateTime, int price, String productListName,
