@@ -246,7 +246,8 @@ public class ProductsE2ETest extends BaseTest {
     @Order(7)
     public void testScrapAuditForProducts() throws InterruptedException {
         ScrapAudit scrapAudit = new ScrapAudit();
-        scrapAudit.setDate(LocalDate.now());
+        LocalDate localDate = LocalDate.now();
+        scrapAudit.setDate(localDate);
         scrapAudit.setProductConfig(productConfigRepository.findAll().get(0));
         scrapAudit.addOwner(commonUser.get());
         scrapAuditService.save(scrapAudit);
@@ -255,6 +256,9 @@ public class ProductsE2ETest extends BaseTest {
 
         Integer itemsInTable = BervanTableCommon.GetItemsInTable(driver);
         Assertions.assertEquals(1, itemsInTable);
+
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 0, 0, 2, localDate.format(DateTimeFormatter.ofPattern("uuuu-MM-dd"))));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, 2, "Apple Watch - Apple Shop (15:00)"));
     }
 
     private Map<String, Object> getProductMap(String offerName, String shop, String[] categories, String offerUrl,
