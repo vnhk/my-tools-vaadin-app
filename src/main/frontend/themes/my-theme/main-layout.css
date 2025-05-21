@@ -248,9 +248,14 @@ vaadin-icon:hover {
   color: var(--vaadin-icon-hover-color) !important;
 }
 
+vaadin-big-decimal-field::part(input-field) {
+  color: var(--lumo-third-text-color);
+}
+
 vaadin-text-field::part(input-field) {
   color: var(--lumo-third-text-color);
 }
+
 
 vaadin-integer-field::part(input-field) {
   color: var(--lumo-third-text-color);

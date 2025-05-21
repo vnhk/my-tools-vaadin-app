@@ -55,7 +55,9 @@ html {
 
     /* Input Fields */
     --vaadin-input-field-background: #101010; /* Slightly lighter dark gray */
+    --vaadin-big-decimal-field-background: #101010; /* Slightly lighter dark gray */
     --vaadin-input-field-label-color: #00ffff; /* Cyan */
+    --vaadin-big-decimal-field-label-color: #00ffff; /* Cyan */
     --vaadin-input-field-hovered-label-color: #ff0080; /* Hot Pink */
     --vaadin-input-field-focused-label-color: #ff0080; /* Hot Pink */
     --vaadin-checkbox-label-color: #00ffff; /* Cyan */
