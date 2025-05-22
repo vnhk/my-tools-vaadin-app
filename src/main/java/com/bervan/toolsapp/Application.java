@@ -36,13 +36,14 @@ public class Application extends SpringBootServletInitializer {
     public Application(UserRepository userRepository) {
         this.userRepository = userRepository;
 
-        if (userRepository.findByUsername("COMMON_USER").isEmpty()) {
-            User save = new User();
-            save.setUsername("COMMON_USER");
-            save.setRole("ROLE_USER");
-            save.setLockedAccount(true);
-            userRepository.save(save);
-        }
+        //comment for new backup
+//        if (userRepository.findByUsername("COMMON_USER").isEmpty()) {
+//            User save = new User();
+//            save.setUsername("COMMON_USER");
+//            save.setRole("ROLE_USER");
+//            save.setLockedAccount(true);
+//            userRepository.save(save);
+//        }
     }
 
     public static void main(String[] args) {
