@@ -18,6 +18,7 @@ import static java.time.Duration.ofSeconds;
 public class BervanTableCommon {
     public static Integer GetItemsInTable(ChromeDriver driver) {
         var pageInfo = driver.findElement(By.xpath("//span[@class='table-pageable-details']"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", pageInfo);
         return Integer.parseInt(pageInfo.getText().split(",")[0].replace("Items: ", "").trim());
     }
 
