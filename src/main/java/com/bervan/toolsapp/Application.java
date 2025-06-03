@@ -13,6 +13,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
@@ -29,6 +30,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @EnableJpaRepositories(basePackages = "com.bervan.*", repositoryBaseClass = BervanBaseRepositoryImpl.class)
 @EntityScan(basePackages = "com.bervan.*")
 @EnableMethodSecurity
+@EnableAsync
 public class Application extends SpringBootServletInitializer {
     private Logger logger = LoggerFactory.getLogger(Application.class);
     private final UserRepository userRepository;
