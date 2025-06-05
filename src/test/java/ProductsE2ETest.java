@@ -1,8 +1,8 @@
 import com.bervan.common.user.User;
 import com.bervan.common.user.UserRepository;
 import com.bervan.common.user.UserToUserRelationRepository;
-import com.bervan.shstat.ProductService;
-import com.bervan.shstat.ScrapAuditService;
+import com.bervan.shstat.service.ProductService;
+import com.bervan.shstat.service.ScrapAuditService;
 import com.bervan.shstat.entity.scrap.ScrapAudit;
 import com.bervan.shstat.repository.ProductConfigRepository;
 import com.bervan.toolsapp.Application;

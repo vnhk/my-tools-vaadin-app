@@ -1,6 +1,6 @@
 import com.bervan.common.user.UserRepository;
 import com.bervan.common.user.UserToUserRelationRepository;
-import com.bervan.shstat.ProductService;
+import com.bervan.shstat.service.ProductService;
 import com.bervan.toolsapp.Application;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;

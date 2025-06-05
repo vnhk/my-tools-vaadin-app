@@ -2,9 +2,9 @@ package com.bervan.toolsapp.views.shopapp;
 
 import com.bervan.common.user.UserRepository;
 import com.bervan.core.model.BervanLogger;
-import com.bervan.shstat.ProductBasedOnDateAttributesService;
-import com.bervan.shstat.ProductSearchService;
-import com.bervan.shstat.ProductService;
+import com.bervan.shstat.service.ProductBasedOnDateAttributesService;
+import com.bervan.shstat.service.ProductSearchService;
+import com.bervan.shstat.service.ProductService;
 import com.bervan.shstat.repository.ProductRepository;
 import com.bervan.shstat.tokens.ProductSimilarOffersService;
 import com.bervan.shstat.view.AbstractProductView;

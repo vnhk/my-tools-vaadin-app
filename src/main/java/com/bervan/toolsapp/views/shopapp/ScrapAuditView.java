@@ -1,7 +1,7 @@
 package com.bervan.toolsapp.views.shopapp;
 
 import com.bervan.core.model.BervanLogger;
-import com.bervan.shstat.ScrapAuditService;
+import com.bervan.shstat.service.ScrapAuditService;
 import com.bervan.shstat.repository.ScrapAuditRepository;
 import com.bervan.shstat.view.AbstractScrapAuditView;
 import com.bervan.toolsapp.views.MainLayout;

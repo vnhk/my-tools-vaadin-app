@@ -2,7 +2,7 @@ package com.bervan.toolsapp.views.shopapp;
 
 import com.bervan.common.search.SearchService;
 import com.bervan.core.model.BervanLogger;
-import com.bervan.shstat.ProductConfigService;
+import com.bervan.shstat.service.ProductConfigService;
 import com.bervan.shstat.view.AbstractProductConfigView;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.router.Route;
