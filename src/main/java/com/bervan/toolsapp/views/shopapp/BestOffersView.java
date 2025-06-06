@@ -1,6 +1,7 @@
 package com.bervan.toolsapp.views.shopapp;
 
 import com.bervan.core.model.BervanLogger;
+import com.bervan.shstat.queue.RefreshViewService;
 import com.bervan.shstat.service.ProductSearchService;
 import com.bervan.shstat.view.AbstractBestOffersView;
 import com.bervan.shstat.service.DiscountsViewService;
@@ -12,7 +13,7 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class BestOffersView extends AbstractBestOffersView {
 
-    public BestOffersView(DiscountsViewService discountsViewService, ProductSearchService productSearchService, BervanLogger log) {
-        super(discountsViewService, productSearchService, log);
+    public BestOffersView(RefreshViewService refreshViewService, DiscountsViewService discountsViewService, ProductSearchService productSearchService, BervanLogger log) {
+        super(discountsViewService, refreshViewService, productSearchService, log);
     }
 }
