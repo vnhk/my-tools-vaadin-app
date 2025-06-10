@@ -54,7 +54,7 @@ public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
         createFilterButtons();
 
         checkboxesColumnsEnabled = false;
-        pageSize = 50;
+        pageSize = 500;
         addClassName("logs-item-view");
 
         Set<String> appsName = logService.loadAppsName();
