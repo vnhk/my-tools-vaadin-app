@@ -1,10 +1,11 @@
 import com.bervan.common.user.User;
 import com.bervan.common.user.UserRepository;
 import com.bervan.common.user.UserToUserRelationRepository;
+import com.bervan.shstat.entity.scrap.ScrapAudit;
+import com.bervan.shstat.queue.AddProductsQueue;
+import com.bervan.shstat.repository.ProductConfigRepository;
 import com.bervan.shstat.service.ProductService;
 import com.bervan.shstat.service.ScrapAuditService;
-import com.bervan.shstat.entity.scrap.ScrapAudit;
-import com.bervan.shstat.repository.ProductConfigRepository;
 import com.bervan.toolsapp.Application;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
@@ -44,12 +45,13 @@ public class ProductsE2ETest extends BaseTest {
     ScrapAuditService scrapAuditService;
     @Autowired
     ProductConfigRepository productConfigRepository;
-
+    int TOTAL_COLUMNS_SHOP_CONFIG = 3;
+    int TOTAL_COLUMNS_PRODUCT_CONFIG = 7;
     private ChromeDriver driver;
     private WebDriverWait webDriverWait;
     private Optional<User> commonUser;
-    int TOTAL_COLUMNS_SHOP_CONFIG = 3;
-    int TOTAL_COLUMNS_PRODUCT_CONFIG = 5;
+    @Autowired
+    private AddProductsQueue addProductsQueue;
 
     @Test
     @Order(0)
@@ -115,8 +117,8 @@ public class ProductsE2ETest extends BaseTest {
 
         Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "Smartwatches"));
         Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "/smartwatches/apple/"));
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 3, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "15:00"));
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 4, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "[Apple Devices, Smartwatches]"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 5, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "15:00"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 6, 0, TOTAL_COLUMNS_PRODUCT_CONFIG, "[Apple Devices, Smartwatches]"));
 
         AddNewItemProductConfig(driver, "Apple Shop", "MacBook Air M1", "/notebooks/apple/mac-air-m1-1", "2:00", "Apple Devices", "Notebooks");
         Thread.sleep(1500);
@@ -126,8 +128,8 @@ public class ProductsE2ETest extends BaseTest {
 
         Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 1, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "MacBook Air M1"));
         Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 2, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "/notebooks/apple/mac-air-m1-1"));
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 3, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "02:00"));
-        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 4, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "[Apple Devices, Notebooks]"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 5, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "02:00"));
+        Assertions.assertTrue(BervanTableCommon.EqualsColumnValueAsStr(driver, 6, 1, TOTAL_COLUMNS_PRODUCT_CONFIG, "[Apple Devices, Notebooks]"));
     }
 
     @Test
@@ -158,32 +160,30 @@ public class ProductsE2ETest extends BaseTest {
 
         LocalDateTime localDateTime = LocalDateTime.of(2025, 5, 9, 17, 0, 0);
 
-        //prepare data with different prices
-        products.add(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
+        addProductsQueue.addProductsByPartitions(List.of(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
                 "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
-                localDateTime, 1999, "Smartwatches", "/smartwatches/apple/"));
+                localDateTime, 1999, "Smartwatches", "/smartwatches/apple/")));
 
         localDateTime = LocalDateTime.of(2025, 5, 9, 18, 0, 0);
-        products.add(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
+        addProductsQueue.addProductsByPartitions(List.of(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
                 "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
-                localDateTime, 2500, "Smartwatches", "/smartwatches/apple/"));
+                localDateTime, 2500, "Smartwatches", "/smartwatches/apple/")));
 
 
         localDateTime = LocalDateTime.of(2025, 5, 9, 19, 0, 0);
-        products.add(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
+        addProductsQueue.addProductsByPartitions(List.of(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
                 "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
-                localDateTime, 2100, "Smartwatches", "/smartwatches/apple/"));
+                localDateTime, 2100, "Smartwatches", "/smartwatches/apple/")));
 
         localDateTime = LocalDateTime.of(2025, 5, 9, 20, 0, 0);
-        products.add(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
+        addProductsQueue.addProductsByPartitions(List.of(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
                 "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
-                localDateTime, 1250, "Smartwatches", "/smartwatches/apple/"));
+                localDateTime, 1250, "Smartwatches", "/smartwatches/apple/")));
 
-        productService.addProductsAsync(products);
 
         //
         ClickButtonByText(driver, "Search");
@@ -197,7 +197,7 @@ public class ProductsE2ETest extends BaseTest {
         List<WebElement> elements = driver.findElements(By.xpath("//vaadin-vertical-layout//h4"));
 
         Assertions.assertEquals("Min: 1250.00 zł (09-05-2025 20:00:00)", elements.get(0).getText());
-        Assertions.assertEquals("Avg: 1962.25 zł", elements.get(1).getText());
+        Assertions.assertEquals("Avg: 2199.6666666666665 zł", elements.get(1).getText());
         Assertions.assertEquals("Max: 2500.00 zł (09-05-2025 18:00:00)", elements.get(2).getText());
 
         super.GoToAnotherViewInApp(driver, "Scrap Audit");
