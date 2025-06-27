@@ -280,7 +280,7 @@ public class ProductsE2ETest extends BaseTest {
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
                 localDateTime.plusSeconds(50), "", "Smartwatches", "/smartwatches/apple/")));
 
-        productService.createLowerThanAVGForLastXMonths();
+        productService.createBestOffers();
         super.GoToAnotherViewInApp(driver, "Best Offers");
 
         TypeTextToVaadinText(driver, "Product Name:", "watch 5");
