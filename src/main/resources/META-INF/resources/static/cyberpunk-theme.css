@@ -98,4 +98,28 @@ html {
     --ql-toolbar-background: #c0c0c0; /* Dark Gray/Almost Black */
     --ql-editor-content-background-color: #101010; /* Slightly lighter dark gray */
     --ql-editor-content-text-color: #00ff00; /* Neon Green */
+
+    /*    canvas*/
+    /* Layout */
+    --canvas-main-layout-background: #080808; /* Base dark gray */
+    --canvas-main-layout-text-color: #00ff00; /* Neon Green */
+
+    /* Left Panel */
+    --canvas-left-panel-background: #1a1a1a; /* Dark Gray/Almost Black */
+    --canvas-left-panel-text-color: #00ffff; /* Cyan */
+    --canvas-left-panel-border-color: #333333; /* Darker Gray */
+
+    /* Middle Panel */
+    --canvas-middle-panel-background: #1a1a1a; /* Dark Gray/Almost Black */
+    --canvas-middle-panel-text-color: #00ffff; /* Cyan */
+    --canvas-middle-panel-border-color: #333333; /* Darker Gray */
+
+    /* Main Canvas */
+    --canvas-main-canvas-background: #080808; /* Very Dark Gray */
+    --canvas-main-canvas-text-color: #00ff00; /* Neon Green */
+
+    /* Notebook Button */
+    --canvas-notebook-button-background: #ff0080; /* Hot Pink */
+    --canvas-notebook-button-text-color: #ffffff; /* White */
+    --canvas-notebook-button-border-color: #00ffff; /* Cyan */
 }

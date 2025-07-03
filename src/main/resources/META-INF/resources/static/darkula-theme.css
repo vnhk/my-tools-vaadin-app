@@ -74,4 +74,24 @@ html {
     --ql-toolbar-background: #9cc8fa; /* Slightly lighter background for toolbar */
     --ql-editor-content-background-color: #313335; /* Darker background for editor content */
     --ql-editor-content-text-color: #a9b7c6; /* Light gray text for editor */
+
+
+    /*    canvas*/
+    --canvas-main-layout-background: #1e1e1e;
+    --canvas-main-layout-text-color: #e0e0e0;
+
+    --canvas-left-panel-background: #2c2c2c;
+    --canvas-left-panel-text-color: #ffffff;
+    --canvas-left-panel-border-color: #444444;
+
+    --canvas-middle-panel-background: #2c2c2c;
+    --canvas-middle-panel-text-color: #ffffff;
+    --canvas-middle-panel-border-color: #444444;
+
+    --canvas-main-canvas-background: #1e1e1e;
+    --canvas-main-canvas-text-color: #e0e0e0;
+
+    --canvas-notebook-button-background: #3a3a3a;
+    --canvas-notebook-button-text-color: #ffffff;
+    --canvas-notebook-button-border-color: #555555;
 }

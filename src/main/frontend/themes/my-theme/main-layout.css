@@ -4,6 +4,34 @@ html {
   --spreadsheet-cell-function-color: #000000; /* Define with an appropriate color value */
 }
 
+.canvas-main-layout {
+  background-color: var(--canvas-main-layout-background);
+  color: var(--canvas-main-layout-text-color);
+}
+
+.canvas-left-panel {
+  background-color: var(--canvas-left-panel-background);
+  color: var(--canvas-left-panel-text-color);
+  border-right: 1px solid var(--canvas-left-panel-border-color);
+}
+
+.canvas-middle-panel {
+  background-color: var(--canvas-middle-panel-background);
+  color: var(--canvas-middle-panel-text-color);
+  border-right: 1px solid var(--canvas-middle-panel-border-color);
+}
+
+.canvas-main-canvas {
+  background-color: var(--canvas-main-canvas-background);
+  color: var(--canvas-main-canvas-text-color);
+}
+
+.canvas-notebook-button {
+  background-color: var(--canvas-notebook-button-background);
+  color: var(--canvas-notebook-button-text-color);
+  border: 1px solid var(--canvas-notebook-button-border-color);
+}
+
 vaadin-date-picker {
   color: white;
 }
