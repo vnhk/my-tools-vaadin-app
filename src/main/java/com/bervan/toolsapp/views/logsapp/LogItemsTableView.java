@@ -1,6 +1,6 @@
 package com.bervan.toolsapp.views.logsapp;
 
-import com.bervan.common.AbstractTableView;
+import com.bervan.common.AbstractBervanTableView;
 import com.bervan.common.BervanButton;
 import com.bervan.common.BervanButtonStyle;
 import com.bervan.common.BervanComboBox;
@@ -26,7 +26,7 @@ import java.util.Set;
 
 @Route(value = LogItemsTableView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
-public class LogItemsTableView extends AbstractTableView<Long, LogEntity> {
+public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> {
     public static final String ROUTE_NAME = "logs-app/all-logs";
     private String appName = "";
     private final LogService logService;

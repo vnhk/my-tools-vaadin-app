@@ -1,6 +1,6 @@
 package com.bervan.toolsapp.views.logsapp;
 
-import com.bervan.common.AbstractTableView;
+import com.bervan.common.AbstractBervanTableView;
 import com.bervan.common.BervanComboBox;
 import com.bervan.common.search.SearchRequest;
 import com.bervan.common.search.model.Operator;
@@ -21,7 +21,7 @@ import java.util.Set;
 
 @Route(value = TrackersTableView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
-public class TrackersTableView extends AbstractTableView<Long, LogEntity> {
+public class TrackersTableView extends AbstractBervanTableView<Long, LogEntity> {
     public static final String ROUTE_NAME = "logs-app/trackers";
     private final LogService logService;
     private final UserRepository userRepository;
