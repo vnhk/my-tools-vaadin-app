@@ -27,6 +27,8 @@ html {
 }
 
 .canvas-notebook-button {
+  width: 90%;
+  margin: 5%;
   background-color: var(--canvas-notebook-button-background);
   color: var(--canvas-notebook-button-text-color);
   border: 1px solid var(--canvas-notebook-button-border-color);
