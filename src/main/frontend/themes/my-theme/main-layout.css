@@ -4,6 +4,31 @@ html {
   --spreadsheet-cell-function-color: #000000; /* Define with an appropriate color value */
 }
 
+/*spreadsheet context menu*/
+.context-menu {
+  position: absolute;
+  display: none;
+  background: white;
+  border: 1px solid #999;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  z-index: 9999;
+  padding: 4px;
+  font-size: 14px;
+}
+.context-menu div {
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.context-menu div:hover {
+  background-color: #eeeeee;
+}
+.highlighted-column {
+  background-color: #e0f7fa !important;
+  border-right: 2px solid #0288d1;
+}
+/*spreadsheet context menu*/
+
+
 .canvas-main-layout {
   background-color: var(--canvas-main-layout-background);
   color: var(--canvas-main-layout-text-color);
