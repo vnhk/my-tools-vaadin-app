@@ -1,6 +1,5 @@
 package com.bervan.toolsapp.views.spreadsheetapp;
 
-import com.bervan.spreadsheet.functions.FormulaParser;
 import com.bervan.spreadsheet.functions.SpreadsheetFunction;
 import com.bervan.spreadsheet.service.SpreadsheetService;
 import com.bervan.spreadsheet.view.AbstractSpreadsheetView;
@@ -15,7 +14,7 @@ import java.util.List;
 @RolesAllowed("USER")
 public class SpreadsheetView extends AbstractSpreadsheetView implements HasUrlParameter<String> {
 
-    public SpreadsheetView(SpreadsheetService service, List<? extends SpreadsheetFunction> spreadsheetFunctions, FormulaParser formulaParser) {
-        super(service, formulaParser, spreadsheetFunctions);
+    public SpreadsheetView(SpreadsheetService service) {
+        super(service);
     }
 }
