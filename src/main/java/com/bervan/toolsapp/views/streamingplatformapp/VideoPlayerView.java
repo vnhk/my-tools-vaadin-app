@@ -10,16 +10,16 @@ import com.bervan.streamingapp.view.AbstractVideoPlayerView;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
 import jakarta.annotation.security.RolesAllowed;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Route(value = AbstractVideoPlayerView.ROUTE_NAME, layout = MainLayout.class)
-
 @RolesAllowed({"USER", "STREAMING"})
 public class VideoPlayerView extends AbstractVideoPlayerView {
     private final VideoManager videoManager;
@@ -53,8 +53,7 @@ public class VideoPlayerView extends AbstractVideoPlayerView {
             return;
         }
 
-        Optional<Metadata> enSubtitle = subtitles.stream().filter(e -> e.getFilename().endsWith("en" + "." + e.getExtension()))
-                .findFirst();
+        Optional<Metadata> enSubtitle = videoManager.getSubtitle(VideoManager.EN, subtitles);
 
         if (enSubtitle.isEmpty()) {
             logger.error("Could not find english subtitles based on provided video id!");
@@ -62,7 +61,8 @@ public class VideoPlayerView extends AbstractVideoPlayerView {
         }
 
         if (AuthService.getUserRole().equals("ROLE_USER")) {
-            add(new EnglishInVideoNotLearned(wordService, addAsFlashcardService, logger, enSubtitle.get().getPath() + File.separator + enSubtitle.get().getFilename()));
+            add(new EnglishInVideoNotLearned(wordService, addAsFlashcardService, logger,
+                    enSubtitle.get().getPath() + File.separator + enSubtitle.get().getFilename()));
         }
     }
 }
