@@ -1,7 +1,6 @@
 /*@import "../cyberpunk-theme.css";*/
 
 html {
-  --spreadsheet-cell-function-color: #000000; /* Define with an appropriate color value */
 }
 
 .canvas-main-layout {
@@ -127,20 +126,20 @@ vaadin-grid.flex-grid::part(cell) {
   min-height: 15px;
 }
 
-.spreadsheet-cell-function {
-  background-color: var(--spreadsheet-cell-function-background, transparent) !important;
-  color: var(--spreadsheet-cell-function-color, inherit) !important;
-}
+/*.spreadsheet-cell-function {*/
+/*  background-color: var(--spreadsheet-cell-function-background, transparent) !important;*/
+/*  color: var(--spreadsheet-cell-function-color, inherit) !important;*/
+/*}*/
 
-.spreadsheet-cell {
-  background-color: var(--spreadsheet-cell-background);
-  color: var(--spreadsheet-cell-color);
-  border: 2px solid white;
-  padding: 5px;
-  font-size: 15px;
-  min-width: 50px;
-  min-height: 15px;
-}
+/*.spreadsheet-cell {*/
+/*  background-color: var(--spreadsheet-cell-background);*/
+/*  color: var(--spreadsheet-cell-color);*/
+/*  border: 2px solid white;*/
+/*  padding: 5px;*/
+/*  font-size: 15px;*/
+/*  min-width: 50px;*/
+/*  min-height: 15px;*/
+/*}*/
 
 
 .vaadin-text-area-container {
@@ -331,17 +330,6 @@ h1, h2, h3, h4, h5 {
   overflow-y: scroll; /* enables vertical scrolling without scrollbar */
   overflow-x: scroll; /* enables horizontal scrolling without scrollbar */
   scrollbar-width: none; /* for Firefox */
-}
-
-.spreadsheet-cell {
-  overflow: hidden; /* hides the scrollbars */
-  overflow-y: scroll; /* enables vertical scrolling without scrollbar */
-  overflow-x: scroll; /* enables horizontal scrolling without scrollbar */
-  scrollbar-width: none; /* for Firefox */
-}
-
-.spreadsheet-cell::-webkit-scrollbar {
-  display: none; /* for Chrome, Safari, and Edge */
 }
 
 .pocket-items-layout::-webkit-scrollbar {
