@@ -61,7 +61,7 @@ html {
     --table-header-row-background: rgba(80, 100, 160); /* Existing value */
     --table-header-row-color: #a9b7c6; /* Light gray */
     --selected-route-button-color: #bbbbbb; /* Existing value */
-    --selected-route-button-background: #3c4c66; /* Existing value */
+    --selected-route-button-background-gradient: #3c4c66; /* Existing value */
     --vaadin-icon-hover-color: #bdb8b8; /* Existing value */
     --vaadin-icon-color: #a9b7c6; /* Light gray */
     --drop-file-here-input-color: #a9b7c6; /* Light gray */

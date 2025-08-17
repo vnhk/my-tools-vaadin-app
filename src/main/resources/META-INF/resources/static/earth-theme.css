@@ -68,7 +68,7 @@ html {
     --table-header-row-color: white;
 
     --selected-route-button-color: var(--lumo-secondary-text-color);
-    --selected-route-button-background: var(--lumo-primary-color);
+    --selected-route-button-background-gradient: var(--lumo-primary-color);
 
     --vaadin-icon-hover-color: #bdb8b8;
 

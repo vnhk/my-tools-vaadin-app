@@ -84,8 +84,18 @@ html {
     --menu-link-app-color: #00ffff; /* Cyan */
     --button-background-color: #ff0080; /* Hot Pink */
     --button-color: #ffffff;
+
+    /* Selected Route Button */
     --selected-route-button-color: #00ffff; /* Cyan */
-    --selected-route-button-background: #ff0080; /* Hot Pink */
+    --selected-route-button-background-gradient: linear-gradient(135deg, #ff0080, #2563eb); /* Hot Pink → Blue gradient */
+    --selected-route-button-after-background: #00ffff; /* Cyan underline */
+
+    /* Menu container background */
+    --menu-navigation-container-background-color: #1a1a1a; /* Dark Gray/Almost Black */
+    /* Navigation button colors */
+    --navigation-button-color: #00ffff; /* Cyan */
+    --navigation-button-hover-background-color: #ff0080; /* Hot Pink */
+
     --vaadin-icon-hover-color: #00ffff; /* Cyan */
     --vaadin-icon-color: #00ffff; /* Cyan */
     --drop-file-here-input-color: #00ffff; /* Cyan */

@@ -1,12 +1,15 @@
 package com.bervan.toolsapp.views.otpview;
 
 import com.bervan.common.AbstractPageView;
+import com.bervan.common.MenuNavigationComponent;
 import com.bervan.common.service.AuthService;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.toolsapp.security.OTPService;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import jakarta.annotation.security.RolesAllowed;
@@ -40,7 +43,7 @@ public class OTPGenerateView extends AbstractPageView {
 
         Button generateOtpButton = new Button("Generate OTP", event -> generateAndDisplayOTP());
         generateOtpButton.addClassName("option-button");
-        add(otpLabel, generateOtpButton);
+        add(new MenuNavigationComponent("") {}, otpLabel, generateOtpButton);
     }
 
     private void generateAndDisplayOTP() {
