@@ -11,9 +11,6 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class SpreadsheetView extends AbstractSpreadsheetView implements HasUrlParameter<String> {
 
-    // todo
-    //  1. column size adjusting
-    //  2. add context actions for left row header: duplicate row, add row above, delete row, add row below
     public SpreadsheetView(SpreadsheetService service) {
         super(service);
     }
