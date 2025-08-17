@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views;
 
+import com.bervan.common.MenuNavigationComponent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -25,7 +26,7 @@ public class SettingsView extends VerticalLayout {
             }
         });
 
-        add(themeSelect);
+        add(new MenuNavigationComponent("") {}, themeSelect);
     }
 
     private void setTheme(String themeName) {
