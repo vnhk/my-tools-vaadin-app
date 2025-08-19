@@ -132,4 +132,19 @@ html {
     --canvas-notebook-button-background: #ff0080; /* Hot Pink */
     --canvas-notebook-button-text-color: #ffffff; /* White */
     --canvas-notebook-button-border-color: #00ffff; /* Cyan */
+
+    /* Spreadsheet Toolbar Cyberpunk Variables */
+    --spreadsheet-toolbar-background: linear-gradient(135deg, #1a1a1a, #080808);
+    --spreadsheet-toolbar-border: #00ffff;
+    --spreadsheet-section-border: #333;
+    --spreadsheet-section-title-color: #00ffff;
+    --spreadsheet-button-background: #101010;
+    --spreadsheet-button-color: #00ffff;
+    --spreadsheet-button-border: #333;
+    --spreadsheet-button-hover-background: #ff0080;
+    --spreadsheet-button-hover-border: #ff0080;
+    --spreadsheet-button-active-background: #00ff00;
+    --spreadsheet-button-active-color: #000000;
+    --spreadsheet-button-glow: #00ffff;
+    --spreadsheet-shadow: rgba(0, 255, 255, 0.3);
 }
