@@ -147,4 +147,13 @@ html {
     --spreadsheet-button-active-color: #000000;
     --spreadsheet-button-glow: #00ffff;
     --spreadsheet-shadow: rgba(0, 255, 255, 0.3);
+
+    --streaming-tile-background: var(--movie-tile-background);
+    --streaming-tile-border: var(--vaadin-input-field-border-color);
+    --streaming-tile-shadow: rgba(0, 255, 255, 0.2);
+    --streaming-tile-shadow-hover: var(--spreadsheet-shadow);
+    --streaming-overlay-background: rgba(0, 0, 0, 0.9);
+    --streaming-play-icon-color: var(--lumo-primary-color);
+    --streaming-title-color: var(--lumo-secondary-text-color);
+    --streaming-title-shadow: var(--lumo-secondary-text-color);
 }
