@@ -4,126 +4,126 @@ html {
 }
 
 .canvas-main-layout {
-  background-color: var(--canvas-main-layout-background);
-  color: var(--canvas-main-layout-text-color);
+    background-color: var(--canvas-main-layout-background);
+    color: var(--canvas-main-layout-text-color);
 }
 
 .canvas-left-panel {
-  background-color: var(--canvas-left-panel-background);
-  color: var(--canvas-left-panel-text-color);
-  border-right: 1px solid var(--canvas-left-panel-border-color);
+    background-color: var(--canvas-left-panel-background);
+    color: var(--canvas-left-panel-text-color);
+    border-right: 1px solid var(--canvas-left-panel-border-color);
 }
 
 .canvas-middle-panel {
-  background-color: var(--canvas-middle-panel-background);
-  color: var(--canvas-middle-panel-text-color);
-  border-right: 1px solid var(--canvas-middle-panel-border-color);
+    background-color: var(--canvas-middle-panel-background);
+    color: var(--canvas-middle-panel-text-color);
+    border-right: 1px solid var(--canvas-middle-panel-border-color);
 }
 
 .canvas-main-canvas {
-  background-color: var(--canvas-main-canvas-background);
-  color: var(--canvas-main-canvas-text-color);
+    background-color: var(--canvas-main-canvas-background);
+    color: var(--canvas-main-canvas-text-color);
 }
 
 .canvas-notebook-button {
-  width: 100%;
-  background-color: var(--canvas-notebook-button-background);
-  color: var(--canvas-notebook-button-text-color);
-  border: 1px solid var(--canvas-notebook-button-border-color);
+    width: 100%;
+    background-color: var(--canvas-notebook-button-background);
+    color: var(--canvas-notebook-button-text-color);
+    border: 1px solid var(--canvas-notebook-button-border-color);
 }
 
 vaadin-date-picker {
-  color: white;
+    color: white;
 }
 
 vaadin-time-picker {
-  color: white;
+    color: white;
 }
 
 vaadin-grid vaadin-checkbox {
-  --lumo-size-m: 30px;
+    --lumo-size-m: 30px;
 }
 
 .wrap-text-grid {
-  white-space: normal;
-  word-break: break-word;
+    white-space: normal;
+    word-break: break-word;
 }
 
 vaadin-grid.flex-grid::part(row) {
-  height: auto !important;
+    height: auto !important;
 }
 
 vaadin-grid.flex-grid::part(cell) {
-  white-space: normal !important;
-  word-break: break-word !important;
+    white-space: normal !important;
+    word-break: break-word !important;
 }
 
 .movie-tile {
-  background: var(--movie-tile-background);
+    background: var(--movie-tile-background);
 }
 
 .a1-level {
-  border: 5px solid green;
+    border: 5px solid green;
 }
 
 .a2-level {
-  border: 5px solid dodgerblue;
+    border: 5px solid dodgerblue;
 }
 
 .b1-level {
-  border: 5px solid blue;
+    border: 5px solid blue;
 }
 
 .b2-level {
-  border: 5px solid yellow;
+    border: 5px solid yellow;
 }
 
 .c1-level {
-  border: 5px solid orange;
+    border: 5px solid orange;
 }
 
 .c2-level {
-  border: 5px solid red;
+    border: 5px solid red;
 }
 
 .content-container {
-  font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 .spreadsheet-table {
-  border: 2px solid white;
-  border-collapse: collapse;
-  font-size: 15px;
+    border: 2px solid white;
+    border-collapse: collapse;
+    font-size: 15px;
 }
 
 .selected-cell {
-  background-color: var(--selected-cell-background) !important;
+    background-color: var(--selected-cell-background) !important;
 }
 
 .spreadsheet-header {
-  border: 2px solid white;
-  padding: 5px;
-  min-width: 50px;
-  min-height: 15px;
+    border: 2px solid white;
+    padding: 5px;
+    min-width: 50px;
+    min-height: 15px;
 }
 
 .spreadsheet-header-row {
-  background-color: var(--spreadsheet-header-row-background);
-  color: var(--spreadsheet-header-row-color);
+    background-color: var(--spreadsheet-header-row-background);
+    color: var(--spreadsheet-header-row-color);
 }
 
 .spreadsheet-function-info {
-  background-color: var(--spreadsheet-header-row-background);
-  color: var(--spreadsheet-header-row-color);
+    background-color: var(--spreadsheet-header-row-background);
+    color: var(--spreadsheet-header-row-color);
 }
 
 .spreadsheet-row-number {
-  border: 2px solid white;
-  padding: 5px;
-  background-color: var(--spreadsheet-row-number-background);
-  color: var(--spreadsheet-row-number-color);
-  min-width: 50px;
-  min-height: 15px;
+    border: 2px solid white;
+    padding: 5px;
+    background-color: var(--spreadsheet-row-number-background);
+    color: var(--spreadsheet-row-number-color);
+    min-width: 50px;
+    min-height: 15px;
 }
 
 /*.spreadsheet-cell-function {*/
@@ -143,220 +143,220 @@ vaadin-grid.flex-grid::part(cell) {
 
 
 .vaadin-text-area-container {
-  overflow: auto;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  scrollbar-width: none;
+    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scrollbar-width: none;
 }
 
 #vaadinLoginFormWrapper {
-  background-color: white;
+    background-color: white;
 }
 
 navigation-buttons > .option-button {
-  margin-left: 3px;
-  margin-right: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 .bervan-table-view {
-  margin-top: -70px;
+    margin-top: -70px;
 }
 
 .table-pageable-details {
-  color: var(--table-pageable-details-color);
+    color: var(--table-pageable-details-color);
 }
 
 .bervan-table {
-  min-height: 10vh;
-  max-height: 50vh;
+    min-height: 10vh;
+    max-height: 50vh;
 }
 
 .bervan-table::part(row) {
-  border-bottom: 1px solid #000000;
-  min-height: 50px;
-  max-height: 200px;
+    border-bottom: 1px solid #000000;
+    min-height: 50px;
+    max-height: 200px;
 }
 
 .bervan-table::part(cell) {
-  overflow-y: scroll;
-  border-right: 1px solid #000000;
-  /* Hide scrollbar for WebKit browsers */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  /* Hide scrollbar for WebKit browsers */
+    overflow-y: scroll;
+    border-right: 1px solid #000000;
+    /* Hide scrollbar for WebKit browsers */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    /* Hide scrollbar for WebKit browsers */
 }
 
 /* Hide scrollbar for WebKit browsers (Chrome, Safari, etc.) */
 .bervan-table::part(cell)::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .bervan-table::part(cell):last-child {
-  border-right: none; /* Remove the border from the last column */
+    border-right: none; /* Remove the border from the last column */
 }
 
 .ql-toolbar {
-  margin-bottom: 10px;
-  background-color: var(--ql-toolbar-background);
+    margin-bottom: 10px;
+    background-color: var(--ql-toolbar-background);
 }
 
 .ql-container {
-  border: 2px solid var(--ql-editor-content-background) !important;
+    border: 2px solid var(--ql-editor-content-background) !important;
 }
 
 .ql-editor {
-  /*color: black;*/
-  color: var(--ql-editor-content-text-color);
-  /*background-color: white;*/
-  background-color: var(--ql-editor-content-background-color);
+    /*color: black;*/
+    color: var(--ql-editor-content-text-color);
+    /*background-color: white;*/
+    background-color: var(--ql-editor-content-background-color);
 }
 
 vaadin-tooltip-overlay::part(overlay) {
-  background-color: var(--vaadin-tooltip-bgColor);
+    background-color: var(--vaadin-tooltip-bgColor);
 }
 
 .v-loading-indicator {
-  background-color: var(--vaadin-progress-bar-color) !important;
+    background-color: var(--vaadin-progress-bar-color) !important;
 }
 
 vaadin-notification-card[theme="success"]::part(overlay) {
-  background-color: var(--vaadin-notification-card-bgColor-success) !important;
+    background-color: var(--vaadin-notification-card-bgColor-success) !important;
 }
 
 vaadin-notification-card[theme="warning"]::part(overlay) {
-  background-color: var(--vaadin-notification-card-bgColor-warning) !important;
+    background-color: var(--vaadin-notification-card-bgColor-warning) !important;
 }
 
 vaadin-notification-card[theme="primary"]::part(overlay) {
-  background-color: var(--vaadin-notification-card-bgColor-primary) !important;
+    background-color: var(--vaadin-notification-card-bgColor-primary) !important;
 }
 
 vaadin-notification-card[theme="error"]::part(overlay) {
-  background-color: var(--vaadin-notification-card-bgColor-error) !important;
+    background-color: var(--vaadin-notification-card-bgColor-error) !important;
 }
 
 vaadin-upload-file {
-  color: var(--vaadin-upload-file-color) !important;
-  /*color: var(--lumo-third-text-color) !important;*/
+    color: var(--vaadin-upload-file-color) !important;
+    /*color: var(--lumo-third-text-color) !important;*/
 }
 
 vaadin-upload > vaadin-button {
-  background-color: var(--upload-button-background);
+    background-color: var(--upload-button-background);
 }
 
 vaadin-upload > vaadin-button::part(label) {
-  /*color: var(--lumo-primary-color) !important;*/
-  color: var(--upload-button-text-color) !important;
-  /*  button Upload File*/
+    /*color: var(--lumo-primary-color) !important;*/
+    color: var(--upload-button-text-color) !important;
+    /*  button Upload File*/
 }
 
 vaadin-upload-file::part(status) {
-  color: var(--processing-file-info-label-color) !important;
-  /*  processing file info*/
+    color: var(--processing-file-info-label-color) !important;
+    /*  processing file info*/
 }
 
 vaadin-upload > [slot="drop-label-icon"] {
-  /*color: var(--lumo-primary-color) !important;*/
-  color: var(--drop-file-here-icon-color) !important;
-  /*  icon upload */
+    /*color: var(--lumo-primary-color) !important;*/
+    color: var(--drop-file-here-icon-color) !important;
+    /*  icon upload */
 }
 
 vaadin-upload > [slot="drop-label"] {
-  /*color: var(--lumo-primary-color) !important;*/
-  color: var(--drop-file-here-input-color) !important;
-  /*  drop field text */
+    /*color: var(--lumo-primary-color) !important;*/
+    color: var(--drop-file-here-input-color) !important;
+    /*  drop field text */
 }
 
 vaadin-icon {
-  /*color: var(--lumo-third-text-color) !important;*/
-  color: var(--vaadin-icon-color) !important;
+    /*color: var(--lumo-third-text-color) !important;*/
+    color: var(--vaadin-icon-color) !important;
 }
 
 vaadin-icon:hover {
-  color: var(--vaadin-icon-hover-color) !important;
+    color: var(--vaadin-icon-hover-color) !important;
 }
 
 vaadin-big-decimal-field::part(input-field) {
-  color: var(--lumo-third-text-color);
+    color: var(--lumo-third-text-color);
 }
 
 vaadin-text-field::part(input-field) {
-  color: var(--lumo-third-text-color);
+    color: var(--lumo-third-text-color);
 }
 
 
 vaadin-integer-field::part(input-field) {
-  color: var(--lumo-third-text-color);
+    color: var(--lumo-third-text-color);
 }
 
 vaadin-combo-box::part(input-field) {
-  color: var(--lumo-third-text-color);
+    color: var(--lumo-third-text-color);
 }
 
 vaadin-combo-box-item {
-  color: var(--lumo-third-text-color);
+    color: var(--lumo-third-text-color);
 }
 
 vaadin-text-area::part(input-field) {
-  color: var(--lumo-third-text-color); 
+    color: var(--lumo-third-text-color);
 }
 
 vaadin-password-field::part(input-field) {
-  color: var(--lumo-third-text-color); 
+    color: var(--lumo-third-text-color);
 }
 
 vaadin-number-field::part(input-field) {
-  color: var(--lumo-third-text-color); 
+    color: var(--lumo-third-text-color);
 }
 
 a {
-  color: var(--lumo-primary-color);
+    color: var(--lumo-primary-color);
 }
 
 h1, h2, h3, h4, h5 {
-  color: var(--vaadin-input-field-label-color);
+    color: var(--vaadin-input-field-label-color);
 }
 
 [slot='drawer'] {
-  background-color: var(--menu-bar-color);
+    background-color: var(--menu-bar-color);
 }
 
 .side-menu {
-  background-color: var(--pocket-menu-drawer-bgColor) !important;
+    background-color: var(--pocket-menu-drawer-bgColor) !important;
 }
 
 .pocket-items-layout {
-  overflow: hidden; /* hides the scrollbars */
-  overflow-y: scroll; /* enables vertical scrolling without scrollbar */
-  overflow-x: scroll; /* enables horizontal scrolling without scrollbar */
-  scrollbar-width: none; /* for Firefox */
+    overflow: hidden; /* hides the scrollbars */
+    overflow-y: scroll; /* enables vertical scrolling without scrollbar */
+    overflow-x: scroll; /* enables horizontal scrolling without scrollbar */
+    scrollbar-width: none; /* for Firefox */
 }
 
 .pocket-items-layout::-webkit-scrollbar {
-  display: none; /* for Chrome, Safari, and Edge */
+    display: none; /* for Chrome, Safari, and Edge */
 }
 
 .pocket-tile-in-menu h4 {
-  color:  var(--pocket-tile-in-menu-textColor);
+    color: var(--pocket-tile-in-menu-textColor);
 }
 
 .pocket-tile-in-menu {
-  border: 2px solid black;
-  padding: 15px;
-  margin-bottom: 10px;
-  width: 100%;
-  max-height: 100px;
-  min-height: 100px;
-  background-color: var(--pocket-tile-in-menu-bgColor);
-  color: var(--pocket-tile-in-menu-textColor);
-  overflow: hidden;
-  position: relative;
+    border: 2px solid black;
+    padding: 15px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-height: 100px;
+    min-height: 100px;
+    background-color: var(--pocket-tile-in-menu-bgColor);
+    color: var(--pocket-tile-in-menu-textColor);
+    overflow: hidden;
+    position: relative;
 }
 
 .pocket-tile-in-menu-transparent {
-  background-color: transparent;
-  color: transparent;
-  border-color: transparent;
+    background-color: transparent;
+    color: transparent;
+    border-color: transparent;
 }
 
 .body {
@@ -371,308 +371,308 @@ vaadin-app-layout {
 }
 
 .side-menu {
-  max-width: 100vw;
-  height: 100vh;
-  background-color: #f8f9fa;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  right: -150vw; /* hidden */
-  padding: 10px;
-  transition: right 0.5s ease;
-  overflow: hidden;
+    max-width: 100vw;
+    height: 100vh;
+    background-color: #f8f9fa;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    right: -150vw; /* hidden */
+    padding: 10px;
+    transition: right 0.5s ease;
+    overflow: hidden;
 }
 
 .side-menu.visible {
-  right: 0; /* Visible */
-  overflow-x: scroll;
+    right: 0; /* Visible */
+    overflow-x: scroll;
 }
 
 vaadin-button vaadin-icon {
-  color: var(--vaadin-icon-in-button-color) !important;
+    color: var(--vaadin-icon-in-button-color) !important;
 }
 
 vaadin-grid::part(header-cell) {
-  /*background-color: var(--lumo-secondary-color) !important;*/
-  background-color: var(--table-header-row-background) !important;
-  color: var(--table-header-row-color) !important;
-  font-weight: bold;
-  border-bottom: 2px solid black;
-  padding: 10px;
+    /*background-color: var(--lumo-secondary-color) !important;*/
+    background-color: var(--table-header-row-background) !important;
+    color: var(--table-header-row-color) !important;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    padding: 10px;
 }
 
 vaadin-grid-sorter {
-  color: white !important;
+    color: white !important;
 }
 
 vaadin-grid::part(cell) {
-  background-color: var(--table-cell-bgColor);
-  color: var(--table-cell-text-color);
+    background-color: var(--table-cell-bgColor);
+    color: var(--table-cell-text-color);
 }
 
 .option-button, .option-button::part(button) {
-  background-color: var(--button-background-color);
-  color: var(--button-color);
-  text-decoration: none;
+    background-color: var(--button-background-color);
+    color: var(--button-color);
+    text-decoration: none;
 }
 
 .menu-container {
-  background: var(--menu-navigation-container-background-color);
-  border-radius: 12px;
-  padding: 6px 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  display: flex;
-  gap: 8px;
+    background: var(--menu-navigation-container-background-color);
+    border-radius: 12px;
+    padding: 6px 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    display: flex;
+    gap: 8px;
 }
 
 .navigation-button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background-color: transparent;
-  color: var(--navigation-button-color);
-  font-weight: 500;
-  border-radius: 8px;
-  padding: 8px 14px;
-  transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: transparent;
+    color: var(--navigation-button-color);
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 8px 14px;
+    transition: all 0.2s ease-in-out;
 }
 
 .navigation-button:hover {
-  background-color: var(--navigation-button-hover-background-color);
-  transform: translateY(-2px);
+    background-color: var(--navigation-button-hover-background-color);
+    transform: translateY(-2px);
 }
 
 .selected-route-button {
-  background: var(--selected-route-button-background-gradient);
-  color: var(--selected-route-button-color);
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+    background: var(--selected-route-button-background-gradient);
+    color: var(--selected-route-button-color);
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
 }
 
 /* Animation underline */
 .selected-route-button::after {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 15%;
-  width: 70%;
-  height: 3px;
-  background-color: var(--selected-route-button-after-background);
-  border-radius: 2px;
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 15%;
+    width: 70%;
+    height: 3px;
+    background-color: var(--selected-route-button-after-background);
+    border-radius: 2px;
 }
 
-vaadin-confirm-dialog-overlay::part(content){
-  color: var(--button-color);
+vaadin-confirm-dialog-overlay::part(content) {
+    color: var(--button-color);
 }
 
 .option-button-warning {
-  background-color: orangered !important;
-  color: white;
+    background-color: orangered !important;
+    color: white;
 }
 
 .option-button-warning[disabled], .option-button:hover::part(button) {
-  filter: brightness(1.1) !important;
+    filter: brightness(1.1) !important;
 }
 
 .option-button-warning[disabled], .option-button:active::part(button) {
-  filter: brightness(0.9) !important;
+    filter: brightness(0.9) !important;
 }
 
 .option-button-warning[disabled], .option-button[disabled]::part(button) {
-  filter: brightness(0.7) !important;
-  cursor: not-allowed;
-  opacity: 0.6 !important;
+    filter: brightness(0.7) !important;
+    cursor: not-allowed;
+    opacity: 0.6 !important;
 }
 
 
 [slot='drawer'] nav a {
-  text-decoration: none;
-  transition: color 140ms;
-  /*color: var(--lumo-secondary-text-color);*/
-  color: var(--menu-link-app-color);
+    text-decoration: none;
+    transition: color 140ms;
+    /*color: var(--lumo-secondary-text-color);*/
+    color: var(--menu-link-app-color);
 }
 
 [slot='drawer'] nav a .la {
-  margin-top: calc(var(--lumo-space-xs) * 0.5);
+    margin-top: calc(var(--lumo-space-xs) * 0.5);
 }
 
 [slot='drawer'] nav a::before {
-  border-radius: var(--lumo-border-radius);
-  bottom: calc(var(--lumo-space-xs) * 0.5);
-  content: '';
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: calc(var(--lumo-space-xs) * 0.5);
-  transition: background-color 140ms;
+    border-radius: var(--lumo-border-radius);
+    bottom: calc(var(--lumo-space-xs) * 0.5);
+    content: '';
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: calc(var(--lumo-space-xs) * 0.5);
+    transition: background-color 140ms;
 }
 
 [slot='drawer'] nav a[highlight] {
-  color: var(--menu-selected-app-color);
+    color: var(--menu-selected-app-color);
 }
 
 [slot='drawer'] nav a[highlight]::before {
-  /*background-color: rgba(var(--lumo-secondary-rgba-color), 0.25)*/
-  background-color: rgba(var(--menu-selected-app-background), var(--menu-selected-app-background-opacity));
+    /*background-color: rgba(var(--lumo-secondary-rgba-color), 0.25)*/
+    background-color: rgba(var(--menu-selected-app-background), var(--menu-selected-app-background-opacity));
 }
 
 [slot='drawer'] footer vaadin-context-menu {
-  align-items: center;
-  display: flex;
+    align-items: center;
+    display: flex;
 }
 
 .menu-item-link {
-  display: flex;
-  margin-left: var(--lumo-space-s);
-  margin-right: var(--lumo-space-s);
-  padding: var(--lumo-space-s);
-  position: relative;
-  color: var(--menu-item-text-color);
-  /*color: var(--lumo-secondary-text-color);*/
+    display: flex;
+    margin-left: var(--lumo-space-s);
+    margin-right: var(--lumo-space-s);
+    padding: var(--lumo-space-s);
+    position: relative;
+    color: var(--menu-item-text-color);
+    /*color: var(--lumo-secondary-text-color);*/
 }
 
 .menu-item-text {
-  font-weight: 500;
-  font-size: var(--lumo-font-size-s);
+    font-weight: 500;
+    font-size: var(--lumo-font-size-s);
 }
 
 .menu-item-icon {
-  margin-inline-end: var(--lumo-space-s);
-  font-size: var(--lumo-font-size-l);
+    margin-inline-end: var(--lumo-space-s);
+    font-size: var(--lumo-font-size-l);
 }
 
 .view-title {
-  margin: 0;
-  font-size: var(--lumo-font-size-l);
+    margin: 0;
+    font-size: var(--lumo-font-size-l);
 }
 
 .view-header {
-  align-items: center;
-  background-color: var(--menu-bar-color);
-  box-sizing: border-box;
-  display: flex;
-  height: var(--lumo-size-xl);
-  width: 100%;
+    align-items: center;
+    background-color: var(--menu-bar-color);
+    box-sizing: border-box;
+    display: flex;
+    height: var(--lumo-size-xl);
+    width: 100%;
 }
 
 .view-toggle {
-  /*color: white;*/
-  color: var(--view-toggle-icon-color);
+    /*color: white;*/
+    color: var(--view-toggle-icon-color);
 }
 
 .app-name {
-  align-items: center;
-  display: flex;
-  height: var(--lumo-size-xl);
-  margin: 0;
-  padding-left: var(--lumo-space-m);
-  padding-right: var(--lumo-space-m);
-  font-size: var(--lumo-font-size-m);
+    align-items: center;
+    display: flex;
+    height: var(--lumo-size-xl);
+    margin: 0;
+    padding-left: var(--lumo-space-m);
+    padding-right: var(--lumo-space-m);
+    font-size: var(--lumo-font-size-m);
 }
 
 .drawer-section {
-  align-items: stretch;
-  display: flex;
-  flex-direction: column;
-  max-height: 100%;
-  min-height: 100%;
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    min-height: 100%;
 }
 
 .menu-item-container {
-  border-bottom: 1px solid;
-  flex-grow: 1;
-  overflow: auto;
+    border-bottom: 1px solid;
+    flex-grow: 1;
+    overflow: auto;
 }
 
 .navigation-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .footer {
-  align-items: center;
-  display: flex;
-  margin-bottom: var(--lumo-space-s);
-  margin-top: var(--lumo-space-s);
-  padding-left: var(--lumo-space-m);
-  padding-right: var(--lumo-space-m);
-  padding-bottom: var(--lumo-space-xs);
-  padding-top: var(--lumo-space-xs);
+    align-items: center;
+    display: flex;
+    margin-bottom: var(--lumo-space-s);
+    margin-top: var(--lumo-space-s);
+    padding-left: var(--lumo-space-m);
+    padding-right: var(--lumo-space-m);
+    padding-bottom: var(--lumo-space-xs);
+    padding-top: var(--lumo-space-xs);
 }
 
 
 .flashcard-layout {
-  /*align-items: center;*/
-  justify-content: left;
-  text-align: center;
+    /*align-items: center;*/
+    justify-content: left;
+    text-align: center;
 }
 
 .flashcard-additional-details {
-  width: 98%;
-  margin-left: 1%;
-  margin-right: 1%;
-  overflow: hidden;
+    width: 98%;
+    margin-left: 1%;
+    margin-right: 1%;
+    overflow: hidden;
 }
 
 .creating-flashcard-from-buttons {
-  margin-top: 38px;
+    margin-top: 38px;
 }
 
 .creating-flashcard-from-inputs {
-  width: 700px;
-  min-height: 100px;
-  max-height: 100px;
-  height: 100px;
+    width: 700px;
+    min-height: 100px;
+    max-height: 100px;
+    height: 100px;
 }
 
 .flashcard {
-  cursor: pointer;
-  transition: transform 0.5s;
-  width: 500px;
-  min-width: 500px;
-  max-height: 400px;
-  margin-top: 10px;
-  margin-right: 25px;
-  margin-left: 25px;
-  margin-bottom: 50px;
-  padding: 100px;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+    cursor: pointer;
+    transition: transform 0.5s;
+    width: 500px;
+    min-width: 500px;
+    max-height: 400px;
+    margin-top: 10px;
+    margin-right: 25px;
+    margin-left: 25px;
+    margin-bottom: 50px;
+    padding: 100px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .flashcard-knowledge {
-  margin: 5px;
+    margin: 5px;
 }
 
 @media only screen and (max-width: 800px) {
-  .flashcard {
-    width: 80vw;
-    max-height: 50vh;
-    margin: 80px 15px 25px;
-    padding: 5px;
-  }
+    .flashcard {
+        width: 80vw;
+        max-height: 50vh;
+        margin: 80px 15px 25px;
+        padding: 5px;
+    }
 
-  div.flashcard > div > span {
-    font-size: 3.33vw;
-  }
+    div.flashcard > div > span {
+        font-size: 3.33vw;
+    }
 
-  .flashcard-knowledge {
-    display: block;
-    margin: 0 0 5px;
-    font-size: 3.33vw;
-  }
+    .flashcard-knowledge {
+        display: block;
+        margin: 0 0 5px;
+        font-size: 3.33vw;
+    }
 }
 
 .flashcard:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 .flashcard span {
-  font-size: 24px;
-  color: #333;
+    font-size: 24px;
+    color: #333;
 }
