@@ -625,11 +625,10 @@ vaadin-grid::part(cell) {
     text-decoration: none;
 }
 
-.menu-container {
+.menu-container, .view-header {
     background: var(--menu-navigation-container-background-color);
     border-radius: 12px;
     padding: 6px 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     display: flex;
     gap: 8px;
 }
@@ -757,7 +756,6 @@ vaadin-confirm-dialog-overlay::part(content) {
 
 .view-header {
     align-items: center;
-    background-color: var(--menu-bar-color);
     box-sizing: border-box;
     display: flex;
     height: var(--lumo-size-xl);

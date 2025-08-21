@@ -18,7 +18,7 @@ public class SettingsView extends VerticalLayout {
 
     public SettingsView() {
         ComboBox<String> themeSelect = new ComboBox<>("Select Theme");
-        themeSelect.setItems("cyberpunk", "retro", "earth", "darkula");
+        themeSelect.setItems("cyberpunk", "retro", "earth", "darkula", "ocean");
         themeSelect.addValueChangeListener(event -> {
             String selectedTheme = event.getValue();
             if (selectedTheme != null) {
