@@ -21,12 +21,6 @@ html {
     /* Menu Bar */
     --menu-bar-color: #1a1a1a; /* Dark Gray/Almost Black */
 
-    /* Table Colors */
-    --table-cell-text-color: #00ff00; /* Neon Green */
-    --table-cell-bgColor: #101010; /* Slightly lighter dark gray */
-    --table-header-row-background: #1a1a1a; /* Dark Gray/Almost Black */
-    --table-header-row-color: #00ffff; /* Cyan */
-    --table-pageable-details-color: #00ff00; /* Neon Green */
     /* Button Text */
     --lumo-body-text-color: #000000; /* Black */
 
@@ -156,4 +150,82 @@ html {
     --streaming-play-icon-color: var(--lumo-primary-color);
     --streaming-title-color: var(--lumo-secondary-text-color);
     --streaming-title-shadow: var(--lumo-secondary-text-color);
+
+    /*    Table*/
+    /* Table Colors */
+    --table-cell-text-color: #00ff00; /* Neon Green */
+    --table-cell-bgColor: #101010; /* Slightly lighter dark gray */
+    --table-header-row-background: #1a1a1a; /* Dark Gray/Almost Black */
+    --table-header-row-color: #00ffff; /* Cyan */
+    --table-pageable-details-color: #00ff00; /* Neon Green */
+
+    /* Table Container Colors */
+    --bervan-table-background-color: var(--lumo-base-color);
+    --bervan-table-shadow-color: rgba(0, 255, 255, 0.1);
+
+    /* Table Headers Colors */
+    --table-header-background-color: var(--table-header-row-background);
+    --table-header-text-color: var(--table-header-row-color);
+    --table-header-border-color: var(--lumo-primary-color);
+
+    /* Table Cells Colors */
+    --table-cell-background-color: var(--table-cell-bgColor);
+    --table-cell-border-color: var(--lumo-secondary-color);
+    --table-cell-hover-background-color: var(--lumo-secondary-color);
+
+    /* Table Rows Colors */
+    --table-row-even-background-color: var(--table-cell-bgColor);
+    --table-row-odd-background-color: var(--lumo-base-secondary-color);
+    --table-row-hover-background-color: var(--lumo-secondary-color);
+    --table-row-selected-background-color: var(--lumo-primary-color);
+
+    /* Checkboxes Colors */
+    --table-checkbox-accent-color: var(--lumo-primary-color);
+    --table-checkbox-background-color: var(--vaadin-checkbox-background);
+    --table-checkbox-border-color: var(--lumo-secondary-text-color);
+
+    /* Action Buttons Colors */
+    --primary-action-button-background-color: var(--button-background-color);
+    --primary-action-button-text-color: var(--button-color);
+    --primary-action-button-hover-background-color: var(--navigation-button-hover-background-color);
+
+    --secondary-action-button-background-color: var(--lumo-base-secondary-color);
+    --secondary-action-button-text-color: var(--lumo-third-text-color);
+    --secondary-action-button-border-color: var(--table-cell-border-color);
+    --secondary-action-button-hover-background-color: var(--lumo-secondary-color);
+
+    --delete-action-button-background-color: var(--vaadin-notification-card-bgColor-error);
+    --delete-action-button-text-color: var(--button-color);
+    --delete-action-button-hover-background-color: #cc0000;
+
+    /* Navigation/Pagination Colors */
+    --pagination-button-background-color: var(--lumo-base-secondary-color);
+    --pagination-button-text-color: var(--lumo-third-text-color);
+    --pagination-button-border-color: var(--table-cell-border-color);
+    --pagination-button-hover-background-color: var(--lumo-secondary-color);
+    --pagination-button-active-background-color: var(--lumo-primary-color);
+    --pagination-button-active-text-color: var(--button-color);
+
+    /* Info and Status Colors */
+    --table-info-text-color: var(--table-pageable-details-color);
+    --selection-counter-background-color: var(--lumo-base-secondary-color);
+    --selection-counter-text-color: var(--lumo-secondary-text-color);
+
+    /* Actions Bar Colors */
+    --table-actions-bar-background-color: var(--lumo-base-secondary-color);
+    --table-actions-bar-border-color: var(--table-cell-border-color);
+
+    /* Icons Colors */
+    --table-icon-color: var(--vaadin-icon-color);
+    --table-icon-hover-color: var(--vaadin-icon-hover-color);
+    --table-action-icon-color: var(--lumo-primary-color);
+
+    /* Filters Colors */
+    --filter-apply-button-background-color: var(--vaadin-notification-card-bgColor-success);
+    --filter-apply-button-text-color: var(--lumo-body-text-color);
+    --filter-apply-button-hover-background-color: #00cc00;
+
+    /* Dialog Colors */
+    --modern-dialog-background-color: var(--lumo-base-color);
+    --modern-dialog-shadow-color: rgba(0, 255, 255, 0.3);
 }

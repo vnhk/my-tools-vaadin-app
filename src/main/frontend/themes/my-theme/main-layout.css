@@ -126,22 +126,6 @@ vaadin-grid.flex-grid::part(cell) {
     min-height: 15px;
 }
 
-/*.spreadsheet-cell-function {*/
-/*  background-color: var(--spreadsheet-cell-function-background, transparent) !important;*/
-/*  color: var(--spreadsheet-cell-function-color, inherit) !important;*/
-/*}*/
-
-/*.spreadsheet-cell {*/
-/*  background-color: var(--spreadsheet-cell-background);*/
-/*  color: var(--spreadsheet-cell-color);*/
-/*  border: 2px solid white;*/
-/*  padding: 5px;*/
-/*  font-size: 15px;*/
-/*  min-width: 50px;*/
-/*  min-height: 15px;*/
-/*}*/
-
-
 .vaadin-text-area-container {
     overflow: auto;
     overflow-x: hidden;
@@ -158,12 +142,237 @@ navigation-buttons > .option-button {
     margin-right: 3px;
 }
 
+/* Modern Table View Styling */
 .bervan-table-view {
     margin-top: -70px;
+    padding: 24px;
+    background-color: var(--lumo-base-color);
+    min-height: 100vh;
 }
 
-.table-pageable-details {
-    color: var(--table-pageable-details-color);
+.table-info-text {
+    color: var(--table-info-text-color);
+    font-size: 14px;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+.modern-table {
+    background-color: var(--bervan-table-background-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--bervan-table-shadow-color);
+    margin: 24px 0;
+    overflow: hidden;
+    border: none;
+}
+
+.modern-table::part(row) {
+    min-height: 60px;
+    border-bottom: 1px solid var(--table-cell-border-color);
+    transition: background-color 0.2s ease;
+}
+
+.modern-table::part(row):nth-child(even) {
+    background-color: var(--table-row-even-background-color);
+}
+
+.modern-table::part(row):nth-child(odd) {
+    background-color: var(--table-row-odd-background-color);
+}
+
+.modern-table::part(row):hover {
+    background-color: var(--table-row-hover-background-color);
+}
+
+.modern-table::part(cell) {
+    padding: 16px 20px;
+    border-right: 1px solid var(--table-cell-border-color);
+    background-color: inherit;
+    color: var(--table-cell-text-color);
+}
+
+.modern-table::part(cell):last-child {
+    border-right: none;
+}
+
+.modern-table::part(header-cell) {
+    background-color: var(--table-header-background-color) !important;
+    color: var(--table-header-text-color) !important;
+    font-weight: 600;
+    padding: 16px 20px;
+    border-bottom: 2px solid var(--table-header-border-color);
+    border-right: none;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+/* Modern Cell Content */
+.modern-cell-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cell-text {
+    flex: 1;
+    line-height: 1.5;
+}
+
+.cell-action-icon {
+    color: var(--table-action-icon-color);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.cell-action-icon:hover {
+    color: var(--table-icon-hover-color);
+}
+
+.image-cell-content {
+    justify-content: center;
+}
+
+.image-icon {
+    color: var(--table-action-icon-color);
+}
+
+/* Modern Checkbox Styling */
+.modern-table-checkbox {
+    --lumo-primary-color: var(--table-checkbox-accent-color);
+    --lumo-primary-color-50pct: rgba(255, 0, 128, 0.5);
+    --lumo-primary-color-10pct: rgba(255, 0, 128, 0.1);
+}
+
+.select-all-checkbox {
+    margin: 0 auto;
+}
+
+/* Action Buttons */
+.primary-action-button {
+    background: var(--primary-action-button-background-color) !important;
+    color: var(--primary-action-button-text-color) !important;
+    border: none !important;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(255, 0, 128, 0.2);
+    transition: all 0.2s ease;
+}
+
+.primary-action-button:hover {
+    background: var(--primary-action-button-hover-background-color) !important;
+    box-shadow: 0 4px 8px rgba(255, 0, 128, 0.3);
+    transform: translateY(-1px);
+}
+
+.delete-action-button {
+    background: var(--delete-action-button-background-color) !important;
+    color: var(--delete-action-button-text-color) !important;
+    border: none !important;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(255, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.delete-action-button:hover {
+    background: var(--delete-action-button-hover-background-color) !important;
+    box-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
+    transform: translateY(-1px);
+}
+
+.refresh-button {
+    background: var(--secondary-action-button-background-color) !important;
+    color: var(--secondary-action-button-text-color) !important;
+    border: 1px solid var(--secondary-action-button-border-color) !important;
+    border-radius: 8px;
+    padding: 8px 12px;
+    transition: all 0.2s ease;
+}
+
+.refresh-button:hover {
+    background: var(--secondary-action-button-hover-background-color) !important;
+    box-shadow: 0 2px 4px rgba(0, 255, 255, 0.1);
+}
+
+.filter-apply-button {
+    background: var(--filter-apply-button-background-color) !important;
+    color: var(--filter-apply-button-text-color) !important;
+    border: none !important;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 255, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.filter-apply-button:hover {
+    background: var(--filter-apply-button-hover-background-color) !important;
+    box-shadow: 0 4px 8px rgba(0, 255, 0, 0.3);
+}
+
+/* Table Actions Bar */
+.table-actions-bar {
+    background: var(--table-actions-bar-background-color);
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--table-actions-bar-border-color);
+    gap: 12px;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 1px 3px rgba(0, 255, 255, 0.05);
+}
+
+.checkbox-actions-bar {
+    gap: 12px;
+    align-items: center;
+}
+
+/* Selection Counter */
+.selection-counter {
+    background: var(--selection-counter-background-color);
+    color: var(--selection-counter-text-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 16px 0;
+    display: inline-block;
+}
+
+/* Pagination Bar */
+.pagination-bar {
+    background: var(--table-actions-bar-background-color);
+    padding: 16px 24px;
+    border-top: 1px solid var(--table-actions-bar-border-color);
+    gap: 12px;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 -1px 3px rgba(0, 255, 255, 0.05);
+}
+
+.page-navigation-button, .page-indicator-button {
+    background: var(--pagination-button-background-color) !important;
+    color: var(--pagination-button-text-color) !important;
+    border: 1px solid var(--pagination-button-border-color) !important;
+    border-radius: 8px;
+    padding: 8px 12px;
+    min-width: 44px;
+    transition: all 0.2s ease;
+}
+
+.page-navigation-button:hover, .page-indicator-button:hover {
+    background: var(--pagination-button-hover-background-color) !important;
+}
+
+.page-indicator-button {
+    background: var(--pagination-button-active-background-color) !important;
+    color: var(--pagination-button-active-text-color) !important;
+    font-weight: 600;
+}
+
+.page-select {
+    border-radius: 8px;
+    min-width: 120px;
 }
 
 .bervan-table {
@@ -675,4 +884,39 @@ vaadin-confirm-dialog-overlay::part(content) {
 .flashcard span {
     font-size: 24px;
     color: #333;
+}
+
+.modern-table::-webkit-scrollbar-track {
+    background: var(--lumo-base-secondary-color);
+    border-radius: 4px;
+}
+
+.modern-table::-webkit-scrollbar-thumb {
+    background: var(--lumo-secondary-color);
+    border-radius: 4px;
+}
+
+.modern-table::-webkit-scrollbar-thumb:hover {
+    background: var(--table-icon-hover-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .bervan-table-view {
+        padding: 16px;
+    }
+
+    .modern-table::part(cell) {
+        padding: 12px 16px;
+    }
+
+    .table-actions-bar {
+        padding: 12px 16px;
+    }
+
+    .pagination-bar {
+        padding: 12px 16px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
 }
