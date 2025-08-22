@@ -292,6 +292,10 @@ navigation-buttons > .option-button {
     transition: all 0.2s ease;
 }
 
+.refresh-button > vaadin-icon {
+    color: var(--lumo-primary-color) !important;
+}
+
 .refresh-button:hover {
     background: var(--secondary-action-button-hover-background-color) !important;
     box-shadow: 0 2px 4px rgba(0, 255, 255, 0.1);
@@ -645,6 +649,10 @@ vaadin-grid::part(cell) {
     transition: all 0.2s ease-in-out;
 }
 
+.navigation-button > vaadin-icon {
+    color: var(--lumo-primary-color) !important;
+}
+
 .navigation-button:hover {
     background-color: var(--navigation-button-hover-background-color);
     transform: translateY(-2px);
@@ -655,6 +663,10 @@ vaadin-grid::part(cell) {
     color: var(--selected-route-button-color);
     font-weight: bold;
     box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+.selected-route-button > vaadin-icon {
+    color: var(--navigation-button-color) !important;
 }
 
 /* Animation underline */
