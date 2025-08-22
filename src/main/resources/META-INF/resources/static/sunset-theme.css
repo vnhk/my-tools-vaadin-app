@@ -40,7 +40,7 @@ html {
     --vaadin-tooltip-bgColor: #7c2d12; /* Dark Orange */
 
     /* Icons in Buttons */
-    --vaadin-icon-in-button-color: #a3a3a3; /* Neutral Gray */
+    --vaadin-icon-in-button-color: #ffffff;
 
     /* Pocket Menu */
     --pocket-menu-drawer-bgColor: #fffbeb; /* Warm White */

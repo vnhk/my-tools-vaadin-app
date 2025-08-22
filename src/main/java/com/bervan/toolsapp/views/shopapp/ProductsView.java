@@ -1,6 +1,5 @@
 package com.bervan.toolsapp.views.shopapp;
 
-import com.bervan.core.model.BervanLogger;
 import com.bervan.shstat.service.ProductSearchService;
 import com.bervan.shstat.view.AbstractProductsView;
 import com.bervan.shstat.view.ProductViewService;
@@ -12,7 +11,7 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class ProductsView extends AbstractProductsView {
 
-    public ProductsView(ProductViewService productViewService, ProductSearchService productSearchService, BervanLogger log) {
-        super(productViewService, productSearchService, log);
+    public ProductsView(ProductViewService productViewService, ProductSearchService productSearchService) {
+        super(productViewService, productSearchService);
     }
 }
