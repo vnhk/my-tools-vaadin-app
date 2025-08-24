@@ -16,11 +16,7 @@ import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.VaadinSession;
 import jakarta.annotation.security.PermitAll;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
 import java.util.Optional;
 import java.util.Set;
@@ -90,10 +86,10 @@ public class AcceptQRLoginPage extends AbstractPageView implements HasUrlParamet
                 showErrorNotification("Please enter a number");
                 return;
             }
+            Stream<User> userStream = childrenRelations.stream().map(UserToUserRelation::getChild);
 
-            if (qrLoginService.validateAndConsumeQRLogin(uuid, enteredNumber)) {
-                Stream<User> userStream = childrenRelations.stream().map(UserToUserRelation::getChild);
-                performLogin(userStream.filter(u -> (u.getUsername() + ":" + u.getRole()).equals(availableAccounts.getValue())).findAny().get());
+            if (qrLoginService.validateAndAuthenticateQRLogin(uuid, enteredNumber, userStream.filter(u -> (u.getUsername() + ":" + u.getRole()).equals(availableAccounts.getValue())).findAny().get())) {
+                showPrimaryNotification("Authentication successful! You can now close this page.");
             } else {
                 showErrorNotification("Invalid number. Please try again.");
                 numberField.clear();
@@ -113,26 +109,5 @@ public class AcceptQRLoginPage extends AbstractPageView implements HasUrlParamet
         layout.setSizeFull();
 
         add(layout);
-    }
-
-    private void performLogin(User user) {
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                user,
-                null,
-                user.getAuthorities());
-
-        SecurityContextHolder.getContext().setAuthentication(authToken);
-        VaadinSession.getCurrent().getSession().setAttribute(
-                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-                SecurityContextHolder.getContext()
-        );
-
-        showPrimaryNotification("Login successful!");
-
-        if (user.getRole().equals("ROLE_STREAMING")) {
-            getUI().ifPresent(ui -> ui.navigate("/streaming-platform"));
-        } else {
-            getUI().ifPresent(ui -> ui.navigate("/generate-otp"));
-        }
     }
 }

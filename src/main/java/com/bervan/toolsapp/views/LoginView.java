@@ -96,7 +96,7 @@ public class LoginView extends AbstractPageView {
         dialog.setHeaderTitle("Scan QR Code");
 
         VerticalLayout dialogLayout = new VerticalLayout();
-        QRLoginView qrLoginView = new QRLoginView(qrLoginService);
+        QRLoginView qrLoginView = new QRLoginView(qrLoginService, dialog);
         dialogLayout.add(qrLoginView);
 
         Button cancelButton = new Button("Cancel", e -> dialog.close());

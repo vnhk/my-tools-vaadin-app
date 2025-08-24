@@ -43,45 +43,10 @@ import java.util.stream.Collectors;
 @JsModule("./theme-changer.js")
 public class MainLayout extends AppLayout {
 
-    private final BervanLogger log;
-    private final PocketItemService pocketItemService;
     private static Div sideMenu;
     private static Registration clickListenerRegistration;
-
-    public static class MenuItemInfo extends ListItem {
-
-        private final Class<? extends Component> view;
-
-        public MenuItemInfo(String menuTitle, String iconClass, Class<? extends Component> view) {
-            this.view = view;
-            RouterLink link = new RouterLink();
-            link.addClassNames("menu-item-link");
-            link.setRoute(view);
-
-            Span text = new Span(menuTitle);
-            text.addClassNames("menu-item-text");
-
-            link.add(new LineAwesomeIcon(iconClass), text);
-            add(link);
-            addClickListener(listItemClickEvent -> hideMenu());
-        }
-
-        public Class<?> getView() {
-            return view;
-        }
-
-        @NpmPackage(value = "line-awesome", version = "1.3.0")
-        public static class LineAwesomeIcon extends Span {
-            public LineAwesomeIcon(String lineawesomeClassnames) {
-                addClassNames("menu-item-icon");
-                if (!lineawesomeClassnames.isEmpty()) {
-                    addClassNames(lineawesomeClassnames);
-                }
-            }
-        }
-
-    }
-
+    private final BervanLogger log;
+    private final PocketItemService pocketItemService;
     private H1 viewTitle;
 
     public MainLayout(BervanLogger log, PocketService pocketService, PocketItemService pocketItemService) {
@@ -106,14 +71,6 @@ public class MainLayout extends AppLayout {
         if (AuthService.getUserRole().equals("ROLE_USER")) {
             addToNavbar(sideMenu);
             addToNavbar(pocketMenuButton);
-        }
-    }
-
-    private void toggleMenuVisibility() {
-        if (sideMenu.getClassNames().contains("visible")) {
-            hideMenu();
-        } else {
-            showMenu();
         }
     }
 
@@ -157,6 +114,14 @@ public class MainLayout extends AppLayout {
         if (clickListenerRegistration != null) {
             clickListenerRegistration.remove();
             clickListenerRegistration = null;
+        }
+    }
+
+    private void toggleMenuVisibility() {
+        if (sideMenu.getClassNames().contains("visible")) {
+            hideMenu();
+        } else {
+            showMenu();
         }
     }
 
@@ -227,13 +192,16 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Logs", "la la-database", LogItemsTableView.class), //
                     new MenuItemInfo("Settings", "las la-cog", SettingsView.class), //
             };
-        } else if (AuthService.getUserRole().equals("ROLE_STREAMING"))
+        } else if (AuthService.getUserRole().equals("ROLE_STREAMING")) {
             return new MenuItemInfo[]{ //
                     new MenuItemInfo("Streaming", "las la-video", VideoListView.class), //
                     new MenuItemInfo("Settings", "las la-cog", SettingsView.class), //
             };
-
-        return new MenuItemInfo[0];
+        } else {
+            return new MenuItemInfo[]{ //
+                    new MenuItemInfo("Login", "las la-login", LoginView.class) //
+            };
+        }
     }
 
     private Footer createFooter() {
@@ -253,5 +221,39 @@ public class MainLayout extends AppLayout {
     private String getCurrentPageTitle() {
         PageTitle title = getContent().getClass().getAnnotation(PageTitle.class);
         return title == null ? "" : title.value();
+    }
+
+    public static class MenuItemInfo extends ListItem {
+
+        private final Class<? extends Component> view;
+
+        public MenuItemInfo(String menuTitle, String iconClass, Class<? extends Component> view) {
+            this.view = view;
+            RouterLink link = new RouterLink();
+            link.addClassNames("menu-item-link");
+            link.setRoute(view);
+
+            Span text = new Span(menuTitle);
+            text.addClassNames("menu-item-text");
+
+            link.add(new LineAwesomeIcon(iconClass), text);
+            add(link);
+            addClickListener(listItemClickEvent -> hideMenu());
+        }
+
+        public Class<?> getView() {
+            return view;
+        }
+
+        @NpmPackage(value = "line-awesome", version = "1.3.0")
+        public static class LineAwesomeIcon extends Span {
+            public LineAwesomeIcon(String lineawesomeClassnames) {
+                addClassNames("menu-item-icon");
+                if (!lineawesomeClassnames.isEmpty()) {
+                    addClassNames(lineawesomeClassnames);
+                }
+            }
+        }
+
     }
 }

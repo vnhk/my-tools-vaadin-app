@@ -1,11 +1,13 @@
 package com.bervan.toolsapp.security;
 
+import com.bervan.common.user.User;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.vaadin.flow.server.VaadinRequest;
+import com.vaadin.flow.server.VaadinSession;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -19,12 +21,21 @@ import java.util.concurrent.ThreadLocalRandom;
 public class QRLoginService {
 
     private final Map<String, QRLoginData> qrLoginSessions = new ConcurrentHashMap<>();
+    private final Map<String, QRSessionWaiting> waitingSessions = new ConcurrentHashMap<>();
 
     public QRLoginData generateQRLogin() {
         String uuid = UUID.randomUUID().toString();
         int number = ThreadLocalRandom.current().nextInt(1, 100); // 01-99
-        QRLoginData data = new QRLoginData(uuid, number);
+
+        // Get current session ID where QR is being generated
+        String sessionId = VaadinSession.getCurrent().getSession().getId();
+
+        QRLoginData data = new QRLoginData(uuid, number, sessionId);
         qrLoginSessions.put(uuid, data);
+
+        // Create waiting session
+        QRSessionWaiting waitingSession = new QRSessionWaiting(sessionId);
+        waitingSessions.put(sessionId, waitingSession);
 
         // Clean expired sessions
         cleanExpiredSessions();
@@ -46,7 +57,7 @@ public class QRLoginService {
         return qrLoginSessions.get(uuid);
     }
 
-    public boolean validateAndConsumeQRLogin(String uuid, int enteredNumber) {
+    public boolean validateAndAuthenticateQRLogin(String uuid, int enteredNumber, User authenticatingUser) {
         QRLoginData data = qrLoginSessions.get(uuid);
         if (data == null || data.isExpired() || data.isUsed()) {
             return false;
@@ -54,14 +65,30 @@ public class QRLoginService {
 
         if (data.getNumber() == enteredNumber) {
             data.setUsed(true);
-            return true;
+
+            // Set the authenticated user for the waiting session
+            QRSessionWaiting waitingSession = waitingSessions.get(data.getOriginSessionId());
+            if (waitingSession != null && !waitingSession.isExpired()) {
+                waitingSession.setAuthenticatedUser(authenticatingUser);
+                waitingSession.setCompleted(true);
+                return true;
+            }
         }
 
         return false;
     }
 
+    public QRSessionWaiting getWaitingSession(String sessionId) {
+        return waitingSessions.get(sessionId);
+    }
+
+    public void cleanupSession(String sessionId) {
+        waitingSessions.remove(sessionId);
+    }
+
     private void cleanExpiredSessions() {
         qrLoginSessions.entrySet().removeIf(entry -> entry.getValue().isExpired());
+        waitingSessions.entrySet().removeIf(entry -> entry.getValue().isExpired());
     }
 
     public String buildFullUrl(String uuid) {
@@ -94,11 +121,13 @@ public class QRLoginService {
         private final String uuid;
         private final int number;
         private final long createdTime;
+        private final String originSessionId;
         private boolean used;
 
-        public QRLoginData(String uuid, int number) {
+        public QRLoginData(String uuid, int number, String originSessionId) {
             this.uuid = uuid;
             this.number = number;
+            this.originSessionId = originSessionId;
             this.createdTime = System.currentTimeMillis();
             this.used = false;
         }
@@ -109,6 +138,10 @@ public class QRLoginService {
 
         public int getNumber() {
             return number;
+        }
+
+        public String getOriginSessionId() {
+            return originSessionId;
         }
 
         public long getCreatedTime() {
@@ -128,4 +161,40 @@ public class QRLoginService {
         }
     }
 
+    public static class QRSessionWaiting {
+        private final String sessionId;
+        private final long createdTime;
+        private User authenticatedUser;
+        private boolean completed;
+
+        public QRSessionWaiting(String sessionId) {
+            this.sessionId = sessionId;
+            this.createdTime = System.currentTimeMillis();
+            this.completed = false;
+        }
+
+        public String getSessionId() {
+            return sessionId;
+        }
+
+        public User getAuthenticatedUser() {
+            return authenticatedUser;
+        }
+
+        public void setAuthenticatedUser(User user) {
+            this.authenticatedUser = user;
+        }
+
+        public boolean isCompleted() {
+            return completed;
+        }
+
+        public void setCompleted(boolean completed) {
+            this.completed = completed;
+        }
+
+        public boolean isExpired() {
+            return System.currentTimeMillis() - createdTime > 300000; // 5 minutes
+        }
+    }
 }
