@@ -4,6 +4,7 @@ import com.bervan.common.AbstractPageView;
 import com.bervan.common.service.AuthService;
 import com.bervan.toolsapp.security.OTPService;
 import com.bervan.toolsapp.security.OtpAuthenticationToken;
+import com.bervan.toolsapp.security.QRLoginService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H3;
@@ -14,6 +15,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import jakarta.annotation.security.PermitAll;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,14 +26,17 @@ import static com.bervan.toolsapp.security.OTPService.CODE_LENGTH;
 @Route("login")
 @PageTitle("Login")
 @PermitAll
+@Slf4j
 public class LoginView extends AbstractPageView {
 
     private final OTPService otpService;
     private final AuthenticationManager authenticationManager;
+    private final QRLoginService qrLoginService;
 
-    public LoginView(OTPService otpService, AuthenticationManager authenticationManager) {
+    public LoginView(OTPService otpService, AuthenticationManager authenticationManager, QRLoginService qrLoginService) {
         this.otpService = otpService;
         this.authenticationManager = authenticationManager;
+        this.qrLoginService = qrLoginService;
         addClassName("login-page");
 
         LoginForm loginForm = new LoginForm();
@@ -41,11 +46,16 @@ public class LoginView extends AbstractPageView {
         otpLoginButton.addClassName("option-button");
         otpLoginButton.addClassName("option-button-warning");
 
+        Button qrLoginButton = new Button("Login via QR Code", event ->
+                openQRLoginDialog());
+        qrLoginButton.addClassName("option-button");
+        qrLoginButton.addClassName("option-button-success");
+
         setSizeFull();
         setJustifyContentMode(JustifyContentMode.CENTER);
         setAlignItems(Alignment.CENTER);
 
-        add(loginForm, otpLoginButton);
+        add(loginForm, otpLoginButton, qrLoginButton);
     }
 
     private void openOtpDialog() {
@@ -65,7 +75,7 @@ public class LoginView extends AbstractPageView {
                     loginViaOTP(otpCode);
                     otpDialog.close();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    log.error("Could not login via OTP!", e);
                     showErrorNotification("Incorrect code!");
                     otpField.clear();
                 }
@@ -79,6 +89,21 @@ public class LoginView extends AbstractPageView {
         otpDialog.getFooter().add(cancelButton);
 
         otpDialog.open();
+    }
+
+    private void openQRLoginDialog() {
+        Dialog dialog = new Dialog();
+        dialog.setHeaderTitle("Scan QR Code");
+
+        VerticalLayout dialogLayout = new VerticalLayout();
+        QRLoginView qrLoginView = new QRLoginView(qrLoginService);
+        dialogLayout.add(qrLoginView);
+
+        Button cancelButton = new Button("Cancel", e -> dialog.close());
+        dialog.getFooter().add(cancelButton);
+
+        dialog.add(dialogLayout);
+        dialog.open();
     }
 
     private void loginViaOTP(String otpCode) {
