@@ -9,6 +9,7 @@ import com.bervan.toolsapp.views.canvasapp.CanvasPagesView;
 import com.bervan.toolsapp.views.englishepub.NotLearnedWordsView;
 import com.bervan.toolsapp.views.filestorage.FileStorageView;
 import com.bervan.toolsapp.views.interview.InterviewHomeView;
+import com.bervan.toolsapp.views.investtrackapp.WalletBalanceView;
 import com.bervan.toolsapp.views.learninglanguage.LearningAppHomeView;
 import com.bervan.toolsapp.views.logsapp.LogItemsTableView;
 import com.bervan.toolsapp.views.otpview.OTPGenerateView;
@@ -186,6 +187,7 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Project Management", "la la-project-diagram", ProjectListView.class), //
                     new MenuItemInfo("File Storage", "la la-cloud-upload", FileStorageView.class), //
                     new MenuItemInfo("Spreadsheets", "las la-file-excel", SpreadsheetsView.class), //
+                    new MenuItemInfo("Investments", "las la-line-chart", WalletBalanceView.class), //
                     new MenuItemInfo("Notepad", "las la-chalkboard", CanvasPagesView.class), //
                     new MenuItemInfo("Streaming", "las la-video", VideoListView.class), //
                     new MenuItemInfo("Shopping", "la la-shopping-cart", ProductsView.class), //
