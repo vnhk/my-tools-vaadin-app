@@ -234,6 +234,11 @@
             <version>latest</version>
         </dependency>
         <dependency>
+            <groupId>com.bervan</groupId>
+            <artifactId>invest-track-app</artifactId>
+            <version>latest</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
             <version>3.5.2</version>
