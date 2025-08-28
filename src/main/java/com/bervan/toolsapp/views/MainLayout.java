@@ -187,7 +187,7 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Project Management", "la la-project-diagram", ProjectListView.class), //
                     new MenuItemInfo("File Storage", "la la-cloud-upload", FileStorageView.class), //
                     new MenuItemInfo("Spreadsheets", "las la-file-excel", SpreadsheetsView.class), //
-                    new MenuItemInfo("Investments", "las la-line-chart", WalletBalanceView.class), //
+                    new MenuItemInfo("Investments", "la la-money", WalletBalanceView.class), //
                     new MenuItemInfo("Notepad", "las la-chalkboard", CanvasPagesView.class), //
                     new MenuItemInfo("Streaming", "las la-video", VideoListView.class), //
                     new MenuItemInfo("Shopping", "la la-shopping-cart", ProductsView.class), //
