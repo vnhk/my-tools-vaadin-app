@@ -2,6 +2,7 @@ html {
     /* Ocean Breeze Theme - Modern Light Theme */
 
     /* Primary (Accent) Colors */
+    --lumo-primary-text-color: #ffffff;
     --lumo-primary-color: #0ea5e9; /* Sky Blue */
     --ql-editor-text-color: #1e40af; /* Deep Blue */
 

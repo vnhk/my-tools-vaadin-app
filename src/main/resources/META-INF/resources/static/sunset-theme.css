@@ -2,6 +2,7 @@ html {
     /* Sunset Glow Theme - Warm Modern Theme */
 
     /* Primary (Accent) Colors */
+    --lumo-primary-text-color: #ffffff;
     --lumo-primary-color: #f97316; /* Orange */
     --ql-editor-text-color: #dc2626; /* Red */
 

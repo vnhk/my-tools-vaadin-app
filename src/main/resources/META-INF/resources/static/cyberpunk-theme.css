@@ -2,6 +2,7 @@ html {
     /* Cyberpunk Theme */
 
     /* Primary (Accent) Colors */
+    --lumo-primary-text-color: #00ffff;
     --lumo-primary-color: #ff0080; /* Hot Pink */
     --ql-editor-text-color: #00ff00; /* Neon Green */
 
