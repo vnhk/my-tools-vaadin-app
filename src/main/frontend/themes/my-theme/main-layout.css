@@ -3,6 +3,10 @@
 html {
 }
 
+span {
+    color: var(--lumo-secondary-text-color);
+}
+
 .canvas-main-layout {
     background-color: var(--canvas-main-layout-background);
     color: var(--canvas-main-layout-text-color);
