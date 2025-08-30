@@ -4,7 +4,6 @@ import com.bervan.core.model.BervanLogger;
 import com.bervan.pocketapp.pocket.Pocket;
 import com.bervan.pocketapp.pocket.PocketService;
 import com.bervan.pocketapp.pocketitem.PocketItemService;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import org.springframework.data.domain.Pageable;
 
@@ -22,7 +21,7 @@ public class PocketSideMenuView extends HorizontalLayout {
                 .stream().map(Pocket::getName)
                 .collect(Collectors.toSet());
         for (String pocketName : pocketsName) {
-            PocketItemsListView pocketItemsListView = new PocketItemsListView(pocketItemService, pocketService, log, pocketName, pocketsName);
+            PocketItemsListView pocketItemsListView = new PocketItemsListView(pocketItemService, pocketService, pocketName, pocketsName);
             pocketItemsListViews.add(pocketItemsListView);
             add(pocketItemsListView);
         }

@@ -1,14 +1,19 @@
 package com.bervan.toolsapp.views.pocketapp;
 
+import com.bervan.common.AbstractPageView;
+import com.bervan.common.BervanButton;
 import com.bervan.common.WysiwygTextArea;
 import com.bervan.common.service.AuthService;
-import com.bervan.core.model.BervanLogger;
+import com.bervan.encryption.DataCipherException;
+import com.bervan.encryption.EncryptionService;
 import com.bervan.pocketapp.pocket.Pocket;
 import com.bervan.pocketapp.pocket.PocketService;
 import com.bervan.pocketapp.pocketitem.PocketItem;
 import com.bervan.pocketapp.pocketitem.PocketItemService;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.dnd.DragSource;
 import com.vaadin.flow.component.dnd.DropEffect;
@@ -17,18 +22,18 @@ import com.vaadin.flow.component.dnd.EffectAllowed;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Hr;
-import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
 
-public class PocketItemsListView extends VerticalLayout {
-    private final BervanLogger log;
+@Slf4j
+public class PocketItemsListView extends AbstractPageView {
     private final PocketService pocketService;
     private final PocketItemService pocketItemService;
     private final ComboBox<String> pocketSelector;
@@ -36,8 +41,7 @@ public class PocketItemsListView extends VerticalLayout {
     private List<Div> divs = new ArrayList<>();
     private List<PocketItem> pocketItems;
 
-    public PocketItemsListView(PocketItemService pocketItemService, PocketService pocketService, BervanLogger log, String initPocket, Set<String> pocketsName) {
-        this.log = log;
+    public PocketItemsListView(PocketItemService pocketItemService, PocketService pocketService, String initPocket, Set<String> pocketsName) {
         this.pocketService = pocketService;
         this.pocketItemService = pocketItemService;
         itemsLayout.setClassName("pocket-items-layout");
@@ -46,7 +50,7 @@ public class PocketItemsListView extends VerticalLayout {
 
         String pocketName = pocketsName.stream().filter(e -> e.equals(initPocket)).findFirst().get();
         pocketSelector = new ComboBox<>("", pocketsName);
-        if (pocketsName.size() > 0) {
+        if (!pocketsName.isEmpty()) {
             pocketSelector.setValue(pocketName);
             reloadItems(pocketService, itemsLayout, pocketName);
         }
@@ -56,6 +60,10 @@ public class PocketItemsListView extends VerticalLayout {
         });
 
         add(pocketSelector, itemsLayout);
+    }
+
+    private static int getWidthInPx() {
+        return 350;
     }
 
     public void reloadItems() {
@@ -81,7 +89,7 @@ public class PocketItemsListView extends VerticalLayout {
     }
 
     private void fixMobiles(VerticalLayout itemsLayout) {
-        if (divs.size() > 0) { //fix for mobiles
+        if (!divs.isEmpty()) {
             Div divBottom = new Div();
             divBottom.setClassName("pocket-tile-in-menu");
             divBottom.addClassName("pocket-tile-in-menu-transparent");
@@ -91,7 +99,6 @@ public class PocketItemsListView extends VerticalLayout {
         }
     }
 
-
     private Div createDraggableDiv(PocketItem pocketItem) {
         Div div = new Div(new H4(pocketItem.getSummary()));
         TextField idHolder = new TextField();
@@ -100,8 +107,7 @@ public class PocketItemsListView extends VerticalLayout {
         div.add(idHolder);
         div.setWidth(getWidthInPx() - 80 + "px");
 
-        Button info = new Button(VaadinIcon.INFO_CIRCLE.create());
-        info.addClassName("option-button");
+        Button info = new BervanButton(VaadinIcon.INFO_CIRCLE.create());
         info.addClickListener(event -> {
             Dialog dialog = new Dialog();
             dialog.setWidth("80vw");
@@ -118,8 +124,7 @@ public class PocketItemsListView extends VerticalLayout {
             Div buttons = new Div();
             HorizontalLayout buttonLayout = new HorizontalLayout();
 
-            Button deleteButton = new Button(VaadinIcon.TRASH.create());
-            deleteButton.addClassName("option-button");
+            Button deleteButton = new BervanButton(VaadinIcon.TRASH.create());
             deleteButton.addClassName("option-button-warning");
             deleteButton.addClickListener(buttonClickEvent -> {
                 pocketItemService.delete(pocketItem);
@@ -127,13 +132,20 @@ public class PocketItemsListView extends VerticalLayout {
                 dialog.close();
             });
 
-            Button editButton = new Button(VaadinIcon.EDIT.create());
-            editButton.addClassName("option-button");
+            Button editButton = new BervanButton(VaadinIcon.EDIT.create());
             editButton.addClickListener(buttonClickEvent -> {
-                pocketItem.setContent(field.getValue());
-                pocketItemService.save(pocketItem);
-                reloadItems();
-                dialog.close();
+                try {
+                    pocketItem.setContent(field.getValue());
+                    pocketItemService.save(pocketItem);
+                    reloadItems();
+                    dialog.close();
+                } catch (DataCipherException e) {
+                    log.error(e.getMessage(), e);
+                    showErrorNotification(e.getMessage());
+                } catch (Exception e) {
+                    log.error("Unable to save changes!", e);
+                    showErrorNotification("Unable to save changes!");
+                }
             });
 
             buttonLayout.add(editButton, deleteButton);
@@ -142,7 +154,21 @@ public class PocketItemsListView extends VerticalLayout {
             buttonLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
             buttons.add(buttonLayout);
 
-            dialogLayout.add(headerLayout, field, new Hr(), buttonLayout);
+            Checkbox encryptCheckbox = new Checkbox("Encrypt");
+            Boolean encrypted = pocketItem.isEncrypted();
+            encryptCheckbox.setValue(encrypted != null && encrypted);
+            encryptCheckbox.addValueChangeListener(e -> {
+                pocketItem.setEncrypted(e.getValue());
+            });
+
+
+            if (pocketItem.isEncrypted() && EncryptionService.isEncrypted(pocketItem.getContent())) {
+                field.setReadOnly(true);
+                encryptCheckbox.setEnabled(false);
+                editButton.setEnabled(false);
+            }
+
+            dialogLayout.add(headerLayout, field, new Hr(), encryptCheckbox, buttonLayout);
 
             dialog.add(dialogLayout);
 
@@ -172,21 +198,6 @@ public class PocketItemsListView extends VerticalLayout {
         });
 
         return div;
-    }
-
-    private static int getWidthInPx() {
-        return 350;
-    }
-
-    private HorizontalLayout getDialogTopBarLayout(Dialog dialog) {
-        Button closeButton = new Button(new Icon(VaadinIcon.CLOSE));
-        closeButton.addClassName("option-button");
-
-        closeButton.addClickListener(e -> dialog.close());
-        HorizontalLayout headerLayout = new HorizontalLayout(closeButton);
-        headerLayout.setWidthFull();
-        headerLayout.setJustifyContentMode(JustifyContentMode.END);
-        return headerLayout;
     }
 
     private void handleDropEvent(Div draggedDiv, Div targetDiv) {
