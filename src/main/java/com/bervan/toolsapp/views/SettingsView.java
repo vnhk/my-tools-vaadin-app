@@ -12,8 +12,8 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Hr;
-import com.vaadin.flow.component.html.Input;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import jakarta.annotation.security.RolesAllowed;
@@ -45,10 +45,9 @@ public class SettingsView extends AbstractPageView {
     private Div getDataCipherForm() {
         Div dataCipherForm = new Div();
 
-        Input dataCipherInput = new Input();
+        PasswordField dataCipherInput = new PasswordField();
         dataCipherInput.setHeight("25px");
         dataCipherInput.setWidth("200px");
-        dataCipherInput.setType("password");
         dataCipherInput.setPlaceholder("Enter data cipher");
         BervanButton checkButton = new BervanButton("Check", click -> {
             String cipher = dataCipherInput.getValue();

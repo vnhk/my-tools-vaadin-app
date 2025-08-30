@@ -10,10 +10,10 @@ import com.bervan.pocketapp.pocket.Pocket;
 import com.bervan.pocketapp.pocket.PocketService;
 import com.bervan.pocketapp.pocketitem.PocketItem;
 import com.bervan.pocketapp.pocketitem.PocketItemService;
+import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.dnd.DragSource;
 import com.vaadin.flow.component.dnd.DropEffect;
@@ -22,14 +22,17 @@ import com.vaadin.flow.component.dnd.EffectAllowed;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Hr;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 
 @Slf4j
@@ -40,6 +43,8 @@ public class PocketItemsListView extends AbstractPageView {
     private final VerticalLayout itemsLayout = new VerticalLayout();
     private List<Div> divs = new ArrayList<>();
     private List<PocketItem> pocketItems;
+    private WysiwygTextArea field;
+
 
     public PocketItemsListView(PocketItemService pocketItemService, PocketService pocketService, String initPocket, Set<String> pocketsName) {
         this.pocketService = pocketService;
@@ -117,10 +122,7 @@ public class PocketItemsListView extends AbstractPageView {
 
             HorizontalLayout headerLayout = getDialogTopBarLayout(dialog);
 
-            WysiwygTextArea field = new WysiwygTextArea("editor_pocket_side_menu", pocketItem.getContent());
-            field.setWidth("100%");
-            field.setHeight("60vh");
-
+            field = getWysiwygTextArea(pocketItem);
             Div buttons = new Div();
             HorizontalLayout buttonLayout = new HorizontalLayout();
 
@@ -132,6 +134,7 @@ public class PocketItemsListView extends AbstractPageView {
                 dialog.close();
             });
 
+            VerticalLayout fieldLayout = new VerticalLayout(field);
             Button editButton = new BervanButton(VaadinIcon.EDIT.create());
             editButton.addClickListener(buttonClickEvent -> {
                 try {
@@ -162,13 +165,24 @@ public class PocketItemsListView extends AbstractPageView {
             });
 
 
+            dialogLayout.add(headerLayout, fieldLayout);
+
             if (pocketItem.isEncrypted() && EncryptionService.isEncrypted(pocketItem.getContent())) {
-                field.setReadOnly(true);
-                encryptCheckbox.setEnabled(false);
-                editButton.setEnabled(false);
+                field.setVisible(false);
+                encryptCheckbox.setVisible(false);
+                editButton.setVisible(false);
+                showDecryptForm(dialogLayout, pocketItem, decryptedItem -> {
+                    pocketItem.setContent(decryptedItem.getContent());
+                    field.setValue(pocketItem.getContent());
+                    fieldLayout.remove(field);
+                    field = getWysiwygTextArea(pocketItem);
+                    fieldLayout.add(field);
+                    editButton.setVisible(true);
+                    encryptCheckbox.setVisible(true);
+                });
             }
 
-            dialogLayout.add(headerLayout, field, new Hr(), encryptCheckbox, buttonLayout);
+            dialogLayout.add(new Hr(), encryptCheckbox, buttonLayout);
 
             dialog.add(dialogLayout);
 
@@ -199,6 +213,80 @@ public class PocketItemsListView extends AbstractPageView {
 
         return div;
     }
+
+    private WysiwygTextArea getWysiwygTextArea(PocketItem pocketItem) {
+        WysiwygTextArea field = new WysiwygTextArea("editor_pocket_side_menu", pocketItem.getContent());
+        field.setWidth("100%");
+        field.setHeight("60vh");
+        return field;
+    }
+
+    private void showDecryptForm(VerticalLayout dialog, PocketItem encryptedItem, Consumer<PocketItem> onDecryptSuccess) {
+        VerticalLayout decryptForm = new VerticalLayout();
+
+        H4 itemTitle = new H4("Encrypted Item");
+        itemTitle.getStyle().set("color", "var(--lumo-primary-text-color)");
+
+        PasswordField passwordField = new PasswordField("Decryption Password");
+        passwordField.setPlaceholder("Enter password");
+        passwordField.setWidthFull();
+
+        Div messageDiv = new Div();
+        messageDiv.getStyle().set("display", "none");
+
+        decryptForm.add(itemTitle, passwordField, messageDiv);
+
+        BervanButton decryptButton = new BervanButton("🔓 Decrypt", e -> {
+            String password = passwordField.getValue();
+            if (password == null || password.trim().isEmpty()) {
+                showMessage(messageDiv, "Please enter a password", "error");
+                return;
+            }
+
+            try {
+                String content = pocketItemService.decryptContent(encryptedItem, password);
+                encryptedItem.setContent(content);
+                onDecryptSuccess.accept(encryptedItem);
+                showSuccessNotification("🔓 Item decrypted successfully!");
+                dialog.remove(decryptForm);
+            } catch (Exception ex) {
+                showMessage(messageDiv, "❌ Wrong password or corrupted data", "error");
+                passwordField.clear();
+                passwordField.focus();
+            }
+        });
+
+        passwordField.addKeyPressListener(Key.ENTER, e -> decryptButton.click());
+
+        HorizontalLayout buttonsLayout = new HorizontalLayout(decryptButton);
+        buttonsLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
+
+        decryptForm.add(buttonsLayout);
+        dialog.add(decryptForm);
+    }
+
+    private void showMessage(Div messageDiv, String text, String type) {
+        messageDiv.removeAll();
+        messageDiv.add(new Span(text));
+        messageDiv.getStyle()
+                .set("display", "block")
+                .set("padding", "8px")
+                .set("border-radius", "4px")
+                .set("margin-top", "8px");
+
+        if ("error".equals(type)) {
+            messageDiv.getStyle()
+                    .set("background-color", "var(--lumo-error-color-10pct)")
+                    .set("color", "var(--lumo-error-text-color)")
+                    .set("border", "1px solid var(--lumo-error-color-50pct)");
+        } else {
+            messageDiv.getStyle()
+                    .set("background-color", "var(--lumo-success-color-10pct)")
+                    .set("color", "var(--lumo-success-text-color)")
+                    .set("border", "1px solid var(--lumo-success-color-50pct)");
+        }
+    }
+
 
     private void handleDropEvent(Div draggedDiv, Div targetDiv) {
         int draggedIndex = divs.indexOf(draggedDiv);
