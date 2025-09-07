@@ -1,8 +1,8 @@
 package com.bervan.toolsapp.views.pocketapp;
 
-import com.bervan.common.AbstractPageView;
-import com.bervan.common.BervanButton;
-import com.bervan.common.WysiwygTextArea;
+import com.bervan.common.view.AbstractPageView;
+import com.bervan.common.component.BervanButton;
+import com.bervan.common.component.WysiwygTextArea;
 import com.bervan.common.service.AuthService;
 import com.bervan.encryption.DataCipherException;
 import com.bervan.encryption.EncryptionService;
@@ -10,7 +10,6 @@ import com.bervan.pocketapp.pocket.Pocket;
 import com.bervan.pocketapp.pocket.PocketService;
 import com.bervan.pocketapp.pocketitem.PocketItem;
 import com.bervan.pocketapp.pocketitem.PocketItemService;
-import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -22,17 +21,14 @@ import com.vaadin.flow.component.dnd.EffectAllowed;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Hr;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 
 @Slf4j

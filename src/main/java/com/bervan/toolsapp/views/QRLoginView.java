@@ -1,6 +1,6 @@
 package com.bervan.toolsapp.views;
 
-import com.bervan.common.AbstractPageView;
+import com.bervan.common.view.AbstractPageView;
 import com.bervan.common.user.User;
 import com.bervan.toolsapp.security.QRLoginService;
 import com.vaadin.flow.component.DetachEvent;

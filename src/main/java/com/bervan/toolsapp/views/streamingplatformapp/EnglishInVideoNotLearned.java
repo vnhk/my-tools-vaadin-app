@@ -1,6 +1,6 @@
 package com.bervan.toolsapp.views.streamingplatformapp;
 
-import com.bervan.common.EmptyLayout;
+import com.bervan.common.view.EmptyLayout;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.englishtextstats.Word;
 import com.bervan.englishtextstats.service.WordService;

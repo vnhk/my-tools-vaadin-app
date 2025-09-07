@@ -1,6 +1,6 @@
 package com.bervan.toolsapp.views;
 
-import com.bervan.common.AbstractPageView;
+import com.bervan.common.view.AbstractPageView;
 import com.bervan.common.service.AuthService;
 import com.bervan.toolsapp.security.OTPService;
 import com.bervan.toolsapp.security.OtpAuthenticationToken;

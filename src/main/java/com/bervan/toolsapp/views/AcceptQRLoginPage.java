@@ -1,7 +1,7 @@
 package com.bervan.toolsapp.views;
 
-import com.bervan.common.AbstractPageView;
-import com.bervan.common.BervanComboBox;
+import com.bervan.common.view.AbstractPageView;
+import com.bervan.common.component.BervanComboBox;
 import com.bervan.common.service.AuthService;
 import com.bervan.common.user.User;
 import com.bervan.common.user.UserToUserRelation;

@@ -1,6 +1,6 @@
 package com.bervan.toolsapp;
 
-import com.bervan.common.AbstractPageNotFoundError;
+import com.bervan.common.view.AbstractPageNotFoundErrorView;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.ErrorParameter;
@@ -17,7 +17,7 @@ public class RouteNotFoundError extends VerticalLayout
     public int setErrorParameter(BeforeEnterEvent event,
                                  ErrorParameter<NotFoundException> parameter) {
 
-        AbstractPageNotFoundError abstractPageNotFoundError = new AbstractPageNotFoundError() {
+        AbstractPageNotFoundErrorView abstractPageNotFoundError = new AbstractPageNotFoundErrorView() {
         };
         add(abstractPageNotFoundError);
         return HttpServletResponse.SC_NOT_FOUND;

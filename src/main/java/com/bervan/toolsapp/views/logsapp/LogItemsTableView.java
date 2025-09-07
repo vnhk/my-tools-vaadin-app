@@ -1,9 +1,9 @@
 package com.bervan.toolsapp.views.logsapp;
 
-import com.bervan.common.AbstractBervanTableView;
-import com.bervan.common.BervanButton;
-import com.bervan.common.BervanButtonStyle;
-import com.bervan.common.BervanComboBox;
+import com.bervan.common.view.AbstractBervanTableView;
+import com.bervan.common.component.BervanButton;
+import com.bervan.common.component.BervanButtonStyle;
+import com.bervan.common.component.BervanComboBox;
 import com.bervan.common.search.SearchRequest;
 import com.bervan.common.search.model.Operator;
 import com.bervan.common.search.model.SearchOperation;
