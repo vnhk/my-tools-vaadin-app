@@ -1,11 +1,11 @@
 package com.bervan.toolsapp.views.logsapp;
 
-import com.bervan.common.view.AbstractBervanTableView;
 import com.bervan.common.component.BervanComboBox;
 import com.bervan.common.search.SearchRequest;
 import com.bervan.common.search.model.Operator;
 import com.bervan.common.search.model.SearchOperation;
 import com.bervan.common.user.UserRepository;
+import com.bervan.common.view.AbstractBervanTableView;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.logging.LogEntity;
 import com.bervan.logging.LogService;
@@ -16,6 +16,7 @@ import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 

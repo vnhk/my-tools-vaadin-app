@@ -1,6 +1,5 @@
 package com.bervan.toolsapp.views.logsapp;
 
-import com.bervan.common.view.AbstractBervanTableView;
 import com.bervan.common.component.BervanButton;
 import com.bervan.common.component.BervanButtonStyle;
 import com.bervan.common.component.BervanComboBox;
@@ -8,6 +7,7 @@ import com.bervan.common.search.SearchRequest;
 import com.bervan.common.search.model.Operator;
 import com.bervan.common.search.model.SearchOperation;
 import com.bervan.common.user.UserRepository;
+import com.bervan.common.view.AbstractBervanTableView;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.logging.LogEntity;
 import com.bervan.logging.LogService;
@@ -21,6 +21,7 @@ import jakarta.annotation.security.RolesAllowed;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -28,9 +29,10 @@ import java.util.Set;
 @RolesAllowed("USER")
 public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> {
     public static final String ROUTE_NAME = "logs-app/all-logs";
-    private String appName = "";
     private final LogService logService;
     private final UserRepository userRepository;
+    private final HorizontalLayout buttonsWithDateFilters = new HorizontalLayout();
+    private String appName = "";
     private ComboBox<String> logSelector;
     private boolean showLastPage = true;
     private final BervanButton defaultLastHour1Button = new BervanButton("Last 1h", click -> {
@@ -43,7 +45,6 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
         showLastPage = true;
         refreshTable.click();
     }, BervanButtonStyle.PRIMARY);
-    private final HorizontalLayout buttonsWithDateFilters = new HorizontalLayout();
     private boolean initSearch = true;
 
     public LogItemsTableView(LogService logService, BervanLogger log, UserRepository userRepository) {
