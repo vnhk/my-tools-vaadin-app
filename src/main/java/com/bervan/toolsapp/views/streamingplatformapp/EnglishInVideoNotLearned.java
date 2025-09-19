@@ -17,7 +17,7 @@ public class EnglishInVideoNotLearned extends AbstractNotLearnedWordsBaseView {
                                     AddFlashcardService addAsFlashcardService,
                                     BervanLogger log,
                                     String englishSubtitlesPath) {
-        super(service, log, new EmptyLayout(), addAsFlashcardService);
+        super(service, log, new EmptyLayout(), addAsFlashcardService, "EN");
         this.addAsFlashcardService = addAsFlashcardService;
         this.englishSubtitlesPath = englishSubtitlesPath;
         renderCommonComponents();
