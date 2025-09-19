@@ -1,6 +1,6 @@
 package com.bervan.toolsapp.views.learninglanguage;
 
-class TranslationRecordRequest {
+public class TranslationRecordRequest {
     private String englishText;
     private String polishText;
     private Boolean saveWithSound;
@@ -8,6 +8,7 @@ class TranslationRecordRequest {
     private Boolean generateExample;
     private String level;
     private String apiKey;
+    private String language;
 
     public Boolean getGenerateExample() {
         return generateExample;
@@ -63,5 +64,13 @@ class TranslationRecordRequest {
 
     public void setLoadNewImages(Boolean loadNewImages) {
         this.loadNewImages = loadNewImages;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }
