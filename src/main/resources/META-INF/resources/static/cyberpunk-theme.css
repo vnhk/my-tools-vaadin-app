@@ -223,7 +223,7 @@ html {
 
     /* Filters Colors */
     --filter-apply-button-background-color: var(--vaadin-notification-card-bgColor-success);
-    --filter-apply-button-text-color: var(--lumo-body-text-color);
+    --filter-apply-button-text-color: white;
     --filter-apply-button-hover-background-color: #00cc00;
 
     /* Dialog Colors */

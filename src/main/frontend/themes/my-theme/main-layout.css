@@ -316,6 +316,10 @@ navigation-buttons > .option-button {
     transition: all 0.2s ease;
 }
 
+.filter-apply-button > vaadin-icon {
+    color: var(--filter-apply-button-text-color) !important;
+}
+
 .filter-apply-button:hover {
     background: var(--filter-apply-button-hover-background-color) !important;
     box-shadow: 0 4px 8px rgba(0, 255, 0, 0.3);
