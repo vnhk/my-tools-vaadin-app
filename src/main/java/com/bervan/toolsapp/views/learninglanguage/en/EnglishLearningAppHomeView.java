@@ -1,10 +1,5 @@
 package com.bervan.toolsapp.views.learninglanguage.en;
 
-import com.bervan.core.model.BervanLogger;
-import com.bervan.languageapp.service.ExampleOfUsageService;
-import com.bervan.languageapp.service.TextToSpeechService;
-import com.bervan.languageapp.service.TranslationRecordService;
-import com.bervan.languageapp.service.TranslatorService;
 import com.bervan.languageapp.view.en.AbstractEnglishLearningAppHomeView;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.router.Route;
@@ -14,9 +9,8 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class EnglishLearningAppHomeView extends AbstractEnglishLearningAppHomeView {
 
-    public EnglishLearningAppHomeView(TranslationRecordService translatorRecordService,
-                                      ExampleOfUsageService exampleOfUsageService, TextToSpeechService textToSpeechService, TranslatorService translatorService, BervanLogger log) {
-        super(translatorRecordService, exampleOfUsageService, textToSpeechService, translatorService, log);
+    public EnglishLearningAppHomeView() {
+        super();
     }
 
 }
