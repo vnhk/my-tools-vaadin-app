@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.learninglanguage.es;
 
+import com.bervan.asynctask.AsyncTaskService;
 import com.bervan.common.search.SearchService;
 import com.bervan.languageapp.service.ExampleOfUsageService;
 import com.bervan.languageapp.service.TextToSpeechService;
@@ -14,7 +15,7 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class SpanishFastImportView extends AbstractSpanishFastImportView {
 
-    public SpanishFastImportView(TranslationRecordService translationRecordService, TextToSpeechService textToSpeechService, SearchService searchService, ExampleOfUsageService exampleOfUsageService, TranslatorService translatorService) {
-        super(translationRecordService, textToSpeechService, searchService, exampleOfUsageService, translatorService);
+    public SpanishFastImportView(TranslationRecordService translationRecordService, TextToSpeechService textToSpeechService, SearchService searchService, ExampleOfUsageService exampleOfUsageService, TranslatorService translatorService, AsyncTaskService asyncTaskService) {
+        super(translationRecordService, textToSpeechService, searchService, exampleOfUsageService, translatorService, asyncTaskService);
     }
 }
