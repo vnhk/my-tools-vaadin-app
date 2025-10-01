@@ -1,10 +1,10 @@
 package com.bervan.toolsapp.views;
 
-import com.bervan.common.view.AbstractPageView;
 import com.bervan.common.component.BervanComboBox;
 import com.bervan.common.service.AuthService;
 import com.bervan.common.user.User;
 import com.bervan.common.user.UserToUserRelation;
+import com.bervan.common.view.AbstractPageView;
 import com.bervan.toolsapp.security.QRLoginService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
@@ -18,8 +18,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
 
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 @Route("accept-login")
@@ -74,7 +73,10 @@ public class AcceptQRLoginPage extends AbstractPageView implements HasUrlParamet
         }
         User user = loggedUser.get();
         Set<UserToUserRelation> childrenRelations = user.getChildrenRelations();
-        BervanComboBox<String> availableAccounts = new BervanComboBox<>(childrenRelations.stream().map(UserToUserRelation::getChild).map(e -> e.getUsername() + ":" + e.getRole()).toList());
+        List<String> availableAccountsList = new ArrayList<>(childrenRelations.stream().map(UserToUserRelation::getChild).map(e -> e.getUsername() + ":" + e.getRole()).toList());
+        availableAccountsList.add(user.getUsername() + ":" + user.getRole());
+        BervanComboBox<String> availableAccounts = new BervanComboBox<>(availableAccountsList);
+        availableAccounts.setValue(availableAccountsList.get(0));
 
         availableAccounts.setWidthFull();
         availableAccounts.setPlaceholder("Select account");
@@ -86,7 +88,14 @@ public class AcceptQRLoginPage extends AbstractPageView implements HasUrlParamet
                 showErrorNotification("Please enter a number");
                 return;
             }
-            Stream<User> userStream = childrenRelations.stream().map(UserToUserRelation::getChild);
+
+            Set<User> users = new HashSet<>();
+            for (UserToUserRelation childrenRelation : childrenRelations) {
+                users.add(childrenRelation.getChild());
+                users.add(childrenRelation.getParent());
+            }
+
+            Stream<User> userStream = users.stream();
 
             if (qrLoginService.validateAndAuthenticateQRLogin(uuid, enteredNumber, userStream.filter(u -> (u.getUsername() + ":" + u.getRole()).equals(availableAccounts.getValue())).findAny().get())) {
                 showPrimaryNotification("Authentication successful! You can now close this page.");
