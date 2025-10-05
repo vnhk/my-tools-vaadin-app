@@ -13,8 +13,8 @@ import java.util.UUID;
 
 @Route(value = AbstractAsyncTaskList.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed({"USER"})
-public class AsyncTaskView extends AbstractAsyncTaskList {
-    public AsyncTaskView(BaseService<UUID, AsyncTask> service, BervanLogger bervanLogger) {
+public class AsyncTaskListView extends AbstractAsyncTaskList {
+    public AsyncTaskListView(BaseService<UUID, AsyncTask> service, BervanLogger bervanLogger) {
         super(service, bervanLogger);
     }
 }

@@ -5,7 +5,7 @@ import com.bervan.common.service.AuthService;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.pocketapp.pocket.PocketService;
 import com.bervan.pocketapp.pocketitem.PocketItemService;
-import com.bervan.toolsapp.views.asynctask.AsyncTaskView;
+import com.bervan.toolsapp.views.asynctask.AsyncTaskListView;
 import com.bervan.toolsapp.views.canvasapp.CanvasPagesView;
 import com.bervan.toolsapp.views.englishepub.NotLearnedWordsView;
 import com.bervan.toolsapp.views.filestorage.FileStorageView;
@@ -195,7 +195,7 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Streaming", "las la-video", VideoListView.class), //
                     new MenuItemInfo("Shopping", "la la-shopping-cart", ProductsView.class), //
                     new MenuItemInfo("Logs", "la la-database", LogItemsTableView.class), //
-                    new MenuItemInfo("Async Tasks", "las la-wind", AsyncTaskView.class), //
+                    new MenuItemInfo("Async Tasks", "las la-wind", AsyncTaskListView.class), //
                     new MenuItemInfo("Settings", "las la-cog", SettingsView.class), //
             };
         } else if (AuthService.getUserRole().equals("ROLE_STREAMING")) {
