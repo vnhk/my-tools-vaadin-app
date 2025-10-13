@@ -171,7 +171,6 @@ navigation-buttons > .option-button {
 }
 
 .modern-table::part(row) {
-    min-height: 60px;
     border-bottom: 1px solid var(--table-cell-border-color);
     transition: background-color 0.2s ease;
 }
@@ -189,7 +188,6 @@ navigation-buttons > .option-button {
 }
 
 .modern-table::part(cell) {
-    padding: 16px 20px;
     border-right: 1px solid var(--table-cell-border-color);
     background-color: inherit;
     color: var(--table-cell-text-color);
@@ -202,25 +200,19 @@ navigation-buttons > .option-button {
 .modern-table::part(header-cell) {
     background-color: var(--table-header-background-color) !important;
     color: var(--table-header-text-color) !important;
-    font-weight: 600;
-    padding: 16px 20px;
     border-bottom: 2px solid var(--table-header-border-color);
     border-right: none;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 0.5px;
+    font-size: 10px;
 }
 
 /* Modern Cell Content */
 .modern-cell-content {
     display: flex;
     align-items: center;
-    gap: 8px;
 }
 
 .cell-text {
-    flex: 1;
-    line-height: 1.5;
+    font-size: 10px;
 }
 
 .cell-action-icon {
@@ -394,7 +386,6 @@ navigation-buttons > .option-button {
 
 .bervan-table::part(row) {
     border-bottom: 1px solid #000000;
-    min-height: 50px;
     max-height: 200px;
 }
 

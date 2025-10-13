@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.filestorage;
 
+import com.bervan.asynctask.AsyncTaskService;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.filestorage.service.FileServiceManager;
 import com.bervan.filestorage.service.LoadStorageAndIntegrateWithDB;
@@ -12,15 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 @Route(value = AbstractFileStorageView.ROUTE_NAME, layout = MainLayout.class)
-
 @RolesAllowed("USER")
 public class FileStorageView extends AbstractFileStorageView {
 
     public FileStorageView(@Autowired FileServiceManager service,
                            @Value("${spring.servlet.multipart.max-file-size}") String maxFileSize,
                            LoadStorageAndIntegrateWithDB loadStorageAndIntegrateWithDB,
-                           BervanLogger logger) {
-        super(service, maxFileSize, loadStorageAndIntegrateWithDB, logger);
+                           BervanLogger logger, AsyncTaskService asyncTaskService) {
+        super(service, maxFileSize, loadStorageAndIntegrateWithDB, logger, asyncTaskService);
     }
 
 }
