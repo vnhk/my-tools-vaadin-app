@@ -1,10 +1,11 @@
 package com.bervan.toolsapp.views.shopapp;
 
+import com.bervan.asynctask.AsyncTaskService;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.shstat.queue.RefreshViewService;
+import com.bervan.shstat.service.DiscountsViewService;
 import com.bervan.shstat.service.ProductSearchService;
 import com.bervan.shstat.view.AbstractBestOffersView;
-import com.bervan.shstat.service.DiscountsViewService;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
@@ -13,7 +14,7 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class BestOffersView extends AbstractBestOffersView {
 
-    public BestOffersView(RefreshViewService refreshViewService, DiscountsViewService discountsViewService, ProductSearchService productSearchService, BervanLogger log) {
-        super(discountsViewService, refreshViewService, productSearchService, log);
+    public BestOffersView(RefreshViewService refreshViewService, AsyncTaskService asyncTaskService, DiscountsViewService discountsViewService, ProductSearchService productSearchService, BervanLogger log) {
+        super(discountsViewService, refreshViewService, asyncTaskService, productSearchService, log);
     }
 }

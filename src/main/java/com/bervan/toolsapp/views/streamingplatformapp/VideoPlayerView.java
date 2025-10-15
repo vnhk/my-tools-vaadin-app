@@ -1,13 +1,18 @@
 package com.bervan.toolsapp.views.streamingplatformapp;
 
+import com.bervan.common.component.BervanButton;
+import com.bervan.common.component.BervanButtonStyle;
 import com.bervan.common.service.AuthService;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.englishtextstats.service.WordService;
 import com.bervan.filestorage.model.Metadata;
+import com.bervan.filestorage.service.FileServiceManager;
+import com.bervan.filestorage.view.UploadComponent;
 import com.bervan.languageapp.service.AddFlashcardService;
 import com.bervan.streamingapp.VideoManager;
 import com.bervan.streamingapp.view.AbstractVideoPlayerView;
 import com.bervan.toolsapp.views.MainLayout;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
@@ -25,12 +30,14 @@ public class VideoPlayerView extends AbstractVideoPlayerView {
     private final VideoManager videoManager;
     private final BervanLogger logger;
     private final WordService wordService;
+    private final FileServiceManager fileServiceManager;
     private final AddFlashcardService addAsFlashcardService;
 
-    public VideoPlayerView(VideoManager videoManager, BervanLogger logger, WordService wordService, AddFlashcardService addAsFlashcardService) {
+    public VideoPlayerView(VideoManager videoManager, BervanLogger logger, WordService wordService, FileServiceManager fileServiceManager, AddFlashcardService addAsFlashcardService) {
         super(logger, videoManager);
         this.videoManager = videoManager;
         this.logger = logger;
+        this.fileServiceManager = fileServiceManager;
         this.addAsFlashcardService = addAsFlashcardService;
         this.wordService = wordService;
     }
@@ -38,6 +45,7 @@ public class VideoPlayerView extends AbstractVideoPlayerView {
     @Override
     public void setParameter(BeforeEvent event, String s) {
         super.setParameter(event, s);
+
         String videoId = event.getRouteParameters().get("___url_parameter").orElse(UUID.randomUUID().toString());
         List<Metadata> metadata = videoManager.loadById(videoId);
 
@@ -45,6 +53,21 @@ public class VideoPlayerView extends AbstractVideoPlayerView {
             logger.error("Could not find file based on provided id!");
             return;
         }
+
+        if (AuthService.getUserRole().equals("ROLE_USER")) {
+            topLayout.add(new BervanButton("Upload subtitles", (e) -> {
+                UploadComponent uploadComponent = new UploadComponent(fileServiceManager, metadata.get(0).getPath()) {
+                    @Override
+                    protected void postSaveActions() {
+                        showSuccessNotification("Subtitles uploaded successfully!");
+                        UI.getCurrent().refreshCurrentRoute(true);
+                    }
+                };
+                uploadComponent.setSupportedFiles(".srt", ".vtt");
+                uploadComponent.open();
+            }, BervanButtonStyle.WARNING));
+        }
+
 
         Metadata videoFolder = videoManager.getVideoFolder(metadata.get(0));
         List<Metadata> subtitles = videoManager.loadVideoDirectoryContent(videoFolder).get("SUBTITLES");
