@@ -3,6 +3,7 @@ package com.bervan.toolsapp.views.logsapp;
 import com.bervan.common.component.BervanButton;
 import com.bervan.common.component.BervanButtonStyle;
 import com.bervan.common.component.BervanComboBox;
+import com.bervan.common.config.BervanViewConfig;
 import com.bervan.common.search.SearchRequest;
 import com.bervan.common.search.model.Operator;
 import com.bervan.common.search.model.SearchOperation;
@@ -21,7 +22,6 @@ import jakarta.annotation.security.RolesAllowed;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -47,8 +47,8 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
     }, BervanButtonStyle.PRIMARY);
     private boolean initSearch = true;
 
-    public LogItemsTableView(LogService logService, BervanLogger log, UserRepository userRepository) {
-        super(new LogsAppPageLayout(ROUTE_NAME), logService, log, LogEntity.class);
+    public LogItemsTableView(LogService logService, BervanLogger log, UserRepository userRepository, BervanViewConfig bervanViewConfig) {
+        super(new LogsAppPageLayout(ROUTE_NAME), logService, log, bervanViewConfig, LogEntity.class);
         this.logService = logService;
         this.userRepository = userRepository;
 

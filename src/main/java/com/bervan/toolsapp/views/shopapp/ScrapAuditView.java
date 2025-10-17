@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.shopapp;
 
+import com.bervan.common.config.BervanViewConfig;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.shstat.service.ScrapAuditService;
 import com.bervan.shstat.repository.ScrapAuditRepository;
@@ -12,7 +13,7 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class ScrapAuditView extends AbstractScrapAuditView {
 
-    public ScrapAuditView(ScrapAuditService scrapAuditService, BervanLogger log, ScrapAuditRepository scrapAuditRepository) {
-        super(scrapAuditService, scrapAuditRepository, log);
+    public ScrapAuditView(ScrapAuditService scrapAuditService, BervanLogger log, ScrapAuditRepository scrapAuditRepository, BervanViewConfig bervanViewConfig) {
+        super(scrapAuditService, scrapAuditRepository, log, bervanViewConfig);
     }
 }

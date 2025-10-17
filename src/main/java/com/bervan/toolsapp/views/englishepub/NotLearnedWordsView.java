@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.englishepub;
 
+import com.bervan.common.config.BervanViewConfig;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.englishtextstats.service.ExtractedEbookTextRepository;
 import com.bervan.englishtextstats.service.TextNotKnownWordsService;
@@ -13,8 +14,8 @@ import jakarta.annotation.security.RolesAllowed;
 @Route(value = AbstractNotLearnedWordsView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
 public class NotLearnedWordsView extends AbstractNotLearnedWordsView {
-    public NotLearnedWordsView(WordService service, TextNotKnownWordsService textNotKnownWordsService, ExtractedEbookTextRepository extractedEbookTextRepository, BervanLogger log, AddFlashcardService addAsFlashcardService) {
-        super(service, extractedEbookTextRepository, textNotKnownWordsService, log, addAsFlashcardService);
+    public NotLearnedWordsView(WordService service, TextNotKnownWordsService textNotKnownWordsService, ExtractedEbookTextRepository extractedEbookTextRepository, BervanLogger log, AddFlashcardService addAsFlashcardService, BervanViewConfig bervanViewConfig) {
+        super(service, extractedEbookTextRepository, textNotKnownWordsService, log, addAsFlashcardService, bervanViewConfig);
     }
 
 }

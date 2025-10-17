@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.investtrackapp;
 
+import com.bervan.common.config.BervanViewConfig;
 import com.bervan.common.service.BaseService;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.investtrack.model.Wallet;
@@ -13,7 +14,7 @@ import java.util.UUID;
 @Route(value = AbstractWalletsView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
 public class WalletsView extends AbstractWalletsView {
-    public WalletsView(BaseService<UUID, Wallet> service, BervanLogger logger) {
-        super(service, logger);
+    public WalletsView(BaseService<UUID, Wallet> service, BervanLogger logger, BervanViewConfig bervanViewConfig) {
+        super(service, logger, bervanViewConfig);
     }
 }

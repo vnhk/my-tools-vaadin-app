@@ -2,6 +2,7 @@ package com.bervan.toolsapp.views.streamingplatformapp;
 
 import com.bervan.common.component.BervanButton;
 import com.bervan.common.component.BervanButtonStyle;
+import com.bervan.common.config.BervanViewConfig;
 import com.bervan.common.service.AuthService;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.englishtextstats.service.WordService;
@@ -32,14 +33,16 @@ public class VideoPlayerView extends AbstractVideoPlayerView {
     private final WordService wordService;
     private final FileServiceManager fileServiceManager;
     private final AddFlashcardService addAsFlashcardService;
+    private final BervanViewConfig bervanViewConfig;
 
-    public VideoPlayerView(VideoManager videoManager, BervanLogger logger, WordService wordService, FileServiceManager fileServiceManager, AddFlashcardService addAsFlashcardService) {
+    public VideoPlayerView(VideoManager videoManager, BervanLogger logger, WordService wordService, FileServiceManager fileServiceManager, AddFlashcardService addAsFlashcardService, BervanViewConfig bervanViewConfig) {
         super(logger, videoManager);
         this.videoManager = videoManager;
         this.logger = logger;
         this.fileServiceManager = fileServiceManager;
         this.addAsFlashcardService = addAsFlashcardService;
         this.wordService = wordService;
+        this.bervanViewConfig = bervanViewConfig;
     }
 
     @Override
@@ -85,7 +88,7 @@ public class VideoPlayerView extends AbstractVideoPlayerView {
 
         if (AuthService.getUserRole().equals("ROLE_USER")) {
             add(new EnglishInVideoNotLearned(wordService, addAsFlashcardService, logger,
-                    enSubtitle.get().getPath() + File.separator + enSubtitle.get().getFilename()));
+                    enSubtitle.get().getPath() + File.separator + enSubtitle.get().getFilename(), bervanViewConfig));
         }
     }
 }

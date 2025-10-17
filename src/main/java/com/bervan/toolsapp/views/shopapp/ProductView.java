@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.shopapp;
 
+import com.bervan.common.config.BervanViewConfig;
 import com.bervan.common.user.UserRepository;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.shstat.service.ProductBasedOnDateAttributesService;
@@ -24,8 +25,8 @@ public class ProductView extends AbstractProductView {
                        UserRepository userRepository,
                        ProductService productService,
                        ProductBasedOnDateAttributesService productBasedOnDateAttributesService,
-                       ProductSimilarOffersService productSimilarOffersService) {
+                       ProductSimilarOffersService productSimilarOffersService, BervanViewConfig bervanViewConfi) {
         super(productViewService, productSearchService, userRepository, productService,
-                productSimilarOffersService, productRepository, productBasedOnDateAttributesService, log);
+                productSimilarOffersService, productRepository, productBasedOnDateAttributesService, log, bervanViewConfi);
     }
 }
