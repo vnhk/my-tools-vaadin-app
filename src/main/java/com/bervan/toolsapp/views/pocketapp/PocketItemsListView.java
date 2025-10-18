@@ -136,6 +136,10 @@ public class PocketItemsListView extends AbstractPageView {
             Button editButton = new BervanButton(VaadinIcon.EDIT.create());
             editButton.addClickListener(buttonClickEvent -> {
                 try {
+                    wysiwygTextArea.validate();
+                    if (wysiwygTextArea.isInvalid()) {
+                        return;
+                    }
                     pocketItem.setContent(wysiwygTextArea.getValue());
                     pocketItemService.save(pocketItem);
                     reloadItems();
