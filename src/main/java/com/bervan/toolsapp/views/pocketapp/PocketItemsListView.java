@@ -1,9 +1,11 @@
 package com.bervan.toolsapp.views.pocketapp;
 
-import com.bervan.common.view.AbstractPageView;
 import com.bervan.common.component.BervanButton;
 import com.bervan.common.component.WysiwygTextArea;
+import com.bervan.common.config.BervanViewConfig;
+import com.bervan.common.config.ClassViewAutoConfigColumn;
 import com.bervan.common.service.AuthService;
+import com.bervan.common.view.AbstractPageView;
 import com.bervan.encryption.DataCipherException;
 import com.bervan.encryption.EncryptionService;
 import com.bervan.pocketapp.pocket.Pocket;
@@ -34,15 +36,17 @@ import java.util.*;
 @Slf4j
 public class PocketItemsListView extends AbstractPageView {
     private final PocketService pocketService;
+    private final BervanViewConfig bervanViewConfig;
     private final PocketItemService pocketItemService;
     private final ComboBox<String> pocketSelector;
     private final VerticalLayout itemsLayout = new VerticalLayout();
     private List<Div> divs = new ArrayList<>();
     private List<PocketItem> pocketItems;
 
-    public PocketItemsListView(PocketItemService pocketItemService, PocketService pocketService, String initPocket, Set<String> pocketsName) {
+    public PocketItemsListView(PocketItemService pocketItemService, PocketService pocketService, String initPocket, BervanViewConfig bervanViewConfig, Set<String> pocketsName) {
         this.pocketService = pocketService;
         this.pocketItemService = pocketItemService;
+        this.bervanViewConfig = bervanViewConfig;
         itemsLayout.setClassName("pocket-items-layout");
         itemsLayout.setHeight("90vh");
         itemsLayout.setWidth(getWidthInPx() + "px");
@@ -204,7 +208,8 @@ public class PocketItemsListView extends AbstractPageView {
     }
 
     private WysiwygTextArea getWysiwygTextArea(PocketItem pocketItem) {
-        WysiwygTextArea field = new WysiwygTextArea("editor_pocket_side_menu", pocketItem.getContent());
+        ClassViewAutoConfigColumn config = bervanViewConfig.get(PocketItem.class.getSimpleName()).get("content");
+        WysiwygTextArea field = new WysiwygTextArea("editor_pocket_side_menu", pocketItem.getContent(), config.isRequired(), config.getMin(), config.getMax());
         field.setWidth("100%");
         field.setHeight("60vh");
         return field;
