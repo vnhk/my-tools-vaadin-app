@@ -18,13 +18,13 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import jakarta.annotation.security.RolesAllowed;
 
-import static com.bervan.toolsapp.views.SettingsView.ROUTE;
+import static com.bervan.toolsapp.views.SettingsView.ROUTE_NAME;
 
-@Route(value = ROUTE, layout = MainLayout.class)
+@Route(value = ROUTE_NAME, layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
 @RolesAllowed({"USER", "STREAMING"})
 public class SettingsView extends AbstractPageView {
-    public final static String ROUTE = "settings";
+    public final static String ROUTE_NAME = "settings";
     private final UserRepository userRepository;
 
     public SettingsView(UserRepository userRepository) {

@@ -858,7 +858,7 @@ vaadin-confirm-dialog-overlay::part(content) {
     align-items: center;
     box-sizing: border-box;
     display: flex;
-    height: var(--lumo-size-xl);
+    height: 8vh;
     width: 100%;
 }
 

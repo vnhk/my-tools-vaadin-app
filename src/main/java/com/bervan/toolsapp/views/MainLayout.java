@@ -182,6 +182,7 @@ public class MainLayout extends AppLayout {
     private MenuItemInfo[] createMenuItems() {
         if (AuthService.getUserRole().equals("ROLE_USER")) {
             return new MenuItemInfo[]{ //
+                    new MenuItemInfo("Home", "la la-home", MainHome.class), //
                     new MenuItemInfo("OTP", "la la-barcode", OTPGenerateView.class), //
                     new MenuItemInfo("Interview", "la la-desktop", InterviewHomeView.class), //
                     new MenuItemInfo("Pocket", "la la-get-pocket", PocketTableView.class), //
@@ -201,6 +202,7 @@ public class MainLayout extends AppLayout {
             };
         } else if (AuthService.getUserRole().equals("ROLE_STREAMING")) {
             return new MenuItemInfo[]{ //
+                    new MenuItemInfo("Home", "la la-home", MainHome.class), //
                     new MenuItemInfo("Streaming", "las la-video", VideoListView.class), //
                     new MenuItemInfo("Settings", "las la-cog", SettingsView.class), //
             };
@@ -214,6 +216,7 @@ public class MainLayout extends AppLayout {
     private Footer createFooter() {
         Footer layout = new Footer();
         layout.addClassNames("footer");
+        layout.add(new Span("| Designed by Bervan ©"));
 
         return layout;
     }

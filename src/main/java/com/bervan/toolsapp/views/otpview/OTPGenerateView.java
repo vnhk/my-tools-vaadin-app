@@ -1,8 +1,8 @@
 package com.bervan.toolsapp.views.otpview;
 
-import com.bervan.common.view.AbstractPageView;
 import com.bervan.common.MenuNavigationComponent;
 import com.bervan.common.service.AuthService;
+import com.bervan.common.view.AbstractPageView;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.toolsapp.security.OTPService;
 import com.bervan.toolsapp.views.MainLayout;
@@ -13,10 +13,12 @@ import jakarta.annotation.security.RolesAllowed;
 
 import java.util.UUID;
 
-@Route(value = "generate-otp", layout = MainLayout.class)
+import static com.bervan.toolsapp.views.otpview.OTPGenerateView.ROUTE_NAME;
+
+@Route(value = ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
 public class OTPGenerateView extends AbstractPageView {
-
+    public static final String ROUTE_NAME = "generate-otp";
     private final OTPService otpService;
     private final H3 otpLabel;
     private final BervanLogger logger;
@@ -40,7 +42,8 @@ public class OTPGenerateView extends AbstractPageView {
 
         Button generateOtpButton = new Button("Generate OTP", event -> generateAndDisplayOTP());
         generateOtpButton.addClassName("option-button");
-        add(new MenuNavigationComponent("") {}, otpLabel, generateOtpButton);
+        add(new MenuNavigationComponent("") {
+        }, otpLabel, generateOtpButton);
     }
 
     private void generateAndDisplayOTP() {
