@@ -229,4 +229,32 @@ html {
     /* Dialog Colors */
     --modern-dialog-background-color: var(--lumo-base-color);
     --modern-dialog-shadow-color: rgba(249, 115, 22, 0.2);
+
+    /*-----------------*/
+
+    /* Home Page  */
+    /* --- General theme --- */
+    --home-background: #fffbeb; /* Warm White background */
+    --home-text-color: #451a03; /* Dark Brown text */
+
+    /* --- Header --- */
+    --welcome-text-color: #f97316; /* Orange accent */
+    --motivation-text-color: #dc2626; /* Red accent */
+
+    /* --- Card/Button --- */
+    --card-background: #fef3c7; /* Light Amber card background */
+    --card-border: #f97316; /* Orange border */
+    --card-hover-background: #fed7aa; /* Peach hover background */
+    --card-hover-glow-cyan: rgba(249, 115, 22, 0.8); /* Stronger orange glow on hover */
+    --card-hover-glow-magenta: rgba(220, 38, 38, 0.3); /* Red overlay glow */
+    --card-icon-color: #dc2626; /* Red icons */
+    --card-title-color: #451a03; /* Dark Brown title */
+    --card-description-color: #78716c; /* Warm Gray description */
+
+    /* --- Stats panel --- */
+    --stats-background: #fef7ed; /* Light Orange panel background */
+    --stats-border-left: #f97316; /* Orange vertical accent */
+    --stats-title-color: #f97316; /* Orange title text */
+    /*-----------------*/
+
 }

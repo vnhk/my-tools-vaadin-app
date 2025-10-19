@@ -1,5 +1,94 @@
 /*@import "../cyberpunk-theme.css";*/
 
+/* Main home view */
+.home-view {
+    background-color: var(--home-background);
+    color: var(--home-text-color);
+    font-family: 'Courier New', monospace;
+}
+
+/* Header */
+.welcome-text {
+    color: var(--welcome-text-color);
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.motivation-text {
+    color: var(--motivation-text-color);
+    font-size: 1.1em;
+}
+
+.header-section {
+    padding: 30px 20px 40px 20px;
+    text-align: center;
+    width: 100%;
+}
+
+/* Quick access grid */
+.quick-access-grid {
+    gap: 25px;
+    padding: 20px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Single card/button */
+.card-button {
+    background-color: var(--card-background);
+    border: 1px solid var(--card-border);
+    border-radius: 15px;
+    box-shadow: 0 0 10px var(--card-hover-glow-cyan);
+    color: white;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-button:hover {
+    background-color: var(--card-hover-background);
+    box-shadow: 0 0 20px var(--card-hover-glow-cyan),
+    0 0 30px var(--card-hover-glow-magenta);
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+.card-icon {
+    width: 40px;
+    height: 40px;
+    color: var(--card-icon-color);
+}
+
+.card-title {
+    font-size: 1.2em;
+    color: var(--card-title-color);
+    margin: 5px 0 0 0;
+}
+
+.card-description {
+    font-size: 0.8em;
+    color: var(--card-description-color);
+    margin: 0;
+}
+
+/* Stats panel */
+.stats-panel {
+    background-color: var(--stats-background);
+    border-left: 3px solid var(--stats-border-left);
+    padding: 20px;
+    margin: 30px auto 0 auto;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.stats-title {
+    color: var(--stats-title-color);
+    margin-top: 0;
+}
+
 html {
 }
 

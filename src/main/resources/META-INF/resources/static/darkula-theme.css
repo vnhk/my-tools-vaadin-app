@@ -94,4 +94,29 @@ html {
     --canvas-notebook-button-background: #3a3a3a;
     --canvas-notebook-button-text-color: #ffffff;
     --canvas-notebook-button-border-color: #555555;
+
+
+
+    /* --- General theme --- */
+    --home-background: #2b2b2b; /* Dark background */
+    --home-text-color: #a4c3ff; /* Soft blue text */
+
+    /* --- Header --- */
+    --welcome-text-color: #3c4c66; /* Darker Blue accent */
+    --motivation-text-color: #9fc5f8; /* Lighter blue accent */
+
+    /* --- Card/Button --- */
+    --card-background: #313335; /* Dark gray card background */
+    --card-border: #3c4c66; /* Darker blue border */
+    --card-hover-background: #373a3c; /* Slightly lighter gray hover */
+    --card-hover-glow-cyan: rgba(60, 124, 203, 0.8); /* Blue glow */
+    --card-hover-glow-magenta: rgba(159, 197, 248, 0.3); /* Light blue overlay glow */
+    --card-icon-color: #ffffff; /* White icons */
+    --card-title-color: #a9b7c6; /* Light gray title */
+    --card-description-color: #9fc5f8; /* Lighter blue description */
+
+    /* --- Stats panel --- */
+    --stats-background: #3c3f41; /* Dark gray panel background */
+    --stats-border-left: #3c4c66; /* Darker blue vertical accent */
+    --stats-title-color: #9fc5f8; /* Lighter blue title text */
 }

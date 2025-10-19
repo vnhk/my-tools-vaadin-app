@@ -229,4 +229,31 @@ html {
     /* Dialog Colors */
     --modern-dialog-background-color: var(--lumo-base-color);
     --modern-dialog-shadow-color: rgba(14, 165, 233, 0.15);
+    /*-----------------*/
+
+    /* Home Page  */
+    /* --- General theme --- */
+    --home-background: #ffffff; /* Pure White background */
+    --home-text-color: #1e293b; /* Dark Slate text */
+
+    /* --- Header --- */
+    --welcome-text-color: #0ea5e9; /* Sky Blue accent */
+    --motivation-text-color: #1e40af; /* Deep Blue accent */
+
+    /* --- Card/Button --- */
+    --card-background: #e0f2fe; /* Light Blue card background */
+    --card-border: #0ea5e9; /* Sky Blue border */
+    --card-hover-background: #bfdbfe; /* Light Blue hover background */
+    --card-hover-glow-cyan: rgba(14, 165, 233, 0.8); /* Stronger blue glow on hover */
+    --card-hover-glow-magenta: rgba(30, 64, 175, 0.3); /* Deep Blue overlay glow */
+    --card-icon-color: #0ea5e9; /* Sky Blue icons */
+    --card-title-color: #1e293b; /* Dark Slate title */
+    --card-description-color: #475569; /* Slate Gray description */
+
+    /* --- Stats panel --- */
+    --stats-background: #f8fafc; /* Off White panel background */
+    --stats-border-left: #0ea5e9; /* Sky Blue vertical accent */
+    --stats-title-color: #0ea5e9; /* Sky Blue title text */
+    /*-----------------*/
+
 }

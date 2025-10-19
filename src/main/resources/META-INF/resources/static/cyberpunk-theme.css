@@ -229,4 +229,31 @@ html {
     /* Dialog Colors */
     --modern-dialog-background-color: var(--lumo-base-color);
     --modern-dialog-shadow-color: rgba(0, 255, 255, 0.3);
+    /*-----------------*/
+
+    /* Home Page  */
+    /* --- General theme --- */
+    --home-background: #0a0a0a; /* Very dark background */
+    --home-text-color: #e0e0e0; /* Light neutral text */
+
+    /* --- Header --- */
+    --welcome-text-color: #00ffff; /* Neon cyan */
+    --motivation-text-color: #ff00ff; /* Neon magenta */
+
+    /* --- Card/Button --- */
+    --card-background: #1a1a1a; /* Dark card background */
+    --card-border: #00ffff; /* Neon border */
+    --card-hover-background: #003333; /* Slightly brighter on hover */
+    --card-hover-glow-cyan: rgba(0, 255, 255, 0.8); /* Stronger cyan glow on hover */
+    --card-hover-glow-magenta: rgba(255, 0, 255, 0.3); /* Magenta glow overlay */
+    --card-icon-color: #ff00ff; /* Pink icons */
+    --card-title-color: #ffffff; /* White title text */
+    --card-description-color: #aaaaaa; /* Gray text for description */
+
+    /* --- Stats panel --- */
+    --stats-background: #101010; /* Panel dark background */
+    --stats-border-left: #ff00ff; /* Vertical accent line (magenta) */
+    --stats-title-color: #ff00ff; /* Stats title in magenta */
+    /*-----------------*/
+
 }

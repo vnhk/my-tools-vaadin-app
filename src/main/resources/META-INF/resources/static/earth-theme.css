@@ -89,4 +89,29 @@ html {
     --ql-editor-content-background-color: white;
     --ql-editor-content-text-color: black;
     --table-pageable-details-color: white;
+
+
+
+    /* --- General theme --- */
+    --home-background: #2c2723; /* Deep Brown background */
+    --home-text-color: #e5e1df; /* Soft Beige text */
+
+    /* --- Header --- */
+    --welcome-text-color: #6a5d4d; /* Earthy Brown accent */
+    --motivation-text-color: #a7a58e; /* Muted Olive accent */
+
+    /* --- Card/Button --- */
+    --card-background: #8a7967; /* Muted Brown card background */
+    --card-border: #6a5d4d; /* Earthy Brown border */
+    --card-hover-background: #7e7a7a; /* Slightly lighter muted brown on hover */
+    --card-hover-glow-cyan: rgba(106, 93, 77, 0.8); /* Earthy Brown glow */
+    --card-hover-glow-magenta: rgba(167, 165, 142, 0.3); /* Muted Olive overlay glow */
+    --card-icon-color: #ffffff; /* White icons */
+    --card-title-color: #ffffff; /* White title */
+    --card-description-color: #a7a58e; /* Muted Olive description */
+
+    /* --- Stats panel --- */
+    --stats-background: #6a5d4d; /* Earthy Brown panel background */
+    --stats-border-left: #6a5d4d; /* Earthy Brown vertical accent */
+    --stats-title-color: #a7a58e; /* Muted Olive title text */
 }
