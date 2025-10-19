@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.learninglanguage.es;
 
+import com.bervan.languageapp.service.TranslationRecordService;
 import com.bervan.languageapp.view.es.AbstractSpanishLearningAppHomeView;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.router.Route;
@@ -9,8 +10,8 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class SpanishLearningAppHomeView extends AbstractSpanishLearningAppHomeView {
 
-    public SpanishLearningAppHomeView() {
-        super();
+    public SpanishLearningAppHomeView(TranslationRecordService translationRecordsService) {
+        super(translationRecordsService);
     }
 
 }
