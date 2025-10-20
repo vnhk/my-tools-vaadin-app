@@ -15,6 +15,7 @@ import com.bervan.toolsapp.views.investtrackapp.WalletBalanceView;
 import com.bervan.toolsapp.views.learninglanguage.en.EnglishLearningAppHomeView;
 import com.bervan.toolsapp.views.learninglanguage.es.SpanishLearningAppHomeView;
 import com.bervan.toolsapp.views.logsapp.LogItemsTableView;
+import com.bervan.toolsapp.views.lowcode.LowCodeGeneratorView;
 import com.bervan.toolsapp.views.otpview.OTPGenerateView;
 import com.bervan.toolsapp.views.pocketapp.PocketSideMenuView;
 import com.bervan.toolsapp.views.pocketapp.PocketTableView;
@@ -198,6 +199,7 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Shopping", "la la-shopping-cart", ProductsView.class), //
                     new MenuItemInfo("Logs", "la la-database", LogItemsTableView.class), //
                     new MenuItemInfo("Async Tasks", "las la-wind", AsyncTaskListView.class), //
+                    new MenuItemInfo("Low Code", "las la-code", LowCodeGeneratorView.class), //
                     new MenuItemInfo("Settings", "las la-cog", SettingsView.class), //
             };
         } else if (AuthService.getUserRole().equals("ROLE_STREAMING")) {
