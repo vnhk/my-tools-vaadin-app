@@ -6,6 +6,7 @@ import com.bervan.common.service.AuthService;
 import com.bervan.core.model.BervanLogger;
 import com.bervan.pocketapp.pocket.PocketService;
 import com.bervan.pocketapp.pocketitem.PocketItemService;
+import com.bervan.toolsapp.ProfileUtils;
 import com.bervan.toolsapp.views.asynctask.AsyncTaskListView;
 import com.bervan.toolsapp.views.canvasapp.CanvasPagesView;
 import com.bervan.toolsapp.views.englishepub.NotLearnedWordsView;
@@ -199,7 +200,7 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Shopping", "la la-shopping-cart", ProductsView.class), //
                     new MenuItemInfo("Logs", "la la-database", LogItemsTableView.class), //
                     new MenuItemInfo("Async Tasks", "las la-wind", AsyncTaskListView.class), //
-                    new MenuItemInfo("Low Code", "las la-code", LowCodeGeneratorView.class), //
+                    new MenuItemInfo("Low Code", "las la-code", LowCodeGeneratorView.class, isLocal()), //
                     new MenuItemInfo("Settings", "las la-cog", SettingsView.class), //
             };
         } else if (AuthService.getUserRole().equals("ROLE_STREAMING")) {
@@ -213,6 +214,10 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Login", "las la-login", LoginView.class) //
             };
         }
+    }
+
+    private boolean isLocal() {
+        return ProfileUtils.isLocal();
     }
 
     private Footer createFooter() {
@@ -238,6 +243,12 @@ public class MainLayout extends AppLayout {
     public static class MenuItemInfo extends ListItem {
 
         private final Class<? extends Component> view;
+
+        public MenuItemInfo(String menuTitle, String iconClass, Class<? extends Component> view, boolean visible) {
+            this(menuTitle, iconClass, view);
+            this.setVisible(visible);
+
+        }
 
         public MenuItemInfo(String menuTitle, String iconClass, Class<? extends Component> view) {
             this.view = view;
