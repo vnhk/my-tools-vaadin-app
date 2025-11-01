@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Route(value = AbstractLowCodeGeneratorView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
-@Profile(value = {"local", "!prod"})
+@Profile(value = {"local", "!production"})
 public class LowCodeGeneratorView extends AbstractLowCodeGeneratorView {
 
     public LowCodeGeneratorView(BaseService<UUID, LowCodeClass> service, BervanViewConfig bervanViewConfig, BervanLogger bervanLogger, LowCodeClassDetailsService lowCodeClassDetailsService) {
