@@ -256,4 +256,7 @@ html {
     --stats-title-color: #0ea5e9; /* Sky Blue title text */
     /*-----------------*/
 
+    --chart-text-color: white;
+    --chart-line1-color: #0ea5e9;
+    --chart-line2-color: #1e40af;
 }

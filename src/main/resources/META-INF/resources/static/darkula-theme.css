@@ -119,4 +119,8 @@ html {
     --stats-background: #3c3f41; /* Dark gray panel background */
     --stats-border-left: #3c4c66; /* Darker blue vertical accent */
     --stats-title-color: #9fc5f8; /* Lighter blue title text */
+
+    --chart-text-color: white;
+    --chart-line1-color: #3c4c66;
+    --chart-line2-color: #9fc5f8;
 }

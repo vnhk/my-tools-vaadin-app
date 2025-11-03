@@ -257,4 +257,7 @@ html {
     --stats-title-color: #f97316; /* Orange title text */
     /*-----------------*/
 
+    --chart-text-color: white;
+    --chart-line1-color: #f97316;
+    --chart-line2-color: #dc2626;
 }

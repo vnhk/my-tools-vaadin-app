@@ -256,4 +256,7 @@ html {
     --stats-title-color: #ff00ff; /* Stats title in magenta */
     /*-----------------*/
 
+    --chart-text-color: white;
+    --chart-line1-color: #00ffff;
+    --chart-line2-color: #ff00ff;
 }

@@ -114,4 +114,8 @@ html {
     --stats-background: #6a5d4d; /* Earthy Brown panel background */
     --stats-border-left: #6a5d4d; /* Earthy Brown vertical accent */
     --stats-title-color: #a7a58e; /* Muted Olive title text */
+
+    --chart-text-color: white;
+    --chart-line1-color: #6a5d4d;
+    --chart-line2-color: #a7a58e;
 }

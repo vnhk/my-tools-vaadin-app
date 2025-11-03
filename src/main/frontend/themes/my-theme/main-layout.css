@@ -1,4 +1,23 @@
 /*@import "../cyberpunk-theme.css";*/
+:host {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.dashboard-card-value {
+    background-color: var(--card-hover-background);
+    color: var(--home-text-color);
+}
+
+.wallet-tile {
+    background-color: var(--card-hover-background) !important;
+}
+
+.wallet-tile > h3 {
+    color: var(--chart-text-color) !important;
+}
 
 /* Main home view */
 .home-view {
