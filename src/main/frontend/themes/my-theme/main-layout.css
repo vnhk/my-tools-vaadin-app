@@ -6,6 +6,28 @@
     justify-content: center;
 }
 
+.skeleton {
+    position: relative;
+    background-color: #e0e0e0;
+    overflow: hidden;
+}
+
+.skeleton::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150px;
+    height: 100%;
+    width: 150px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: loading 1.2s infinite;
+}
+
+@keyframes loading {
+    0% { left: -150px; }
+    100% { left: 100%; }
+}
+
 @keyframes shimmer {
     0% {
         background-position: -400px 0;
