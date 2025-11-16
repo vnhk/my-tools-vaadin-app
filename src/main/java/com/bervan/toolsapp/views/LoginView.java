@@ -1,14 +1,18 @@
 package com.bervan.toolsapp.views;
 
-import com.bervan.common.view.AbstractPageView;
+import com.bervan.common.component.BervanButton;
+import com.bervan.common.component.BervanButtonStyle;
 import com.bervan.common.service.AuthService;
+import com.bervan.common.view.AbstractPageView;
 import com.bervan.toolsapp.security.OTPService;
 import com.bervan.toolsapp.security.OtpAuthenticationToken;
 import com.bervan.toolsapp.security.QRLoginService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.login.LoginForm;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
@@ -29,35 +33,52 @@ import static com.bervan.toolsapp.security.OTPService.CODE_LENGTH;
 @Slf4j
 public class LoginView extends AbstractPageView {
 
-    private final OTPService otpService;
     private final AuthenticationManager authenticationManager;
-    private final QRLoginService qrLoginService;
 
-    public LoginView(OTPService otpService, AuthenticationManager authenticationManager, QRLoginService qrLoginService) {
-        this.otpService = otpService;
+    public LoginView(AuthenticationManager authenticationManager,
+                     QRLoginService qrLoginService) {
+
         this.authenticationManager = authenticationManager;
-        this.qrLoginService = qrLoginService;
-        addClassName("login-page");
-
-        LoginForm loginForm = new LoginForm();
-        loginForm.setAction("login");
-
-        Button otpLoginButton = new Button("Login via OTP", event -> openOtpDialog());
-        otpLoginButton.addClassName("option-button");
-        otpLoginButton.addClassName("option-button-warning");
-
-        Button qrLoginButton = new Button("Login via QR Code", event ->
-                openQRLoginDialog());
-        qrLoginButton.addClassName("option-button");
-        qrLoginButton.addClassName("option-button-success");
 
         setSizeFull();
-        setJustifyContentMode(JustifyContentMode.CENTER);
-        setAlignItems(Alignment.CENTER);
+        addClassName("login-page");
 
-        add(loginForm, otpLoginButton, qrLoginButton);
+        // --- Login form ---
+        LoginForm loginForm = new LoginForm();
+        loginForm.setAction("login");
+        loginForm.setForgotPasswordButtonVisible(false);
+
+        // Card-like wrapper
+        VerticalLayout loginCard = new VerticalLayout();
+        loginCard.addClassName("login-card");
+        loginCard.setPadding(true);
+        loginCard.setSpacing(false);
+        loginCard.setAlignItems(Alignment.CENTER);
+        loginCard.add(new H2("Welcome"), loginForm);
+
+        // --- OTP button ---
+        Button otpLoginButton = new BervanButton(
+                "Login via OTP",
+                event -> openOtpDialog(),
+                BervanButtonStyle.WARNING
+        );
+
+        // --- QR login block ---
+        QRLoginView qrLoginView = new QRLoginView(qrLoginService, null);
+        VerticalLayout rightPanel = new VerticalLayout(qrLoginView, otpLoginButton);
+        rightPanel.setPadding(false);
+        rightPanel.setSpacing(true);
+        rightPanel.setAlignItems(Alignment.CENTER);
+
+        // --- Page layout ---
+        HorizontalLayout content = new HorizontalLayout(loginCard, rightPanel);
+        content.setSizeUndefined();
+        content.setSpacing(true);
+        content.setAlignItems(Alignment.CENTER);
+        content.addClassName("login-content");
+
+        add(content);
     }
-
     private void openOtpDialog() {
         Dialog otpDialog = new Dialog();
         otpDialog.setHeaderTitle("Enter OTP Code");
@@ -89,21 +110,6 @@ public class LoginView extends AbstractPageView {
         otpDialog.getFooter().add(cancelButton);
 
         otpDialog.open();
-    }
-
-    private void openQRLoginDialog() {
-        Dialog dialog = new Dialog();
-        dialog.setHeaderTitle("Scan QR Code");
-
-        VerticalLayout dialogLayout = new VerticalLayout();
-        QRLoginView qrLoginView = new QRLoginView(qrLoginService, dialog);
-        dialogLayout.add(qrLoginView);
-
-        Button cancelButton = new Button("Cancel", e -> dialog.close());
-        dialog.getFooter().add(cancelButton);
-
-        dialog.add(dialogLayout);
-        dialog.open();
     }
 
     private void loginViaOTP(String otpCode) {

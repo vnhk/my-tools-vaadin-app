@@ -300,6 +300,25 @@ vaadin-grid.flex-grid::part(cell) {
     background-color: white;
 }
 
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--lumo-contrast-5pct);
+}
+
+.login-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    min-width: 320px;
+}
+
+.login-content {
+    gap: 3rem;
+}
+
 navigation-buttons > .option-button {
     margin-left: 3px;
     margin-right: 3px;
