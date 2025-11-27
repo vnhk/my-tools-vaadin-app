@@ -1,7 +1,6 @@
 package com.bervan.toolsapp.views.learninglanguage.es;
 
 import com.bervan.common.config.BervanViewConfig;
-import com.bervan.core.model.BervanLogger;
 import com.bervan.languageapp.service.TranslationRecordService;
 import com.bervan.languageapp.view.es.AbstractSpanishImportExportView;
 import com.bervan.toolsapp.views.MainLayout;
@@ -12,7 +11,7 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class SpanishImportExportView extends AbstractSpanishImportExportView {
 
-    public SpanishImportExportView(BervanLogger logger, TranslationRecordService translationRecordService, BervanViewConfig bervanViewConfig) {
-        super(logger, translationRecordService, bervanViewConfig);
+    public SpanishImportExportView( TranslationRecordService translationRecordService, BervanViewConfig bervanViewConfig) {
+        super( translationRecordService, bervanViewConfig);
     }
 }

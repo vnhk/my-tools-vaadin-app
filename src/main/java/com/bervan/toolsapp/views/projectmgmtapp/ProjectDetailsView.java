@@ -1,7 +1,6 @@
 package com.bervan.toolsapp.views.projectmgmtapp;
 
 import com.bervan.common.config.BervanViewConfig;
-import com.bervan.core.model.BervanLogger;
 import com.bervan.projectmgmtapp.service.ProjectService;
 import com.bervan.projectmgmtapp.service.TaskService;
 import com.bervan.projectmgmtapp.views.AbstractProjectDetailsView;
@@ -14,7 +13,7 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class ProjectDetailsView extends AbstractProjectDetailsView {
 
-    public ProjectDetailsView(ProjectService projectService, TaskService taskService, BervanLogger logger, BervanViewConfig bervanViewConfig) {
-        super(projectService, taskService, logger, bervanViewConfig);
+    public ProjectDetailsView(ProjectService projectService, TaskService taskService, BervanViewConfig bervanViewConfig) {
+        super(projectService, taskService,  bervanViewConfig);
     }
 }

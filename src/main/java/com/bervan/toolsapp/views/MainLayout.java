@@ -3,7 +3,6 @@ package com.bervan.toolsapp.views;
 
 import com.bervan.common.config.BervanViewConfig;
 import com.bervan.common.service.AuthService;
-import com.bervan.core.model.BervanLogger;
 import com.bervan.pocketapp.pocket.PocketService;
 import com.bervan.pocketapp.pocketitem.PocketItemService;
 import com.bervan.toolsapp.ProfileUtils;
@@ -51,18 +50,18 @@ public class MainLayout extends AppLayout {
 
     private static Div sideMenu;
     private static Registration clickListenerRegistration;
-    private final BervanLogger log;
+
     private final PocketItemService pocketItemService;
     private H1 viewTitle;
 
-    public MainLayout(BervanLogger log, PocketService pocketService, PocketItemService pocketItemService, BervanViewConfig bervanViewConfig) {
-        this.log = log;
+    public MainLayout(PocketService pocketService, PocketItemService pocketItemService, BervanViewConfig bervanViewConfig) {
+
         this.pocketItemService = pocketItemService;
 
         setPrimarySection(Section.DRAWER);
         addToNavbar(true, createHeaderContent());
         addToDrawer(createDrawerContent());
-        PocketSideMenuView pocketSideMenu = new PocketSideMenuView(this.pocketItemService, pocketService, log, bervanViewConfig);
+        PocketSideMenuView pocketSideMenu = new PocketSideMenuView(this.pocketItemService, pocketService, bervanViewConfig);
         sideMenu = createSideMenu(pocketSideMenu);
         Button pocketMenuButton = new Button(VaadinIcon.CLIPBOARD.create());
         pocketMenuButton.addClassName("option-button");

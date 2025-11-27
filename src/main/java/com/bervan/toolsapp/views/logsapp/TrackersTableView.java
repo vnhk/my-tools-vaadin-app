@@ -7,7 +7,6 @@ import com.bervan.common.search.model.Operator;
 import com.bervan.common.search.model.SearchOperation;
 import com.bervan.common.user.UserRepository;
 import com.bervan.common.view.AbstractBervanTableView;
-import com.bervan.core.model.BervanLogger;
 import com.bervan.logging.LogEntity;
 import com.bervan.logging.LogService;
 import com.bervan.toolsapp.views.MainLayout;
@@ -30,8 +29,8 @@ public class TrackersTableView extends AbstractBervanTableView<Long, LogEntity> 
     private ComboBox<String> logSelector;
     private boolean showLastPage = true;
 
-    public TrackersTableView(LogService logService, BervanLogger log, UserRepository userRepository, BervanViewConfig bervanViewConfig) {
-        super(new LogsAppPageLayout(ROUTE_NAME), logService, log, bervanViewConfig, LogEntity.class);
+    public TrackersTableView(LogService logService, UserRepository userRepository, BervanViewConfig bervanViewConfig) {
+        super(new LogsAppPageLayout(ROUTE_NAME), logService, bervanViewConfig, LogEntity.class);
         this.logService = logService;
         this.userRepository = userRepository;
 

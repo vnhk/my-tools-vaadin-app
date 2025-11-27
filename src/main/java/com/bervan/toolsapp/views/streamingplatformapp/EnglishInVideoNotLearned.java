@@ -2,7 +2,6 @@ package com.bervan.toolsapp.views.streamingplatformapp;
 
 import com.bervan.common.config.BervanViewConfig;
 import com.bervan.common.view.EmptyLayout;
-import com.bervan.core.model.BervanLogger;
 import com.bervan.englishtextstats.Word;
 import com.bervan.englishtextstats.service.WordService;
 import com.bervan.englishtextstats.view.AbstractNotLearnedWordsBaseView;
@@ -16,9 +15,9 @@ public class EnglishInVideoNotLearned extends AbstractNotLearnedWordsBaseView {
 
     public EnglishInVideoNotLearned(WordService service,
                                     AddFlashcardService addAsFlashcardService,
-                                    BervanLogger log,
+                                   
                                     String englishSubtitlesPath, BervanViewConfig bervanViewConfig) {
-        super(service, log, new EmptyLayout(), addAsFlashcardService, "EN", bervanViewConfig);
+        super(service, new EmptyLayout(), addAsFlashcardService, "EN", bervanViewConfig);
         this.addAsFlashcardService = addAsFlashcardService;
         this.englishSubtitlesPath = englishSubtitlesPath;
         renderCommonComponents();

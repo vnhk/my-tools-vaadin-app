@@ -1,6 +1,5 @@
 package com.bervan.toolsapp.views.streamingplatformapp;
 
-import com.bervan.core.model.BervanLogger;
 import com.bervan.streamingapp.VideoManager;
 import com.bervan.streamingapp.view.AbstractVideoDetailsView;
 import com.bervan.toolsapp.views.MainLayout;
@@ -12,7 +11,7 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed({"USER", "STREAMING"})
 public class VideoDetailsView extends AbstractVideoDetailsView {
 
-    public VideoDetailsView(VideoManager videoManager, BervanLogger logger) {
-        super(logger, videoManager);
+    public VideoDetailsView(VideoManager videoManager) {
+        super( videoManager);
     }
 }

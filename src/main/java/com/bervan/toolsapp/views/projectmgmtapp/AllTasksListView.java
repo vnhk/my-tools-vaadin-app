@@ -2,7 +2,6 @@ package com.bervan.toolsapp.views.projectmgmtapp;
 
 import com.bervan.common.config.BervanViewConfig;
 import com.bervan.common.service.BaseService;
-import com.bervan.core.model.BervanLogger;
 import com.bervan.projectmgmtapp.model.Task;
 import com.bervan.projectmgmtapp.views.AbstractAllTasksListView;
 import com.bervan.toolsapp.views.MainLayout;
@@ -15,7 +14,7 @@ import java.util.UUID;
 @RolesAllowed("USER")
 public class AllTasksListView extends AbstractAllTasksListView {
 
-    public AllTasksListView(BaseService<UUID, Task> service, BervanLogger log, BervanViewConfig bervanViewConfig) {
-        super(service, log, bervanViewConfig);
+    public AllTasksListView(BaseService<UUID, Task> service, BervanViewConfig bervanViewConfig) {
+        super(service, bervanViewConfig);
     }
 }

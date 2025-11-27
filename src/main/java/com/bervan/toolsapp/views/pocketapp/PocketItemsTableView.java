@@ -1,7 +1,6 @@
 package com.bervan.toolsapp.views.pocketapp;
 
 import com.bervan.common.config.BervanViewConfig;
-import com.bervan.core.model.BervanLogger;
 import com.bervan.pocketapp.pocket.PocketService;
 import com.bervan.pocketapp.pocketitem.PocketItemService;
 import com.bervan.pocketapp.view.AbstractAllPocketItemsView;
@@ -13,7 +12,7 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class PocketItemsTableView extends AbstractAllPocketItemsView {
 
-    public PocketItemsTableView(PocketItemService service, BervanLogger log, PocketService pocketService, BervanViewConfig bervanViewConfig) {
-        super(service, pocketService, log, bervanViewConfig);
+    public PocketItemsTableView(PocketItemService service, PocketService pocketService, BervanViewConfig bervanViewConfig) {
+        super(service, pocketService, bervanViewConfig);
     }
 }

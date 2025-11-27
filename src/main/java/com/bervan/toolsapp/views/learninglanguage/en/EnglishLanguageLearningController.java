@@ -1,7 +1,6 @@
 package com.bervan.toolsapp.views.learninglanguage.en;
 
 import com.bervan.common.service.ApiKeyService;
-import com.bervan.core.model.BervanLogger;
 import com.bervan.languageapp.TranslationRecord;
 import com.bervan.languageapp.service.ExampleOfUsageService;
 import com.bervan.languageapp.service.TextToSpeechService;
@@ -10,6 +9,7 @@ import com.bervan.languageapp.service.TranslatorService;
 import com.bervan.toolsapp.views.learninglanguage.TranslationRecordRequest;
 import com.google.common.base.Strings;
 import jakarta.annotation.security.PermitAll;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,23 +23,24 @@ import java.util.List;
 
 @RestController
 @PermitAll
+@Slf4j
 public class EnglishLanguageLearningController {
     private final TranslationRecordService translationRecordService;
     private final ExampleOfUsageService exampleOfUsageService;
     private final TextToSpeechService textToSpeechService;
     private final TranslatorService translationService;
-    private final BervanLogger log;
+
     private final ApiKeyService apiKeyService;
     @Value("${api.keys}")
     private List<String> API_KEYS = new ArrayList<>();
 
     public EnglishLanguageLearningController(TranslationRecordService translationRecordService, ExampleOfUsageService exampleOfUsageService,
-                                             TextToSpeechService textToSpeechService, TranslatorService translationService, BervanLogger log, ApiKeyService apiKeyService) {
+                                             TextToSpeechService textToSpeechService, TranslatorService translationService, ApiKeyService apiKeyService) {
         this.translationRecordService = translationRecordService;
         this.exampleOfUsageService = exampleOfUsageService;
         this.textToSpeechService = textToSpeechService;
         this.translationService = translationService;
-        this.log = log;
+
         this.apiKeyService = apiKeyService;
     }
 

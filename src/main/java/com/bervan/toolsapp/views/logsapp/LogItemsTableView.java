@@ -9,7 +9,6 @@ import com.bervan.common.search.model.Operator;
 import com.bervan.common.search.model.SearchOperation;
 import com.bervan.common.user.UserRepository;
 import com.bervan.common.view.AbstractBervanTableView;
-import com.bervan.core.model.BervanLogger;
 import com.bervan.logging.LogEntity;
 import com.bervan.logging.LogService;
 import com.bervan.toolsapp.views.MainLayout;
@@ -47,8 +46,8 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
     }, BervanButtonStyle.PRIMARY);
     private boolean initSearch = true;
 
-    public LogItemsTableView(LogService logService, BervanLogger log, UserRepository userRepository, BervanViewConfig bervanViewConfig) {
-        super(new LogsAppPageLayout(ROUTE_NAME), logService, log, bervanViewConfig, LogEntity.class);
+    public LogItemsTableView(LogService logService, UserRepository userRepository, BervanViewConfig bervanViewConfig) {
+        super(new LogsAppPageLayout(ROUTE_NAME), logService, bervanViewConfig, LogEntity.class);
         this.logService = logService;
         this.userRepository = userRepository;
 

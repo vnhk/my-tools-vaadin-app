@@ -2,7 +2,6 @@ package com.bervan.toolsapp.views.investtrackapp;
 
 import com.bervan.common.config.BervanViewConfig;
 import com.bervan.common.service.BaseService;
-import com.bervan.core.model.BervanLogger;
 import com.bervan.investtrack.model.WalletSnapshot;
 import com.bervan.investtrack.view.AbstractImportExportData;
 import com.bervan.toolsapp.views.MainLayout;
@@ -15,7 +14,7 @@ import java.util.UUID;
 @RolesAllowed("USER")
 public class ImportExportDataView extends AbstractImportExportData {
 
-    public ImportExportDataView(BaseService<UUID, WalletSnapshot> dataService, BervanViewConfig bervanViewConfig, BervanLogger logger) {
-        super(dataService, bervanViewConfig, logger);
+    public ImportExportDataView(BaseService<UUID, WalletSnapshot> dataService, BervanViewConfig bervanViewConfig) {
+        super(dataService, bervanViewConfig);
     }
 }

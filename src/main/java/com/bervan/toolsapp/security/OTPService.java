@@ -3,7 +3,7 @@ package com.bervan.toolsapp.security;
 import com.bervan.common.user.User;
 import com.bervan.common.user.UserRepository;
 import com.bervan.common.user.UserToUserRelation;
-import com.bervan.core.model.BervanLogger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -13,6 +13,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
+@Slf4j
 public class OTPService {
     public static final int CODE_LENGTH = 8;
     private final SecureRandom random = new SecureRandom();
@@ -20,11 +21,9 @@ public class OTPService {
     private final Map<String, Long> otpExpiry = new ConcurrentHashMap<>();
     private static final long OTP_VALIDITY_DURATION = 300_000;
     private final UserRepository userRepository;
-    private final BervanLogger logger;
 
-    public OTPService(UserRepository userRepository, BervanLogger logger) {
+    public OTPService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.logger = logger;
     }
 
     public String generateOTP(UUID userId, String role) {
@@ -32,7 +31,7 @@ public class OTPService {
                 .toList();
 
         if (childrenWithRole.size() != 1) {
-            logger.error("Incorrect configuration. Sub users with role = " + role + ": " + childrenWithRole.size());
+            log.error("Incorrect configuration. Sub users with role = " + role + ": " + childrenWithRole.size());
             throw new RuntimeException("Incorrect configuration!");
         }
         userId = childrenWithRole.get(0).getChild().getId();

@@ -1,7 +1,6 @@
 package com.bervan.toolsapp.views.englishepub;
 
 import com.bervan.common.config.BervanViewConfig;
-import com.bervan.core.model.BervanLogger;
 import com.bervan.englishtextstats.service.ExtractedEbookTextService;
 import com.bervan.englishtextstats.view.AbstractEbooksView;
 import com.bervan.toolsapp.views.MainLayout;
@@ -12,7 +11,7 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class EbooksView extends AbstractEbooksView {
 
-    public EbooksView(ExtractedEbookTextService service, BervanLogger log, BervanViewConfig bervanViewConfig) {
-        super(service, log, bervanViewConfig);
+    public EbooksView(ExtractedEbookTextService service, BervanViewConfig bervanViewConfig) {
+        super(service, bervanViewConfig);
     }
 }

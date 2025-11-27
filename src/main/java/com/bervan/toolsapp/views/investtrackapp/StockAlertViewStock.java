@@ -2,7 +2,6 @@ package com.bervan.toolsapp.views.investtrackapp;
 
 import com.bervan.common.config.BervanViewConfig;
 import com.bervan.common.service.BaseService;
-import com.bervan.core.model.BervanLogger;
 import com.bervan.investtrack.model.StockPriceAlert;
 import com.bervan.investtrack.view.AbstractStockPriceAlertsView;
 import com.bervan.toolsapp.views.MainLayout;
@@ -14,7 +13,7 @@ import java.util.UUID;
 @Route(value = AbstractStockPriceAlertsView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
 public class StockAlertViewStock extends AbstractStockPriceAlertsView {
-    public StockAlertViewStock(BaseService<UUID, StockPriceAlert> service, BervanLogger logger, BervanViewConfig bervanViewConfig) {
-        super(service, logger, bervanViewConfig);
+    public StockAlertViewStock(BaseService<UUID, StockPriceAlert> service, BervanViewConfig bervanViewConfig) {
+        super(service,  bervanViewConfig);
     }
 }

@@ -1,7 +1,6 @@
 package com.bervan.toolsapp.views.englishepub;
 
 import com.bervan.common.search.SearchService;
-import com.bervan.core.model.BervanLogger;
 import com.bervan.englishtextstats.KnownWord;
 import com.bervan.englishtextstats.service.ExtractedEbookTextRepository;
 import com.bervan.englishtextstats.service.KnownWordRepository;
@@ -23,9 +22,9 @@ public class IntegratedTextNotKnownWordsService extends TextNotKnownWordsService
                                               ExtractedEbookTextRepository extractedEbookTextRepository,
                                               KnownWordRepository knownWordRepository,
                                               SearchService searchService,
-                                              BervanLogger logger,
+                                              
                                               @Value("${file.service.storage.folder}") String pathToFileStorage) {
-        super(extractedEbookTextRepository, knownWordRepository, searchService, logger, pathToFileStorage);
+        super(extractedEbookTextRepository, knownWordRepository, searchService,  pathToFileStorage);
         this.translationRecordService = translationRecordService;
     }
 

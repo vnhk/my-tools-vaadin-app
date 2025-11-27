@@ -4,7 +4,6 @@ import com.bervan.common.component.BervanButton;
 import com.bervan.common.component.BervanButtonStyle;
 import com.bervan.common.service.AuthService;
 import com.bervan.common.view.AbstractPageView;
-import com.bervan.toolsapp.security.OTPService;
 import com.bervan.toolsapp.security.OtpAuthenticationToken;
 import com.bervan.toolsapp.security.QRLoginService;
 import com.vaadin.flow.component.button.Button;
@@ -79,6 +78,7 @@ public class LoginView extends AbstractPageView {
 
         add(content);
     }
+
     private void openOtpDialog() {
         Dialog otpDialog = new Dialog();
         otpDialog.setHeaderTitle("Enter OTP Code");
