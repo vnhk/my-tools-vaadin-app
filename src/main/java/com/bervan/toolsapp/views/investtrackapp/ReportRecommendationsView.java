@@ -10,7 +10,7 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class ReportRecommendationsView extends AbstractReportsRecommendationsView {
 
-    protected ReportRecommendationsView(StockPriceReportService stockPriceReportService, StockPriceReportService stockPriceReportService1) {
-        super(stockPriceReportService, stockPriceReportService1);
+    protected ReportRecommendationsView(StockPriceReportService stockPriceReportService) {
+        super(stockPriceReportService);
     }
 }
