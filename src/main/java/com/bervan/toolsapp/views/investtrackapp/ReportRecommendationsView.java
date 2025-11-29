@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.investtrackapp;
 
+import com.bervan.asynctask.AsyncTaskService;
 import com.bervan.investtrack.service.StockPriceReportService;
 import com.bervan.investtrack.view.AbstractReportsRecommendationsView;
 import com.bervan.toolsapp.views.MainLayout;
@@ -10,7 +11,7 @@ import jakarta.annotation.security.RolesAllowed;
 @RolesAllowed("USER")
 public class ReportRecommendationsView extends AbstractReportsRecommendationsView {
 
-    protected ReportRecommendationsView(StockPriceReportService stockPriceReportService) {
-        super(stockPriceReportService);
+    protected ReportRecommendationsView(StockPriceReportService stockPriceReportService, AsyncTaskService asyncTaskService) {
+        super(stockPriceReportService, asyncTaskService);
     }
 }
