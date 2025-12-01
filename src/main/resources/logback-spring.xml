@@ -2,7 +2,7 @@
 <configuration debug="true">
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-    <include resource="org/springframework/boot/logging/logback/base,xml"/>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
     <appender name="JSON_APPENDER" class="com.bervan.logging.AppenderDelegator">
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
