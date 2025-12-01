@@ -1,7 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <configuration debug="true">
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-    <appender name="DELEGATOR" class="com.bervan.logging.AppenderDelegator">
+    <include resource="org/springframework/boot/logging/logback/base,xml"/>
+
+    <appender name="JSON_APPENDER" class="com.bervan.logging.AppenderDelegator">
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <fieldName>date</fieldName>
+                    <pattern>dd-MM-yyyy HH:mm:ss:SSS</pattern>
+                    <timeZone>CET</timeZone>
+                </timestamp>
+                <message>
+                    <fieldName>msg</fieldName>
+                </message>
+                <logLevel>
+                    <fieldName>level</fieldName>
+                </logLevel>
+                <stackTrace/>
+                <provider class="net.logstash.logback.composite.loggingevent.LoggingEventPatternJsonProvider">
+                    <pattern>
+                        {"package":"%replace(%replace(%caller{1}){'Caller\\+\\d+\\s*at\\s*',''}){'^(.*)\\.([^.]+)\\.([^.(]+)\\(.*$','$1'}"}
+                    </pattern>
+                </provider>
+                <provider class="net.logstash.logback.composite.loggingevent.LoggingEventPatternJsonProvider">
+                    <pattern>
+                        {"class":"%replace(%replace(%caller{1}){'Caller\\+\\d+\\s*at\\s*',''}){'^.*\\.([^.]+)\\.([^.(]+)\\(.*$','$1'}"}
+                    </pattern>
+                </provider>
+                <provider class="net.logstash.logback.composite.loggingevent.LoggingEventPatternJsonProvider">
+                    <pattern>
+                        {"method":"%replace(%replace(%caller{1}){'Caller\\+\\d+\\s*at\\s*',''}){'^.*\\.([^.(]+)\\(.*$','$1'}"}
+                    </pattern>
+                </provider>
+                <provider class="net.logstash.logback.composite.loggingevent.LoggingEventPatternJsonProvider">
+                    <pattern>
+                        {"line":"%replace(%replace(%caller{1}){'Caller\\+\\d+\\s*at\\s*',''}){'^.*:(\\d+)\\).*$','$1'}"}
+                    </pattern>
+                </provider>
+
+                <arguments/>
+            </providers>
+        </encoder>
     </appender>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -14,6 +55,6 @@
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="DELEGATOR"/>
+        <appender-ref ref="JSON_APPENDER"/>
     </root>
 </configuration>

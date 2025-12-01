@@ -4,6 +4,7 @@ import com.bervan.common.component.BervanButton;
 import com.bervan.common.component.BervanButtonStyle;
 import com.bervan.common.service.AuthService;
 import com.bervan.common.view.AbstractPageView;
+import com.bervan.logging.JsonLogger;
 import com.bervan.toolsapp.security.OtpAuthenticationToken;
 import com.bervan.toolsapp.security.QRLoginService;
 import com.vaadin.flow.component.button.Button;
@@ -18,7 +19,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import jakarta.annotation.security.PermitAll;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,8 +29,8 @@ import static com.bervan.toolsapp.security.OTPService.CODE_LENGTH;
 @Route("login")
 @PageTitle("Login")
 @PermitAll
-@Slf4j
 public class LoginView extends AbstractPageView {
+    private final JsonLogger log = JsonLogger.getLogger(getClass());
 
     private final AuthenticationManager authenticationManager;
 

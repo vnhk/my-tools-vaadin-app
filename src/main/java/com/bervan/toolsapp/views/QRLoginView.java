@@ -1,7 +1,8 @@
 package com.bervan.toolsapp.views;
 
-import com.bervan.common.view.AbstractPageView;
 import com.bervan.common.user.User;
+import com.bervan.common.view.AbstractPageView;
+import com.bervan.logging.JsonLogger;
 import com.bervan.toolsapp.security.QRLoginService;
 import com.vaadin.flow.component.DetachEvent;
 import com.vaadin.flow.component.Text;
@@ -15,7 +16,6 @@ import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.VaadinSession;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
@@ -24,8 +24,8 @@ import java.io.ByteArrayInputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
-@Slf4j
 public class QRLoginView extends AbstractPageView {
+    private final JsonLogger log = JsonLogger.getLogger(getClass());
 
     private final QRLoginService qrLoginService;
     private final Dialog dialog;

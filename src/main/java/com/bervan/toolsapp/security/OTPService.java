@@ -3,7 +3,7 @@ package com.bervan.toolsapp.security;
 import com.bervan.common.user.User;
 import com.bervan.common.user.UserRepository;
 import com.bervan.common.user.UserToUserRelation;
-import lombok.extern.slf4j.Slf4j;
+import com.bervan.logging.JsonLogger;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -13,13 +13,13 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
-@Slf4j
 public class OTPService {
     public static final int CODE_LENGTH = 8;
+    private static final long OTP_VALIDITY_DURATION = 300_000;
+    private final JsonLogger log = JsonLogger.getLogger(getClass());
     private final SecureRandom random = new SecureRandom();
     private final Map<String, UUID> otpStorage = new ConcurrentHashMap<>();
     private final Map<String, Long> otpExpiry = new ConcurrentHashMap<>();
-    private static final long OTP_VALIDITY_DURATION = 300_000;
     private final UserRepository userRepository;
 
     public OTPService(UserRepository userRepository) {

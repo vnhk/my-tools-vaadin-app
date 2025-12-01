@@ -6,10 +6,10 @@ import com.bervan.languageapp.service.ExampleOfUsageService;
 import com.bervan.languageapp.service.TextToSpeechService;
 import com.bervan.languageapp.service.TranslationRecordService;
 import com.bervan.languageapp.service.TranslatorService;
+import com.bervan.logging.JsonLogger;
 import com.bervan.toolsapp.views.learninglanguage.TranslationRecordRequest;
 import com.google.common.base.Strings;
 import jakarta.annotation.security.PermitAll;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +23,8 @@ import java.util.List;
 
 @RestController
 @PermitAll
-@Slf4j
 public class EnglishLanguageLearningController {
+    private final JsonLogger log = JsonLogger.getLogger(getClass());
     private final TranslationRecordService translationRecordService;
     private final ExampleOfUsageService exampleOfUsageService;
     private final TextToSpeechService textToSpeechService;

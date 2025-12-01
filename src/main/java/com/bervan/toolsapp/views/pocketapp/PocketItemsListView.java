@@ -8,6 +8,7 @@ import com.bervan.common.service.AuthService;
 import com.bervan.common.view.AbstractPageView;
 import com.bervan.encryption.DataCipherException;
 import com.bervan.encryption.EncryptionService;
+import com.bervan.logging.JsonLogger;
 import com.bervan.pocketapp.pocket.Pocket;
 import com.bervan.pocketapp.pocket.PocketService;
 import com.bervan.pocketapp.pocketitem.PocketItem;
@@ -28,13 +29,11 @@ import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
-
-@Slf4j
 public class PocketItemsListView extends AbstractPageView {
+    private final JsonLogger log = JsonLogger.getLogger(getClass());
     private final PocketService pocketService;
     private final BervanViewConfig bervanViewConfig;
     private final PocketItemService pocketItemService;

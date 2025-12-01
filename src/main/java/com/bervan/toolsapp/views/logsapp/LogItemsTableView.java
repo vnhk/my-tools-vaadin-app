@@ -48,6 +48,7 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
 
     public LogItemsTableView(LogService logService, UserRepository userRepository, BervanViewConfig bervanViewConfig) {
         super(new LogsAppPageLayout(ROUTE_NAME), logService, bervanViewConfig, LogEntity.class);
+        this.processName = "LogsItemsTable";
         this.logService = logService;
         this.userRepository = userRepository;
 
@@ -75,9 +76,9 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
 
         topLayout.add(logSelector);
         filtersLayout.removeFilterableFields("fullLog");
-        filtersLayout.addFilterableFields("message");
-        filtersLayout.addFilterableFields("className");
-        filtersLayout.addFilterableFields("methodName");
+//        filtersLayout.addFilterableFields("message");
+//        filtersLayout.addFilterableFields("className");
+//        filtersLayout.addFilterableFields("methodName");
         topLayout.add(buttonsWithDateFilters);
 
         defaultLastHour1Button.click();
@@ -185,17 +186,6 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
         }
 
         return grid;
-    }
-
-    @Override
-    protected List<String> getFieldsToFetchForTable() {
-        List<String> columnsToFetchForTable = super.getFieldsToFetchForTable();
-        columnsToFetchForTable.remove("fullLog");
-        columnsToFetchForTable.add("lineNumber");
-        columnsToFetchForTable.add("className");
-        columnsToFetchForTable.add("methodName");
-        columnsToFetchForTable.add("message");
-        return columnsToFetchForTable;
     }
 
     @Override

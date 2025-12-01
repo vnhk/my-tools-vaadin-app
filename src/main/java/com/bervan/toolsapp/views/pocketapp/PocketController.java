@@ -2,12 +2,12 @@ package com.bervan.toolsapp.views.pocketapp;
 
 import com.bervan.common.service.ApiKeyService;
 import com.bervan.common.user.User;
+import com.bervan.logging.JsonLogger;
 import com.bervan.pocketapp.pocket.Pocket;
 import com.bervan.pocketapp.pocket.PocketService;
 import com.bervan.pocketapp.pocketitem.PocketItem;
 import com.bervan.pocketapp.pocketitem.PocketItemService;
 import jakarta.annotation.security.PermitAll;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +22,11 @@ import java.util.stream.Collectors;
 
 @RestController
 @PermitAll
-@Slf4j
 public class PocketController {
+    private final JsonLogger log = JsonLogger.getLogger(getClass());
     private final PocketItemService pocketItemService;
     private final PocketService pocketService;
-    
+
     private final ApiKeyService apiKeyService;
     @Value("${api.keys}")
     private List<String> API_KEYS = new ArrayList<>();

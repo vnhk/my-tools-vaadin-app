@@ -9,6 +9,7 @@ import com.bervan.filestorage.model.Metadata;
 import com.bervan.filestorage.service.FileServiceManager;
 import com.bervan.filestorage.view.UploadComponent;
 import com.bervan.languageapp.service.AddFlashcardService;
+import com.bervan.logging.JsonLogger;
 import com.bervan.streamingapp.VideoManager;
 import com.bervan.streamingapp.view.AbstractVideoPlayerView;
 import com.bervan.toolsapp.views.MainLayout;
@@ -16,17 +17,16 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Slf4j
 @Route(value = AbstractVideoPlayerView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed({"USER", "STREAMING"})
 public class VideoPlayerView extends AbstractVideoPlayerView {
+    private final JsonLogger log = JsonLogger.getLogger(getClass());
     private final VideoManager videoManager;
     private final WordService wordService;
     private final FileServiceManager fileServiceManager;
@@ -34,7 +34,7 @@ public class VideoPlayerView extends AbstractVideoPlayerView {
     private final BervanViewConfig bervanViewConfig;
 
     public VideoPlayerView(VideoManager videoManager, WordService wordService, FileServiceManager fileServiceManager, AddFlashcardService addAsFlashcardService, BervanViewConfig bervanViewConfig) {
-        super( videoManager);
+        super(videoManager);
         this.videoManager = videoManager;
         this.fileServiceManager = fileServiceManager;
         this.addAsFlashcardService = addAsFlashcardService;
@@ -84,7 +84,7 @@ public class VideoPlayerView extends AbstractVideoPlayerView {
         }
 
         if (AuthService.getUserRole().equals("ROLE_USER")) {
-            add(new EnglishInVideoNotLearned(wordService, addAsFlashcardService, 
+            add(new EnglishInVideoNotLearned(wordService, addAsFlashcardService,
                     enSubtitle.get().getPath() + File.separator + enSubtitle.get().getFilename(), bervanViewConfig));
         }
     }

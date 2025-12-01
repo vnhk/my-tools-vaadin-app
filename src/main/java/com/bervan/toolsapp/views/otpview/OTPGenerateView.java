@@ -3,13 +3,13 @@ package com.bervan.toolsapp.views.otpview;
 import com.bervan.common.MenuNavigationComponent;
 import com.bervan.common.service.AuthService;
 import com.bervan.common.view.AbstractPageView;
+import com.bervan.logging.JsonLogger;
 import com.bervan.toolsapp.security.OTPService;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.UUID;
 
@@ -17,9 +17,9 @@ import static com.bervan.toolsapp.views.otpview.OTPGenerateView.ROUTE_NAME;
 
 @Route(value = ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
-@Slf4j
 public class OTPGenerateView extends AbstractPageView {
     public static final String ROUTE_NAME = "generate-otp";
+    private final JsonLogger log = JsonLogger.getLogger(getClass());
     private final OTPService otpService;
     private final H3 otpLabel;
 
