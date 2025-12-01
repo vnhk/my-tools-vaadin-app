@@ -20,6 +20,30 @@
     color: var(--lumo-primary-color);
 }
 
+.log-level-info {
+    color: #4caf50;
+    font-weight: 600;
+}
+
+.log-level-debug {
+    color: #2196f3;
+    font-weight: 600;
+}
+
+.log-level-warn {
+    color: #ff9800;
+    font-weight: 700;
+}
+
+.log-level-error {
+    color: #f44336;
+    font-weight: 700;
+}
+
+.log-level-default {
+    color: #ccc;
+}
+
 .json-log-viewer-text {
     font-family: monospace;
     font-size: 14px;
