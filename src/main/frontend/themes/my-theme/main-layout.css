@@ -6,6 +6,29 @@
     justify-content: center;
 }
 
+.json-log-viewer-pre {
+    font-family: "Fira Code", monospace;
+    font-size: 14px;
+    color: var(--lumo-primary-text-color);
+    padding: 12px;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+.json-log-key {
+    font-weight: bold;
+    color: var(--lumo-primary-color);
+}
+
+.json-log-viewer-text {
+    font-family: monospace;
+    font-size: 14px;
+    white-space: normal;
+    color: var(--lumo-primary-text-color);
+    padding: 10px;
+    border-radius: 6px;
+}
+
 .skeleton {
     position: relative;
     background-color: #e0e0e0;
