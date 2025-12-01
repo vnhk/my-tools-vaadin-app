@@ -21,25 +21,24 @@
                 <stackTrace/>
                 <provider class="net.logstash.logback.composite.loggingevent.LoggingEventPatternJsonProvider">
                     <pattern>
-                        {"package":"%replace(%replace(%caller{1}){'Caller\\+\\d+\\s*at\\s*',''}){'^(.*)\\.([^.]+)\\.([^.(]+)\\(.*$','$1'}"}
+                        {"package":"%replace(%replace(%replace(%caller{1}){'Caller\\+\\d+\\s*at\\s*',''}){'^(.*)\\.([^.]+)\\.([^.(]+)\\(.*$','$1'}){'[\\r\\n\\t]',''}"}
                     </pattern>
                 </provider>
                 <provider class="net.logstash.logback.composite.loggingevent.LoggingEventPatternJsonProvider">
                     <pattern>
-                        {"class":"%replace(%replace(%caller{1}){'Caller\\+\\d+\\s*at\\s*',''}){'^.*\\.([^.]+)\\.([^.(]+)\\(.*$','$1'}"}
+                        {"class":"%replace(%replace(%replace(%caller{1}){'Caller\\+\\d+\\s*at\\s*',''}){'^.*\\.([^.]+)\\.([^.(]+)\\(.*$','$1'}){'[\\r\\n\\t]',''}"}
                     </pattern>
                 </provider>
                 <provider class="net.logstash.logback.composite.loggingevent.LoggingEventPatternJsonProvider">
                     <pattern>
-                        {"method":"%replace(%replace(%caller{1}){'Caller\\+\\d+\\s*at\\s*',''}){'^.*\\.([^.(]+)\\(.*$','$1'}"}
+                        {"method":"%replace(%replace(%replace(%caller{1}){'Caller\\+\\d+\\s*at\\s*',''}){'^.*\\.([^.(]+)\\(.*$','$1'}){'[\\r\\n\\t]',''}"}
                     </pattern>
                 </provider>
                 <provider class="net.logstash.logback.composite.loggingevent.LoggingEventPatternJsonProvider">
                     <pattern>
-                        {"line":"%replace(%replace(%caller{1}){'Caller\\+\\d+\\s*at\\s*',''}){'^.*:(\\d+)\\).*$','$1'}"}
+                        {"line":"%replace(%replace(%replace(%caller{1}){'Caller\\+\\d+\\s*at\\s*',''}){'^.*:(\\d+)\\).*$','$1'}){'[\\r\\n\\t]',''}"}
                     </pattern>
                 </provider>
-
                 <arguments/>
             </providers>
         </encoder>
