@@ -163,26 +163,26 @@ public class ProductsE2ETest extends BaseTest {
         addProductsQueue.addProductsByPartitions(List.of(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
                 "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
-                localDateTime, 1999, "Smartwatches", "/smartwatches/apple/")));
+                localDateTime, 1999, "Smartwatches", "/smartwatches/apple/")), addProducts);
 
         localDateTime = LocalDateTime.of(2025, 5, 9, 18, 0, 0);
         addProductsQueue.addProductsByPartitions(List.of(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
                 "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
-                localDateTime, 2500, "Smartwatches", "/smartwatches/apple/")));
+                localDateTime, 2500, "Smartwatches", "/smartwatches/apple/")), addProducts);
 
 
         localDateTime = LocalDateTime.of(2025, 5, 9, 19, 0, 0);
         addProductsQueue.addProductsByPartitions(List.of(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
                 "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
-                localDateTime, 2100, "Smartwatches", "/smartwatches/apple/")));
+                localDateTime, 2100, "Smartwatches", "/smartwatches/apple/")), addProducts);
 
         localDateTime = LocalDateTime.of(2025, 5, 9, 20, 0, 0);
         addProductsQueue.addProductsByPartitions(List.of(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
                 "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
-                localDateTime, 1250, "Smartwatches", "/smartwatches/apple/")));
+                localDateTime, 1250, "Smartwatches", "/smartwatches/apple/")), addProducts);
 
 
         //
@@ -221,7 +221,7 @@ public class ProductsE2ETest extends BaseTest {
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
                 localDateTime, 1250, "Smartwatches", "/smartwatches/apple/"));
         //price is the same as before and date is different
-        productService.addProductsAsync(products);
+        productService.addProductsAsync(products, addProductsContext);
 
         localDateTime = LocalDateTime.of(2025, 5, 10, 22, 0, 0);
         products.add(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
@@ -229,7 +229,7 @@ public class ProductsE2ETest extends BaseTest {
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
                 localDateTime, 1250, "Smartwatches", "/smartwatches/apple/"));
         //price is the same as before and date is different
-        productService.addProductsAsync(products);
+        productService.addProductsAsync(products, addProductsContext);
 
         //
         ClickButtonByText(driver, "Search");
@@ -259,26 +259,26 @@ public class ProductsE2ETest extends BaseTest {
         productService.addProductsAsync(Collections.singletonList(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
                 "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
-                localDateTime, 1209, "Smartwatches", "/smartwatches/apple/")));
+                localDateTime, 1209, "Smartwatches", "/smartwatches/apple/")), addProductsContext);
 
 
         //-1 should be skipped and not affect a price
         productService.addProductsAsync(Collections.singletonList(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
                 "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
-                localDateTime.plusSeconds(50), -1, "Smartwatches", "/smartwatches/apple/")));
+                localDateTime.plusSeconds(50), -1, "Smartwatches", "/smartwatches/apple/")), addProductsContext);
 
         //-1 null/empty be skipped and not affect a price
         productService.addProductsAsync(Collections.singletonList(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
                 "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
-                localDateTime.plusSeconds(50), null, "Smartwatches", "/smartwatches/apple/")));
+                localDateTime.plusSeconds(50), null, "Smartwatches", "/smartwatches/apple/")), addProductsContext);
 
         //-1 null/empty be skipped and not affect a price
         productService.addProductsAsync(Collections.singletonList(getProductMap("Apple Watch 5", "Apple Shop", new String[]{"Apple", "Smartwatch"},
                 "https://www.appleshop.com/smartwatches/apple/smartwatch-apple-watch-5-black",
                 "https://www.apple.com/newsroom/images/product/watch/standard/Apple_watch_series_5-gold-aluminum-case-pomegranate-band-and-space-gray-aluminum-case-pine-green-band-091019_big.jpg.large_2x.jpg",
-                localDateTime.plusSeconds(50), "", "Smartwatches", "/smartwatches/apple/")));
+                localDateTime.plusSeconds(50), "", "Smartwatches", "/smartwatches/apple/")), addProductsContext);
 
         productService.createBestOffers();
         super.GoToAnotherViewInApp(driver, "Best Offers");
