@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @PermitAll
 public class EnglishLanguageLearningController {
-    private final JsonLogger log = JsonLogger.getLogger(getClass());
+    private final JsonLogger log = JsonLogger.getLogger(getClass(), "my-tools-app");
     private final TranslationRecordService translationRecordService;
     private final ExampleOfUsageService exampleOfUsageService;
     private final TextToSpeechService textToSpeechService;

@@ -25,7 +25,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class QRLoginView extends AbstractPageView {
-    private final JsonLogger log = JsonLogger.getLogger(getClass());
+    private final JsonLogger log = JsonLogger.getLogger(getClass(), "my-tools-app");
 
     private final QRLoginService qrLoginService;
     private final Dialog dialog;

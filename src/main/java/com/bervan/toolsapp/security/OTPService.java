@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class OTPService {
     public static final int CODE_LENGTH = 8;
     private static final long OTP_VALIDITY_DURATION = 300_000;
-    private final JsonLogger log = JsonLogger.getLogger(getClass());
+    private final JsonLogger log = JsonLogger.getLogger(getClass(), "my-tools-app");
     private final SecureRandom random = new SecureRandom();
     private final Map<String, UUID> otpStorage = new ConcurrentHashMap<>();
     private final Map<String, Long> otpExpiry = new ConcurrentHashMap<>();

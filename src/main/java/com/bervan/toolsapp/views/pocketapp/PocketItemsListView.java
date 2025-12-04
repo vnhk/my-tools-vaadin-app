@@ -33,7 +33,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import java.util.*;
 
 public class PocketItemsListView extends AbstractPageView {
-    private final JsonLogger log = JsonLogger.getLogger(getClass());
+    private final JsonLogger log = JsonLogger.getLogger(getClass(), "my-tools-app");
     private final PocketService pocketService;
     private final BervanViewConfig bervanViewConfig;
     private final PocketItemService pocketItemService;

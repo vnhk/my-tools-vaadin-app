@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @RestController
 @PermitAll
 public class PocketController {
-    private final JsonLogger log = JsonLogger.getLogger(getClass());
+    private final JsonLogger log = JsonLogger.getLogger(getClass(), "my-tools-app");
     private final PocketItemService pocketItemService;
     private final PocketService pocketService;
 

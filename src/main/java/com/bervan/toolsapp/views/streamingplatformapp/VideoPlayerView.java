@@ -26,7 +26,7 @@ import java.util.UUID;
 @Route(value = AbstractVideoPlayerView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed({"USER", "STREAMING"})
 public class VideoPlayerView extends AbstractVideoPlayerView {
-    private final JsonLogger log = JsonLogger.getLogger(getClass());
+    private final JsonLogger log = JsonLogger.getLogger(getClass(), "my-tools-app");
     private final VideoManager videoManager;
     private final WordService wordService;
     private final FileServiceManager fileServiceManager;

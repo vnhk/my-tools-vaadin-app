@@ -30,7 +30,7 @@ import static com.bervan.toolsapp.security.OTPService.CODE_LENGTH;
 @PageTitle("Login")
 @PermitAll
 public class LoginView extends AbstractPageView {
-    private final JsonLogger log = JsonLogger.getLogger(getClass());
+    private final JsonLogger log = JsonLogger.getLogger(getClass(), "my-tools-app");
 
     private final AuthenticationManager authenticationManager;
 

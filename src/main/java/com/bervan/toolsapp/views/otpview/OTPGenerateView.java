@@ -19,7 +19,7 @@ import static com.bervan.toolsapp.views.otpview.OTPGenerateView.ROUTE_NAME;
 @RolesAllowed("USER")
 public class OTPGenerateView extends AbstractPageView {
     public static final String ROUTE_NAME = "generate-otp";
-    private final JsonLogger log = JsonLogger.getLogger(getClass());
+    private final JsonLogger log = JsonLogger.getLogger(getClass(), "my-tools-app");
     private final OTPService otpService;
     private final H3 otpLabel;
 
