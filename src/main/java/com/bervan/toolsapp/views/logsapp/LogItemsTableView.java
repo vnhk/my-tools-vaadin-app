@@ -9,6 +9,7 @@ import com.bervan.common.search.model.Operator;
 import com.bervan.common.search.model.SearchOperation;
 import com.bervan.common.user.UserRepository;
 import com.bervan.common.view.AbstractBervanTableView;
+import com.bervan.logging.JsonLogger;
 import com.bervan.logging.LogEntity;
 import com.bervan.logging.LogService;
 import com.bervan.toolsapp.views.MainLayout;
@@ -30,6 +31,7 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
     public static final String ROUTE_NAME = "logs-app/all-logs";
     private final LogService logService;
     private final UserRepository userRepository;
+    private final JsonLogger log = JsonLogger.getLogger(getClass(), "my-tools-app");
     private final HorizontalLayout buttonsWithDateFilters = new HorizontalLayout();
     private String appName = "";
     private ComboBox<String> logSelector;
@@ -39,6 +41,7 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
             filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
                     .get("FROM").setValue(LocalDateTime.now().minusHours(1));
         } catch (NoSuchFieldException e) {
+            log.error("Error searching last 1h logs", e);
             throw new RuntimeException(e);
         }
         showLastPage = true;
