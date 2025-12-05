@@ -15,7 +15,7 @@ import java.util.List;
 import static java.time.Duration.ofSeconds;
 
 public class BervanTableCommon {
-    private static final JsonLogger log = JsonLogger.getLogger(BervanTableCommon.class);
+    private static final JsonLogger log = JsonLogger.getLogger(BervanTableCommon.class, "test");
 
     public static Integer GetItemsInTable(ChromeDriver driver) {
         var pageInfo = driver.findElement(By.xpath("//span[@class='table-pageable-details']"));
