@@ -17,8 +17,8 @@ import static java.time.Duration.ofSeconds;
 public class BervanTableCommon {
     private static final JsonLogger log = JsonLogger.getLogger(BervanTableCommon.class, "test");
 
-    public static Integer GetItemsInTable(ChromeDriver driver) {
-        var pageInfo = driver.findElement(By.xpath("//span[@class='table-pageable-details']"));
+    public static Integer GetItemsInTable(ChromeDriver driver) throws InterruptedException {
+        var pageInfo = driver.findElement(By.xpath("//span[@class='table-pageable-details table-info-text']"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", pageInfo);
         return Integer.parseInt(pageInfo.getText().split(",")[0].replace("Items: ", "").trim());
     }
@@ -49,7 +49,7 @@ public class BervanTableCommon {
         Thread.sleep(100);
 
         int index = rowIndex * totalColumns + colIndex;
-        List<WebElement> allCells = driver.findElements(By.cssSelector("vaadin-grid .bervan-cell-component"));
+        List<WebElement> allCells = driver.findElements(By.cssSelector("vaadin-grid vaadin-grid-cell-content"));
 
         if (index >= allCells.size()) {
             throw new RuntimeException("Cell index out of bounds");
@@ -66,7 +66,7 @@ public class BervanTableCommon {
         Thread.sleep(100);
 
         int index = rowIndex * totalColumns + colIndex;
-        List<WebElement> allCells = driver.findElements(By.cssSelector("vaadin-grid .bervan-cell-component"));
+        List<WebElement> allCells = driver.findElements(By.cssSelector("vaadin-grid vaadin-grid-cell-content"));
 
         if (index >= allCells.size()) {
             throw new RuntimeException("Cell index out of bounds");
@@ -81,7 +81,7 @@ public class BervanTableCommon {
         driver.executeScript("document.querySelector('vaadin-grid').scrollToIndex(arguments[0])", rowIndex);
         Thread.sleep(500);
         int index = rowIndex * totalColumns + colIndex;
-        List<WebElement> allCells = driver.findElements(By.cssSelector("vaadin-grid .bervan-cell-component"));
+        List<WebElement> allCells = driver.findElements(By.cssSelector("vaadin-grid vaadin-grid-cell-content"));
 
         if (index >= allCells.size()) {
             throw new RuntimeException("Cell index out of bounds");

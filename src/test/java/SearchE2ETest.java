@@ -57,7 +57,6 @@ public class SearchE2ETest extends BaseTest {
         entity.setLineNumber(lineNumber);
         entity.setMethodName(exampleMethodName);
 
-        entity.addOwner(commonUser.get());
         return entity;
     }
 

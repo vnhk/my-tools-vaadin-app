@@ -42,6 +42,19 @@ public class LogsE2ETest extends BaseTest {
     private WebDriverWait webDriverWait;
     private Optional<User> commonUser;
 
+    private static @NotNull LogEntity getLogEntity(Optional<User> commonUser, String applicationName, String logLevel, String exampleLogMessage, LocalDateTime timestamp, String className, int lineNumber, String exampleMethodName) {
+        LogEntity entity = new LogEntity();
+        entity.setApplicationName(applicationName);
+        entity.setLogLevel(logLevel);
+        entity.setMessage(exampleLogMessage);
+        entity.setTimestamp(timestamp);
+        entity.setClassName(className);
+        entity.setLineNumber(lineNumber);
+        entity.setMethodName(exampleMethodName);
+
+        return entity;
+    }
+
     @Test
     @Order(0)
     public void setup() throws InterruptedException {
@@ -84,20 +97,6 @@ public class LogsE2ETest extends BaseTest {
 
         super.Login(driver);
         super.GoToApp(driver, "Logs");
-    }
-
-    private static @NotNull LogEntity getLogEntity(Optional<User> commonUser, String applicationName, String logLevel, String exampleLogMessage, LocalDateTime timestamp, String className, int lineNumber, String exampleMethodName) {
-        LogEntity entity = new LogEntity();
-        entity.setApplicationName(applicationName);
-        entity.setLogLevel(logLevel);
-        entity.setMessage(exampleLogMessage);
-        entity.setTimestamp(timestamp);
-        entity.setClassName(className);
-        entity.setLineNumber(lineNumber);
-        entity.setMethodName(exampleMethodName);
-
-        entity.addOwner(commonUser.get());
-        return entity;
     }
 
     @Test
