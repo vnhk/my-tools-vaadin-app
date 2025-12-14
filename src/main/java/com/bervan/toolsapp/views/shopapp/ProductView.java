@@ -1,11 +1,9 @@
 package com.bervan.toolsapp.views.shopapp;
 
 import com.bervan.common.config.BervanViewConfig;
-import com.bervan.common.user.UserRepository;
-import com.bervan.shstat.service.ProductBasedOnDateAttributesService;
-import com.bervan.shstat.service.ProductSearchService;
-import com.bervan.shstat.service.ProductService;
 import com.bervan.shstat.repository.ProductRepository;
+import com.bervan.shstat.service.ProductBasedOnDateAttributesService;
+import com.bervan.shstat.service.ProductService;
 import com.bervan.shstat.tokens.ProductSimilarOffersService;
 import com.bervan.shstat.view.AbstractProductView;
 import com.bervan.shstat.view.ProductViewService;
@@ -18,14 +16,11 @@ import jakarta.annotation.security.RolesAllowed;
 public class ProductView extends AbstractProductView {
 
     public ProductView(ProductViewService productViewService,
-                       ProductSearchService productSearchService,
                        ProductRepository productRepository,
-                      
-                       UserRepository userRepository,
                        ProductService productService,
                        ProductBasedOnDateAttributesService productBasedOnDateAttributesService,
                        ProductSimilarOffersService productSimilarOffersService, BervanViewConfig bervanViewConfi) {
-        super(productViewService, productSearchService, userRepository, productService,
+        super(productViewService, productService,
                 productSimilarOffersService, productRepository, productBasedOnDateAttributesService, bervanViewConfi);
     }
 }
