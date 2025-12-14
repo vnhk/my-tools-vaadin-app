@@ -1,6 +1,6 @@
 package com.bervan.toolsapp.views.interview;
 
-import com.bervan.common.model.PersistableTableData;
+import com.bervan.common.model.PersistableTableOwnedData;
 import com.bervan.common.service.BaseService;
 import com.bervan.interviewapp.view.AbstractImportExportView;
 import com.bervan.toolsapp.views.MainLayout;
@@ -14,7 +14,7 @@ import java.util.UUID;
 @RolesAllowed("USER")
 public class ImportExportInterviewDataView extends AbstractImportExportView {
 
-    public ImportExportInterviewDataView(List<BaseService<UUID, ? extends PersistableTableData<?>>> dataServices) {
+    public ImportExportInterviewDataView(List<BaseService<UUID, ? extends PersistableTableOwnedData<?>>> dataServices) {
         super(dataServices);
     }
 }
