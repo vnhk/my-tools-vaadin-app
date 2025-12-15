@@ -142,7 +142,6 @@ public class ProductsE2ETest extends BaseTest {
         LocalDate localDate = LocalDate.now();
         scrapAudit.setDate(localDate);
         scrapAudit.setProductConfig(productConfigRepository.findAll().get(0));
-        scrapAudit.addOwner(commonUser.get());
         scrapAuditService.save(scrapAudit);
 
         super.GoToAnotherViewInApp(driver, "Scrap Audit");
