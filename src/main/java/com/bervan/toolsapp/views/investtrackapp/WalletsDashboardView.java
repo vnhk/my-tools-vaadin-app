@@ -3,7 +3,7 @@ package com.bervan.toolsapp.views.investtrackapp;
 import com.bervan.investments.recommendation.InvestmentRecommendationService;
 import com.bervan.investtrack.service.CurrencyConverter;
 import com.bervan.investtrack.service.WalletService;
-import com.bervan.investtrack.service.recommendations.RecommendationStrategy;
+import com.bervan.investtrack.service.recommendations.ShortTermRecommendationStrategy;
 import com.bervan.investtrack.view.dashboards.AbstractWalletsDashboardView;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.router.Route;
@@ -15,7 +15,7 @@ import java.util.Map;
 @RolesAllowed("USER")
 public class WalletsDashboardView extends AbstractWalletsDashboardView {
 
-    public WalletsDashboardView(CurrencyConverter currencyConverter, WalletService walletService, Map<String, RecommendationStrategy> strategies, InvestmentRecommendationService recommendationService) {
+    public WalletsDashboardView(CurrencyConverter currencyConverter, WalletService walletService, Map<String, ShortTermRecommendationStrategy> strategies, InvestmentRecommendationService recommendationService) {
         super(currencyConverter, walletService, strategies, recommendationService);
     }
 }
