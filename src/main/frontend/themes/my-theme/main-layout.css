@@ -113,8 +113,6 @@
     cursor: pointer;
     display: inline-block;
     min-width: 280px;
-    width: 280px;
-    height: 350px;
     border-radius: 12px;
     overflow: hidden;
     background: white;
