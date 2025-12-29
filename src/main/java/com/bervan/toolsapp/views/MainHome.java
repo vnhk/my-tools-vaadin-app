@@ -16,7 +16,7 @@ import com.bervan.toolsapp.views.pocketapp.PocketTableView;
 import com.bervan.toolsapp.views.projectmgmtapp.ProjectListView;
 import com.bervan.toolsapp.views.shopapp.ProductsView;
 import com.bervan.toolsapp.views.spreadsheetapp.SpreadsheetsView;
-import com.bervan.toolsapp.views.streamingplatformapp.VideoListView;
+import com.bervan.toolsapp.views.streamingplatformapp.ProductionListView;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
@@ -84,7 +84,7 @@ public class MainHome extends AbstractHomePageView {
                             SpreadsheetsView.ROUTE_NAME,
                             WalletsDashboardView.ROUTE_NAME,
                             CanvasPagesView.ROUTE_NAME,
-                            VideoListView.ROUTE_NAME,
+                            ProductionListView.ROUTE_NAME,
                             ProductsView.ROUTE_NAME,
                             LogItemsTableView.ROUTE_NAME,
                             AsyncTaskListView.ROUTE_NAME,
@@ -96,7 +96,7 @@ public class MainHome extends AbstractHomePageView {
                     List.of("Streaming", "Settings"),
                     List.of("Manage video content.", "Configure streaming settings."),
                     List.of(VaadinIcon.FILE_MOVIE.create(), VaadinIcon.COG.create()),
-                    List.of(VideoListView.ROUTE_NAME, SettingsView.ROUTE_NAME)
+                    List.of(ProductionListView.ROUTE_NAME, SettingsView.ROUTE_NAME)
             ));
         }
     }

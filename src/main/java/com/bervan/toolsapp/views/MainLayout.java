@@ -22,7 +22,7 @@ import com.bervan.toolsapp.views.pocketapp.PocketTableView;
 import com.bervan.toolsapp.views.projectmgmtapp.ProjectListView;
 import com.bervan.toolsapp.views.shopapp.ProductsView;
 import com.bervan.toolsapp.views.spreadsheetapp.SpreadsheetsView;
-import com.bervan.toolsapp.views.streamingplatformapp.VideoListView;
+import com.bervan.toolsapp.views.streamingplatformapp.ProductionListView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -195,7 +195,7 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Spreadsheets", "las la-file-excel", SpreadsheetsView.class), //
                     new MenuItemInfo("Investments", "la la-money", WalletsDashboardView.class), //
                     new MenuItemInfo("Notepad", "las la-chalkboard", CanvasPagesView.class), //
-                    new MenuItemInfo("Streaming", "las la-video", VideoListView.class), //
+                    new MenuItemInfo("Streaming", "las la-video", ProductionListView.class), //
                     new MenuItemInfo("Shopping", "la la-shopping-cart", ProductsView.class), //
                     new MenuItemInfo("Logs", "la la-database", LogItemsTableView.class), //
                     new MenuItemInfo("Async Tasks", "las la-wind", AsyncTaskListView.class), //
@@ -205,7 +205,7 @@ public class MainLayout extends AppLayout {
         } else if (AuthService.getUserRole().equals("ROLE_STREAMING")) {
             return new MenuItemInfo[]{ //
                     new MenuItemInfo("Home", "la la-home", MainHome.class), //
-                    new MenuItemInfo("Streaming", "las la-video", VideoListView.class), //
+                    new MenuItemInfo("Streaming", "las la-video", ProductionListView.class), //
                     new MenuItemInfo("Settings", "las la-cog", SettingsView.class), //
             };
         } else {

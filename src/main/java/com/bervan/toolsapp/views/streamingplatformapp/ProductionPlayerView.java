@@ -11,7 +11,8 @@ import com.bervan.filestorage.view.UploadComponent;
 import com.bervan.languageapp.service.AddFlashcardService;
 import com.bervan.logging.JsonLogger;
 import com.bervan.streamingapp.VideoManager;
-import com.bervan.streamingapp.view.AbstractVideoPlayerView;
+import com.bervan.streamingapp.conifg.ProductionData;
+import com.bervan.streamingapp.view.AbstractProductionPlayerView;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.BeforeEvent;
@@ -20,12 +21,13 @@ import jakarta.annotation.security.RolesAllowed;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-@Route(value = AbstractVideoPlayerView.ROUTE_NAME, layout = MainLayout.class)
+@Route(value = AbstractProductionPlayerView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed({"USER", "STREAMING"})
-public class VideoPlayerView extends AbstractVideoPlayerView {
+public class ProductionPlayerView extends AbstractProductionPlayerView {
     private final JsonLogger log = JsonLogger.getLogger(getClass(), "my-tools-app");
     private final VideoManager videoManager;
     private final WordService wordService;
@@ -33,8 +35,8 @@ public class VideoPlayerView extends AbstractVideoPlayerView {
     private final AddFlashcardService addAsFlashcardService;
     private final BervanViewConfig bervanViewConfig;
 
-    public VideoPlayerView(VideoManager videoManager, WordService wordService, FileServiceManager fileServiceManager, AddFlashcardService addAsFlashcardService, BervanViewConfig bervanViewConfig) {
-        super(videoManager);
+    public ProductionPlayerView(VideoManager videoManager, WordService wordService, FileServiceManager fileServiceManager, AddFlashcardService addAsFlashcardService, BervanViewConfig bervanViewConfig, Map<String, ProductionData> streamingProductionData) {
+        super(videoManager, streamingProductionData);
         this.videoManager = videoManager;
         this.fileServiceManager = fileServiceManager;
         this.addAsFlashcardService = addAsFlashcardService;
