@@ -11,7 +11,7 @@ import com.bervan.filestorage.view.UploadComponent;
 import com.bervan.languageapp.service.AddFlashcardService;
 import com.bervan.logging.JsonLogger;
 import com.bervan.streamingapp.VideoManager;
-import com.bervan.streamingapp.conifg.ProductionData;
+import com.bervan.streamingapp.config.ProductionData;
 import com.bervan.streamingapp.view.AbstractProductionPlayerView;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.component.UI;

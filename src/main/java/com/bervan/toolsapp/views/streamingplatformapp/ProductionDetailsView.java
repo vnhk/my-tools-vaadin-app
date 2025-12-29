@@ -1,7 +1,7 @@
 package com.bervan.toolsapp.views.streamingplatformapp;
 
 import com.bervan.streamingapp.VideoManager;
-import com.bervan.streamingapp.conifg.ProductionData;
+import com.bervan.streamingapp.config.ProductionData;
 import com.bervan.streamingapp.view.AbstractProductionDetailsView;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.router.Route;
