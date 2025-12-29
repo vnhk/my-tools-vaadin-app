@@ -108,6 +108,29 @@
     }
 }
 
+.modern-movie-tile {
+    margin: 0 15px 0 0;
+    cursor: pointer;
+    display: inline-block;
+    min-width: 280px;
+    width: 280px;
+    height: 350px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform: translateY(0);
+    border: 1px solid rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+
+.modern-movie-tile:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+
 .dashboard-card-value {
     background-color: var(--card-hover-background);
     color: var(--home-text-color);
