@@ -131,6 +131,24 @@
 }
 
 
+.modern-movie-title {
+    text-align: center;
+    margin: 15px 10px 5px 10px;
+    padding: 0 10px;
+    color: var(--streaming-title-color, #333);
+    font-size: 0.95rem;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap: break-word;
+    line-height: 1.3;
+    max-height: 2.6em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
 .dashboard-card-value {
     background-color: var(--card-hover-background);
     color: var(--home-text-color);
