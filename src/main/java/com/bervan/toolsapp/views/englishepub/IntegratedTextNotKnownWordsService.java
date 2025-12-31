@@ -23,7 +23,7 @@ public class IntegratedTextNotKnownWordsService extends TextNotKnownWordsService
                                               KnownWordRepository knownWordRepository,
                                               SearchService searchService,
                                               
-                                              @Value("${file.service.storage.folder}") String pathToFileStorage) {
+                                              @Value("${file.service.storage.folder.main}") String pathToFileStorage) {
         super(extractedEbookTextRepository, knownWordRepository, searchService,  pathToFileStorage);
         this.translationRecordService = translationRecordService;
     }
