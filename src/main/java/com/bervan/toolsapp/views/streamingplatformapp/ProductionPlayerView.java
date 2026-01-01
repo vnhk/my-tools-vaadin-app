@@ -15,7 +15,6 @@ import com.bervan.streamingapp.config.ProductionData;
 import com.bervan.streamingapp.view.AbstractProductionPlayerView;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
@@ -23,11 +22,13 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 
 @Route(value = AbstractProductionPlayerView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed({"USER", "STREAMING"})
 public class ProductionPlayerView extends AbstractProductionPlayerView {
+    private static final String ROLE_USER = "ROLE_USER";
+    private static final String SUBTITLES_KEY = "SUBTITLES";
+
     private final JsonLogger log = JsonLogger.getLogger(getClass(), "my-tools-app");
     private final VideoManager videoManager;
     private final WordService wordService;
@@ -35,7 +36,12 @@ public class ProductionPlayerView extends AbstractProductionPlayerView {
     private final AddFlashcardService addAsFlashcardService;
     private final BervanViewConfig bervanViewConfig;
 
-    public ProductionPlayerView(VideoManager videoManager, WordService wordService, FileServiceManager fileServiceManager, AddFlashcardService addAsFlashcardService, BervanViewConfig bervanViewConfig, Map<String, ProductionData> streamingProductionData) {
+    public ProductionPlayerView(VideoManager videoManager,
+                                WordService wordService,
+                                FileServiceManager fileServiceManager,
+                                AddFlashcardService addAsFlashcardService,
+                                BervanViewConfig bervanViewConfig,
+                                Map<String, ProductionData> streamingProductionData) {
         super(videoManager, streamingProductionData);
         this.videoManager = videoManager;
         this.fileServiceManager = fileServiceManager;
@@ -45,49 +51,112 @@ public class ProductionPlayerView extends AbstractProductionPlayerView {
     }
 
     @Override
-    public void setParameter(BeforeEvent event, String s) {
-        super.setParameter(event, s);
-
-        String videoId = event.getRouteParameters().get("___url_parameter").orElse(UUID.randomUUID().toString());
-        List<Metadata> metadata = videoManager.loadById(videoId);
-
-        if (metadata.size() != 1) {
-            log.error("Could not find file based on provided id!");
-            return;
+    protected void addCustomNavigationButtons(String videoId, Metadata video) {
+        if (isUserRole()) {
+            addSubtitleUploadButton(video);
         }
+    }
 
-        if (AuthService.getUserRole().equals("ROLE_USER")) {
-            topLayout.add(new BervanButton("Upload subtitles", (e) -> {
-                UploadComponent uploadComponent = new UploadComponent(fileServiceManager, metadata.get(0).getPath()) {
-                    @Override
-                    protected void postSaveActions() {
-                        showSuccessNotification("Subtitles uploaded successfully!");
-                        UI.getCurrent().refreshCurrentRoute(true);
-                    }
-                };
-                uploadComponent.setSupportedFiles(".srt", ".vtt");
-                uploadComponent.open();
-            }, BervanButtonStyle.WARNING));
+    @Override
+    protected void addCustomComponents(String videoId, Metadata video) {
+        if (isUserRole()) {
+            addEnglishLearningComponent(videoId, video);
         }
+    }
 
+    private boolean isUserRole() {
+        return ROLE_USER.equals(AuthService.getUserRole());
+    }
 
-        Metadata videoFolder = videoManager.getVideoFolder(metadata.get(0));
-        List<Metadata> subtitles = videoManager.loadVideoDirectoryContent(videoFolder).get("SUBTITLES");
-        if (subtitles == null) {
-            log.error("Could not find subtitles based on provided video id!");
-            return;
+    /**
+     * Adds button to upload subtitle files
+     */
+    private void addSubtitleUploadButton(Metadata video) {
+        BervanButton uploadButton = new BervanButton(
+                "Upload subtitles",
+                e -> openSubtitleUploadDialog(video),
+                BervanButtonStyle.WARNING
+        );
+        navigationBar.add(uploadButton);
+    }
+
+    /**
+     * Opens dialog for uploading subtitle files (.srt, .vtt)
+     */
+    private void openSubtitleUploadDialog(Metadata video) {
+        UploadComponent uploadComponent = new UploadComponent(
+                fileServiceManager,
+                video.getPath()
+        ) {
+            @Override
+            protected void postSaveActions() {
+                showSuccessNotification("Subtitles uploaded successfully!");
+                refreshPage();
+            }
+        };
+        uploadComponent.setSupportedFiles(".srt", ".vtt");
+        uploadComponent.open();
+    }
+
+    private void refreshPage() {
+        UI.getCurrent().refreshCurrentRoute(true);
+    }
+
+    /**
+     * Adds component showing English words from subtitles that haven't been learned yet
+     */
+    private void addEnglishLearningComponent(String videoId, Metadata video) {
+        try {
+            Optional<String> subtitlePath = findEnglishSubtitlePath(video);
+
+            if (subtitlePath.isEmpty()) {
+                log.warn("English subtitles not available for video: " + videoId);
+                return;
+            }
+
+            EnglishInVideoNotLearned learningComponent = new EnglishInVideoNotLearned(
+                    wordService,
+                    addAsFlashcardService,
+                    subtitlePath.get(),
+                    bervanViewConfig
+            );
+
+            add(learningComponent);
+
+        } catch (Exception e) {
+            log.error("Failed to add English learning component for video: " + videoId, e);
+            showErrorNotification("Could not load English learning features");
         }
+    }
 
-        Optional<Metadata> enSubtitle = videoManager.getSubtitle(VideoManager.EN, subtitles);
+    /**
+     * Finds the path to English subtitle file for the given video
+     */
+    private Optional<String> findEnglishSubtitlePath(Metadata video) {
+        try {
+            Metadata videoFolder = videoManager.getVideoFolder(video);
+            Map<String, List<Metadata>> directoryContent = videoManager.loadVideoDirectoryContent(videoFolder);
+            List<Metadata> subtitles = directoryContent.get(SUBTITLES_KEY);
 
-        if (enSubtitle.isEmpty()) {
-            log.error("Could not find english subtitles based on provided video id!");
-            return;
-        }
+            if (subtitles == null || subtitles.isEmpty()) {
+                log.info("No subtitles found for video");
+                return Optional.empty();
+            }
 
-        if (AuthService.getUserRole().equals("ROLE_USER")) {
-            add(new EnglishInVideoNotLearned(wordService, addAsFlashcardService,
-                    enSubtitle.get().getPath() + File.separator + enSubtitle.get().getFilename(), bervanViewConfig));
+            Optional<Metadata> enSubtitle = videoManager.getSubtitle(VideoManager.EN, subtitles);
+
+            if (enSubtitle.isEmpty()) {
+                log.info("English subtitle not found");
+                return Optional.empty();
+            }
+
+            Metadata subtitle = enSubtitle.get();
+            String path = subtitle.getPath() + File.separator + subtitle.getFilename();
+            return Optional.of(path);
+
+        } catch (Exception e) {
+            log.error("Error finding English subtitle path", e);
+            return Optional.empty();
         }
     }
 }
