@@ -19,7 +19,6 @@ import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -27,7 +26,6 @@ import java.util.Optional;
 @RolesAllowed({"USER", "STREAMING"})
 public class ProductionPlayerView extends AbstractProductionPlayerView {
     private static final String ROLE_USER = "ROLE_USER";
-    private static final String SUBTITLES_KEY = "SUBTITLES";
 
     private final JsonLogger log = JsonLogger.getLogger(getClass(), "my-tools-app");
     private final VideoManager videoManager;
@@ -135,23 +133,21 @@ public class ProductionPlayerView extends AbstractProductionPlayerView {
     private Optional<String> findEnglishSubtitlePath(Metadata video) {
         try {
             Metadata videoFolder = videoManager.getVideoFolder(video);
-            Map<String, List<Metadata>> directoryContent = videoManager.loadVideoDirectoryContent(videoFolder);
-            List<Metadata> subtitles = directoryContent.get(SUBTITLES_KEY);
+            Map<String, Metadata> subtitlesByVideoId = videoManager.findSubtitlesByVideoId(videoFolder.getId().toString(), streamingProductionData);
 
-            if (subtitles == null || subtitles.isEmpty()) {
+
+            if (subtitlesByVideoId == null) {
                 log.info("No subtitles found for video");
                 return Optional.empty();
             }
 
-            Optional<Metadata> enSubtitle = videoManager.getSubtitle(VideoManager.EN, subtitles);
-
-            if (enSubtitle.isEmpty()) {
+            Metadata enSubtitle = subtitlesByVideoId.get(VideoManager.EN);
+            if (enSubtitle == null) {
                 log.info("English subtitle not found");
                 return Optional.empty();
             }
 
-            Metadata subtitle = enSubtitle.get();
-            String path = subtitle.getPath() + File.separator + subtitle.getFilename();
+            String path = enSubtitle.getPath() + File.separator + enSubtitle.getFilename();
             return Optional.of(path);
 
         } catch (Exception e) {
