@@ -12,7 +12,7 @@ import com.bervan.languageapp.service.AddFlashcardService;
 import com.bervan.logging.JsonLogger;
 import com.bervan.streamingapp.VideoManager;
 import com.bervan.streamingapp.config.ProductionData;
-import com.bervan.streamingapp.view.AbstractProductionPlayerView;
+import com.bervan.streamingapp.view.player.AbstractProductionPlayerView;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.Route;
@@ -133,7 +133,7 @@ public class ProductionPlayerView extends AbstractProductionPlayerView {
     private Optional<String> findEnglishSubtitlePath(Metadata video) {
         try {
             Metadata videoFolder = videoManager.getVideoFolder(video);
-            Map<String, Metadata> subtitlesByVideoId = videoManager.findSubtitlesByVideoId(videoFolder.getId().toString(), streamingProductionData);
+            Map<String, Metadata> subtitlesByVideoId = videoManager.findMp4SubtitlesByVideoId(videoFolder.getId().toString(), streamingProductionData);
 
 
             if (subtitlesByVideoId == null) {
