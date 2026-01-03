@@ -48,35 +48,35 @@ public class ProductionPlayerView extends AbstractProductionPlayerView {
         this.bervanViewConfig = bervanViewConfig;
     }
 
-    @Override
-    protected void addCustomNavigationButtons(String videoId, Metadata video) {
-        if (isUserRole()) {
-            addSubtitleUploadButton(video);
-        }
-    }
+//    @Override
+//    protected void addCustomNavigationButtons(String videoId, Metadata video) {
+//        if (isUserRole()) {
+//            addSubtitleUploadButton(video);
+//        }
+//    }
 
-    @Override
-    protected void addCustomComponents(String videoId, Metadata video) {
-        if (isUserRole()) {
-            addEnglishLearningComponent(videoId, video);
-        }
-    }
-
-    private boolean isUserRole() {
-        return ROLE_USER.equals(AuthService.getUserRole());
-    }
-
-    /**
-     * Adds button to upload subtitle files
-     */
-    private void addSubtitleUploadButton(Metadata video) {
-        BervanButton uploadButton = new BervanButton(
-                "Upload subtitles",
-                e -> openSubtitleUploadDialog(video),
-                BervanButtonStyle.WARNING
-        );
-        navigationBar.add(uploadButton);
-    }
+//    @Override
+//    protected void addCustomComponents(String videoId, Metadata video) {
+//        if (isUserRole()) {
+//            addEnglishLearningComponent(videoId, video);
+//        }
+//    }
+//
+//    private boolean isUserRole() {
+//        return ROLE_USER.equals(AuthService.getUserRole());
+//    }
+//
+//    /**
+//     * Adds button to upload subtitle files
+//     */
+//    private void addSubtitleUploadButton(Metadata video) {
+//        BervanButton uploadButton = new BervanButton(
+//                "Upload subtitles",
+//                e -> openSubtitleUploadDialog(video),
+//                BervanButtonStyle.WARNING
+//        );
+//        navigationBar.add(uploadButton);
+//    }
 
     /**
      * Opens dialog for uploading subtitle files (.srt, .vtt)
@@ -99,60 +99,60 @@ public class ProductionPlayerView extends AbstractProductionPlayerView {
     private void refreshPage() {
         UI.getCurrent().refreshCurrentRoute(true);
     }
+//
+//    /**
+//     * Adds component showing English words from subtitles that haven't been learned yet
+//     */
+//    private void addEnglishLearningComponent(String videoId, Metadata video) {
+//        try {
+//            Optional<String> subtitlePath = findEnglishSubtitlePath(video);
+//
+//            if (subtitlePath.isEmpty()) {
+//                log.warn("English subtitles not available for video: " + videoId);
+//                return;
+//            }
+//
+//            EnglishInVideoNotLearned learningComponent = new EnglishInVideoNotLearned(
+//                    wordService,
+//                    addAsFlashcardService,
+//                    subtitlePath.get(),
+//                    bervanViewConfig
+//            );
+//
+//            add(learningComponent);
+//
+//        } catch (Exception e) {
+//            log.error("Failed to add English learning component for video: " + videoId, e);
+//            showErrorNotification("Could not load English learning features");
+//        }
+//    }
 
-    /**
-     * Adds component showing English words from subtitles that haven't been learned yet
-     */
-    private void addEnglishLearningComponent(String videoId, Metadata video) {
-        try {
-            Optional<String> subtitlePath = findEnglishSubtitlePath(video);
-
-            if (subtitlePath.isEmpty()) {
-                log.warn("English subtitles not available for video: " + videoId);
-                return;
-            }
-
-            EnglishInVideoNotLearned learningComponent = new EnglishInVideoNotLearned(
-                    wordService,
-                    addAsFlashcardService,
-                    subtitlePath.get(),
-                    bervanViewConfig
-            );
-
-            add(learningComponent);
-
-        } catch (Exception e) {
-            log.error("Failed to add English learning component for video: " + videoId, e);
-            showErrorNotification("Could not load English learning features");
-        }
-    }
-
-    /**
-     * Finds the path to English subtitle file for the given video
-     */
-    private Optional<String> findEnglishSubtitlePath(Metadata video) {
-        try {
-            Metadata videoFolder = videoManager.getVideoFolder(video);
-            Map<String, Metadata> subtitlesByVideoId = videoManager.findMp4SubtitlesByVideoId(videoFolder.getId().toString(), streamingProductionData);
-
-
-            if (subtitlesByVideoId == null) {
-                log.info("No subtitles found for video");
-                return Optional.empty();
-            }
-
-            Metadata enSubtitle = subtitlesByVideoId.get(VideoManager.EN);
-            if (enSubtitle == null) {
-                log.info("English subtitle not found");
-                return Optional.empty();
-            }
-
-            String path = enSubtitle.getPath() + File.separator + enSubtitle.getFilename();
-            return Optional.of(path);
-
-        } catch (Exception e) {
-            log.error("Error finding English subtitle path", e);
-            return Optional.empty();
-        }
-    }
+//    /**
+//     * Finds the path to English subtitle file for the given video
+//     */
+//    private Optional<String> findEnglishSubtitlePath(Metadata video) {
+//        try {
+//            Metadata videoFolder = videoManager.getVideoFolder(video);
+//            Map<String, Metadata> subtitlesByVideoId = videoManager.findMp4SubtitlesByVideoId(videoFolder.getId().toString(), streamingProductionData);
+//
+//
+//            if (subtitlesByVideoId == null) {
+//                log.info("No subtitles found for video");
+//                return Optional.empty();
+//            }
+//
+//            Metadata enSubtitle = subtitlesByVideoId.get(VideoManager.EN);
+//            if (enSubtitle == null) {
+//                log.info("English subtitle not found");
+//                return Optional.empty();
+//            }
+//
+//            String path = enSubtitle.getPath() + File.separator + enSubtitle.getFilename();
+//            return Optional.of(path);
+//
+//        } catch (Exception e) {
+//            log.error("Error finding English subtitle path", e);
+//            return Optional.empty();
+//        }
+//    }
 }
