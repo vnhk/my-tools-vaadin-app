@@ -1,9 +1,6 @@
 package com.bervan.toolsapp.views.streamingplatformapp;
 
-import com.bervan.common.component.BervanButton;
-import com.bervan.common.component.BervanButtonStyle;
 import com.bervan.common.config.BervanViewConfig;
-import com.bervan.common.service.AuthService;
 import com.bervan.englishtextstats.service.WordService;
 import com.bervan.filestorage.model.Metadata;
 import com.bervan.filestorage.service.FileServiceManager;
@@ -18,9 +15,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
-import java.io.File;
 import java.util.Map;
-import java.util.Optional;
 
 @Route(value = AbstractProductionPlayerView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed({"USER", "STREAMING"})
