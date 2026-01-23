@@ -18,4 +18,10 @@ public class WalletsDashboardView extends AbstractWalletsDashboardView {
     public WalletsDashboardView(CurrencyConverter currencyConverter, WalletService walletService, Map<String, ShortTermRecommendationStrategy> strategies, InvestmentRecommendationService recommendationService) {
         super(currencyConverter, walletService, strategies, recommendationService);
     }
+
+    public static MainLayout.MenuItemInfo[] subMenu() {
+        return new MainLayout.MenuItemInfo[]{new MainLayout.MenuItemInfo("Wallets", "", WalletsView.class),
+                new MainLayout.MenuItemInfo("Recommendations", "", ReportRecommendationsView.class),
+                new MainLayout.MenuItemInfo("Alerts", "", StockAlertViewStock.class)};
+    }
 }

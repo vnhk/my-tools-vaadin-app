@@ -193,7 +193,7 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Project Management", "la la-project-diagram", ProjectListView.class), //
                     new MenuItemInfo("File Storage", "la la-cloud-upload", FileStorageView.class), //
                     new MenuItemInfo("Spreadsheets", "las la-file-excel", SpreadsheetsView.class), //
-                    new MenuItemInfo("Investments", "la la-money", WalletsDashboardView.class), //
+                    new MenuItemInfo("Budget", "la la-money", WalletsDashboardView.class, WalletsDashboardView.subMenu()), //
                     new MenuItemInfo("Notepad", "las la-chalkboard", CanvasPagesView.class), //
                     new MenuItemInfo("Streaming", "las la-video", ProductionListView.class), //
                     new MenuItemInfo("Shopping", "la la-shopping-cart", ProductsView.class), //
@@ -243,39 +243,47 @@ public class MainLayout extends AppLayout {
 
         private final Class<? extends Component> view;
 
-        public MenuItemInfo(String menuTitle, String iconClass, Class<? extends Component> view, boolean visible) {
-            this(menuTitle, iconClass, view);
-            this.setVisible(visible);
-
+        public MenuItemInfo(String title, String icon, Class<? extends Component> view, boolean visible, MenuItemInfo... children) {
+            this(title, icon, view, children);
+            setVisible(visible);
         }
 
-        public MenuItemInfo(String menuTitle, String iconClass, Class<? extends Component> view) {
+        public MenuItemInfo(String title, String icon, Class<? extends Component> view, MenuItemInfo... children) {
             this.view = view;
+
             RouterLink link = new RouterLink();
             link.addClassNames("menu-item-link");
             link.setRoute(view);
 
-            Span text = new Span(menuTitle);
+            Span text = new Span(title);
             text.addClassNames("menu-item-text");
 
-            link.add(new LineAwesomeIcon(iconClass), text);
+            link.add(new LineAwesomeIcon(icon), text);
             add(link);
-            addClickListener(listItemClickEvent -> hideMenu());
-        }
 
-        public Class<?> getView() {
-            return view;
-        }
+            // SUBMENU
+            if (children != null && children.length > 0) {
+                UnorderedList subList = new UnorderedList();
+                subList.addClassName("submenu");
 
-        @NpmPackage(value = "line-awesome", version = "1.3.0")
-        public static class LineAwesomeIcon extends Span {
-            public LineAwesomeIcon(String lineAwesomeClassnames) {
-                addClassNames("menu-item-icon");
-                if (!lineAwesomeClassnames.isEmpty()) {
-                    addClassNames(lineAwesomeClassnames);
+                for (MenuItemInfo child : children) {
+                    subList.add(child);
                 }
+                add(subList);
+            }
+
+            addClickListener(e -> hideMenu());
+        }
+    }
+
+    @NpmPackage(value = "line-awesome", version = "1.3.0")
+    public static class LineAwesomeIcon extends Span {
+        public LineAwesomeIcon(String lineAwesomeClassnames) {
+            addClassNames("menu-item-icon");
+            if (!lineAwesomeClassnames.isEmpty()) {
+                addClassNames(lineAwesomeClassnames);
             }
         }
-
     }
 }
+
