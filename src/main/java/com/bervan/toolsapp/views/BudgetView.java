@@ -6,7 +6,7 @@ import com.bervan.common.config.BervanViewConfig;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
-@Route(value = "/budget", layout = MainLayout.class)
+@Route(value = AbstractBudgetView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
 public class BudgetView extends AbstractBudgetView {
     public BudgetView(BudgetService service, BervanViewConfig bervanViewConfig) {

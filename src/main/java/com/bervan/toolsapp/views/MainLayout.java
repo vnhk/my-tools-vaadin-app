@@ -11,7 +11,7 @@ import com.bervan.toolsapp.views.canvasapp.CanvasPagesView;
 import com.bervan.toolsapp.views.englishepub.NotLearnedWordsView;
 import com.bervan.toolsapp.views.filestorage.FileStorageView;
 import com.bervan.toolsapp.views.interview.InterviewHomeView;
-import com.bervan.toolsapp.views.investtrackapp.WalletsDashboardView;
+import com.bervan.toolsapp.views.investtrackapp.BudgetDashboardView;
 import com.bervan.toolsapp.views.learninglanguage.en.EnglishLearningAppHomeView;
 import com.bervan.toolsapp.views.learninglanguage.es.SpanishLearningAppHomeView;
 import com.bervan.toolsapp.views.logsapp.LogItemsTableView;
@@ -193,7 +193,7 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Project Management", "la la-project-diagram", ProjectListView.class), //
                     new MenuItemInfo("File Storage", "la la-cloud-upload", FileStorageView.class), //
                     new MenuItemInfo("Spreadsheets", "las la-file-excel", SpreadsheetsView.class), //
-                    new MenuItemInfo("Budget", "la la-money", WalletsDashboardView.class, WalletsDashboardView.subMenu()), //
+                    new MenuItemInfo("Budget", "la la-money", BudgetDashboardView.class, BudgetDashboardView.subMenu()), //
                     new MenuItemInfo("Notepad", "las la-chalkboard", CanvasPagesView.class), //
                     new MenuItemInfo("Streaming", "las la-video", ProductionListView.class), //
                     new MenuItemInfo("Shopping", "la la-shopping-cart", ProductsView.class), //

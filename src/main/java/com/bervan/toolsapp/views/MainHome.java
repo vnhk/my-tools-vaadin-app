@@ -7,7 +7,7 @@ import com.bervan.toolsapp.views.canvasapp.CanvasPagesView;
 import com.bervan.toolsapp.views.englishepub.NotLearnedWordsView;
 import com.bervan.toolsapp.views.filestorage.FileStorageView;
 import com.bervan.toolsapp.views.interview.InterviewHomeView;
-import com.bervan.toolsapp.views.investtrackapp.WalletsDashboardView;
+import com.bervan.toolsapp.views.investtrackapp.BudgetDashboardView;
 import com.bervan.toolsapp.views.learninglanguage.en.EnglishLearningAppHomeView;
 import com.bervan.toolsapp.views.learninglanguage.es.SpanishLearningAppHomeView;
 import com.bervan.toolsapp.views.logsapp.LogItemsTableView;
@@ -82,7 +82,7 @@ public class MainHome extends AbstractHomePageView {
                             ProjectListView.ROUTE_NAME,
                             FileStorageView.ROUTE_NAME,
                             SpreadsheetsView.ROUTE_NAME,
-                            WalletsDashboardView.ROUTE_NAME,
+                            BudgetDashboardView.ROUTE_NAME,
                             CanvasPagesView.ROUTE_NAME,
                             ProductionListView.ROUTE_NAME,
                             ProductsView.ROUTE_NAME,

@@ -6,6 +6,23 @@
     justify-content: center;
 }
 
+.submenu {
+    color: white;
+    margin-left: 10px;
+}
+
+vaadin-grid-tree-toggle::part(toggle) {
+    color: #888;
+}
+
+vaadin-grid-tree-toggle[expanded]::part(toggle) {
+    color: green;
+}
+
+vaadin-grid-tree-toggle:hover::part(toggle) {
+    color: blue;
+}
+
 .json-log-viewer-pre {
     font-family: "Fira Code", monospace;
     font-size: 14px;

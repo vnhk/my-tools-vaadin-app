@@ -9,8 +9,8 @@ import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = AbstractWalletsView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
-public class WalletsView extends AbstractWalletsView {
-    public WalletsView(WalletService service, BervanViewConfig bervanViewConfig) {
+public class InvestmentWalletsView extends AbstractWalletsView {
+    public InvestmentWalletsView(WalletService service, BervanViewConfig bervanViewConfig) {
         super(service, bervanViewConfig);
     }
 }
