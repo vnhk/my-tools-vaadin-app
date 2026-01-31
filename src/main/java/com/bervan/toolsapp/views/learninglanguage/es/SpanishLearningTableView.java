@@ -1,6 +1,8 @@
 package com.bervan.toolsapp.views.learninglanguage.es;
 
+import com.bervan.asynctask.AsyncTaskService;
 import com.bervan.common.config.BervanViewConfig;
+import com.bervan.common.search.SearchService;
 import com.bervan.languageapp.service.ExampleOfUsageService;
 import com.bervan.languageapp.service.TextToSpeechService;
 import com.bervan.languageapp.service.TranslationRecordService;
@@ -15,8 +17,14 @@ import jakarta.annotation.security.RolesAllowed;
 public class SpanishLearningTableView extends AbstractSpanishLearningTableView {
 
     public SpanishLearningTableView(TranslationRecordService translatorRecordService,
-                                    ExampleOfUsageService exampleOfUsageService, TextToSpeechService textToSpeechService, TranslatorService translatorService, BervanViewConfig bervanViewConfig) {
-        super(translatorRecordService, exampleOfUsageService, textToSpeechService, translatorService, bervanViewConfig);
+                                    ExampleOfUsageService exampleOfUsageService,
+                                    TextToSpeechService textToSpeechService,
+                                    TranslatorService translatorService,
+                                    SearchService searchService,
+                                    AsyncTaskService asyncTaskService,
+                                    BervanViewConfig bervanViewConfig) {
+        super(translatorRecordService, exampleOfUsageService, textToSpeechService, translatorService,
+                searchService, asyncTaskService, bervanViewConfig);
     }
 
 }

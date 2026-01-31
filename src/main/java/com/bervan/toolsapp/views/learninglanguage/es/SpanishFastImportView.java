@@ -11,8 +11,8 @@ import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
-@Route(value = AbstractSpanishFastImportView.ROUTE_NAME, layout = MainLayout.class)
-@RolesAllowed("USER")
+//@Route(value = AbstractSpanishFastImportView.ROUTE_NAME, layout = MainLayout.class)
+//@RolesAllowed("USER")
 public class SpanishFastImportView extends AbstractSpanishFastImportView {
 
     public SpanishFastImportView(TranslationRecordService translationRecordService, TextToSpeechService textToSpeechService, SearchService searchService, ExampleOfUsageService exampleOfUsageService, TranslatorService translatorService, AsyncTaskService asyncTaskService) {
