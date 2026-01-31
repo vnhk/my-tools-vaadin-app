@@ -75,7 +75,7 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
         });
 
         renderCommonComponents();
-        addButton.setVisible(false);
+        newItemButton.setVisible(false);
 
         topLayout.add(logSelector);
         filtersLayout.removeFilterableFields("fullLog");
