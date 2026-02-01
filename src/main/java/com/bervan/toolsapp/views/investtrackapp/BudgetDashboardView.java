@@ -1,7 +1,9 @@
 package com.bervan.toolsapp.views.investtrackapp;
 
 import com.bervan.investments.recommendation.InvestmentRecommendationService;
+import com.bervan.investtrack.service.BudgetChartDataService;
 import com.bervan.investtrack.service.CurrencyConverter;
+import com.bervan.investtrack.service.InvestmentCalculationService;
 import com.bervan.investtrack.service.WalletService;
 import com.bervan.investtrack.service.recommendations.ShortTermRecommendationStrategy;
 import com.bervan.investtrack.view.dashboards.AbstractBudgetDashboardView;
@@ -16,8 +18,10 @@ import java.util.Map;
 @RolesAllowed("USER")
 public class BudgetDashboardView extends AbstractBudgetDashboardView {
 
-    public BudgetDashboardView(CurrencyConverter currencyConverter, WalletService walletService, Map<String, ShortTermRecommendationStrategy> strategies, InvestmentRecommendationService recommendationService) {
-        super(currencyConverter, walletService, strategies, recommendationService);
+    public BudgetDashboardView(CurrencyConverter currencyConverter, WalletService walletService,
+                               Map<String, ShortTermRecommendationStrategy> strategies, InvestmentRecommendationService recommendationService,
+                               InvestmentCalculationService calculationService, BudgetChartDataService budgetChartDataService) {
+        super(currencyConverter, walletService, strategies, recommendationService, calculationService, budgetChartDataService);
     }
 
     public static MainLayout.MenuItemInfo[] subMenu() {
