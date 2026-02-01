@@ -1469,3 +1469,281 @@ vaadin-confirm-dialog-overlay::part(content) {
     --vaadin-input-field-border-color: rgba(255, 255, 255, 0.08);
     --vaadin-input-field-hover-border-color: rgba(255, 255, 255, 0.25);
 }
+
+/* ===== Glassmorphism Variables ===== */
+:root {
+    --glass-bg: rgba(17, 25, 40, 0.75);
+    --glass-bg-light: rgba(255, 255, 255, 0.1);
+    --glass-blur: 16px;
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+    --glass-primary: #6366f1;
+    --glass-accent: #22d3ee;
+    --glass-success: #10b981;
+    --glass-danger: #ef4444;
+    --glass-warning: #f59e0b;
+}
+
+/* ===== Budget Tree Glassmorphism ===== */
+.budget-tree-container {
+    background: linear-gradient(135deg, rgba(30, 27, 75, 0.9) 0%, rgba(49, 46, 129, 0.8) 50%, rgba(30, 58, 95, 0.9) 100%);
+    border-radius: 16px;
+    padding: 16px;
+    min-height: 80vh;
+}
+
+.budget-tree-toolbar {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.budget-tree-toolbar .glass-btn {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 8px 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.budget-tree-toolbar .glass-btn:hover:not([disabled]) {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.budget-tree-toolbar .glass-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.budget-tree-toolbar .glass-btn.warning {
+    background: rgba(249, 115, 22, 0.3);
+    border-color: rgba(249, 115, 22, 0.5);
+}
+
+.budget-tree-toolbar .glass-btn.warning:hover:not([disabled]) {
+    background: rgba(249, 115, 22, 0.5);
+}
+
+.budget-tree-toolbar .glass-btn.danger {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: rgba(239, 68, 68, 0.5);
+}
+
+.budget-tree-toolbar .glass-btn.danger:hover:not([disabled]) {
+    background: rgba(239, 68, 68, 0.5);
+}
+
+.budget-tree-grid {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+.budget-tree-grid::part(header-cell) {
+    background: rgba(30, 41, 59, 0.9) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    border-bottom: 1px solid var(--glass-border) !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+.budget-tree-grid::part(row) {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    transition: background 0.2s ease;
+}
+
+.budget-tree-grid::part(row):hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.budget-tree-grid::part(cell) {
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    border-right: none !important;
+}
+
+/* ===== Pocket Menu Glassmorphism ===== */
+.pocket-items-layout {
+    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    padding: 8px;
+}
+
+.pocket-items-layout::-webkit-scrollbar {
+    display: none;
+}
+
+.pocket-tile-in-menu {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 12px !important;
+    padding: 16px;
+    margin-bottom: 12px;
+    width: 100%;
+    max-height: 120px;
+    min-height: 100px;
+    color: rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: var(--glass-shadow);
+}
+
+.pocket-tile-in-menu:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    border-color: var(--glass-primary) !important;
+}
+
+.pocket-tile-in-menu h4 {
+    color: rgba(255, 255, 255, 0.95) !important;
+    margin: 0 0 8px 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.pocket-tile-in-menu-transparent {
+    background: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.pocket-tile-in-menu-transparent:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Pocket side menu container */
+.side-menu {
+    background: linear-gradient(180deg, rgba(17, 25, 40, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-left: 1px solid var(--glass-border);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== Logs App Glassmorphism Buttons ===== */
+.logs-toolbar {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.glass-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 8px !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    padding: 8px 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.glass-btn:hover:not([disabled]) {
+    background: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.glass-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.glass-btn.primary {
+    background: rgba(99, 102, 241, 0.4) !important;
+    border-color: rgba(99, 102, 241, 0.6) !important;
+}
+
+.glass-btn.primary:hover:not([disabled]) {
+    background: rgba(99, 102, 241, 0.6) !important;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+.glass-btn.success {
+    background: rgba(16, 185, 129, 0.3) !important;
+    border-color: rgba(16, 185, 129, 0.5) !important;
+}
+
+.glass-btn.success:hover:not([disabled]) {
+    background: rgba(16, 185, 129, 0.5) !important;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.glass-btn.warning {
+    background: rgba(245, 158, 11, 0.3) !important;
+    border-color: rgba(245, 158, 11, 0.5) !important;
+}
+
+.glass-btn.warning:hover:not([disabled]) {
+    background: rgba(245, 158, 11, 0.5) !important;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+}
+
+.glass-btn.danger {
+    background: rgba(239, 68, 68, 0.3) !important;
+    border-color: rgba(239, 68, 68, 0.5) !important;
+}
+
+.glass-btn.danger:hover:not([disabled]) {
+    background: rgba(239, 68, 68, 0.5) !important;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+}
+
+/* Glass container for any view */
+.glass-container {
+    background: linear-gradient(135deg, rgba(30, 27, 75, 0.9) 0%, rgba(49, 46, 129, 0.8) 50%, rgba(30, 58, 95, 0.9) 100%);
+    border-radius: 16px;
+    padding: 20px;
+    min-height: 80vh;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--glass-shadow);
+    padding: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}

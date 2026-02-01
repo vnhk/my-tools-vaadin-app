@@ -110,10 +110,13 @@ public class PocketItemsListView extends AbstractPageView {
         div.setWidth(getWidthInPx() - 80 + "px");
 
         Button info = new BervanButton(VaadinIcon.INFO_CIRCLE.create());
+        info.addClassName("glass-btn");
+        info.addClassName("primary");
         info.addClickListener(event -> {
             Dialog dialog = new Dialog();
             dialog.setWidth("80vw");
             dialog.setHeight("90vh");
+            dialog.addClassName("glass-card");
 
             VerticalLayout dialogLayout = new VerticalLayout();
 
@@ -124,7 +127,8 @@ public class PocketItemsListView extends AbstractPageView {
             HorizontalLayout buttonLayout = new HorizontalLayout();
 
             Button deleteButton = new BervanButton(VaadinIcon.TRASH.create());
-            deleteButton.addClassName("option-button-warning");
+            deleteButton.addClassName("glass-btn");
+            deleteButton.addClassName("danger");
             deleteButton.addClickListener(buttonClickEvent -> {
                 pocketItemService.delete(pocketItem);
                 reloadItems();
@@ -133,6 +137,8 @@ public class PocketItemsListView extends AbstractPageView {
 
             VerticalLayout fieldLayout = new VerticalLayout(wysiwygTextArea);
             Button editButton = new BervanButton(VaadinIcon.EDIT.create());
+            editButton.addClassName("glass-btn");
+            editButton.addClassName("success");
             editButton.addClickListener(buttonClickEvent -> {
                 try {
                     wysiwygTextArea.validate();

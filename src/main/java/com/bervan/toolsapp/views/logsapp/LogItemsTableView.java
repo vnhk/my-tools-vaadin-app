@@ -88,7 +88,9 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
     }
 
     private void createFilterButtons() {
-        buttonsWithDateFilters.add(new BervanButton("Last 5m", click -> {
+        buttonsWithDateFilters.addClassName("logs-toolbar");
+
+        BervanButton last5m = new BervanButton("Last 5m", click -> {
             try {
                 filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
                         .get("FROM").setValue(LocalDateTime.now().minusMinutes(5));
@@ -97,9 +99,11 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
             }
             showLastPage = true;
             super.refreshTable.click();
-        }));
+        });
+        last5m.addClassName("glass-btn");
+        buttonsWithDateFilters.add(last5m);
 
-        buttonsWithDateFilters.add(new BervanButton("Last 10m", click -> {
+        BervanButton last10m = new BervanButton("Last 10m", click -> {
             try {
                 filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
                         .get("FROM").setValue(LocalDateTime.now().minusMinutes(10));
@@ -108,9 +112,11 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
             }
             showLastPage = true;
             super.refreshTable.click();
-        }));
+        });
+        last10m.addClassName("glass-btn");
+        buttonsWithDateFilters.add(last10m);
 
-        buttonsWithDateFilters.add(new BervanButton("Last 30m", click -> {
+        BervanButton last30m = new BervanButton("Last 30m", click -> {
             try {
                 filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
                         .get("FROM").setValue(LocalDateTime.now().minusMinutes(30));
@@ -119,10 +125,15 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
             }
             showLastPage = true;
             super.refreshTable.click();
-        }));
+        });
+        last30m.addClassName("glass-btn");
+        buttonsWithDateFilters.add(last30m);
+
+        defaultLastHour1Button.addClassName("glass-btn");
+        defaultLastHour1Button.addClassName("primary");
         buttonsWithDateFilters.add(defaultLastHour1Button);
 
-        buttonsWithDateFilters.add(new BervanButton("Last 2h", click -> {
+        BervanButton last2h = new BervanButton("Last 2h", click -> {
             try {
                 filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
                         .get("FROM").setValue(LocalDateTime.now().minusHours(2));
@@ -131,9 +142,11 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
             }
             showLastPage = true;
             super.refreshTable.click();
-        }));
+        });
+        last2h.addClassName("glass-btn");
+        buttonsWithDateFilters.add(last2h);
 
-        buttonsWithDateFilters.add(new BervanButton("Last 6h", click -> {
+        BervanButton last6h = new BervanButton("Last 6h", click -> {
             try {
                 filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
                         .get("FROM").setValue(LocalDateTime.now().minusHours(6));
@@ -142,9 +155,11 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
             }
             showLastPage = true;
             super.refreshTable.click();
-        }));
+        });
+        last6h.addClassName("glass-btn");
+        buttonsWithDateFilters.add(last6h);
 
-        buttonsWithDateFilters.add(new BervanButton("Last 24h", click -> {
+        BervanButton last24h = new BervanButton("Last 24h", click -> {
             try {
                 filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
                         .get("FROM").setValue(LocalDateTime.now().minusHours(24));
@@ -153,9 +168,11 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
             }
             showLastPage = true;
             super.refreshTable.click();
-        }));
+        });
+        last24h.addClassName("glass-btn");
+        buttonsWithDateFilters.add(last24h);
 
-        buttonsWithDateFilters.add(new BervanButton("Last 3d", click -> {
+        BervanButton last3d = new BervanButton("Last 3d", click -> {
             try {
                 filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
                         .get("FROM").setValue(LocalDateTime.now().minusHours(24 * 3));
@@ -164,9 +181,11 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
             }
             showLastPage = true;
             super.refreshTable.click();
-        }));
+        });
+        last3d.addClassName("glass-btn");
+        buttonsWithDateFilters.add(last3d);
 
-        buttonsWithDateFilters.add(new BervanButton("Last 7d (max)", click -> {
+        BervanButton last7d = new BervanButton("Last 7d (max)", click -> {
             try {
                 filtersLayout.getDateTimeFiltersMap().get(LogEntity.class.getDeclaredField("timestamp"))
                         .get("FROM").setValue(LocalDateTime.now().minusHours(24 * 7));
@@ -175,7 +194,9 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
             }
             showLastPage = true;
             super.refreshTable.click();
-        }));
+        });
+        last7d.addClassName("glass-btn");
+        buttonsWithDateFilters.add(last7d);
     }
 
     @Override
