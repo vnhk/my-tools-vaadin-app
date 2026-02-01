@@ -913,56 +913,78 @@ vaadin-grid::part(cell) {
     text-decoration: none;
 }
 
-.menu-container, .view-header {
-    background: var(--menu-navigation-container-background-color);
-    border-radius: 12px;
-    padding: 6px 12px;
+/* ===== Navigation Container - Transparent to blend with page ===== */
+.menu-container {
+    background: transparent;
+    border-radius: 0;
+    padding: 8px 16px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.view-header {
+    background: transparent;
+    padding: 0;
     display: flex;
     gap: 8px;
 }
 
+/* ===== Navigation Button - Pill Style ===== */
 .navigation-button {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 6px;
-    background-color: transparent;
+    gap: 8px;
+    background: transparent;
     color: var(--navigation-button-color);
     font-weight: 500;
-    border-radius: 8px;
-    padding: 8px 14px;
-    transition: all 0.2s ease-in-out;
+    font-size: 0.9rem;
+    border-radius: 9999px; /* Full pill shape */
+    padding: 10px 18px;
+    transition: all 0.2s ease-out;
+    border: none;
+    cursor: pointer;
+    position: relative;
 }
 
 .navigation-button > vaadin-icon {
     color: var(--lumo-primary-color) !important;
+    width: 18px;
+    height: 18px;
 }
 
 .navigation-button:hover {
-    background-color: var(--navigation-button-hover-background-color);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+.navigation-button:active {
+    transform: scale(0.98);
+}
+
+/* ===== Selected Button - Glassmorphism Pill ===== */
+.selected-route-button {
+    background: rgba(99, 102, 241, 0.9); /* Primary with slight transparency */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+.selected-route-button:hover {
+    background: rgba(129, 140, 248, 0.95);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
     transform: translateY(-2px);
 }
 
-.selected-route-button {
-    background: var(--selected-route-button-background-gradient);
-    color: var(--selected-route-button-color);
-    font-weight: bold;
-    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
-}
-
 .selected-route-button > vaadin-icon {
-    color: var(--navigation-button-color) !important;
+    color: white !important;
 }
 
-/* Animation underline */
+/* Remove the underline - not needed for pill style */
 .selected-route-button::after {
-    content: "";
-    position: absolute;
-    bottom: -4px;
-    left: 15%;
-    width: 70%;
-    height: 3px;
-    background-color: var(--selected-route-button-after-background);
-    border-radius: 2px;
+    display: none;
 }
 
 vaadin-confirm-dialog-overlay::part(content) {

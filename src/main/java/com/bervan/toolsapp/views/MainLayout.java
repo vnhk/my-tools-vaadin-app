@@ -232,6 +232,25 @@ public class MainLayout extends AppLayout {
         super.afterNavigation();
         setDrawerOpened(false);
         viewTitle.setText(getCurrentPageTitle());
+
+        // Clear navigation buttons only if the new page doesn't have MenuNavigationComponent
+        // Pages with MenuNavigationComponent handle cleanup themselves in their init()
+        Component content = getContent();
+        boolean hasMenuNavigation = hasMenuNavigationComponent(content);
+
+        if (!hasMenuNavigation) {
+            UI.getCurrent().getPage().executeJs(
+                "document.querySelectorAll('navigation-buttons').forEach(el => el.remove());"
+            );
+        }
+    }
+
+    private boolean hasMenuNavigationComponent(Component component) {
+        if (component == null) return false;
+        if (component instanceof com.bervan.common.MenuNavigationComponent) return true;
+
+        // Check children recursively
+        return component.getChildren().anyMatch(this::hasMenuNavigationComponent);
     }
 
     private String getCurrentPageTitle() {

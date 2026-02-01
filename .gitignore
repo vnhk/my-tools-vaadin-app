@@ -29,3 +29,4 @@ package-lock.json
 /src/main/bundles/dev.bundle
 /src/main/frontend/generated/
 /configuration/configuration.json
+/CLAUDE.md
