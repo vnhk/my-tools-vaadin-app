@@ -8,6 +8,48 @@
 
 /* submenu styles moved to drawer section below */
 
+/* ===== Global Custom Scrollbar Styles ===== */
+/* Webkit browsers (Chrome, Safari, Edge) */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+    width: 10px !important;
+    height: 10px !important;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track {
+    background: var(--scrollbar-track, rgba(0, 0, 0, 0.1)) !important;
+    border-radius: 5px !important;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb, rgba(128, 128, 128, 0.5)) !important;
+    border-radius: 5px !important;
+    min-height: 40px;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover, rgba(128, 128, 128, 0.7)) !important;
+}
+
+html::-webkit-scrollbar-corner,
+body::-webkit-scrollbar-corner,
+*::-webkit-scrollbar-corner {
+    background: var(--scrollbar-track, rgba(0, 0, 0, 0.1)) !important;
+}
+
+/* Firefox */
+html, body {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb, rgba(128, 128, 128, 0.5)) var(--scrollbar-track, rgba(0, 0, 0, 0.1));
+}
+
 vaadin-grid-tree-toggle::part(toggle) {
     color: #888;
 }

@@ -314,4 +314,18 @@ html {
     --glass-nav-selected-hover: rgba(8, 145, 178, 0.95);
     --glass-nav-selected-glow: 0 4px 20px rgba(0, 212, 255, 0.5);
     --glass-nav-selected-glow-hover: 0 6px 25px rgba(0, 212, 255, 0.6);
+
+    /* ===== Scrollbar - Ocean (Electric Cyan) ===== */
+    --scrollbar-width: 10px;
+    --scrollbar-border-radius: 5px;
+    --scrollbar-track: rgba(2, 6, 23, 0.6);
+    --scrollbar-thumb: rgba(0, 212, 255, 0.5);
+    --scrollbar-thumb-hover: rgba(0, 212, 255, 0.75);
 }
+
+/* Ocean Scrollbar Styles */
+::-webkit-scrollbar { width: 10px !important; height: 10px !important; }
+::-webkit-scrollbar-track { background: rgba(2, 6, 23, 0.6) !important; border-radius: 5px !important; }
+::-webkit-scrollbar-thumb { background: rgba(0, 212, 255, 0.5) !important; border-radius: 5px !important; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0, 212, 255, 0.75) !important; }
+::-webkit-scrollbar-corner { background: rgba(2, 6, 23, 0.6) !important; }

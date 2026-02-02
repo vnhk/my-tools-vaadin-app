@@ -282,4 +282,18 @@ html {
     --glass-nav-selected-hover: rgba(90, 149, 245, 0.95);
     --glass-nav-selected-glow: 0 4px 15px rgba(53, 116, 240, 0.4);
     --glass-nav-selected-glow-hover: 0 6px 20px rgba(53, 116, 240, 0.5);
+
+    /* ===== Scrollbar - IntelliJ (JetBrains Blue) ===== */
+    --scrollbar-width: 10px;
+    --scrollbar-border-radius: 5px;
+    --scrollbar-track: rgba(30, 31, 34, 0.7);
+    --scrollbar-thumb: rgba(53, 116, 240, 0.45);
+    --scrollbar-thumb-hover: rgba(53, 116, 240, 0.7);
 }
+
+/* IntelliJ Scrollbar Styles */
+::-webkit-scrollbar { width: 10px !important; height: 10px !important; }
+::-webkit-scrollbar-track { background: rgba(30, 31, 34, 0.7) !important; border-radius: 5px !important; }
+::-webkit-scrollbar-thumb { background: rgba(53, 116, 240, 0.45) !important; border-radius: 5px !important; }
+::-webkit-scrollbar-thumb:hover { background: rgba(53, 116, 240, 0.7) !important; }
+::-webkit-scrollbar-corner { background: rgba(30, 31, 34, 0.7) !important; }

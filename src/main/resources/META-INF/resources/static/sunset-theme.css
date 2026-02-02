@@ -314,4 +314,18 @@ html {
     --glass-nav-selected-hover: linear-gradient(135deg, rgba(236, 72, 153, 0.95), rgba(217, 119, 6, 0.95));
     --glass-nav-selected-glow: 0 4px 20px rgba(255, 107, 157, 0.5);
     --glass-nav-selected-glow-hover: 0 6px 25px rgba(245, 158, 11, 0.5);
+
+    /* ===== Scrollbar - Sunset (Pink/Golden) ===== */
+    --scrollbar-width: 10px;
+    --scrollbar-border-radius: 5px;
+    --scrollbar-track: rgba(13, 1, 24, 0.6);
+    --scrollbar-thumb: rgba(255, 107, 157, 0.55);
+    --scrollbar-thumb-hover: rgba(245, 158, 11, 0.75);
 }
+
+/* Sunset Scrollbar Styles */
+::-webkit-scrollbar { width: 10px !important; height: 10px !important; }
+::-webkit-scrollbar-track { background: rgba(13, 1, 24, 0.6) !important; border-radius: 5px !important; }
+::-webkit-scrollbar-thumb { background: rgba(255, 107, 157, 0.55) !important; border-radius: 5px !important; }
+::-webkit-scrollbar-thumb:hover { background: rgba(245, 158, 11, 0.75) !important; }
+::-webkit-scrollbar-corner { background: rgba(13, 1, 24, 0.6) !important; }

@@ -173,4 +173,18 @@ html {
     --glass-nav-selected-hover: rgba(120, 105, 88, 0.95);
     --glass-nav-selected-glow: 0 4px 15px rgba(106, 93, 77, 0.45);
     --glass-nav-selected-glow-hover: 0 6px 20px rgba(106, 93, 77, 0.55);
+
+    /* ===== Scrollbar - Earth (Earthy Brown) ===== */
+    --scrollbar-width: 10px;
+    --scrollbar-border-radius: 5px;
+    --scrollbar-track: rgba(44, 39, 35, 0.6);
+    --scrollbar-thumb: rgba(106, 93, 77, 0.55);
+    --scrollbar-thumb-hover: rgba(106, 93, 77, 0.8);
 }
+
+/* Earth Scrollbar Styles */
+::-webkit-scrollbar { width: 10px !important; height: 10px !important; }
+::-webkit-scrollbar-track { background: rgba(44, 39, 35, 0.6) !important; border-radius: 5px !important; }
+::-webkit-scrollbar-thumb { background: rgba(106, 93, 77, 0.55) !important; border-radius: 5px !important; }
+::-webkit-scrollbar-thumb:hover { background: rgba(106, 93, 77, 0.8) !important; }
+::-webkit-scrollbar-corner { background: rgba(44, 39, 35, 0.6) !important; }

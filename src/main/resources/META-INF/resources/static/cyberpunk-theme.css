@@ -314,4 +314,18 @@ html {
     --glass-nav-selected-hover: rgba(255, 50, 150, 0.95);
     --glass-nav-selected-glow: 0 4px 15px rgba(255, 0, 128, 0.5);
     --glass-nav-selected-glow-hover: 0 6px 20px rgba(255, 0, 128, 0.6);
+
+    /* ===== Scrollbar - Cyberpunk (Neon Cyan) ===== */
+    --scrollbar-width: 10px;
+    --scrollbar-border-radius: 5px;
+    --scrollbar-track: rgba(10, 10, 15, 0.8);
+    --scrollbar-thumb: rgba(0, 255, 255, 0.5);
+    --scrollbar-thumb-hover: rgba(255, 0, 128, 0.7);
 }
+
+/* Cyberpunk Scrollbar Styles */
+::-webkit-scrollbar { width: 10px !important; height: 10px !important; }
+::-webkit-scrollbar-track { background: rgba(10, 10, 15, 0.8) !important; border-radius: 5px !important; }
+::-webkit-scrollbar-thumb { background: rgba(0, 255, 255, 0.5) !important; border-radius: 5px !important; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 0, 128, 0.7) !important; }
+::-webkit-scrollbar-corner { background: rgba(10, 10, 15, 0.8) !important; }
