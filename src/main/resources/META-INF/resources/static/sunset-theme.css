@@ -1,168 +1,168 @@
 html {
-    /* Sunset Glow Theme - Warm Modern Theme */
+    /* Synthwave Sunset Theme - 80s retrowave neon aesthetic */
 
     /* Primary (Accent) Colors */
     --lumo-primary-text-color: #ffffff;
-    --lumo-primary-color: #f97316; /* Orange */
-    --ql-editor-text-color: #dc2626; /* Red */
+    --lumo-primary-color: #ff6b9d; /* Hot Pink */
+    --ql-editor-text-color: #fbbf24; /* Golden */
 
     /* Secondary Colors (Backgrounds, Panels) */
-    --lumo-secondary-color: #fef3c7; /* Light Amber */
-    --lumo-secondary-rgba-color: 254, 243, 199; /* Corresponding RGBA */
-    --lumo-secondary-text-color: #92400e; /* Dark Amber */
+    --lumo-secondary-color: #1a0a2e; /* Deep Purple */
+    --lumo-secondary-rgba-color: 26, 10, 46; /* Corresponding RGBA */
+    --lumo-secondary-text-color: #f472b6; /* Pink */
 
     /* Tertiary Colors (Text, Icons) */
-    --lumo-third-text-color: #78716c; /* Warm Gray */
-    --lumo-font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --lumo-third-text-color: #fbbf24; /* Golden */
+    --lumo-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
     /* Base Background */
-    --lumo-base-color: #fffbeb; /* Warm White */
-    --lumo-base-secondary-color: #fef7ed; /* Light Orange */
+    --lumo-base-color: #0d0118; /* Very Dark Purple */
+    --lumo-base-secondary-color: #1a0a2e; /* Deep Purple */
 
     /* Menu Bar */
-    --menu-bar-color: #fed7aa; /* Peach */
+    --menu-bar-color: #1a0a2e; /* Deep Purple */
 
     /* Button Text */
-    --lumo-body-text-color: #451a03; /* Dark Brown */
+    --lumo-body-text-color: #ffffff; /* White */
 
     /* Checkbox */
-    --vaadin-checkbox-background: #fffbeb; /* Warm White */
+    --vaadin-checkbox-background: #2d1b4e; /* Purple */
 
     /* Notifications */
-    --vaadin-notification-card-bgColor-primary: #f97316; /* Orange */
-    --vaadin-notification-card-bgColor-warning: #eab308; /* Yellow */
-    --vaadin-notification-card-bgColor-error: #dc2626; /* Red */
-    --vaadin-notification-card-bgColor-success: #16a34a; /* Green */
+    --vaadin-notification-card-bgColor-primary: #ff6b9d; /* Hot Pink */
+    --vaadin-notification-card-bgColor-warning: #fbbf24; /* Golden */
+    --vaadin-notification-card-bgColor-error: #ef4444; /* Red */
+    --vaadin-notification-card-bgColor-success: #4ade80; /* Neon Green */
 
     /* Progress Bar */
-    --vaadin-progress-bar-color: #f97316; /* Orange */
+    --vaadin-progress-bar-color: #ff6b9d; /* Hot Pink */
 
     /* Tooltip */
-    --vaadin-tooltip-bgColor: #7c2d12; /* Dark Orange */
+    --vaadin-tooltip-bgColor: #1a0a2e; /* Deep Purple */
 
     /* Icons in Buttons */
     --vaadin-icon-in-button-color: #ffffff;
 
     /* Pocket Menu */
-    --pocket-menu-drawer-bgColor: #fffbeb; /* Warm White */
-    --pocket-tile-in-menu-bgColor: #fef7ed; /* Light Orange */
-    --pocket-tile-in-menu-textColor: #9a3412; /* Dark Orange */
+    --pocket-menu-drawer-bgColor: #1a0a2e; /* Deep Purple */
+    --pocket-tile-in-menu-bgColor: #2d1b4e; /* Purple */
+    --pocket-tile-in-menu-textColor: #f472b6; /* Pink */
 
     /* Input Fields */
-    --vaadin-input-field-background: #fffbeb; /* Warm White */
-    --vaadin-big-decimal-field-background: #fffbeb; /* Warm White */
-    --vaadin-input-field-label-color: #78716c; /* Warm Gray */
-    --vaadin-big-decimal-field-label-color: #78716c; /* Warm Gray */
-    --vaadin-input-field-hovered-label-color: #f97316; /* Orange */
-    --vaadin-input-field-focused-label-color: #f97316; /* Orange */
-    --vaadin-checkbox-label-color: #78716c; /* Warm Gray */
-    --vaadin-input-field-icon-color: #a3a3a3; /* Neutral Gray */
-    --vaadin-input-field-border-color: #d6d3d1; /* Stone */
+    --vaadin-input-field-background: #1a0a2e; /* Deep Purple */
+    --vaadin-big-decimal-field-background: #1a0a2e; /* Deep Purple */
+    --vaadin-input-field-label-color: #f472b6; /* Pink */
+    --vaadin-big-decimal-field-label-color: #f472b6; /* Pink */
+    --vaadin-input-field-hovered-label-color: #ff6b9d; /* Hot Pink */
+    --vaadin-input-field-focused-label-color: #ff6b9d; /* Hot Pink */
+    --vaadin-checkbox-label-color: #f472b6; /* Pink */
+    --vaadin-input-field-icon-color: #f472b6; /* Pink */
+    --vaadin-input-field-border-color: #4c1d95; /* Purple Border */
     --vaadin-input-field-border-width: 1px;
 
     /* Other Sunset Colors */
-    --movie-tile-background: rgba(249, 115, 22, 0.12);
-    --selected-cell-background: #fed7aa; /* Peach */
-    --spreadsheet-header-row-background: #f97316;
-    --spreadsheet-row-number-background: #fed7aa;
-    --spreadsheet-cell-function-background: #fef3c7;
-    --spreadsheet-cell-function-color: #92400e;
-    --spreadsheet-cell-background: #fffbeb;
-    --spreadsheet-cell-color: #451a03; /* Dark Brown */
-    --spreadsheet-header-row-color: #ffffff; /* White */
-    --spreadsheet-row-number-color: #9a3412; /* Dark Orange */
-    --menu-item-text-color: #78716c; /* Warm Gray */
-    --view-toggle-icon-color: #f97316; /* Orange */
-    --menu-selected-app-background: 249, 115, 22; /* Orange RGBA */
-    --menu-selected-app-background-opacity: 0.18;
-    --menu-selected-app-color: #9a3412; /* Dark Orange */
-    --menu-link-app-color: #78716c; /* Warm Gray */
-    --button-background-color: #f97316; /* Orange */
+    --movie-tile-background: rgba(255, 107, 157, 0.08);
+    --selected-cell-background: #7c3aed; /* Violet */
+    --spreadsheet-header-row-background: #1a0a2e;
+    --spreadsheet-row-number-background: #1a0a2e;
+    --spreadsheet-cell-function-background: #2d1b4e;
+    --spreadsheet-cell-function-color: #fbbf24;
+    --spreadsheet-cell-background: #1a0a2e;
+    --spreadsheet-cell-color: #fef3c7; /* Light Golden */
+    --spreadsheet-header-row-color: #f472b6; /* Pink */
+    --spreadsheet-row-number-color: #f472b6; /* Pink */
+    --menu-item-text-color: #f472b6; /* Pink */
+    --view-toggle-icon-color: #ff6b9d; /* Hot Pink */
+    --menu-selected-app-background: 255, 107, 157; /* Hot Pink RGBA */
+    --menu-selected-app-background-opacity: 0.2;
+    --menu-selected-app-color: #ff6b9d; /* Hot Pink */
+    --menu-link-app-color: #f472b6; /* Pink */
+    --button-background-color: #ff6b9d; /* Hot Pink */
     --button-color: #ffffff;
 
     /* Selected Route Button */
     --selected-route-button-color: #ffffff; /* White */
-    --selected-route-button-background-gradient: linear-gradient(135deg, #f97316, #dc2626); /* Orange → Red gradient */
-    --selected-route-button-after-background: #f97316; /* Orange underline */
+    --selected-route-button-background-gradient: linear-gradient(135deg, #ff6b9d, #f59e0b); /* Pink → Orange gradient */
+    --selected-route-button-after-background: #ff6b9d; /* Hot Pink underline */
 
     /* Menu container background */
-    --menu-navigation-container-background-color: #fffbeb; /* Warm White */
+    --menu-navigation-container-background-color: #1a0a2e; /* Deep Purple */
     /* Navigation button colors */
-    --navigation-button-color: #78716c; /* Warm Gray */
-    --navigation-button-hover-background-color: #fed7aa; /* Peach */
+    --navigation-button-color: #f472b6; /* Pink */
+    --navigation-button-hover-background-color: rgba(255, 107, 157, 0.2); /* Pink glow */
 
-    --vaadin-icon-hover-color: #f97316; /* Orange */
-    --vaadin-icon-color: #a3a3a3; /* Neutral Gray */
-    --drop-file-here-input-color: #78716c; /* Warm Gray */
-    --drop-file-here-icon-color: #f97316; /* Orange */
-    --processing-file-info-label-color: #78716c; /* Warm Gray */
+    --vaadin-icon-hover-color: #ff6b9d; /* Hot Pink */
+    --vaadin-icon-color: #f472b6; /* Pink */
+    --drop-file-here-input-color: #f472b6; /* Pink */
+    --drop-file-here-icon-color: #ff6b9d; /* Hot Pink */
+    --processing-file-info-label-color: #f472b6; /* Pink */
     --upload-button-text-color: #ffffff; /* White */
-    --upload-button-background: #f97316; /* Orange */
-    --vaadin-upload-file-color: #78716c; /* Warm Gray */
-    --ql-editor-content-background: #fffbeb; /* Warm White */
-    --ql-toolbar-background: #fef7ed; /* Light Orange */
-    --ql-editor-content-background-color: #fffbeb; /* Warm White */
-    --ql-editor-content-text-color: #451a03; /* Dark Brown */
+    --upload-button-background: #ff6b9d; /* Hot Pink */
+    --vaadin-upload-file-color: #f472b6; /* Pink */
+    --ql-editor-content-background: #1a0a2e; /* Deep Purple */
+    --ql-toolbar-background: #2d1b4e; /* Purple */
+    --ql-editor-content-background-color: #1a0a2e; /* Deep Purple */
+    --ql-editor-content-text-color: #fbbf24; /* Golden */
 
     /* Canvas */
     /* Layout */
-    --canvas-main-layout-background: #fef7ed; /* Light Orange */
-    --canvas-main-layout-text-color: #451a03; /* Dark Brown */
+    --canvas-main-layout-background: #0d0118; /* Very Dark Purple */
+    --canvas-main-layout-text-color: #fbbf24; /* Golden */
 
     /* Left Panel */
-    --canvas-left-panel-background: #fffbeb; /* Warm White */
-    --canvas-left-panel-text-color: #78716c; /* Warm Gray */
-    --canvas-left-panel-border-color: #e7e5e4; /* Light Stone */
+    --canvas-left-panel-background: #1a0a2e; /* Deep Purple */
+    --canvas-left-panel-text-color: #f472b6; /* Pink */
+    --canvas-left-panel-border-color: #4c1d95; /* Purple */
 
     /* Middle Panel */
-    --canvas-middle-panel-background: #fffbeb; /* Warm White */
-    --canvas-middle-panel-text-color: #78716c; /* Warm Gray */
-    --canvas-middle-panel-border-color: #e7e5e4; /* Light Stone */
+    --canvas-middle-panel-background: #1a0a2e; /* Deep Purple */
+    --canvas-middle-panel-text-color: #f472b6; /* Pink */
+    --canvas-middle-panel-border-color: #4c1d95; /* Purple */
 
     /* Main Canvas */
-    --canvas-main-canvas-background: #fffbeb; /* Warm White */
-    --canvas-main-canvas-text-color: #451a03; /* Dark Brown */
+    --canvas-main-canvas-background: #0d0118; /* Very Dark Purple */
+    --canvas-main-canvas-text-color: #fbbf24; /* Golden */
 
     /* Notebook Button */
-    --canvas-notebook-button-background: #f97316; /* Orange */
+    --canvas-notebook-button-background: #ff6b9d; /* Hot Pink */
     --canvas-notebook-button-text-color: #ffffff; /* White */
-    --canvas-notebook-button-border-color: #ea580c; /* Darker Orange */
+    --canvas-notebook-button-border-color: #f59e0b; /* Orange */
 
     /* Spreadsheet Toolbar Sunset Variables */
-    --spreadsheet-toolbar-background: linear-gradient(135deg, #fffbeb, #fef7ed);
-    --spreadsheet-toolbar-border: #d6d3d1;
-    --spreadsheet-section-border: #e7e5e4;
-    --spreadsheet-section-title-color: #78716c;
-    --spreadsheet-button-background: #fffbeb;
-    --spreadsheet-button-color: #78716c;
-    --spreadsheet-button-border: #d6d3d1;
-    --spreadsheet-button-hover-background: #fed7aa;
-    --spreadsheet-button-hover-border: #f97316;
-    --spreadsheet-button-active-background: #f97316;
+    --spreadsheet-toolbar-background: linear-gradient(135deg, #1a0a2e, #0d0118);
+    --spreadsheet-toolbar-border: #ff6b9d;
+    --spreadsheet-section-border: #4c1d95;
+    --spreadsheet-section-title-color: #f472b6;
+    --spreadsheet-button-background: #1a0a2e;
+    --spreadsheet-button-color: #f472b6;
+    --spreadsheet-button-border: #4c1d95;
+    --spreadsheet-button-hover-background: rgba(255, 107, 157, 0.2);
+    --spreadsheet-button-hover-border: #ff6b9d;
+    --spreadsheet-button-active-background: #ff6b9d;
     --spreadsheet-button-active-color: #ffffff;
-    --spreadsheet-button-glow: #f97316;
-    --spreadsheet-shadow: rgba(249, 115, 22, 0.25);
+    --spreadsheet-button-glow: #ff6b9d;
+    --spreadsheet-shadow: rgba(255, 107, 157, 0.25);
 
     --streaming-tile-background: var(--movie-tile-background);
     --streaming-tile-border: var(--vaadin-input-field-border-color);
-    --streaming-tile-shadow: rgba(249, 115, 22, 0.12);
+    --streaming-tile-shadow: rgba(255, 107, 157, 0.15);
     --streaming-tile-shadow-hover: var(--spreadsheet-shadow);
-    --streaming-overlay-background: rgba(69, 26, 3, 0.8);
+    --streaming-overlay-background: rgba(13, 1, 24, 0.9);
     --streaming-play-icon-color: var(--lumo-primary-color);
     --streaming-title-color: var(--lumo-secondary-text-color);
     --streaming-title-shadow: var(--lumo-secondary-text-color);
 
     /* Table */
     /* Table Colors */
-    --table-cell-text-color: #451a03; /* Dark Brown */
-    --table-cell-bgColor: #fffbeb; /* Warm White */
-    --table-header-row-background: #f97316; /* Orange */
-    --table-header-row-color: #ffffff; /* White */
-    --table-pageable-details-color: #a3a3a3; /* Neutral Gray */
+    --table-cell-text-color: #fef3c7; /* Light Golden */
+    --table-cell-bgColor: #1a0a2e; /* Deep Purple */
+    --table-header-row-background: #2d1b4e; /* Purple */
+    --table-header-row-color: #f472b6; /* Pink */
+    --table-pageable-details-color: #f472b6; /* Pink */
 
     /* Table Container Colors */
     --bervan-table-background-color: var(--lumo-base-color);
-    --bervan-table-shadow-color: rgba(249, 115, 22, 0.1);
+    --bervan-table-shadow-color: rgba(255, 107, 157, 0.1);
 
     /* Table Headers Colors */
     --table-header-background-color: var(--table-header-row-background);
@@ -171,50 +171,50 @@ html {
 
     /* Table Cells Colors */
     --table-cell-background-color: var(--table-cell-bgColor);
-    --table-cell-border-color: #e7e5e4; /* Light Stone */
-    --table-cell-hover-background-color: #fef7ed; /* Light Orange */
+    --table-cell-border-color: #4c1d95; /* Purple */
+    --table-cell-hover-background-color: #2d1b4e; /* Purple */
 
     /* Table Rows Colors */
     --table-row-even-background-color: var(--table-cell-bgColor);
-    --table-row-odd-background-color: #fef7ed; /* Light Orange */
-    --table-row-hover-background-color: #fed7aa; /* Peach */
-    --table-row-selected-background-color: #fef3c7; /* Light Amber */
+    --table-row-odd-background-color: #2d1b4e; /* Purple */
+    --table-row-hover-background-color: rgba(255, 107, 157, 0.1);
+    --table-row-selected-background-color: rgba(255, 107, 157, 0.2);
 
     /* Checkboxes Colors */
     --table-checkbox-accent-color: var(--lumo-primary-color);
     --table-checkbox-background-color: var(--vaadin-checkbox-background);
-    --table-checkbox-border-color: #d6d3d1; /* Stone */
+    --table-checkbox-border-color: #f472b6; /* Pink */
 
     /* Action Buttons Colors */
     --primary-action-button-background-color: var(--button-background-color);
     --primary-action-button-text-color: var(--button-color);
-    --primary-action-button-hover-background-color: #ea580c; /* Darker Orange */
+    --primary-action-button-hover-background-color: #ec4899; /* Darker Pink */
 
-    --secondary-action-button-background-color: #fffbeb; /* Warm White */
-    --secondary-action-button-text-color: #78716c; /* Warm Gray */
-    --secondary-action-button-border-color: #d6d3d1; /* Stone */
-    --secondary-action-button-hover-background-color: #fef7ed; /* Light Orange */
+    --secondary-action-button-background-color: #1a0a2e; /* Deep Purple */
+    --secondary-action-button-text-color: #fbbf24; /* Golden */
+    --secondary-action-button-border-color: #4c1d95; /* Purple */
+    --secondary-action-button-hover-background-color: #2d1b4e; /* Purple */
 
     --delete-action-button-background-color: var(--vaadin-notification-card-bgColor-error);
-    --delete-action-button-text-color: var(--button-color);
-    --delete-action-button-hover-background-color: #b91c1c; /* Darker Red */
+    --delete-action-button-text-color: #ffffff;
+    --delete-action-button-hover-background-color: #dc2626; /* Darker Red */
 
     /* Navigation/Pagination Colors */
-    --pagination-button-background-color: #fffbeb; /* Warm White */
-    --pagination-button-text-color: #78716c; /* Warm Gray */
-    --pagination-button-border-color: #d6d3d1; /* Stone */
-    --pagination-button-hover-background-color: #fef7ed; /* Light Orange */
+    --pagination-button-background-color: #1a0a2e; /* Deep Purple */
+    --pagination-button-text-color: #fbbf24; /* Golden */
+    --pagination-button-border-color: #4c1d95; /* Purple */
+    --pagination-button-hover-background-color: #2d1b4e; /* Purple */
     --pagination-button-active-background-color: var(--lumo-primary-color);
-    --pagination-button-active-text-color: var(--button-color);
+    --pagination-button-active-text-color: #ffffff;
 
     /* Info and Status Colors */
     --table-info-text-color: var(--table-pageable-details-color);
-    --selection-counter-background-color: #fed7aa; /* Peach */
-    --selection-counter-text-color: #9a3412; /* Dark Orange */
+    --selection-counter-background-color: rgba(255, 107, 157, 0.15);
+    --selection-counter-text-color: #ff6b9d; /* Hot Pink */
 
     /* Actions Bar Colors */
-    --table-actions-bar-background-color: #fffbeb; /* Warm White */
-    --table-actions-bar-border-color: #e7e5e4; /* Light Stone */
+    --table-actions-bar-background-color: #1a0a2e; /* Deep Purple */
+    --table-actions-bar-border-color: #4c1d95; /* Purple */
 
     /* Icons Colors */
     --table-icon-color: var(--vaadin-icon-color);
@@ -223,96 +223,95 @@ html {
 
     /* Filters Colors */
     --filter-apply-button-background-color: var(--vaadin-notification-card-bgColor-success);
-    --filter-apply-button-text-color: #ffffff; /* White */
-    --filter-apply-button-hover-background-color: #15803d; /* Darker Green */
+    --filter-apply-button-text-color: #0d0118; /* Dark */
+    --filter-apply-button-hover-background-color: #22c55e; /* Darker Green */
 
     /* Dialog Colors */
     --modern-dialog-background-color: var(--lumo-base-color);
-    --modern-dialog-shadow-color: rgba(249, 115, 22, 0.2);
-
+    --modern-dialog-shadow-color: rgba(255, 107, 157, 0.25);
     /*-----------------*/
 
     /* Home Page  */
     /* --- General theme --- */
-    --home-background: #fffbeb; /* Warm White background */
-    --home-text-color: #451a03; /* Dark Brown text */
+    --home-background: #0d0118; /* Very Dark Purple */
+    --home-text-color: #fef3c7; /* Light Golden */
 
     /* --- Header --- */
-    --welcome-text-color: #f97316; /* Orange accent */
-    --motivation-text-color: #dc2626; /* Red accent */
+    --welcome-text-color: #ff6b9d; /* Hot Pink */
+    --motivation-text-color: #fbbf24; /* Golden */
 
     /* --- Card/Button --- */
-    --card-background: #fef3c7; /* Light Amber card background */
-    --card-border: #f97316; /* Orange border */
-    --card-hover-background: #fed7aa; /* Peach hover background */
-    --card-hover-glow-cyan: rgba(249, 115, 22, 0.8); /* Stronger orange glow on hover */
-    --card-hover-glow-magenta: rgba(220, 38, 38, 0.3); /* Red overlay glow */
-    --card-icon-color: #dc2626; /* Red icons */
-    --card-title-color: #451a03; /* Dark Brown title */
-    --card-description-color: #78716c; /* Warm Gray description */
+    --card-background: #1a0a2e; /* Deep Purple */
+    --card-border: #ff6b9d; /* Hot Pink */
+    --card-hover-background: #2d1b4e; /* Purple hover */
+    --card-hover-glow-cyan: rgba(255, 107, 157, 0.8); /* Strong pink glow */
+    --card-hover-glow-magenta: rgba(245, 158, 11, 0.3); /* Orange glow overlay */
+    --card-icon-color: #fbbf24; /* Golden */
+    --card-title-color: #fef3c7; /* Light Golden */
+    --card-description-color: #f472b6; /* Pink */
 
     /* --- Stats panel --- */
-    --stats-background: #fef7ed; /* Light Orange panel background */
-    --stats-border-left: #f97316; /* Orange vertical accent */
-    --stats-title-color: #f97316; /* Orange title text */
+    --stats-background: #1a0a2e; /* Deep Purple */
+    --stats-border-left: #ff6b9d; /* Hot Pink */
+    --stats-title-color: #fbbf24; /* Golden */
     /*-----------------*/
 
-    --chart-text-color: white;
-    --chart-line1-color: #f97316;
-    --chart-line2-color: #dc2626;
+    --chart-text-color: #fef3c7;
+    --chart-line1-color: #ff6b9d;
+    --chart-line2-color: #fbbf24;
 
-    /* ===== Glassmorphism Variables - Sunset (Warm Light Theme) ===== */
-    --glass-bg: rgba(255, 251, 235, 0.9);
-    --glass-blur: 16px;
-    --glass-border: rgba(249, 115, 22, 0.3);
-    --glass-shadow: 0 8px 32px rgba(249, 115, 22, 0.15);
-    --glass-shadow-hover: 0 12px 40px rgba(249, 115, 22, 0.25);
+    /* ===== Glassmorphism Variables - Synthwave Sunset ===== */
+    --glass-bg: rgba(13, 1, 24, 0.88);
+    --glass-blur: 20px;
+    --glass-border: rgba(255, 107, 157, 0.35);
+    --glass-shadow: 0 8px 32px rgba(255, 107, 157, 0.2);
+    --glass-shadow-hover: 0 12px 40px rgba(245, 158, 11, 0.35);
 
     /* Glass text */
-    --glass-text-primary: #451a03;
-    --glass-text-secondary: #78716c;
+    --glass-text-primary: rgba(254, 243, 199, 0.95);
+    --glass-text-secondary: rgba(244, 114, 182, 0.85);
 
     /* Glass containers */
-    --glass-container-gradient: linear-gradient(135deg, rgba(254, 243, 199, 0.95) 0%, rgba(254, 215, 170, 0.9) 50%, rgba(254, 243, 199, 0.95) 100%);
-    --glass-sidebar-gradient: linear-gradient(180deg, rgba(255, 251, 235, 0.98) 0%, rgba(254, 247, 237, 0.98) 100%);
-    --glass-sidebar-shadow: -10px 0 40px rgba(249, 115, 22, 0.15);
-    --glass-header-bg: rgba(249, 115, 22, 0.9);
-    --glass-row-border: rgba(249, 115, 22, 0.15);
-    --glass-row-hover: rgba(249, 115, 22, 0.08);
+    --glass-container-gradient: linear-gradient(135deg, rgba(13, 1, 24, 0.95) 0%, rgba(45, 27, 78, 0.9) 50%, rgba(26, 10, 46, 0.95) 100%);
+    --glass-sidebar-gradient: linear-gradient(180deg, rgba(26, 10, 46, 0.98) 0%, rgba(45, 27, 78, 0.98) 100%);
+    --glass-sidebar-shadow: -10px 0 40px rgba(255, 107, 157, 0.2);
+    --glass-header-bg: rgba(45, 27, 78, 0.95);
+    --glass-row-border: rgba(255, 107, 157, 0.18);
+    --glass-row-hover: rgba(255, 107, 157, 0.12);
 
     /* Glass buttons base */
-    --glass-btn-bg: rgba(249, 115, 22, 0.1);
-    --glass-btn-hover-bg: rgba(249, 115, 22, 0.2);
+    --glass-btn-bg: rgba(255, 107, 157, 0.12);
+    --glass-btn-hover-bg: rgba(255, 107, 157, 0.25);
 
-    /* Glass primary (orange) */
-    --glass-primary: #f97316;
-    --glass-primary-bg: rgba(249, 115, 22, 0.25);
-    --glass-primary-border: rgba(249, 115, 22, 0.45);
-    --glass-primary-hover: rgba(249, 115, 22, 0.4);
-    --glass-primary-glow: 0 4px 15px rgba(249, 115, 22, 0.35);
+    /* Glass primary (hot pink) */
+    --glass-primary: #ff6b9d;
+    --glass-primary-bg: rgba(255, 107, 157, 0.35);
+    --glass-primary-border: rgba(255, 107, 157, 0.55);
+    --glass-primary-hover: rgba(255, 107, 157, 0.5);
+    --glass-primary-glow: 0 4px 20px rgba(255, 107, 157, 0.5);
 
-    /* Glass success (green) */
-    --glass-success-bg: rgba(22, 163, 74, 0.2);
-    --glass-success-border: rgba(22, 163, 74, 0.4);
-    --glass-success-hover: rgba(22, 163, 74, 0.35);
-    --glass-success-glow: 0 4px 15px rgba(22, 163, 74, 0.3);
+    /* Glass success (neon green) */
+    --glass-success-bg: rgba(74, 222, 128, 0.3);
+    --glass-success-border: rgba(74, 222, 128, 0.5);
+    --glass-success-hover: rgba(74, 222, 128, 0.45);
+    --glass-success-glow: 0 4px 15px rgba(74, 222, 128, 0.4);
 
-    /* Glass warning (yellow) */
-    --glass-warning-bg: rgba(234, 179, 8, 0.2);
-    --glass-warning-border: rgba(234, 179, 8, 0.4);
-    --glass-warning-hover: rgba(234, 179, 8, 0.35);
-    --glass-warning-glow: 0 4px 15px rgba(234, 179, 8, 0.3);
+    /* Glass warning (golden) */
+    --glass-warning-bg: rgba(251, 191, 36, 0.3);
+    --glass-warning-border: rgba(251, 191, 36, 0.5);
+    --glass-warning-hover: rgba(251, 191, 36, 0.45);
+    --glass-warning-glow: 0 4px 15px rgba(251, 191, 36, 0.4);
 
     /* Glass danger (red) */
-    --glass-danger-bg: rgba(220, 38, 38, 0.2);
-    --glass-danger-border: rgba(220, 38, 38, 0.4);
-    --glass-danger-hover: rgba(220, 38, 38, 0.35);
-    --glass-danger-glow: 0 4px 15px rgba(220, 38, 38, 0.3);
+    --glass-danger-bg: rgba(239, 68, 68, 0.3);
+    --glass-danger-border: rgba(239, 68, 68, 0.5);
+    --glass-danger-hover: rgba(239, 68, 68, 0.45);
+    --glass-danger-glow: 0 4px 15px rgba(239, 68, 68, 0.4);
 
     /* Glass navigation */
-    --glass-nav-selected-bg: rgba(249, 115, 22, 0.9);
+    --glass-nav-selected-bg: linear-gradient(135deg, rgba(255, 107, 157, 0.9), rgba(245, 158, 11, 0.9));
     --glass-nav-selected-text: #ffffff;
-    --glass-nav-selected-hover: rgba(234, 88, 12, 0.95);
-    --glass-nav-selected-glow: 0 4px 15px rgba(249, 115, 22, 0.4);
-    --glass-nav-selected-glow-hover: 0 6px 20px rgba(249, 115, 22, 0.5);
+    --glass-nav-selected-hover: linear-gradient(135deg, rgba(236, 72, 153, 0.95), rgba(217, 119, 6, 0.95));
+    --glass-nav-selected-glow: 0 4px 20px rgba(255, 107, 157, 0.5);
+    --glass-nav-selected-glow-hover: 0 6px 25px rgba(245, 158, 11, 0.5);
 }

@@ -1,168 +1,168 @@
 html {
-    /* Ocean Breeze Theme - Modern Light Theme */
+    /* Deep Ocean Theme - Dark bioluminescent underwater aesthetic */
 
     /* Primary (Accent) Colors */
     --lumo-primary-text-color: #ffffff;
-    --lumo-primary-color: #0ea5e9; /* Sky Blue */
-    --ql-editor-text-color: #1e40af; /* Deep Blue */
+    --lumo-primary-color: #00d4ff; /* Electric Cyan */
+    --ql-editor-text-color: #7dd3fc; /* Light Sky Blue */
 
     /* Secondary Colors (Backgrounds, Panels) */
-    --lumo-secondary-color: #e0f2fe; /* Light Blue */
-    --lumo-secondary-rgba-color: 224, 242, 254; /* Corresponding RGBA */
-    --lumo-secondary-text-color: #0c4a6e; /* Dark Blue */
+    --lumo-secondary-color: #0c1929; /* Deep Navy */
+    --lumo-secondary-rgba-color: 12, 25, 41; /* Corresponding RGBA */
+    --lumo-secondary-text-color: #38bdf8; /* Bright Cyan */
 
     /* Tertiary Colors (Text, Icons) */
-    --lumo-third-text-color: #475569; /* Slate Gray */
+    --lumo-third-text-color: #7dd3fc; /* Light Cyan */
     --lumo-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
     /* Base Background */
-    --lumo-base-color: #ffffff; /* Pure White */
-    --lumo-base-secondary-color: #f8fafc; /* Off White */
+    --lumo-base-color: #020617; /* Almost Black with Blue tint */
+    --lumo-base-secondary-color: #0a1628; /* Deep Navy */
 
     /* Menu Bar */
-    --menu-bar-color: #f1f5f9; /* Light Gray */
+    --menu-bar-color: #0c1929; /* Deep Navy */
 
     /* Button Text */
-    --lumo-body-text-color: #1e293b; /* Dark Slate */
+    --lumo-body-text-color: #ffffff; /* White */
 
     /* Checkbox */
-    --vaadin-checkbox-background: #ffffff; /* White */
+    --vaadin-checkbox-background: #1e3a5f; /* Dark Blue */
 
     /* Notifications */
-    --vaadin-notification-card-bgColor-primary: #0ea5e9; /* Sky Blue */
-    --vaadin-notification-card-bgColor-warning: #f59e0b; /* Amber */
-    --vaadin-notification-card-bgColor-error: #ef4444; /* Red */
+    --vaadin-notification-card-bgColor-primary: #00d4ff; /* Electric Cyan */
+    --vaadin-notification-card-bgColor-warning: #fbbf24; /* Amber */
+    --vaadin-notification-card-bgColor-error: #f43f5e; /* Rose Red */
     --vaadin-notification-card-bgColor-success: #10b981; /* Emerald */
 
     /* Progress Bar */
-    --vaadin-progress-bar-color: #0ea5e9; /* Sky Blue */
+    --vaadin-progress-bar-color: #00d4ff; /* Electric Cyan */
 
     /* Tooltip */
-    --vaadin-tooltip-bgColor: #1e293b; /* Dark Slate */
+    --vaadin-tooltip-bgColor: #0c1929; /* Deep Navy */
 
     /* Icons in Buttons */
     --vaadin-icon-in-button-color: #ffffff;
 
     /* Pocket Menu */
-    --pocket-menu-drawer-bgColor: #ffffff; /* White */
-    --pocket-tile-in-menu-bgColor: #f8fafc; /* Off White */
-    --pocket-tile-in-menu-textColor: #334155; /* Slate */
+    --pocket-menu-drawer-bgColor: #0c1929; /* Deep Navy */
+    --pocket-tile-in-menu-bgColor: #0a1628; /* Deep Navy */
+    --pocket-tile-in-menu-textColor: #38bdf8; /* Bright Cyan */
 
     /* Input Fields */
-    --vaadin-input-field-background: #ffffff; /* White */
-    --vaadin-big-decimal-field-background: #ffffff; /* White */
-    --vaadin-input-field-label-color: #475569; /* Slate Gray */
-    --vaadin-big-decimal-field-label-color: #475569; /* Slate Gray */
-    --vaadin-input-field-hovered-label-color: #0ea5e9; /* Sky Blue */
-    --vaadin-input-field-focused-label-color: #0ea5e9; /* Sky Blue */
-    --vaadin-checkbox-label-color: #475569; /* Slate Gray */
-    --vaadin-input-field-icon-color: #64748b; /* Slate */
-    --vaadin-input-field-border-color: #cbd5e1; /* Light Slate */
+    --vaadin-input-field-background: #0a1628; /* Deep Navy */
+    --vaadin-big-decimal-field-background: #0a1628; /* Deep Navy */
+    --vaadin-input-field-label-color: #38bdf8; /* Bright Cyan */
+    --vaadin-big-decimal-field-label-color: #38bdf8; /* Bright Cyan */
+    --vaadin-input-field-hovered-label-color: #00d4ff; /* Electric Cyan */
+    --vaadin-input-field-focused-label-color: #00d4ff; /* Electric Cyan */
+    --vaadin-checkbox-label-color: #38bdf8; /* Bright Cyan */
+    --vaadin-input-field-icon-color: #38bdf8; /* Bright Cyan */
+    --vaadin-input-field-border-color: #1e3a5f; /* Dark Blue Border */
     --vaadin-input-field-border-width: 1px;
 
     /* Other Ocean Colors */
-    --movie-tile-background: rgba(14, 165, 233, 0.1);
-    --selected-cell-background: #bfdbfe; /* Light Blue */
-    --spreadsheet-header-row-background: #0ea5e9;
-    --spreadsheet-row-number-background: #e0f2fe;
-    --spreadsheet-cell-function-background: #dbeafe;
-    --spreadsheet-cell-function-color: #1e40af;
-    --spreadsheet-cell-background: #ffffff;
-    --spreadsheet-cell-color: #1e293b; /* Dark Slate */
-    --spreadsheet-header-row-color: #ffffff; /* White */
-    --spreadsheet-row-number-color: #0c4a6e; /* Dark Blue */
-    --menu-item-text-color: #475569; /* Slate Gray */
-    --view-toggle-icon-color: #0ea5e9; /* Sky Blue */
-    --menu-selected-app-background: 14, 165, 233; /* Sky Blue RGBA */
-    --menu-selected-app-background-opacity: 0.15;
-    --menu-selected-app-color: #0c4a6e; /* Dark Blue */
-    --menu-link-app-color: #475569; /* Slate Gray */
-    --button-background-color: #0ea5e9; /* Sky Blue */
-    --button-color: #ffffff;
+    --movie-tile-background: rgba(0, 212, 255, 0.08);
+    --selected-cell-background: #065f83; /* Teal */
+    --spreadsheet-header-row-background: #0c1929;
+    --spreadsheet-row-number-background: #0c1929;
+    --spreadsheet-cell-function-background: #1e3a5f;
+    --spreadsheet-cell-function-color: #00d4ff;
+    --spreadsheet-cell-background: #0a1628;
+    --spreadsheet-cell-color: #e0f2fe; /* Light Cyan */
+    --spreadsheet-header-row-color: #38bdf8; /* Bright Cyan */
+    --spreadsheet-row-number-color: #38bdf8; /* Bright Cyan */
+    --menu-item-text-color: #38bdf8; /* Bright Cyan */
+    --view-toggle-icon-color: #00d4ff; /* Electric Cyan */
+    --menu-selected-app-background: 0, 212, 255; /* Electric Cyan RGBA */
+    --menu-selected-app-background-opacity: 0.2;
+    --menu-selected-app-color: #00d4ff; /* Electric Cyan */
+    --menu-link-app-color: #7dd3fc; /* Light Cyan */
+    --button-background-color: #00d4ff; /* Electric Cyan */
+    --button-color: #020617;
 
     /* Selected Route Button */
     --selected-route-button-color: #ffffff; /* White */
-    --selected-route-button-background-gradient: linear-gradient(135deg, #0ea5e9, #3b82f6); /* Sky Blue → Blue gradient */
-    --selected-route-button-after-background: #0ea5e9; /* Sky Blue underline */
+    --selected-route-button-background-gradient: linear-gradient(135deg, #00d4ff, #0891b2); /* Cyan gradient */
+    --selected-route-button-after-background: #00d4ff; /* Electric Cyan underline */
 
     /* Menu container background */
-    --menu-navigation-container-background-color: #ffffff; /* White */
+    --menu-navigation-container-background-color: #0c1929; /* Deep Navy */
     /* Navigation button colors */
-    --navigation-button-color: #475569; /* Slate Gray */
-    --navigation-button-hover-background-color: #e0f2fe; /* Light Blue */
+    --navigation-button-color: #38bdf8; /* Bright Cyan */
+    --navigation-button-hover-background-color: rgba(0, 212, 255, 0.2); /* Cyan glow */
 
-    --vaadin-icon-hover-color: #0ea5e9; /* Sky Blue */
-    --vaadin-icon-color: #64748b; /* Slate */
-    --drop-file-here-input-color: #475569; /* Slate Gray */
-    --drop-file-here-icon-color: #0ea5e9; /* Sky Blue */
-    --processing-file-info-label-color: #475569; /* Slate Gray */
-    --upload-button-text-color: #ffffff; /* White */
-    --upload-button-background: #0ea5e9; /* Sky Blue */
-    --vaadin-upload-file-color: #475569; /* Slate Gray */
-    --ql-editor-content-background: #ffffff; /* White */
-    --ql-toolbar-background: #f8fafc; /* Off White */
-    --ql-editor-content-background-color: #ffffff; /* White */
-    --ql-editor-content-text-color: #1e293b; /* Dark Slate */
+    --vaadin-icon-hover-color: #00d4ff; /* Electric Cyan */
+    --vaadin-icon-color: #38bdf8; /* Bright Cyan */
+    --drop-file-here-input-color: #38bdf8; /* Bright Cyan */
+    --drop-file-here-icon-color: #00d4ff; /* Electric Cyan */
+    --processing-file-info-label-color: #38bdf8; /* Bright Cyan */
+    --upload-button-text-color: #020617; /* Dark */
+    --upload-button-background: #00d4ff; /* Electric Cyan */
+    --vaadin-upload-file-color: #38bdf8; /* Bright Cyan */
+    --ql-editor-content-background: #0a1628; /* Deep Navy */
+    --ql-toolbar-background: #1e3a5f; /* Dark Blue */
+    --ql-editor-content-background-color: #0a1628; /* Deep Navy */
+    --ql-editor-content-text-color: #7dd3fc; /* Light Cyan */
 
     /* Canvas */
     /* Layout */
-    --canvas-main-layout-background: #f8fafc; /* Off White */
-    --canvas-main-layout-text-color: #1e293b; /* Dark Slate */
+    --canvas-main-layout-background: #020617; /* Almost Black */
+    --canvas-main-layout-text-color: #7dd3fc; /* Light Cyan */
 
     /* Left Panel */
-    --canvas-left-panel-background: #ffffff; /* White */
-    --canvas-left-panel-text-color: #475569; /* Slate Gray */
-    --canvas-left-panel-border-color: #e2e8f0; /* Light Gray */
+    --canvas-left-panel-background: #0c1929; /* Deep Navy */
+    --canvas-left-panel-text-color: #38bdf8; /* Bright Cyan */
+    --canvas-left-panel-border-color: #1e3a5f; /* Dark Blue */
 
     /* Middle Panel */
-    --canvas-middle-panel-background: #ffffff; /* White */
-    --canvas-middle-panel-text-color: #475569; /* Slate Gray */
-    --canvas-middle-panel-border-color: #e2e8f0; /* Light Gray */
+    --canvas-middle-panel-background: #0c1929; /* Deep Navy */
+    --canvas-middle-panel-text-color: #38bdf8; /* Bright Cyan */
+    --canvas-middle-panel-border-color: #1e3a5f; /* Dark Blue */
 
     /* Main Canvas */
-    --canvas-main-canvas-background: #ffffff; /* White */
-    --canvas-main-canvas-text-color: #1e293b; /* Dark Slate */
+    --canvas-main-canvas-background: #020617; /* Almost Black */
+    --canvas-main-canvas-text-color: #7dd3fc; /* Light Cyan */
 
     /* Notebook Button */
-    --canvas-notebook-button-background: #0ea5e9; /* Sky Blue */
-    --canvas-notebook-button-text-color: #ffffff; /* White */
-    --canvas-notebook-button-border-color: #0284c7; /* Darker Blue */
+    --canvas-notebook-button-background: #00d4ff; /* Electric Cyan */
+    --canvas-notebook-button-text-color: #020617; /* Dark */
+    --canvas-notebook-button-border-color: #0891b2; /* Darker Cyan */
 
     /* Spreadsheet Toolbar Ocean Variables */
-    --spreadsheet-toolbar-background: linear-gradient(135deg, #ffffff, #f1f5f9);
-    --spreadsheet-toolbar-border: #cbd5e1;
-    --spreadsheet-section-border: #e2e8f0;
-    --spreadsheet-section-title-color: #475569;
-    --spreadsheet-button-background: #ffffff;
-    --spreadsheet-button-color: #475569;
-    --spreadsheet-button-border: #cbd5e1;
-    --spreadsheet-button-hover-background: #e0f2fe;
-    --spreadsheet-button-hover-border: #0ea5e9;
-    --spreadsheet-button-active-background: #0ea5e9;
-    --spreadsheet-button-active-color: #ffffff;
-    --spreadsheet-button-glow: #0ea5e9;
-    --spreadsheet-shadow: rgba(14, 165, 233, 0.2);
+    --spreadsheet-toolbar-background: linear-gradient(135deg, #0c1929, #020617);
+    --spreadsheet-toolbar-border: #00d4ff;
+    --spreadsheet-section-border: #1e3a5f;
+    --spreadsheet-section-title-color: #38bdf8;
+    --spreadsheet-button-background: #0a1628;
+    --spreadsheet-button-color: #38bdf8;
+    --spreadsheet-button-border: #1e3a5f;
+    --spreadsheet-button-hover-background: rgba(0, 212, 255, 0.2);
+    --spreadsheet-button-hover-border: #00d4ff;
+    --spreadsheet-button-active-background: #00d4ff;
+    --spreadsheet-button-active-color: #020617;
+    --spreadsheet-button-glow: #00d4ff;
+    --spreadsheet-shadow: rgba(0, 212, 255, 0.25);
 
     --streaming-tile-background: var(--movie-tile-background);
     --streaming-tile-border: var(--vaadin-input-field-border-color);
-    --streaming-tile-shadow: rgba(14, 165, 233, 0.1);
+    --streaming-tile-shadow: rgba(0, 212, 255, 0.15);
     --streaming-tile-shadow-hover: var(--spreadsheet-shadow);
-    --streaming-overlay-background: rgba(30, 41, 59, 0.8);
+    --streaming-overlay-background: rgba(2, 6, 23, 0.9);
     --streaming-play-icon-color: var(--lumo-primary-color);
     --streaming-title-color: var(--lumo-secondary-text-color);
     --streaming-title-shadow: var(--lumo-secondary-text-color);
 
     /* Table */
     /* Table Colors */
-    --table-cell-text-color: #1e293b; /* Dark Slate */
-    --table-cell-bgColor: #ffffff; /* White */
-    --table-header-row-background: #0ea5e9; /* Sky Blue */
-    --table-header-row-color: #ffffff; /* White */
-    --table-pageable-details-color: #64748b; /* Slate */
+    --table-cell-text-color: #7dd3fc; /* Light Cyan */
+    --table-cell-bgColor: #0a1628; /* Deep Navy */
+    --table-header-row-background: #0c1929; /* Deep Navy */
+    --table-header-row-color: #38bdf8; /* Bright Cyan */
+    --table-pageable-details-color: #38bdf8; /* Bright Cyan */
 
     /* Table Container Colors */
     --bervan-table-background-color: var(--lumo-base-color);
-    --bervan-table-shadow-color: rgba(14, 165, 233, 0.08);
+    --bervan-table-shadow-color: rgba(0, 212, 255, 0.1);
 
     /* Table Headers Colors */
     --table-header-background-color: var(--table-header-row-background);
@@ -171,50 +171,50 @@ html {
 
     /* Table Cells Colors */
     --table-cell-background-color: var(--table-cell-bgColor);
-    --table-cell-border-color: #e2e8f0; /* Light Gray */
-    --table-cell-hover-background-color: #f1f5f9; /* Very Light Gray */
+    --table-cell-border-color: #1e3a5f; /* Dark Blue */
+    --table-cell-hover-background-color: #0c1929; /* Deep Navy */
 
     /* Table Rows Colors */
     --table-row-even-background-color: var(--table-cell-bgColor);
-    --table-row-odd-background-color: #f8fafc; /* Off White */
-    --table-row-hover-background-color: #f1f5f9; /* Very Light Gray */
-    --table-row-selected-background-color: #dbeafe; /* Light Blue */
+    --table-row-odd-background-color: #0c1929; /* Deep Navy */
+    --table-row-hover-background-color: rgba(0, 212, 255, 0.1);
+    --table-row-selected-background-color: rgba(0, 212, 255, 0.2);
 
     /* Checkboxes Colors */
     --table-checkbox-accent-color: var(--lumo-primary-color);
     --table-checkbox-background-color: var(--vaadin-checkbox-background);
-    --table-checkbox-border-color: #cbd5e1; /* Light Slate */
+    --table-checkbox-border-color: #38bdf8; /* Bright Cyan */
 
     /* Action Buttons Colors */
     --primary-action-button-background-color: var(--button-background-color);
     --primary-action-button-text-color: var(--button-color);
-    --primary-action-button-hover-background-color: #0284c7; /* Darker Blue */
+    --primary-action-button-hover-background-color: #0891b2; /* Darker Cyan */
 
-    --secondary-action-button-background-color: #ffffff; /* White */
-    --secondary-action-button-text-color: #475569; /* Slate Gray */
-    --secondary-action-button-border-color: #cbd5e1; /* Light Slate */
-    --secondary-action-button-hover-background-color: #f1f5f9; /* Very Light Gray */
+    --secondary-action-button-background-color: #0a1628; /* Deep Navy */
+    --secondary-action-button-text-color: #7dd3fc; /* Light Cyan */
+    --secondary-action-button-border-color: #1e3a5f; /* Dark Blue */
+    --secondary-action-button-hover-background-color: #0c1929; /* Deep Navy */
 
     --delete-action-button-background-color: var(--vaadin-notification-card-bgColor-error);
-    --delete-action-button-text-color: var(--button-color);
-    --delete-action-button-hover-background-color: #dc2626; /* Darker Red */
+    --delete-action-button-text-color: #ffffff;
+    --delete-action-button-hover-background-color: #e11d48; /* Darker Rose */
 
     /* Navigation/Pagination Colors */
-    --pagination-button-background-color: #ffffff; /* White */
-    --pagination-button-text-color: #475569; /* Slate Gray */
-    --pagination-button-border-color: #cbd5e1; /* Light Slate */
-    --pagination-button-hover-background-color: #f1f5f9; /* Very Light Gray */
+    --pagination-button-background-color: #0a1628; /* Deep Navy */
+    --pagination-button-text-color: #7dd3fc; /* Light Cyan */
+    --pagination-button-border-color: #1e3a5f; /* Dark Blue */
+    --pagination-button-hover-background-color: #0c1929; /* Deep Navy */
     --pagination-button-active-background-color: var(--lumo-primary-color);
-    --pagination-button-active-text-color: var(--button-color);
+    --pagination-button-active-text-color: #020617;
 
     /* Info and Status Colors */
     --table-info-text-color: var(--table-pageable-details-color);
-    --selection-counter-background-color: #e0f2fe; /* Light Blue */
-    --selection-counter-text-color: #0c4a6e; /* Dark Blue */
+    --selection-counter-background-color: rgba(0, 212, 255, 0.15);
+    --selection-counter-text-color: #00d4ff; /* Electric Cyan */
 
     /* Actions Bar Colors */
-    --table-actions-bar-background-color: #ffffff; /* White */
-    --table-actions-bar-border-color: #e2e8f0; /* Light Gray */
+    --table-actions-bar-background-color: #0a1628; /* Deep Navy */
+    --table-actions-bar-border-color: #1e3a5f; /* Dark Blue */
 
     /* Icons Colors */
     --table-icon-color: var(--vaadin-icon-color);
@@ -223,95 +223,95 @@ html {
 
     /* Filters Colors */
     --filter-apply-button-background-color: var(--vaadin-notification-card-bgColor-success);
-    --filter-apply-button-text-color: #ffffff; /* White */
+    --filter-apply-button-text-color: #ffffff;
     --filter-apply-button-hover-background-color: #059669; /* Darker Green */
 
     /* Dialog Colors */
     --modern-dialog-background-color: var(--lumo-base-color);
-    --modern-dialog-shadow-color: rgba(14, 165, 233, 0.15);
+    --modern-dialog-shadow-color: rgba(0, 212, 255, 0.25);
     /*-----------------*/
 
     /* Home Page  */
     /* --- General theme --- */
-    --home-background: #ffffff; /* Pure White background */
-    --home-text-color: #1e293b; /* Dark Slate text */
+    --home-background: #020617; /* Almost Black */
+    --home-text-color: #e0f2fe; /* Light Cyan */
 
     /* --- Header --- */
-    --welcome-text-color: #0ea5e9; /* Sky Blue accent */
-    --motivation-text-color: #1e40af; /* Deep Blue accent */
+    --welcome-text-color: #00d4ff; /* Electric Cyan */
+    --motivation-text-color: #06b6d4; /* Teal */
 
     /* --- Card/Button --- */
-    --card-background: #e0f2fe; /* Light Blue card background */
-    --card-border: #0ea5e9; /* Sky Blue border */
-    --card-hover-background: #bfdbfe; /* Light Blue hover background */
-    --card-hover-glow-cyan: rgba(14, 165, 233, 0.8); /* Stronger blue glow on hover */
-    --card-hover-glow-magenta: rgba(30, 64, 175, 0.3); /* Deep Blue overlay glow */
-    --card-icon-color: #0ea5e9; /* Sky Blue icons */
-    --card-title-color: #1e293b; /* Dark Slate title */
-    --card-description-color: #475569; /* Slate Gray description */
+    --card-background: #0c1929; /* Deep Navy */
+    --card-border: #00d4ff; /* Electric Cyan */
+    --card-hover-background: #1e3a5f; /* Dark Blue hover */
+    --card-hover-glow-cyan: rgba(0, 212, 255, 0.8); /* Strong cyan glow */
+    --card-hover-glow-magenta: rgba(6, 182, 212, 0.3); /* Teal glow overlay */
+    --card-icon-color: #00d4ff; /* Electric Cyan */
+    --card-title-color: #f0f9ff; /* Almost White */
+    --card-description-color: #7dd3fc; /* Light Cyan */
 
     /* --- Stats panel --- */
-    --stats-background: #f8fafc; /* Off White panel background */
-    --stats-border-left: #0ea5e9; /* Sky Blue vertical accent */
-    --stats-title-color: #0ea5e9; /* Sky Blue title text */
+    --stats-background: #0a1628; /* Deep Navy */
+    --stats-border-left: #00d4ff; /* Electric Cyan */
+    --stats-title-color: #00d4ff; /* Electric Cyan */
     /*-----------------*/
 
-    --chart-text-color: white;
-    --chart-line1-color: #0ea5e9;
-    --chart-line2-color: #1e40af;
+    --chart-text-color: #e0f2fe;
+    --chart-line1-color: #00d4ff;
+    --chart-line2-color: #06b6d4;
 
-    /* ===== Glassmorphism Variables - Ocean (Light Theme) ===== */
-    --glass-bg: rgba(255, 255, 255, 0.85);
-    --glass-blur: 16px;
-    --glass-border: rgba(14, 165, 233, 0.3);
-    --glass-shadow: 0 8px 32px rgba(14, 165, 233, 0.15);
-    --glass-shadow-hover: 0 12px 40px rgba(14, 165, 233, 0.25);
+    /* ===== Glassmorphism Variables - Deep Ocean ===== */
+    --glass-bg: rgba(2, 6, 23, 0.88);
+    --glass-blur: 20px;
+    --glass-border: rgba(0, 212, 255, 0.35);
+    --glass-shadow: 0 8px 32px rgba(0, 212, 255, 0.2);
+    --glass-shadow-hover: 0 12px 40px rgba(0, 212, 255, 0.35);
 
     /* Glass text */
-    --glass-text-primary: #0c4a6e;
-    --glass-text-secondary: #475569;
+    --glass-text-primary: rgba(224, 242, 254, 0.95);
+    --glass-text-secondary: rgba(56, 189, 248, 0.85);
 
     /* Glass containers */
-    --glass-container-gradient: linear-gradient(135deg, rgba(224, 242, 254, 0.95) 0%, rgba(186, 230, 253, 0.9) 50%, rgba(224, 242, 254, 0.95) 100%);
-    --glass-sidebar-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(241, 245, 249, 0.98) 100%);
-    --glass-sidebar-shadow: -10px 0 40px rgba(14, 165, 233, 0.15);
-    --glass-header-bg: rgba(14, 165, 233, 0.9);
-    --glass-row-border: rgba(14, 165, 233, 0.15);
-    --glass-row-hover: rgba(14, 165, 233, 0.08);
+    --glass-container-gradient: linear-gradient(135deg, rgba(2, 6, 23, 0.95) 0%, rgba(12, 25, 41, 0.92) 50%, rgba(6, 15, 30, 0.95) 100%);
+    --glass-sidebar-gradient: linear-gradient(180deg, rgba(12, 25, 41, 0.98) 0%, rgba(10, 22, 40, 0.98) 100%);
+    --glass-sidebar-shadow: -10px 0 40px rgba(0, 212, 255, 0.2);
+    --glass-header-bg: rgba(12, 25, 41, 0.95);
+    --glass-row-border: rgba(0, 212, 255, 0.18);
+    --glass-row-hover: rgba(0, 212, 255, 0.12);
 
     /* Glass buttons base */
-    --glass-btn-bg: rgba(14, 165, 233, 0.1);
-    --glass-btn-hover-bg: rgba(14, 165, 233, 0.2);
+    --glass-btn-bg: rgba(0, 212, 255, 0.12);
+    --glass-btn-hover-bg: rgba(0, 212, 255, 0.25);
 
-    /* Glass primary (sky blue) */
-    --glass-primary: #0ea5e9;
-    --glass-primary-bg: rgba(14, 165, 233, 0.2);
-    --glass-primary-border: rgba(14, 165, 233, 0.4);
-    --glass-primary-hover: rgba(14, 165, 233, 0.35);
-    --glass-primary-glow: 0 4px 15px rgba(14, 165, 233, 0.3);
+    /* Glass primary (electric cyan) */
+    --glass-primary: #00d4ff;
+    --glass-primary-bg: rgba(0, 212, 255, 0.35);
+    --glass-primary-border: rgba(0, 212, 255, 0.55);
+    --glass-primary-hover: rgba(0, 212, 255, 0.5);
+    --glass-primary-glow: 0 4px 20px rgba(0, 212, 255, 0.5);
 
     /* Glass success (emerald) */
-    --glass-success-bg: rgba(16, 185, 129, 0.2);
-    --glass-success-border: rgba(16, 185, 129, 0.4);
-    --glass-success-hover: rgba(16, 185, 129, 0.35);
-    --glass-success-glow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    --glass-success-bg: rgba(16, 185, 129, 0.3);
+    --glass-success-border: rgba(16, 185, 129, 0.5);
+    --glass-success-hover: rgba(16, 185, 129, 0.45);
+    --glass-success-glow: 0 4px 15px rgba(16, 185, 129, 0.4);
 
     /* Glass warning (amber) */
-    --glass-warning-bg: rgba(245, 158, 11, 0.2);
-    --glass-warning-border: rgba(245, 158, 11, 0.4);
-    --glass-warning-hover: rgba(245, 158, 11, 0.35);
-    --glass-warning-glow: 0 4px 15px rgba(245, 158, 11, 0.3);
+    --glass-warning-bg: rgba(251, 191, 36, 0.3);
+    --glass-warning-border: rgba(251, 191, 36, 0.5);
+    --glass-warning-hover: rgba(251, 191, 36, 0.45);
+    --glass-warning-glow: 0 4px 15px rgba(251, 191, 36, 0.4);
 
-    /* Glass danger (red) */
-    --glass-danger-bg: rgba(239, 68, 68, 0.2);
-    --glass-danger-border: rgba(239, 68, 68, 0.4);
-    --glass-danger-hover: rgba(239, 68, 68, 0.35);
-    --glass-danger-glow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    /* Glass danger (rose) */
+    --glass-danger-bg: rgba(244, 63, 94, 0.3);
+    --glass-danger-border: rgba(244, 63, 94, 0.5);
+    --glass-danger-hover: rgba(244, 63, 94, 0.45);
+    --glass-danger-glow: 0 4px 15px rgba(244, 63, 94, 0.4);
 
     /* Glass navigation */
-    --glass-nav-selected-bg: rgba(14, 165, 233, 0.9);
-    --glass-nav-selected-text: #ffffff;
-    --glass-nav-selected-hover: rgba(2, 132, 199, 0.95);
-    --glass-nav-selected-glow: 0 4px 15px rgba(14, 165, 233, 0.4);
-    --glass-nav-selected-glow-hover: 0 6px 20px rgba(14, 165, 233, 0.5);
+    --glass-nav-selected-bg: rgba(0, 212, 255, 0.9);
+    --glass-nav-selected-text: #020617;
+    --glass-nav-selected-hover: rgba(8, 145, 178, 0.95);
+    --glass-nav-selected-glow: 0 4px 20px rgba(0, 212, 255, 0.5);
+    --glass-nav-selected-glow-hover: 0 6px 25px rgba(0, 212, 255, 0.6);
 }
