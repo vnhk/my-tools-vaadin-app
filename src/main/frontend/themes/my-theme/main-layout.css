@@ -6,10 +6,7 @@
     justify-content: center;
 }
 
-.submenu {
-    color: white;
-    margin-left: 10px;
-}
+/* submenu styles moved to drawer section below */
 
 vaadin-grid-tree-toggle::part(toggle) {
     color: #888;
@@ -814,8 +811,13 @@ h1, h2, h3, h4, h5 {
     color: var(--vaadin-input-field-label-color);
 }
 
+/* ===== Modern Drawer Styles ===== */
 [slot='drawer'] {
-    background-color: var(--menu-bar-color);
+    background: var(--glass-sidebar-gradient, linear-gradient(180deg, rgba(17, 25, 40, 0.98) 0%, rgba(17, 25, 40, 0.95) 100%)) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-right: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08)) !important;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
 }
 
 .side-menu {
@@ -1012,35 +1014,45 @@ vaadin-confirm-dialog-overlay::part(content) {
 }
 
 
+/* ===== Modern Menu Item Styles ===== */
 [slot='drawer'] nav a {
     text-decoration: none;
-    transition: color 140ms;
-    /*color: var(--lumo-secondary-text-color);*/
-    color: var(--menu-link-app-color);
+    transition: all 0.2s ease;
+    color: var(--glass-text-secondary, rgba(255, 255, 255, 0.7));
 }
 
 [slot='drawer'] nav a .la {
     margin-top: calc(var(--lumo-space-xs) * 0.5);
+    color: var(--glass-primary, var(--lumo-primary-color));
+    transition: transform 0.2s ease;
+}
+
+[slot='drawer'] nav a:hover .la {
+    transform: scale(1.1);
 }
 
 [slot='drawer'] nav a::before {
-    border-radius: var(--lumo-border-radius);
+    border-radius: 8px;
     bottom: calc(var(--lumo-space-xs) * 0.5);
     content: '';
-    left: 0;
+    left: 4px;
     position: absolute;
-    right: 0;
+    right: 4px;
     top: calc(var(--lumo-space-xs) * 0.5);
-    transition: background-color 140ms;
+    transition: all 0.2s ease;
+}
+
+[slot='drawer'] nav a:hover::before {
+    background: var(--glass-btn-hover-bg, rgba(255, 255, 255, 0.08));
 }
 
 [slot='drawer'] nav a[highlight] {
-    color: var(--menu-selected-app-color);
+    color: var(--glass-primary, var(--lumo-primary-color));
 }
 
 [slot='drawer'] nav a[highlight]::before {
-    /*background-color: rgba(var(--lumo-secondary-rgba-color), 0.25)*/
-    background-color: rgba(var(--menu-selected-app-background), var(--menu-selected-app-background-opacity));
+    background: var(--glass-primary-bg, rgba(99, 102, 241, 0.15));
+    box-shadow: inset 3px 0 0 var(--glass-primary, var(--lumo-primary-color));
 }
 
 [slot='drawer'] footer vaadin-context-menu {
@@ -1050,22 +1062,28 @@ vaadin-confirm-dialog-overlay::part(content) {
 
 .menu-item-link {
     display: flex;
-    margin-left: var(--lumo-space-s);
-    margin-right: var(--lumo-space-s);
-    padding: var(--lumo-space-s);
+    align-items: center;
+    margin: 2px 8px;
+    padding: 10px 12px;
     position: relative;
-    color: var(--menu-item-text-color);
-    /*color: var(--lumo-secondary-text-color);*/
+    color: var(--glass-text-secondary, rgba(255, 255, 255, 0.7));
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.menu-item-link:hover {
+    color: var(--glass-text-primary, white);
 }
 
 .menu-item-text {
     font-weight: 500;
-    font-size: var(--lumo-font-size-s);
+    font-size: 0.875rem;
 }
 
 .menu-item-icon {
-    margin-inline-end: var(--lumo-space-s);
-    font-size: var(--lumo-font-size-l);
+    margin-inline-end: 12px;
+    font-size: 1.25rem;
+    color: var(--glass-primary, var(--lumo-primary-color));
 }
 
 .view-title {
@@ -1082,18 +1100,25 @@ vaadin-confirm-dialog-overlay::part(content) {
 }
 
 .view-toggle {
-    /*color: white;*/
-    color: var(--view-toggle-icon-color);
+    color: var(--glass-text-primary, white);
+    transition: all 0.2s ease;
+}
+
+.view-toggle:hover {
+    color: var(--glass-primary, var(--lumo-primary-color));
 }
 
 .app-name {
     align-items: center;
     display: flex;
-    height: var(--lumo-size-xl);
+    height: 60px;
     margin: 0;
-    padding-left: var(--lumo-space-m);
-    padding-right: var(--lumo-space-m);
-    font-size: var(--lumo-font-size-m);
+    padding: 0 16px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--glass-primary, var(--lumo-primary-color));
+    border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08));
+    text-shadow: 0 0 20px var(--glass-primary, var(--lumo-primary-color));
 }
 
 .drawer-section {
@@ -1105,9 +1130,27 @@ vaadin-confirm-dialog-overlay::part(content) {
 }
 
 .menu-item-container {
-    border-bottom: 1px solid;
+    border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, 0.08));
     flex-grow: 1;
     overflow: auto;
+    padding: 8px 0;
+
+    /* Custom scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--glass-border) transparent;
+}
+
+.menu-item-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.menu-item-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.menu-item-container::-webkit-scrollbar-thumb {
+    background: var(--glass-border, rgba(255, 255, 255, 0.2));
+    border-radius: 2px;
 }
 
 .navigation-list {
@@ -1119,12 +1162,26 @@ vaadin-confirm-dialog-overlay::part(content) {
 .footer {
     align-items: center;
     display: flex;
-    margin-bottom: var(--lumo-space-s);
-    margin-top: var(--lumo-space-s);
-    padding-left: var(--lumo-space-m);
-    padding-right: var(--lumo-space-m);
-    padding-bottom: var(--lumo-space-xs);
-    padding-top: var(--lumo-space-xs);
+    padding: 12px 16px;
+    color: var(--glass-text-secondary, rgba(255, 255, 255, 0.5));
+    font-size: 0.75rem;
+}
+
+/* Submenu modern style */
+.submenu {
+    list-style: none;
+    margin: 4px 0 4px 20px;
+    padding: 0;
+    border-left: 2px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+}
+
+.submenu .menu-item-link {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+}
+
+.submenu .menu-item-icon {
+    font-size: 1rem;
 }
 
 
