@@ -599,7 +599,7 @@ navigation-buttons > .option-button {
 
 .filter-apply-button:hover {
     background: var(--filter-apply-button-hover-background-color) !important;
-    box-shadow: 0 4px 8px rgba(0, 255, 0, 0.3);
+    box-shadow: var(--glass-success-glow, 0 4px 8px rgba(0, 255, 0, 0.3));
 }
 
 /* Table Actions Bar */
@@ -954,7 +954,7 @@ vaadin-grid::part(cell) {
 }
 
 .navigation-button:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--glass-btn-hover-bg, rgba(255, 255, 255, 0.1));
     transform: translateY(-1px);
 }
 
@@ -992,8 +992,9 @@ vaadin-confirm-dialog-overlay::part(content) {
 }
 
 .option-button-warning {
-    background-color: orangered !important;
-    color: white;
+    background-color: var(--glass-warning-bg, orangered) !important;
+    border: 1px solid var(--glass-warning-border, orangered) !important;
+    color: var(--glass-text-primary, white) !important;
 }
 
 .option-button-warning[disabled], .option-button:hover::part(button) {

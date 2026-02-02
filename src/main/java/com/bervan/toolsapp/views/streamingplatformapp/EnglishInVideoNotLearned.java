@@ -22,7 +22,7 @@ public class EnglishInVideoNotLearned extends AbstractNotLearnedWordsBaseView {
         this.englishSubtitlesPath = englishSubtitlesPath;
         renderCommonComponents();
         refreshData();
-        contentLayout.remove(newItemButton);
+        newItemButton.setVisible(false);
     }
 
     @Override

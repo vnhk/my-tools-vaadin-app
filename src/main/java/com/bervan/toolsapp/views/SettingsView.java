@@ -92,7 +92,7 @@ public class SettingsView extends AbstractPageView {
 
     private ComboBox<String> getThemeSelect() {
         ComboBox<String> themeSelect = new ComboBox<>("Select Theme");
-        themeSelect.setItems("cyberpunk", "retro", "earth", "darkula", "ocean", "sunset");
+        themeSelect.setItems("cyberpunk", "bloodmoon", "ocean", "sunset", "darkula", "intellij", "earth", "frost", "blossom");
         themeSelect.addValueChangeListener(event -> {
             String selectedTheme = event.getValue();
             if (selectedTheme != null) {
