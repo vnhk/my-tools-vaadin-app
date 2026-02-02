@@ -964,17 +964,17 @@ vaadin-grid::part(cell) {
 
 /* ===== Selected Button - Glassmorphism Pill ===== */
 .selected-route-button {
-    background: rgba(99, 102, 241, 0.9); /* Primary with slight transparency */
+    background: var(--glass-nav-selected-bg);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    color: white;
+    color: var(--glass-nav-selected-text);
     font-weight: 600;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    box-shadow: var(--glass-nav-selected-glow);
 }
 
 .selected-route-button:hover {
-    background: rgba(129, 140, 248, 0.95);
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+    background: var(--glass-nav-selected-hover);
+    box-shadow: var(--glass-nav-selected-glow-hover);
     transform: translateY(-2px);
 }
 
@@ -1470,23 +1470,12 @@ vaadin-confirm-dialog-overlay::part(content) {
     --vaadin-input-field-hover-border-color: rgba(255, 255, 255, 0.25);
 }
 
-/* ===== Glassmorphism Variables ===== */
-:root {
-    --glass-bg: rgba(17, 25, 40, 0.75);
-    --glass-bg-light: rgba(255, 255, 255, 0.1);
-    --glass-blur: 16px;
-    --glass-border: rgba(255, 255, 255, 0.18);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
-    --glass-primary: #6366f1;
-    --glass-accent: #22d3ee;
-    --glass-success: #10b981;
-    --glass-danger: #ef4444;
-    --glass-warning: #f59e0b;
-}
+/* ===== Glassmorphism - Uses theme variables ===== */
+/* Variables are defined in each theme file (*-theme.css) */
 
 /* ===== Budget Tree Glassmorphism ===== */
 .budget-tree-container {
-    background: linear-gradient(135deg, rgba(30, 27, 75, 0.9) 0%, rgba(49, 46, 129, 0.8) 50%, rgba(30, 58, 95, 0.9) 100%);
+    background: var(--glass-container-gradient);
     border-radius: 16px;
     padding: 16px;
     min-height: 80vh;
@@ -1506,12 +1495,12 @@ vaadin-confirm-dialog-overlay::part(content) {
 }
 
 .budget-tree-toolbar .glass-btn {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--glass-btn-bg);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid var(--glass-border);
     border-radius: 8px;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--glass-text-primary);
     padding: 8px 16px;
     font-weight: 500;
     cursor: pointer;
@@ -1519,9 +1508,9 @@ vaadin-confirm-dialog-overlay::part(content) {
 }
 
 .budget-tree-toolbar .glass-btn:hover:not([disabled]) {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--glass-btn-hover-bg);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--glass-shadow);
 }
 
 .budget-tree-toolbar .glass-btn:disabled {
@@ -1530,21 +1519,21 @@ vaadin-confirm-dialog-overlay::part(content) {
 }
 
 .budget-tree-toolbar .glass-btn.warning {
-    background: rgba(249, 115, 22, 0.3);
-    border-color: rgba(249, 115, 22, 0.5);
+    background: var(--glass-warning-bg);
+    border-color: var(--glass-warning-border);
 }
 
 .budget-tree-toolbar .glass-btn.warning:hover:not([disabled]) {
-    background: rgba(249, 115, 22, 0.5);
+    background: var(--glass-warning-hover);
 }
 
 .budget-tree-toolbar .glass-btn.danger {
-    background: rgba(239, 68, 68, 0.3);
-    border-color: rgba(239, 68, 68, 0.5);
+    background: var(--glass-danger-bg);
+    border-color: var(--glass-danger-border);
 }
 
 .budget-tree-toolbar .glass-btn.danger:hover:not([disabled]) {
-    background: rgba(239, 68, 68, 0.5);
+    background: var(--glass-danger-hover);
 }
 
 .budget-tree-grid {
@@ -1557,8 +1546,8 @@ vaadin-confirm-dialog-overlay::part(content) {
 }
 
 .budget-tree-grid::part(header-cell) {
-    background: rgba(30, 41, 59, 0.9) !important;
-    color: rgba(255, 255, 255, 0.9) !important;
+    background: var(--glass-header-bg) !important;
+    color: var(--glass-text-primary) !important;
     border-bottom: 1px solid var(--glass-border) !important;
     font-weight: 600;
     text-transform: uppercase;
@@ -1568,17 +1557,17 @@ vaadin-confirm-dialog-overlay::part(content) {
 
 .budget-tree-grid::part(row) {
     background: transparent !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-bottom: 1px solid var(--glass-row-border) !important;
     transition: background 0.2s ease;
 }
 
 .budget-tree-grid::part(row):hover {
-    background: rgba(255, 255, 255, 0.05) !important;
+    background: var(--glass-row-hover) !important;
 }
 
 .budget-tree-grid::part(cell) {
     background: transparent !important;
-    color: rgba(255, 255, 255, 0.9) !important;
+    color: var(--glass-text-primary) !important;
     border-right: none !important;
 }
 
@@ -1606,7 +1595,7 @@ vaadin-confirm-dialog-overlay::part(content) {
     width: 100%;
     max-height: 120px;
     min-height: 100px;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--glass-text-primary);
     overflow: hidden;
     position: relative;
     transition: all 0.3s ease;
@@ -1615,12 +1604,12 @@ vaadin-confirm-dialog-overlay::part(content) {
 
 .pocket-tile-in-menu:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--glass-shadow-hover);
     border-color: var(--glass-primary) !important;
 }
 
 .pocket-tile-in-menu h4 {
-    color: rgba(255, 255, 255, 0.95) !important;
+    color: var(--glass-text-primary) !important;
     margin: 0 0 8px 0;
     font-size: 0.95rem;
     font-weight: 600;
@@ -1639,11 +1628,11 @@ vaadin-confirm-dialog-overlay::part(content) {
 
 /* Pocket side menu container */
 .side-menu {
-    background: linear-gradient(180deg, rgba(17, 25, 40, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%) !important;
+    background: var(--glass-sidebar-gradient) !important;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-left: 1px solid var(--glass-border);
-    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--glass-sidebar-shadow);
 }
 
 /* ===== Logs App Glassmorphism Buttons ===== */
@@ -1661,12 +1650,12 @@ vaadin-confirm-dialog-overlay::part(content) {
 }
 
 .glass-btn {
-    background: rgba(255, 255, 255, 0.1) !important;
+    background: var(--glass-btn-bg) !important;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid var(--glass-border) !important;
     border-radius: 8px !important;
-    color: rgba(255, 255, 255, 0.9) !important;
+    color: var(--glass-text-primary) !important;
     padding: 8px 16px;
     font-weight: 500;
     cursor: pointer;
@@ -1674,9 +1663,9 @@ vaadin-confirm-dialog-overlay::part(content) {
 }
 
 .glass-btn:hover:not([disabled]) {
-    background: rgba(255, 255, 255, 0.2) !important;
+    background: var(--glass-btn-hover-bg) !important;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--glass-shadow);
 }
 
 .glass-btn:disabled {
@@ -1685,48 +1674,48 @@ vaadin-confirm-dialog-overlay::part(content) {
 }
 
 .glass-btn.primary {
-    background: rgba(99, 102, 241, 0.4) !important;
-    border-color: rgba(99, 102, 241, 0.6) !important;
+    background: var(--glass-primary-bg) !important;
+    border-color: var(--glass-primary-border) !important;
 }
 
 .glass-btn.primary:hover:not([disabled]) {
-    background: rgba(99, 102, 241, 0.6) !important;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    background: var(--glass-primary-hover) !important;
+    box-shadow: var(--glass-primary-glow);
 }
 
 .glass-btn.success {
-    background: rgba(16, 185, 129, 0.3) !important;
-    border-color: rgba(16, 185, 129, 0.5) !important;
+    background: var(--glass-success-bg) !important;
+    border-color: var(--glass-success-border) !important;
 }
 
 .glass-btn.success:hover:not([disabled]) {
-    background: rgba(16, 185, 129, 0.5) !important;
-    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    background: var(--glass-success-hover) !important;
+    box-shadow: var(--glass-success-glow);
 }
 
 .glass-btn.warning {
-    background: rgba(245, 158, 11, 0.3) !important;
-    border-color: rgba(245, 158, 11, 0.5) !important;
+    background: var(--glass-warning-bg) !important;
+    border-color: var(--glass-warning-border) !important;
 }
 
 .glass-btn.warning:hover:not([disabled]) {
-    background: rgba(245, 158, 11, 0.5) !important;
-    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+    background: var(--glass-warning-hover) !important;
+    box-shadow: var(--glass-warning-glow);
 }
 
 .glass-btn.danger {
-    background: rgba(239, 68, 68, 0.3) !important;
-    border-color: rgba(239, 68, 68, 0.5) !important;
+    background: var(--glass-danger-bg) !important;
+    border-color: var(--glass-danger-border) !important;
 }
 
 .glass-btn.danger:hover:not([disabled]) {
-    background: rgba(239, 68, 68, 0.5) !important;
-    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+    background: var(--glass-danger-hover) !important;
+    box-shadow: var(--glass-danger-glow);
 }
 
 /* Glass container for any view */
 .glass-container {
-    background: linear-gradient(135deg, rgba(30, 27, 75, 0.9) 0%, rgba(49, 46, 129, 0.8) 50%, rgba(30, 58, 95, 0.9) 100%);
+    background: var(--glass-container-gradient);
     border-radius: 16px;
     padding: 20px;
     min-height: 80vh;
@@ -1745,5 +1734,5 @@ vaadin-confirm-dialog-overlay::part(content) {
 
 .glass-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--glass-shadow-hover);
 }

@@ -260,4 +260,59 @@ html {
     --chart-text-color: white;
     --chart-line1-color: #f97316;
     --chart-line2-color: #dc2626;
+
+    /* ===== Glassmorphism Variables - Sunset (Warm Light Theme) ===== */
+    --glass-bg: rgba(255, 251, 235, 0.9);
+    --glass-blur: 16px;
+    --glass-border: rgba(249, 115, 22, 0.3);
+    --glass-shadow: 0 8px 32px rgba(249, 115, 22, 0.15);
+    --glass-shadow-hover: 0 12px 40px rgba(249, 115, 22, 0.25);
+
+    /* Glass text */
+    --glass-text-primary: #451a03;
+    --glass-text-secondary: #78716c;
+
+    /* Glass containers */
+    --glass-container-gradient: linear-gradient(135deg, rgba(254, 243, 199, 0.95) 0%, rgba(254, 215, 170, 0.9) 50%, rgba(254, 243, 199, 0.95) 100%);
+    --glass-sidebar-gradient: linear-gradient(180deg, rgba(255, 251, 235, 0.98) 0%, rgba(254, 247, 237, 0.98) 100%);
+    --glass-sidebar-shadow: -10px 0 40px rgba(249, 115, 22, 0.15);
+    --glass-header-bg: rgba(249, 115, 22, 0.9);
+    --glass-row-border: rgba(249, 115, 22, 0.15);
+    --glass-row-hover: rgba(249, 115, 22, 0.08);
+
+    /* Glass buttons base */
+    --glass-btn-bg: rgba(249, 115, 22, 0.1);
+    --glass-btn-hover-bg: rgba(249, 115, 22, 0.2);
+
+    /* Glass primary (orange) */
+    --glass-primary: #f97316;
+    --glass-primary-bg: rgba(249, 115, 22, 0.25);
+    --glass-primary-border: rgba(249, 115, 22, 0.45);
+    --glass-primary-hover: rgba(249, 115, 22, 0.4);
+    --glass-primary-glow: 0 4px 15px rgba(249, 115, 22, 0.35);
+
+    /* Glass success (green) */
+    --glass-success-bg: rgba(22, 163, 74, 0.2);
+    --glass-success-border: rgba(22, 163, 74, 0.4);
+    --glass-success-hover: rgba(22, 163, 74, 0.35);
+    --glass-success-glow: 0 4px 15px rgba(22, 163, 74, 0.3);
+
+    /* Glass warning (yellow) */
+    --glass-warning-bg: rgba(234, 179, 8, 0.2);
+    --glass-warning-border: rgba(234, 179, 8, 0.4);
+    --glass-warning-hover: rgba(234, 179, 8, 0.35);
+    --glass-warning-glow: 0 4px 15px rgba(234, 179, 8, 0.3);
+
+    /* Glass danger (red) */
+    --glass-danger-bg: rgba(220, 38, 38, 0.2);
+    --glass-danger-border: rgba(220, 38, 38, 0.4);
+    --glass-danger-hover: rgba(220, 38, 38, 0.35);
+    --glass-danger-glow: 0 4px 15px rgba(220, 38, 38, 0.3);
+
+    /* Glass navigation */
+    --glass-nav-selected-bg: rgba(249, 115, 22, 0.9);
+    --glass-nav-selected-text: #ffffff;
+    --glass-nav-selected-hover: rgba(234, 88, 12, 0.95);
+    --glass-nav-selected-glow: 0 4px 15px rgba(249, 115, 22, 0.4);
+    --glass-nav-selected-glow-hover: 0 6px 20px rgba(249, 115, 22, 0.5);
 }
