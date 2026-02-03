@@ -938,12 +938,12 @@ vaadin-grid::part(header-cell) {
     background-color: var(--table-header-row-background) !important;
     color: var(--table-header-row-color) !important;
     font-weight: bold;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid var(--table-header-border-color, rgba(255,255,255,0.2));
     padding: 10px;
 }
 
 vaadin-grid-sorter {
-    color: white !important;
+    color: var(--table-header-row-color) !important;
 }
 
 vaadin-grid::part(cell) {
@@ -1993,55 +1993,55 @@ vaadin-confirm-dialog-overlay::part(content) {
 }
 
 .flashcard-knowledge:nth-child(1) {
-    /* Again - red */
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-    color: white;
-    border: none;
+    /* Again - uses theme danger/error colors */
+    background: var(--flashcard-again-bg, linear-gradient(135deg, #dc2626 0%, #b91c1c 100%));
+    color: var(--flashcard-btn-text, white);
+    border: 1px solid var(--flashcard-again-border, transparent);
 }
 
 .flashcard-knowledge:nth-child(1):hover {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    background: var(--flashcard-again-hover-bg, linear-gradient(135deg, #ef4444 0%, #dc2626 100%));
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+    box-shadow: var(--flashcard-again-glow, 0 4px 12px rgba(220, 38, 38, 0.4));
 }
 
 .flashcard-knowledge:nth-child(2) {
-    /* Hard - orange */
-    background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
-    color: white;
-    border: none;
+    /* Hard - uses theme warning colors */
+    background: var(--flashcard-hard-bg, linear-gradient(135deg, #ea580c 0%, #c2410c 100%));
+    color: var(--flashcard-btn-text, white);
+    border: 1px solid var(--flashcard-hard-border, transparent);
 }
 
 .flashcard-knowledge:nth-child(2):hover {
-    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    background: var(--flashcard-hard-hover-bg, linear-gradient(135deg, #f97316 0%, #ea580c 100%));
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.4);
+    box-shadow: var(--flashcard-hard-glow, 0 4px 12px rgba(234, 88, 12, 0.4));
 }
 
 .flashcard-knowledge:nth-child(3) {
-    /* Good - green */
-    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
-    color: white;
-    border: none;
+    /* Good - uses theme success colors */
+    background: var(--flashcard-good-bg, linear-gradient(135deg, #16a34a 0%, #15803d 100%));
+    color: var(--flashcard-btn-text, white);
+    border: 1px solid var(--flashcard-good-border, transparent);
 }
 
 .flashcard-knowledge:nth-child(3):hover {
-    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    background: var(--flashcard-good-hover-bg, linear-gradient(135deg, #22c55e 0%, #16a34a 100%));
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.4);
+    box-shadow: var(--flashcard-good-glow, 0 4px 12px rgba(22, 163, 74, 0.4));
 }
 
 .flashcard-knowledge:nth-child(4) {
-    /* Easy - blue */
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-    color: white;
-    border: none;
+    /* Easy - uses theme primary colors */
+    background: var(--flashcard-easy-bg, linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%));
+    color: var(--flashcard-btn-text, white);
+    border: 1px solid var(--flashcard-easy-border, transparent);
 }
 
 .flashcard-knowledge:nth-child(4):hover {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    background: var(--flashcard-easy-hover-bg, linear-gradient(135deg, #3b82f6 0%, #2563eb 100%));
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    box-shadow: var(--flashcard-easy-glow, 0 4px 12px rgba(37, 99, 235, 0.4));
 }
 
 /* Keyboard shortcuts info */

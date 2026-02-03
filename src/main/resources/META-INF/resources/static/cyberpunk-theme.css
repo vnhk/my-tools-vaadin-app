@@ -321,6 +321,33 @@ html {
     --scrollbar-track: rgba(10, 10, 15, 0.8);
     --scrollbar-thumb: rgba(0, 255, 255, 0.5);
     --scrollbar-thumb-hover: rgba(255, 0, 128, 0.7);
+
+    /* ===== Flashcard Buttons - Cyberpunk (Neon glass style) ===== */
+    --flashcard-btn-text: #ffffff;
+
+    /* Again - Neon red glass */
+    --flashcard-again-bg: var(--glass-danger-bg);
+    --flashcard-again-border: var(--glass-danger-border);
+    --flashcard-again-hover-bg: var(--glass-danger-hover);
+    --flashcard-again-glow: var(--glass-danger-glow);
+
+    /* Hard - Neon yellow glass */
+    --flashcard-hard-bg: var(--glass-warning-bg);
+    --flashcard-hard-border: var(--glass-warning-border);
+    --flashcard-hard-hover-bg: var(--glass-warning-hover);
+    --flashcard-hard-glow: var(--glass-warning-glow);
+
+    /* Good - Neon green glass */
+    --flashcard-good-bg: var(--glass-success-bg);
+    --flashcard-good-border: var(--glass-success-border);
+    --flashcard-good-hover-bg: var(--glass-success-hover);
+    --flashcard-good-glow: var(--glass-success-glow);
+
+    /* Easy - Neon pink/Primary glass */
+    --flashcard-easy-bg: var(--glass-primary-bg);
+    --flashcard-easy-border: var(--glass-primary-border);
+    --flashcard-easy-hover-bg: var(--glass-primary-hover);
+    --flashcard-easy-glow: var(--glass-primary-glow);
 }
 
 /* Cyberpunk Scrollbar Styles */

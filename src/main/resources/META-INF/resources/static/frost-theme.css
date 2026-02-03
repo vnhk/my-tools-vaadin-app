@@ -321,6 +321,33 @@ html {
     --scrollbar-track: rgba(241, 245, 249, 0.6);
     --scrollbar-thumb: rgba(99, 102, 241, 0.35);
     --scrollbar-thumb-hover: rgba(99, 102, 241, 0.55);
+
+    /* ===== Flashcard Buttons - Frost (Soft, muted colors for light theme) ===== */
+    --flashcard-btn-text: #1e293b;
+
+    /* Again - Soft rose/red */
+    --flashcard-again-bg: var(--glass-danger-bg);
+    --flashcard-again-border: var(--glass-danger-border);
+    --flashcard-again-hover-bg: var(--glass-danger-hover);
+    --flashcard-again-glow: var(--glass-danger-glow);
+
+    /* Hard - Soft amber/orange */
+    --flashcard-hard-bg: var(--glass-warning-bg);
+    --flashcard-hard-border: var(--glass-warning-border);
+    --flashcard-hard-hover-bg: var(--glass-warning-hover);
+    --flashcard-hard-glow: var(--glass-warning-glow);
+
+    /* Good - Soft emerald/green */
+    --flashcard-good-bg: var(--glass-success-bg);
+    --flashcard-good-border: var(--glass-success-border);
+    --flashcard-good-hover-bg: var(--glass-success-hover);
+    --flashcard-good-glow: var(--glass-success-glow);
+
+    /* Easy - Soft indigo/blue (theme primary) */
+    --flashcard-easy-bg: var(--glass-primary-bg);
+    --flashcard-easy-border: var(--glass-primary-border);
+    --flashcard-easy-hover-bg: var(--glass-primary-hover);
+    --flashcard-easy-glow: var(--glass-primary-glow);
 }
 
 /* Frost Scrollbar Styles */

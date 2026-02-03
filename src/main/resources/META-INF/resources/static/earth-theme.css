@@ -180,6 +180,33 @@ html {
     --scrollbar-track: rgba(44, 39, 35, 0.6);
     --scrollbar-thumb: rgba(106, 93, 77, 0.55);
     --scrollbar-thumb-hover: rgba(106, 93, 77, 0.8);
+
+    /* ===== Flashcard Buttons - Earth (Earthy glass style) ===== */
+    --flashcard-btn-text: #ffffff;
+
+    /* Again - Muted red glass */
+    --flashcard-again-bg: var(--glass-danger-bg);
+    --flashcard-again-border: var(--glass-danger-border);
+    --flashcard-again-hover-bg: var(--glass-danger-hover);
+    --flashcard-again-glow: var(--glass-danger-glow);
+
+    /* Hard - Amber brown glass */
+    --flashcard-hard-bg: var(--glass-warning-bg);
+    --flashcard-hard-border: var(--glass-warning-border);
+    --flashcard-hard-hover-bg: var(--glass-warning-hover);
+    --flashcard-hard-glow: var(--glass-warning-glow);
+
+    /* Good - Olive glass */
+    --flashcard-good-bg: var(--glass-success-bg);
+    --flashcard-good-border: var(--glass-success-border);
+    --flashcard-good-hover-bg: var(--glass-success-hover);
+    --flashcard-good-glow: var(--glass-success-glow);
+
+    /* Easy - Brown/Primary glass */
+    --flashcard-easy-bg: var(--glass-primary-bg);
+    --flashcard-easy-border: var(--glass-primary-border);
+    --flashcard-easy-hover-bg: var(--glass-primary-hover);
+    --flashcard-easy-glow: var(--glass-primary-glow);
 }
 
 /* Earth Scrollbar Styles */

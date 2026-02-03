@@ -289,6 +289,33 @@ html {
     --scrollbar-track: rgba(30, 31, 34, 0.7);
     --scrollbar-thumb: rgba(53, 116, 240, 0.45);
     --scrollbar-thumb-hover: rgba(53, 116, 240, 0.7);
+
+    /* ===== Flashcard Buttons - IntelliJ (Muted glass style) ===== */
+    --flashcard-btn-text: #ffffff;
+
+    /* Again - Muted red glass */
+    --flashcard-again-bg: var(--glass-danger-bg);
+    --flashcard-again-border: var(--glass-danger-border);
+    --flashcard-again-hover-bg: var(--glass-danger-hover);
+    --flashcard-again-glow: var(--glass-danger-glow);
+
+    /* Hard - Muted yellow glass */
+    --flashcard-hard-bg: var(--glass-warning-bg);
+    --flashcard-hard-border: var(--glass-warning-border);
+    --flashcard-hard-hover-bg: var(--glass-warning-hover);
+    --flashcard-hard-glow: var(--glass-warning-glow);
+
+    /* Good - Muted green glass */
+    --flashcard-good-bg: var(--glass-success-bg);
+    --flashcard-good-border: var(--glass-success-border);
+    --flashcard-good-hover-bg: var(--glass-success-hover);
+    --flashcard-good-glow: var(--glass-success-glow);
+
+    /* Easy - Blue/Primary glass */
+    --flashcard-easy-bg: var(--glass-primary-bg);
+    --flashcard-easy-border: var(--glass-primary-border);
+    --flashcard-easy-hover-bg: var(--glass-primary-hover);
+    --flashcard-easy-glow: var(--glass-primary-glow);
 }
 
 /* IntelliJ Scrollbar Styles */

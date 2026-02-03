@@ -321,6 +321,33 @@ html {
     --scrollbar-track: rgba(13, 1, 24, 0.6);
     --scrollbar-thumb: rgba(255, 107, 157, 0.55);
     --scrollbar-thumb-hover: rgba(245, 158, 11, 0.75);
+
+    /* ===== Flashcard Buttons - Sunset (Warm glass style) ===== */
+    --flashcard-btn-text: #ffffff;
+
+    /* Again - Red glass */
+    --flashcard-again-bg: var(--glass-danger-bg);
+    --flashcard-again-border: var(--glass-danger-border);
+    --flashcard-again-hover-bg: var(--glass-danger-hover);
+    --flashcard-again-glow: var(--glass-danger-glow);
+
+    /* Hard - Golden/Warning glass */
+    --flashcard-hard-bg: var(--glass-warning-bg);
+    --flashcard-hard-border: var(--glass-warning-border);
+    --flashcard-hard-hover-bg: var(--glass-warning-hover);
+    --flashcard-hard-glow: var(--glass-warning-glow);
+
+    /* Good - Green/Success glass */
+    --flashcard-good-bg: var(--glass-success-bg);
+    --flashcard-good-border: var(--glass-success-border);
+    --flashcard-good-hover-bg: var(--glass-success-hover);
+    --flashcard-good-glow: var(--glass-success-glow);
+
+    /* Easy - Pink/Primary glass */
+    --flashcard-easy-bg: var(--glass-primary-bg);
+    --flashcard-easy-border: var(--glass-primary-border);
+    --flashcard-easy-hover-bg: var(--glass-primary-hover);
+    --flashcard-easy-glow: var(--glass-primary-glow);
 }
 
 /* Sunset Scrollbar Styles */
