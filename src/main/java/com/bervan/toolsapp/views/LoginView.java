@@ -12,7 +12,6 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.login.LoginForm;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
@@ -70,11 +69,13 @@ public class LoginView extends AbstractPageView {
         rightPanel.setAlignItems(Alignment.CENTER);
 
         // --- Page layout ---
-        HorizontalLayout content = new HorizontalLayout(loginCard, rightPanel);
+        // Use VerticalLayout wrapper for responsive stacking on mobile
+        VerticalLayout content = new VerticalLayout();
         content.setSizeUndefined();
         content.setSpacing(true);
         content.setAlignItems(Alignment.CENTER);
         content.addClassName("login-content");
+        content.add(loginCard, rightPanel);
 
         add(content);
     }

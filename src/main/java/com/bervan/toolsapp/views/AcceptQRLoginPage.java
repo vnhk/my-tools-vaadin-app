@@ -48,24 +48,36 @@ public class AcceptQRLoginPage extends AbstractPageView implements HasUrlParamet
 
     private void showExpiredView() {
         removeAll();
+        addClassName("login-page");
+
         H2 title = new H2("Session Expired");
         Paragraph message = new Paragraph("This QR code has expired or been used already.");
         Button backButton = new Button("Back to Login", e ->
                 getUI().ifPresent(ui -> ui.navigate("/login")));
+        backButton.addClassName("accept-login-btn");
 
-        add(new VerticalLayout(title, message, backButton));
+        VerticalLayout card = new VerticalLayout(title, message, backButton);
+        card.addClassName("accept-login-card");
+        card.setAlignItems(Alignment.CENTER);
+        card.setJustifyContentMode(JustifyContentMode.CENTER);
+
+        add(card);
     }
 
     private void showLoginView() {
         removeAll();
+        addClassName("login-page");
 
         H2 title = new H2("Confirm Login");
-        Paragraph instruction = new Paragraph("Enter the number from your QR code to confirm login:");
+        title.addClassName("accept-login-title");
+
+        Paragraph instruction = new Paragraph("Enter the number from your QR code:");
+        instruction.addClassName("accept-login-instruction");
 
         IntegerField numberField = new IntegerField("Number");
         numberField.setMin(1);
         numberField.setMax(99);
-        numberField.setWidthFull();
+        numberField.addClassName("accept-login-number-field");
 
         Optional<User> loggedUser = AuthService.getLoggedUser();
         if (loggedUser.isEmpty()) {
@@ -77,10 +89,8 @@ public class AcceptQRLoginPage extends AbstractPageView implements HasUrlParamet
         availableAccountsList.add(user.getUsername() + ":" + user.getRole());
         BervanComboBox<String> availableAccounts = new BervanComboBox<>(availableAccountsList);
         availableAccounts.setValue(availableAccountsList.get(0));
-
-        availableAccounts.setWidthFull();
+        availableAccounts.addClassName("accept-login-combo");
         availableAccounts.setPlaceholder("Select account");
-        add(availableAccounts);
 
         Button loginButton = new Button("Login", e -> {
             Integer enteredNumber = numberField.getValue();
@@ -104,19 +114,25 @@ public class AcceptQRLoginPage extends AbstractPageView implements HasUrlParamet
                 numberField.clear();
             }
         });
+        loginButton.addClassName("accept-login-btn");
         loginButton.addClassName("primary");
 
         Button cancelButton = new Button("Cancel", e ->
                 getUI().ifPresent(ui -> ui.navigate("/login")));
+        cancelButton.addClassName("accept-login-btn");
 
-        Div buttonLayout = new Div(loginButton, cancelButton);
-        buttonLayout.addClassName("button-layout");
+        VerticalLayout buttonLayout = new VerticalLayout(loginButton, cancelButton);
+        buttonLayout.addClassName("accept-login-buttons");
+        buttonLayout.setSpacing(true);
+        buttonLayout.setPadding(false);
+        buttonLayout.setAlignItems(Alignment.STRETCH);
 
-        VerticalLayout layout = new VerticalLayout(title, instruction, numberField, buttonLayout);
-        layout.setAlignItems(Alignment.CENTER);
-        layout.setJustifyContentMode(JustifyContentMode.CENTER);
-        layout.setSizeFull();
+        VerticalLayout card = new VerticalLayout(title, instruction, availableAccounts, numberField, buttonLayout);
+        card.addClassName("accept-login-card");
+        card.setAlignItems(Alignment.CENTER);
+        card.setJustifyContentMode(JustifyContentMode.CENTER);
+        card.setSpacing(true);
 
-        add(layout);
+        add(card);
     }
 }

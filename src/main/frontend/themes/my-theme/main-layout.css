@@ -446,11 +446,14 @@ vaadin-grid.flex-grid::part(cell) {
     background-color: white;
 }
 
+/* ==================== Login Page Styles ==================== */
 .login-page {
     display: flex;
     justify-content: center;
     align-items: center;
     background: var(--lumo-contrast-5pct);
+    padding: 1rem;
+    min-height: 100vh;
 }
 
 .login-card {
@@ -458,11 +461,163 @@ vaadin-grid.flex-grid::part(cell) {
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    min-width: 320px;
+    min-width: 280px;
+    max-width: 400px;
+    width: 100%;
 }
 
 .login-content {
-    gap: 3rem;
+    gap: 2rem;
+    max-width: 900px;
+    width: 100%;
+    padding: 1rem;
+}
+
+/* Desktop: horizontal layout for login content */
+@media (min-width: 768px) {
+    .login-content {
+        flex-direction: row !important;
+        gap: 3rem;
+    }
+
+    .login-content > * {
+        flex: 1;
+    }
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 767px) {
+    .login-content {
+        flex-direction: column !important;
+        gap: 1.5rem;
+    }
+
+    .login-card {
+        padding: 1.5rem;
+        min-width: unset;
+    }
+}
+
+/* ==================== Accept Login Page Styles ==================== */
+.accept-login-card {
+    background: var(--glass-bg, rgba(255, 255, 255, 0.95));
+    backdrop-filter: blur(16px);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 400px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.accept-login-title {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.accept-login-instruction {
+    text-align: center;
+    color: var(--lumo-secondary-text-color);
+    margin-bottom: 1rem;
+}
+
+.accept-login-number-field {
+    width: 100%;
+    font-size: 1.5rem;
+}
+
+.accept-login-number-field input {
+    text-align: center;
+    font-size: 2rem;
+    padding: 1rem;
+    min-height: 60px;
+}
+
+.accept-login-combo {
+    width: 100%;
+}
+
+.accept-login-buttons {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.accept-login-btn {
+    min-height: 48px;
+    font-size: 1.1rem;
+    width: 100%;
+    touch-action: manipulation;
+}
+
+/* Mobile optimizations for accept-login */
+@media (max-width: 480px) {
+    .accept-login-card {
+        padding: 1.5rem;
+        width: 95%;
+    }
+
+    .accept-login-title {
+        font-size: 1.3rem;
+    }
+
+    .accept-login-btn {
+        min-height: 56px;
+        font-size: 1.2rem;
+    }
+}
+
+/* ==================== QR Login Styles ==================== */
+.qr-login-view {
+    background: var(--glass-bg, rgba(255, 255, 255, 0.95));
+    backdrop-filter: blur(16px);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 350px;
+    width: 100%;
+}
+
+.qr-login-view h2 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.qr-login-view p {
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.qr-login-view img {
+    max-width: 100%;
+    height: auto;
+}
+
+.qr-login-view .button-layout {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.qr-login-view .button-layout button {
+    min-height: 44px;
+    touch-action: manipulation;
+}
+
+/* Mobile optimizations for QR login */
+@media (max-width: 480px) {
+    .qr-login-view {
+        padding: 1rem;
+    }
+
+    .qr-login-view h2 {
+        font-size: 1.1rem;
+    }
+
+    .qr-login-view p {
+        font-size: 0.85rem;
+    }
 }
 
 navigation-buttons > .option-button {

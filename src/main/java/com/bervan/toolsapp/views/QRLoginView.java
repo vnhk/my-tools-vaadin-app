@@ -38,6 +38,7 @@ public class QRLoginView extends AbstractPageView {
         this.qrLoginService = qrLoginService;
         this.currentSessionId = VaadinSession.getCurrent().getSession().getId();
 
+        addClassName("qr-login-view");
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
 
