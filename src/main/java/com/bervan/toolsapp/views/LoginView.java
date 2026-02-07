@@ -61,9 +61,10 @@ public class LoginView extends AbstractPageView {
                 BervanButtonStyle.WARNING
         );
 
-        // --- QR login block ---
+        // --- QR login block (hidden on mobile) ---
         QRLoginView qrLoginView = new QRLoginView(qrLoginService, null);
         VerticalLayout rightPanel = new VerticalLayout(qrLoginView, otpLoginButton);
+        rightPanel.addClassName("login-qr-panel");
         rightPanel.setPadding(false);
         rightPanel.setSpacing(true);
         rightPanel.setAlignItems(Alignment.CENTER);
