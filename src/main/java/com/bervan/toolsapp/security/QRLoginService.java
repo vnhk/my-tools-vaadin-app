@@ -13,22 +13,28 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class QRLoginService {
 
-    private final Map<String, QRLoginData> qrLoginSessions = new ConcurrentHashMap<>();
+    private final Map<Integer, QRLoginData> qrLoginSessions = new ConcurrentHashMap<>();
     private final Map<String, QRSessionWaiting> waitingSessions = new ConcurrentHashMap<>();
 
     public QRLoginData generateQRLogin() {
-        String uuid = UUID.randomUUID().toString();
+        String sessionId = VaadinSession.getCurrent().getSession().getId();
+        int uuid = ThreadLocalRandom.current().nextInt(1000, 9999);
         int number = ThreadLocalRandom.current().nextInt(1, 100); // 01-99
 
-        // Get current session ID where QR is being generated
-        String sessionId = VaadinSession.getCurrent().getSession().getId();
+        int maxAttempts = 100;
+        while (qrLoginSessions.containsKey(uuid) && --maxAttempts > 0) {
+            uuid = ThreadLocalRandom.current().nextInt(1000, 9999);
+        }
+
+        if (maxAttempts <= 0) {
+            throw new RuntimeException("Unable to generate unique QR code!");
+        }
 
         QRLoginData data = new QRLoginData(uuid, number, sessionId);
         qrLoginSessions.put(uuid, data);
@@ -54,11 +60,11 @@ public class QRLoginService {
     }
 
     public QRLoginData getQRLoginData(String uuid) {
-        return qrLoginSessions.get(uuid);
+        return qrLoginSessions.get(Integer.valueOf(uuid));
     }
 
     public boolean validateAndAuthenticateQRLogin(String uuid, int enteredNumber, User authenticatingUser) {
-        QRLoginData data = qrLoginSessions.get(uuid);
+        QRLoginData data = qrLoginSessions.get(Integer.valueOf(uuid));
         if (data == null || data.isExpired() || data.isUsed()) {
             return false;
         }
@@ -91,7 +97,7 @@ public class QRLoginService {
         waitingSessions.entrySet().removeIf(entry -> entry.getValue().isExpired());
     }
 
-    public String buildFullUrl(String uuid) {
+    public String buildFullUrl(int uuid) {
         VaadinRequest request = VaadinRequest.getCurrent();
         if (request != null) {
             String scheme = request.getHeader("X-Forwarded-Proto");
@@ -118,13 +124,13 @@ public class QRLoginService {
     }
 
     public static class QRLoginData {
-        private final String uuid;
+        private final int uuid;
         private final int number;
         private final long createdTime;
         private final String originSessionId;
         private boolean used;
 
-        public QRLoginData(String uuid, int number, String originSessionId) {
+        public QRLoginData(int uuid, int number, String originSessionId) {
             this.uuid = uuid;
             this.number = number;
             this.originSessionId = originSessionId;
@@ -132,7 +138,7 @@ public class QRLoginService {
             this.used = false;
         }
 
-        public String getUuid() {
+        public Integer getUuid() {
             return uuid;
         }
 
