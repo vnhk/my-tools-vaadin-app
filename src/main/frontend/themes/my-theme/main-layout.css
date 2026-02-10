@@ -317,16 +317,91 @@ span {
     color: var(--canvas-main-layout-text-color);
 }
 
-.canvas-left-panel {
+.canvas-sidebar {
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
     background-color: var(--canvas-left-panel-background);
     color: var(--canvas-left-panel-text-color);
     border-right: 1px solid var(--canvas-left-panel-border-color);
+    transition: width 0.3s ease, min-width 0.3s ease, max-width 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
-.canvas-middle-panel {
-    background-color: var(--canvas-middle-panel-background);
-    color: var(--canvas-middle-panel-text-color);
-    border-right: 1px solid var(--canvas-middle-panel-border-color);
+.canvas-sidebar.collapsed {
+    width: 0;
+    min-width: 0;
+    max-width: 0;
+    border-right: none;
+}
+
+.canvas-sidebar.collapsed .canvas-sidebar-content {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.canvas-sidebar-toggle {
+    position: absolute;
+    top: 8px;
+    right: -40px;
+    z-index: 100;
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    padding: 0;
+    border-radius: 50%;
+    background: var(--canvas-notebook-button-background, #333);
+    color: var(--canvas-notebook-button-text-color, #fff);
+    border: 1px solid var(--canvas-left-panel-border-color, #555);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.canvas-sidebar-content {
+    padding: 10px;
+    overflow-y: auto;
+    flex: 1;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+.canvas-section-title {
+    font-weight: bold;
+    font-size: var(--bervan-font-size-md, 14px);
+    margin-bottom: 8px;
+    display: block;
+    color: var(--canvas-left-panel-text-color, inherit);
+}
+
+.canvas-categories-section {
+    margin-bottom: 8px;
+}
+
+.canvas-notebooks-section {
+    margin-top: 8px;
+}
+
+.canvas-add-category-row {
+    display: flex;
+    gap: 4px;
+    margin-top: 6px;
+    align-items: center;
+}
+
+.canvas-add-category-row vaadin-text-field {
+    flex: 1;
+}
+
+.canvas-add-btn {
+    min-width: 32px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
 }
 
 .canvas-main-canvas {
@@ -339,6 +414,8 @@ span {
     background-color: var(--canvas-notebook-button-background);
     color: var(--canvas-notebook-button-text-color);
     border: 1px solid var(--canvas-notebook-button-border-color);
+    margin-bottom: 2px;
+    text-align: left;
 }
 
 vaadin-date-picker {

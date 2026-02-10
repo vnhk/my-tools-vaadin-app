@@ -127,6 +127,16 @@ html {
     --canvas-notebook-button-background: #ff6b9d; /* Hot Pink */
     --canvas-notebook-button-text-color: #ffffff; /* White */
     --canvas-notebook-button-border-color: #f59e0b; /* Orange */
+    --canvas-toolbar-bg: rgba(0,0,0,0.04);
+    --canvas-toolbar-border: rgba(0,0,0,0.12);
+    --canvas-toolbar-btn-bg: rgba(0,0,0,0.05);
+    --canvas-toolbar-btn-hover: rgba(0,0,0,0.1);
+    --canvas-toolbar-btn-active: rgba(59,130,246,0.2);
+    --canvas-toolbar-btn-active-border: rgba(59,130,246,0.5);
+    --canvas-draggable-border: rgba(0,0,0,0.15);
+    --canvas-draggable-bg: rgba(0,0,0,0.03);
+    --canvas-draggable-selected: #3b82f6;
+    --canvas-element-toolbar-bg: rgba(255,255,255,0.95);
 
     /* Spreadsheet Toolbar Sunset Variables */
     --spreadsheet-toolbar-background: linear-gradient(135deg, #1a0a2e, #0d0118);

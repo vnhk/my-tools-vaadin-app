@@ -127,6 +127,16 @@ html {
     --canvas-notebook-button-background: #ff0080; /* Hot Pink */
     --canvas-notebook-button-text-color: #ffffff; /* White */
     --canvas-notebook-button-border-color: #00ffff; /* Cyan */
+    --canvas-toolbar-bg: rgba(255,255,255,0.08);
+    --canvas-toolbar-border: rgba(255,255,255,0.12);
+    --canvas-toolbar-btn-bg: rgba(255,255,255,0.06);
+    --canvas-toolbar-btn-hover: rgba(255,255,255,0.15);
+    --canvas-toolbar-btn-active: rgba(100,149,237,0.3);
+    --canvas-toolbar-btn-active-border: rgba(100,149,237,0.6);
+    --canvas-draggable-border: rgba(255,255,255,0.15);
+    --canvas-draggable-bg: rgba(255,255,255,0.04);
+    --canvas-draggable-selected: cornflowerblue;
+    --canvas-element-toolbar-bg: rgba(30,30,50,0.95);
 
     /* Spreadsheet Toolbar Cyberpunk Variables */
     --spreadsheet-toolbar-background: linear-gradient(135deg, #1a1a1a, #080808);
