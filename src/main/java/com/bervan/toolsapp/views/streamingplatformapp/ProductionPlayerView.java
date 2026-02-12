@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.streamingplatformapp;
 
+import com.bervan.asynctask.AsyncTaskService;
 import com.bervan.common.config.BervanViewConfig;
 import com.bervan.englishtextstats.service.WordService;
 import com.bervan.filestorage.model.Metadata;
@@ -26,18 +27,21 @@ public class ProductionPlayerView extends AbstractProductionPlayerView {
     private final VideoManager videoManager;
     private final WordService wordService;
     private final FileServiceManager fileServiceManager;
+    private final AsyncTaskService asyncTaskService;
     private final AddFlashcardService addAsFlashcardService;
     private final BervanViewConfig bervanViewConfig;
 
     public ProductionPlayerView(VideoManager videoManager,
                                 WordService wordService,
                                 FileServiceManager fileServiceManager,
+                                AsyncTaskService asyncTaskService,
                                 AddFlashcardService addAsFlashcardService,
                                 BervanViewConfig bervanViewConfig,
                                 Map<String, ProductionData> streamingProductionData) {
         super(videoManager, streamingProductionData);
         this.videoManager = videoManager;
         this.fileServiceManager = fileServiceManager;
+        this.asyncTaskService = asyncTaskService;
         this.addAsFlashcardService = addAsFlashcardService;
         this.wordService = wordService;
         this.bervanViewConfig = bervanViewConfig;
@@ -79,6 +83,7 @@ public class ProductionPlayerView extends AbstractProductionPlayerView {
     private void openSubtitleUploadDialog(Metadata video) {
         UploadComponent uploadComponent = new UploadComponent(
                 fileServiceManager,
+                asyncTaskService,
                 video.getPath()
         ) {
             @Override
