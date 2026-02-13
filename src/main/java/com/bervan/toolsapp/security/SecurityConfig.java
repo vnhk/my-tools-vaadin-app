@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
@@ -17,11 +18,14 @@ import org.springframework.web.cors.CorsConfiguration;
 public class SecurityConfig extends VaadinWebSecurity {
 
     private final AuthenticationProvider otpAuthenticationProvider;
+    private final TvTokenAuthenticationFilter tvTokenAuthenticationFilter;
 
     public SecurityConfig(
-            CustomAuthenticationProvider customAuthenticationProvider
+            CustomAuthenticationProvider customAuthenticationProvider,
+            TvTokenAuthenticationFilter tvTokenAuthenticationFilter
     ) {
         this.otpAuthenticationProvider = customAuthenticationProvider;
+        this.tvTokenAuthenticationFilter = tvTokenAuthenticationFilter;
     }
 
 
@@ -47,8 +51,9 @@ public class SecurityConfig extends VaadinWebSecurity {
 
         httpSecurity.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/login", "/pocket/**",
-                            "/language-learning/**", "/products/**").permitAll();
-                    authorizationManagerRequestMatcherRegistry.requestMatchers("/line-awesome/**", "/static/**", "/images/**").permitAll();
+                            "/language-learning/**", "/products/**", "/api/tv/pair/**")
+                            .permitAll();
+                    authorizationManagerRequestMatcherRegistry.requestMatchers("/line-awesome/**", "/static/**", "/images/**", "/light-player.html").permitAll();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {
                     httpSecurityFormLoginConfigurer.loginPage("/login").permitAll();
@@ -64,6 +69,9 @@ public class SecurityConfig extends VaadinWebSecurity {
 
         setLoginView(http, LoginView.class);
         super.configure(http);
+
+        // Allow CORS so TV app (different origin) can call the main API.
+        http.addFilterBefore(tvTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
                 .and()

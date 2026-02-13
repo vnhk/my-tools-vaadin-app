@@ -120,18 +120,68 @@
     (function() {
         'use strict';
 
-        // --- State ---
-        const params = new URLSearchParams(location.search);
-        const productionName = params.get('production');
-        const videoFolderId = params.get('video');
+        async function pollForToken(code) {
+            const POLL_INTERVAL = 3000; // 3 seconds
+
+            const intervalId = setInterval(async () => {
+                try {
+                    const response = await fetch('/api/tv/pair/token/' + encodeURIComponent(code));
+
+                    if (!response.ok) {
+                        throw new Error('HTTP ' + response.status);
+                    }
+
+                    const data = await response.json();
+
+                    if (data.status === 'READY' && data.token) {
+                        clearInterval(intervalId);
+
+                        // Save token for authenticated API calls
+                        accessToken = data.token;
+
+                        console.log('TV paired successfully');
+
+                        // If navigation already happened before pairing,
+                        // load video immediately
+                        if (productionName && videoFolderId) {
+                            document.getElementById('loading').style.display = 'flex';
+                            fetchVideoInfo()
+                                .then(init)
+                                .catch(e => showError('Failed to load video: ' + e.message));
+                        }
+                    }
+
+                } catch (e) {
+                    console.error('Polling error:', e);
+                }
+            }, POLL_INTERVAL);
+        }
+
+        async function startPairing() {
+            const response = await fetch('/api/tv/pair/start', {
+                method: 'POST'
+            });
+
+            if (!response.ok) {
+                throw new Error('HTTP ' + response.status);
+            }
+
+            const data = await response.json();
+
+            if (!data.pairCode) {
+                throw new Error('pairCode missing in response');
+            }
+
+            return data.pairCode;
+        }
+
+        let productionName = null;
+        let videoFolderId = null;
         let videoInfo = null;
         let ws = null;
         let hls = null;
-        let roomId = localStorage.getItem('roomId');
-        if (!roomId || roomId.length > 5) {
-            roomId = '' + Math.floor(Math.random() * 90000 + 10000);
-            localStorage.setItem('roomId', roomId);
-        }
+        let roomId = null; // will be set from pairing code
+        let accessToken = null;
 
         const video = document.getElementById('player');
         const PROGRESS_INTERVAL = 10000;
@@ -139,24 +189,32 @@
         let lastReportedTime = 0;
         let progressTimer = null;
 
-        // --- Init ---
-        if (!productionName || !videoFolderId) {
-            showError('Missing URL parameters: ?production=NAME&video=FOLDER_ID');
-            return;
-        }
-
-        document.getElementById('room-id-display').textContent = roomId;
-        document.getElementById('room-id-info').textContent = roomId;
-
-        fetchVideoInfo().then(init).catch(e => showError('Failed to load video: ' + e.message));
+        // Start pairing on page load
+        startPairing()
+            .then(code => {
+                roomId = code;
+                document.getElementById('room-id-display').textContent = roomId;
+                document.getElementById('room-id-info').textContent = roomId;
+                pollForToken(code);
+                connectWebSocket();
+                setupKeyboard();
+            })
+            .catch(e => showError('Failed to start pairing: ' + e.message));
 
         // --- Functions ---
 
         async function fetchVideoInfo() {
+            if (!productionName || !videoFolderId) {
+                throw new Error('Video not selected yet');
+            }
             const resp = await fetch('/api/streaming/light-player/video-info/' +
-                encodeURIComponent(productionName) + '/' + encodeURIComponent(videoFolderId));
+                encodeURIComponent(productionName) + '/' + encodeURIComponent(videoFolderId), {
+                headers: {
+                    'X-Auth-Token': accessToken || ''
+                }
+            });
             if (resp.status === 401) {
-                location.href = '/login';
+                showError('Not authorized. Please log in and pair this TV in the main application.');
                 return;
             }
             if (!resp.ok) throw new Error('HTTP ' + resp.status);
@@ -208,12 +266,6 @@
                     video.addEventListener('loadedmetadata', () => { video.currentTime = info.watchProgress; }, { once: true });
                 }
             }
-
-            // WebSocket
-            connectWebSocket();
-
-            // Keyboard
-            setupKeyboard();
         }
 
         function activatePlayback() {
@@ -255,8 +307,9 @@
         }
 
         function navigateTo(episodeId) {
-            location.href = '/api/streaming/light-player/page?production=' +
-                encodeURIComponent(productionName) + '&video=' + encodeURIComponent(episodeId);
+            videoFolderId = episodeId;
+            document.getElementById('loading').style.display = 'flex';
+            fetchVideoInfo().then(init).catch(e => showError('Failed to load episode: ' + e.message));
         }
 
         // --- Watch Progress ---
@@ -268,7 +321,10 @@
                     lastReportedTime = video.currentTime;
                     fetch('/api/streaming/light-player/watch-progress', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Auth-Token': accessToken || ''
+                        },
                         body: JSON.stringify({ videoId: videoFolderId, currentTime: video.currentTime })
                     }).catch(() => {});
                 }
@@ -285,7 +341,7 @@
             ws.onmessage = (event) => {
                 try {
                     handleCommand(JSON.parse(event.data));
-                } catch(e) { console.error('WS parse error', e); }
+                } catch(e) {}
             };
 
             ws.onclose = () => { setTimeout(connectWebSocket, 3000); };
@@ -320,7 +376,7 @@
                 case 'FULLSCREEN':
                     toggleFullscreen(); break;
                 case 'NAVIGATE':
-                    if (msg.data && msg.data.url) location.href = msg.data.url;
+                    if (msg.data && msg.data.url) applyNavigationUrl(msg.data.url);
                     break;
                 case 'GET_TRACKS':
                     sendTracks(msg.data ? msg.data.trackType : null); break;
@@ -459,6 +515,32 @@
             const el = document.getElementById('error-msg');
             el.textContent = msg;
             el.style.display = 'flex';
+        }
+
+        function applyNavigationUrl(url) {
+            try {
+                const idx = url.indexOf('?');
+                if (idx === -1) {
+                    return;
+                }
+                const query = url.substring(idx + 1);
+                const searchParams = new URLSearchParams(query);
+                const prod = searchParams.get('production');
+                const vid = searchParams.get('video');
+                if (!prod || !vid) {
+                    return;
+                }
+                productionName = prod;
+                videoFolderId = vid;
+
+                // If token is already available, load video immediately.
+                if (accessToken) {
+                    document.getElementById('loading').style.display = 'flex';
+                    fetchVideoInfo().then(init).catch(e => showError('Failed to load video: ' + e.message));
+                }
+            } catch (e) {
+                // ignore malformed URLs
+            }
         }
     })();
     </script>
