@@ -21,7 +21,6 @@ import com.bervan.toolsapp.views.pocketapp.PocketSideMenuView;
 import com.bervan.toolsapp.views.pocketapp.PocketTableView;
 import com.bervan.toolsapp.views.projectmgmtapp.ProjectListView;
 import com.bervan.toolsapp.views.shopapp.ProductsView;
-import com.bervan.toolsapp.views.tv.TvPairingView;
 import com.bervan.toolsapp.views.spreadsheetapp.SpreadsheetsView;
 import com.bervan.toolsapp.views.streamingplatformapp.ProductionListView;
 import com.vaadin.flow.component.Component;
@@ -186,7 +185,6 @@ public class MainLayout extends AppLayout {
             return new MenuItemInfo[]{ //
                     new MenuItemInfo("Home", "la la-home", MainHome.class), //
                     new MenuItemInfo("OTP", "la la-barcode", OTPGenerateView.class), //
-                    new MenuItemInfo("TV Pairing", "la la-tv", TvPairingView.class), //
                     new MenuItemInfo("Interview", "la la-desktop", InterviewHomeView.class), //
                     new MenuItemInfo("Pocket", "la la-get-pocket", PocketTableView.class), //
                     new MenuItemInfo("Ebook English Words", "la la-book", NotLearnedWordsView.class), //
