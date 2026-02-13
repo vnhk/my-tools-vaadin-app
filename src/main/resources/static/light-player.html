@@ -235,8 +235,6 @@
                         throw new Error('HTTP ' + response.status);
                     }
 
-                    console.log('Access token received');
-
                     const data = await response.json();
 
                     if (data.status === 'READY' && data.token) {
@@ -245,7 +243,7 @@
                         // Save token for authenticated API calls
                         accessToken = data.token;
 
-                        console.log('TV paired successfully');
+                        connectWebSocket();
 
                         // If navigation already happened before pairing,
                         // load video immediately
@@ -302,9 +300,6 @@
                 document.getElementById('room-id-display').textContent = roomId;
                 document.getElementById('room-id-info').textContent = roomId;
                 pollForToken(code);
-                if (accessToken) {
-                    connectWebSocket();
-                }
                 setupKeyboard();
             })
             .catch(e => showError('Failed to start pairing: ' + e.message));
@@ -458,10 +453,16 @@
             ws = new WebSocket(wsUrl);
 
             ws.onmessage = (event) => {
-                try { handleCommand(JSON.parse(event.data)); } catch(e){}
+                console.log('WS message:', event.data);
+                try {
+                    handleCommand(JSON.parse(event.data));
+                } catch (e) {
+                }
             };
 
-            ws.onclose = () => { setTimeout(connectWebSocket, 3000); };
+            ws.onclose = () => {
+                setTimeout(connectWebSocket, 3000);
+            };
         }
 
         function sendToRemote(msg) {
@@ -695,7 +696,7 @@
                     fetchVideoInfo().then(init).catch(e => showError('Failed to load video: ' + e.message));
                 }
             } catch (e) {
-                // ignore malformed URLs
+                console.error('Failed to parse navigation URL:', e);
             }
         }
     })();

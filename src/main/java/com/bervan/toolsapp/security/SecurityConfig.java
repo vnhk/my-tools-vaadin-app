@@ -52,7 +52,7 @@ public class SecurityConfig extends VaadinWebSecurity {
 
         httpSecurity.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/login", "/pocket/**",
-                            "/language-learning/**", "/products/**", "/api/tv/pair/**")
+                            "/language-learning/**", "/products/**", "/api/tv/pair/**","/ws/remote-control")
                             .permitAll();
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/line-awesome/**", "/static/**", "/images/**", "/light-player.html").permitAll();
                 })
