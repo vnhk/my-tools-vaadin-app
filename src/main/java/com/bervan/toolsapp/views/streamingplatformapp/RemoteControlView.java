@@ -1,6 +1,7 @@
 package com.bervan.toolsapp.views.streamingplatformapp;
 
 import com.bervan.streamingapp.config.ProductionData;
+import com.bervan.streamingapp.tv.TvPairingAdapter;
 import com.bervan.streamingapp.view.AbstractRemoteControlView;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.router.Route;
@@ -12,7 +13,7 @@ import java.util.Map;
 @RolesAllowed({"USER", "STREAMING"})
 public class RemoteControlView extends AbstractRemoteControlView {
 
-    public RemoteControlView(Map<String, ProductionData> streamingProductionData) {
-        super(streamingProductionData);
+    public RemoteControlView(Map<String, ProductionData> streamingProductionData, TvPairingAdapter tvPairingAdapter) {
+        super(streamingProductionData, tvPairingAdapter);
     }
 }
