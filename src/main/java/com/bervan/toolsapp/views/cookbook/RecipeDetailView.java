@@ -15,9 +15,8 @@ public class RecipeDetailView extends AbstractRecipeDetailView {
                             IngredientService ingredientService,
                             ShoppingCartService shoppingCartService,
                             UnitConversionEngine unitConversionEngine,
-                            RecipeImportService recipeImportService,
                             BervanViewConfig bervanViewConfig) {
         super(recipeService, ingredientService, shoppingCartService,
-                unitConversionEngine, recipeImportService, bervanViewConfig);
+                unitConversionEngine, bervanViewConfig);
     }
 }
