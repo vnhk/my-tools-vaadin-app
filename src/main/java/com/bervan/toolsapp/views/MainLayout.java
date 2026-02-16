@@ -19,6 +19,7 @@ import com.bervan.toolsapp.views.lowcode.LowCodeGeneratorView;
 import com.bervan.toolsapp.views.otpview.OTPGenerateView;
 import com.bervan.toolsapp.views.pocketapp.PocketSideMenuView;
 import com.bervan.toolsapp.views.pocketapp.PocketTableView;
+import com.bervan.toolsapp.views.cookbook.RecipeListView;
 import com.bervan.toolsapp.views.projectmgmtapp.ProjectListView;
 import com.bervan.toolsapp.views.shopapp.ProductsView;
 import com.bervan.toolsapp.views.spreadsheetapp.SpreadsheetsView;
@@ -196,6 +197,7 @@ public class MainLayout extends AppLayout {
                     new MenuItemInfo("Budget", "la la-money", BudgetDashboardView.class, BudgetDashboardView.subMenu()), //
                     new MenuItemInfo("Notepad", "las la-chalkboard", CanvasPagesView.class), //
                     new MenuItemInfo("Streaming", "las la-video", ProductionListView.class), //
+                    new MenuItemInfo("Cook Book", "la la-utensils", RecipeListView.class), //
                     new MenuItemInfo("Shopping", "la la-shopping-cart", ProductsView.class), //
                     new MenuItemInfo("Logs", "la la-database", LogItemsTableView.class), //
                     new MenuItemInfo("Async Tasks", "las la-wind", AsyncTaskListView.class), //
