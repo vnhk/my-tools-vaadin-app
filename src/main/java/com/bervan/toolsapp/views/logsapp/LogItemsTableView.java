@@ -21,7 +21,6 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.data.provider.SortDirection;
 import com.vaadin.flow.router.Route;
@@ -85,19 +84,19 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
             this.refreshData();
         });
 
-        renderCommonComponents();
         newItemButton.setVisible(false);
+        createExportButton();
 
         topLayout.add(logSelector);
+        topLayout.add(buttonsWithDateFilters);
+
         filtersLayout.removeFilterableFields("fullLog");
 //        filtersLayout.addFilterableFields("message");
 //        filtersLayout.addFilterableFields("className");
 //        filtersLayout.addFilterableFields("methodName");
 
-        // Add export button
-        createExportButton();
 
-        topLayout.add(buttonsWithDateFilters);
+        renderCommonComponents();
 
         defaultLastHour1Button.click();
         this.searchService = searchService;
@@ -115,7 +114,7 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
             List<LogEntity> logsToExport = getAllLogs();
 
             if (logsToExport.isEmpty()) {
-                Notification.show("No logs to export", 3000, Notification.Position.MIDDLE);
+                showErrorNotification("No logs to export");
                 return;
             }
 
@@ -142,23 +141,21 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
             StreamResource resource = new StreamResource(filename,
                     () -> new ByteArrayInputStream(textContent.toString().getBytes()));
 
-            Anchor downloadAnchor = new Anchor(resource, "");
+            Anchor downloadAnchor = new Anchor(resource, "download_link");
             downloadAnchor.getElement().setAttribute("download", true);
             downloadAnchor.getStyle().set("display", "none");
 
             add(downloadAnchor);
             downloadAnchor.getElement().executeJs("this.click();");
-            remove(downloadAnchor);
+//            remove(downloadAnchor);
 
-            Notification.show(String.format("Exporting %d logs to %s", logsToExport.size(), filename),
-                    3000, Notification.Position.BOTTOM_START);
+            showSuccessNotification(String.format("Exporting %d logs to %s", logsToExport.size(), filename));
 
             log.info("Exported {} logs to file {}", logsToExport.size(), filename);
 
         } catch (Exception e) {
             log.error("Error exporting logs to text file", e);
-            Notification.show("Error exporting logs: " + e.getMessage(),
-                    5000, Notification.Position.MIDDLE);
+            showErrorNotification("Error exporting logs: " + e.getMessage());
         }
     }
 
@@ -167,7 +164,6 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
         SearchQueryOption options = new SearchQueryOption();
         options.setEntityToFind(LogEntity.class);
         options.setPageSize(Integer.MAX_VALUE);
-        options.setPage(0);
         options.setSortField("timestamp");
         options.setSortDirection(com.bervan.common.search.model.SortDirection.ASC);
         request.addCriterion("APP_NAME_EQ_CRITERION", Operator.OR_OPERATOR, LogEntity.class,
