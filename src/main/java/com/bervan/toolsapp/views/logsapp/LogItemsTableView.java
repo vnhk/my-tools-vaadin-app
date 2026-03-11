@@ -123,6 +123,11 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
             for (LogEntity logEntity : logsToExport) {
+                if (logEntity.getJson() != null) {
+                    textContent.append(logEntity.getJson()).append("\n");
+                    continue;
+                }
+
                 String logLine = String.format("[%s] [%s] [%s.%s:%d] %s",
                         logEntity.getTimestamp() != null ? logEntity.getTimestamp().format(formatter) : "N/A",
                         logEntity.getLogLevel() != null ? logEntity.getLogLevel() : "N/A",
