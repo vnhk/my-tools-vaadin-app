@@ -4,9 +4,12 @@ import com.bervan.common.component.BervanButton;
 import com.bervan.common.component.BervanButtonStyle;
 import com.bervan.common.component.BervanComboBox;
 import com.bervan.common.config.BervanViewConfig;
+import com.bervan.common.search.SearchQueryOption;
 import com.bervan.common.search.SearchRequest;
+import com.bervan.common.search.SearchService;
 import com.bervan.common.search.model.Operator;
 import com.bervan.common.search.model.SearchOperation;
+import com.bervan.common.search.model.SearchResponse;
 import com.bervan.common.user.UserRepository;
 import com.bervan.common.view.AbstractBervanTableView;
 import com.bervan.logging.JsonLogger;
@@ -15,12 +18,19 @@ import com.bervan.logging.LogService;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Anchor;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.data.provider.SortDirection;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.StreamResource;
 import jakarta.annotation.security.RolesAllowed;
 
+import java.io.ByteArrayInputStream;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -33,6 +43,7 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
     private final UserRepository userRepository;
     private final JsonLogger log = JsonLogger.getLogger(getClass(), "my-tools-app");
     private final HorizontalLayout buttonsWithDateFilters = new HorizontalLayout();
+    private final SearchService searchService;
     private String appName = "";
     private ComboBox<String> logSelector;
     private boolean showLastPage = true;
@@ -49,7 +60,7 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
     }, BervanButtonStyle.PRIMARY);
     private boolean initSearch = true;
 
-    public LogItemsTableView(LogService logService, UserRepository userRepository, BervanViewConfig bervanViewConfig) {
+    public LogItemsTableView(LogService logService, UserRepository userRepository, BervanViewConfig bervanViewConfig, SearchService searchService) {
         super(new LogsAppPageLayout(ROUTE_NAME), logService, bervanViewConfig, LogEntity.class);
         this.processName = "LogsItemsTable";
         this.logService = logService;
@@ -82,9 +93,89 @@ public class LogItemsTableView extends AbstractBervanTableView<Long, LogEntity> 
 //        filtersLayout.addFilterableFields("message");
 //        filtersLayout.addFilterableFields("className");
 //        filtersLayout.addFilterableFields("methodName");
+
+        // Add export button
+        createExportButton();
+
         topLayout.add(buttonsWithDateFilters);
 
         defaultLastHour1Button.click();
+        this.searchService = searchService;
+    }
+
+    private void createExportButton() {
+        BervanButton exportButton = new BervanButton(new Icon(VaadinIcon.DOWNLOAD),
+                e -> exportLogsToTextFile(), BervanButtonStyle.PRIMARY);
+        exportButton.addClassName("export-logs-btn");
+        topLayout.add(exportButton);
+    }
+
+    private void exportLogsToTextFile() {
+        try {
+            List<LogEntity> logsToExport = getAllLogs();
+
+            if (logsToExport.isEmpty()) {
+                Notification.show("No logs to export", 3000, Notification.Position.MIDDLE);
+                return;
+            }
+
+            // Create text content
+            StringBuilder textContent = new StringBuilder();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+
+            for (LogEntity logEntity : logsToExport) {
+                String logLine = String.format("[%s] [%s] [%s.%s:%d] %s",
+                        logEntity.getTimestamp() != null ? logEntity.getTimestamp().format(formatter) : "N/A",
+                        logEntity.getLogLevel() != null ? logEntity.getLogLevel() : "N/A",
+                        logEntity.getClassName() != null ? logEntity.getClassName() : "N/A",
+                        logEntity.getMethodName() != null ? logEntity.getMethodName() : "N/A",
+                        logEntity.getLineNumber(),
+                        logEntity.getMessage() != null ? logEntity.getMessage() : "N/A"
+                );
+                textContent.append(logLine).append("\n");
+            }
+
+            String filename = String.format("logs_%s_%s.txt",
+                    appName.replaceAll("[^a-zA-Z0-9]", "_"),
+                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")));
+
+            StreamResource resource = new StreamResource(filename,
+                    () -> new ByteArrayInputStream(textContent.toString().getBytes()));
+
+            Anchor downloadAnchor = new Anchor(resource, "");
+            downloadAnchor.getElement().setAttribute("download", true);
+            downloadAnchor.getStyle().set("display", "none");
+
+            add(downloadAnchor);
+            downloadAnchor.getElement().executeJs("this.click();");
+            remove(downloadAnchor);
+
+            Notification.show(String.format("Exporting %d logs to %s", logsToExport.size(), filename),
+                    3000, Notification.Position.BOTTOM_START);
+
+            log.info("Exported {} logs to file {}", logsToExport.size(), filename);
+
+        } catch (Exception e) {
+            log.error("Error exporting logs to text file", e);
+            Notification.show("Error exporting logs: " + e.getMessage(),
+                    5000, Notification.Position.MIDDLE);
+        }
+    }
+
+    private List<LogEntity> getAllLogs() {
+        SearchRequest request = filtersLayout.buildCombinedFilters();
+        SearchQueryOption options = new SearchQueryOption();
+        options.setEntityToFind(LogEntity.class);
+        options.setPageSize(Integer.MAX_VALUE);
+        options.setPage(0);
+        options.setSortField("timestamp");
+        options.setSortDirection(com.bervan.common.search.model.SortDirection.ASC);
+        request.addCriterion("APP_NAME_EQ_CRITERION", Operator.OR_OPERATOR, LogEntity.class,
+                "applicationName", SearchOperation.EQUALS_OPERATION, appName);
+
+        request.setAddOwnerCriterion(false);
+        SearchResponse<LogEntity> searchResponse = searchService.search(request, options);
+        return searchResponse.getResultList();
     }
 
     private void createFilterButtons() {
