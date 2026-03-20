@@ -17,6 +17,7 @@ import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.FileBuffer;
 import com.vaadin.flow.router.Route;
@@ -25,12 +26,14 @@ import jakarta.annotation.security.RolesAllowed;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Optional;
 
 @Route(value = AbstractProductionPlayerView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed({"USER", "STREAMING"})
 public class ProductionPlayerView extends AbstractProductionPlayerView {
 
     private final JsonLogger log = JsonLogger.getLogger(getClass(), "my-tools-app");
+    private final VideoManager videoManager;
     private final FileServiceManager fileServiceManager;
     private final StreamingConfigLoader streamingConfigLoader;
 
@@ -43,6 +46,7 @@ public class ProductionPlayerView extends AbstractProductionPlayerView {
                                 StreamingConfigLoader streamingConfigLoader,
                                 Map<String, ProductionData> streamingProductionData) {
         super(videoManager, streamingProductionData);
+        this.videoManager = videoManager;
         this.fileServiceManager = fileServiceManager;
         this.streamingConfigLoader = streamingConfigLoader;
     }
@@ -51,6 +55,11 @@ public class ProductionPlayerView extends AbstractProductionPlayerView {
     protected void addCustomComponents(String videoId, Metadata video) {
         add(new Hr());
         add(new H4("Upload Subtitle"));
+
+        Select<String> langSelect = new Select<>();
+        langSelect.setLabel("Language (select if not in filename)");
+        langSelect.setItems(VideoManager.EN, VideoManager.PL, VideoManager.ES);
+        langSelect.setPlaceholder("Auto-detect from filename");
 
         Checkbox reloadConfigCheckbox = new Checkbox("Reload Config");
         reloadConfigCheckbox.setValue(false);
@@ -62,12 +71,26 @@ public class ProductionPlayerView extends AbstractProductionPlayerView {
 
         upload.addSucceededListener(event -> {
             try {
-                String filename = event.getFileName();
-                InputStream inputStream = buffer.getInputStream();
+                String originalFilename = event.getFileName();
                 String targetPath = video.getPath() + video.getFilename() + File.separator;
 
+                Optional<String> detected = videoManager.detectSubtitleLanguage(originalFilename);
+                String finalFilename;
+                if (detected.isPresent()) {
+                    finalFilename = originalFilename;
+                } else {
+                    String selectedLang = langSelect.getValue();
+                    if (selectedLang == null || selectedLang.isBlank()) {
+                        showErrorNotification("Language not detected in filename and no language selected. Please select a language and re-upload.");
+                        upload.clearFileList();
+                        return;
+                    }
+                    finalFilename = insertLangIntoFilename(originalFilename, selectedLang);
+                }
+
+                InputStream inputStream = buffer.getInputStream();
                 BervanMockMultiPartFile mockFile = new BervanMockMultiPartFile(
-                        filename, filename, null, inputStream
+                        finalFilename, finalFilename, null, inputStream
                 );
                 fileServiceManager.save(mockFile, "", targetPath);
 
@@ -75,19 +98,32 @@ public class ProductionPlayerView extends AbstractProductionPlayerView {
                     Map<String, ProductionData> newData = streamingConfigLoader.getStringProductionDataMap();
                     streamingProductionData.clear();
                     streamingProductionData.putAll(newData);
-                    showSuccessNotification("Subtitle uploaded and config reloaded!");
+                    showSuccessNotification("Subtitle uploaded as \"" + finalFilename + "\" and config reloaded!");
                 } else {
-                    showSuccessNotification("Subtitle uploaded successfully!");
+                    showSuccessNotification("Subtitle uploaded as \"" + finalFilename + "\"!");
                 }
+
+                langSelect.clear();
             } catch (Exception e) {
                 log.error("Failed to upload subtitle", e);
                 showErrorNotification("Failed to upload subtitle!");
             }
         });
 
-        VerticalLayout uploadSection = new VerticalLayout(upload, reloadConfigCheckbox);
+        VerticalLayout uploadSection = new VerticalLayout(langSelect, upload, reloadConfigCheckbox);
         uploadSection.setSpacing(true);
         uploadSection.setPadding(false);
         add(uploadSection);
+    }
+
+    /**
+     * Inserts language code before the file extension: "movie.vtt" → "movie_en.vtt"
+     */
+    private String insertLangIntoFilename(String filename, String lang) {
+        int dotIndex = filename.lastIndexOf('.');
+        if (dotIndex < 0) {
+            return filename + "." + lang;
+        }
+        return filename.substring(0, dotIndex) + "_" + lang + filename.substring(dotIndex);
     }
 }
