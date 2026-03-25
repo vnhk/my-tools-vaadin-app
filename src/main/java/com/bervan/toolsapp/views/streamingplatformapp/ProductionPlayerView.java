@@ -9,13 +9,13 @@ import com.bervan.filestorage.service.FileServiceManager;
 import com.bervan.languageapp.service.AddFlashcardService;
 import com.bervan.logging.JsonLogger;
 import com.bervan.streamingapp.VideoManager;
+import com.vaadin.flow.component.Component;
 import com.bervan.streamingapp.config.ProductionData;
 import com.bervan.streamingapp.config.StreamingConfigLoader;
 import com.bervan.streamingapp.view.player.AbstractProductionPlayerView;
 import com.bervan.toolsapp.views.MainLayout;
 import com.vaadin.flow.component.checkbox.Checkbox;
-import com.vaadin.flow.component.html.H4;
-import com.vaadin.flow.component.html.Hr;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.upload.Upload;
@@ -52,9 +52,11 @@ public class ProductionPlayerView extends AbstractProductionPlayerView {
     }
 
     @Override
-    protected void addCustomComponents(String videoId, Metadata video) {
-        add(new Hr());
-        add(new H4("Upload Subtitle"));
+    protected Component buildSubtitleSettingsContent(String videoId, Metadata video) {
+        Span header = new Span("Upload Subtitle");
+        header.getStyle()
+                .set("font-weight", "600")
+                .set("font-size", "var(--lumo-font-size-m)");
 
         Select<String> langSelect = new Select<>();
         langSelect.setLabel("Language (select if not in filename)");
@@ -110,10 +112,10 @@ public class ProductionPlayerView extends AbstractProductionPlayerView {
             }
         });
 
-        VerticalLayout uploadSection = new VerticalLayout(langSelect, upload, reloadConfigCheckbox);
+        VerticalLayout uploadSection = new VerticalLayout(header, langSelect, upload, reloadConfigCheckbox);
         uploadSection.setSpacing(true);
         uploadSection.setPadding(false);
-        add(uploadSection);
+        return uploadSection;
     }
 
     /**
