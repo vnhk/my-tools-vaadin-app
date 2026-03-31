@@ -1,5 +1,6 @@
 package com.bervan.toolsapp.views.streamingplatformapp;
 
+import com.bervan.streamingapp.StreamingAdminService;
 import com.bervan.streamingapp.VideoManager;
 import com.bervan.streamingapp.config.ProductionData;
 import com.bervan.streamingapp.view.AbstractProductionDetailsView;
@@ -13,7 +14,8 @@ import java.util.Map;
 @RolesAllowed({"USER", "STREAMING"})
 public class ProductionDetailsView extends AbstractProductionDetailsView {
 
-    public ProductionDetailsView(VideoManager videoManager, Map<String, ProductionData> streamingProductionData) {
-        super(videoManager, streamingProductionData);
+    public ProductionDetailsView(VideoManager videoManager, Map<String, ProductionData> streamingProductionData,
+                                  StreamingAdminService adminService) {
+        super(videoManager, streamingProductionData, adminService);
     }
 }
