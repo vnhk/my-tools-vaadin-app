@@ -66,6 +66,7 @@ public class EnglishLanguageLearningController {
             TranslationRecord record = new TranslationRecord();
             record.setDeleted(false);
             record.setFactor(1);
+            record.setLanguage("EN");
             record.setSourceText(request.getEnglishText());
             record.setLevel(request.getLevel());
             record.setTextTranslation(request.getPolishText());
