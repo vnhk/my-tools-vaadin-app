@@ -20,13 +20,16 @@ public class SecurityConfig extends VaadinWebSecurity {
 
     private final AuthenticationProvider otpAuthenticationProvider;
     private final TvTokenAuthenticationFilter tvTokenAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     public SecurityConfig(
             CustomAuthenticationProvider customAuthenticationProvider,
-            TvTokenAuthenticationFilter tvTokenAuthenticationFilter
+            TvTokenAuthenticationFilter tvTokenAuthenticationFilter,
+            JwtAuthenticationFilter jwtAuthenticationFilter
     ) {
         this.otpAuthenticationProvider = customAuthenticationProvider;
         this.tvTokenAuthenticationFilter = tvTokenAuthenticationFilter;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
 
@@ -52,10 +55,11 @@ public class SecurityConfig extends VaadinWebSecurity {
 
         httpSecurity.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/login", "/pocket/**",
-                            "/language-learning/**", "/products/**", "/api/tv/pair/**","/ws/remote-control")
+                            "/language-learning/**", "/products/**", "/api/tv/pair/**", "/ws/remote-control")
                             .permitAll();
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/line-awesome/**", "/static/**", "/images/**", "/player.html").permitAll();
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/api/streaming/react-player/**").permitAll();
+                    authorizationManagerRequestMatcherRegistry.requestMatchers("/api/auth/**").permitAll();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {
                     httpSecurityFormLoginConfigurer.loginPage("/login").permitAll();
@@ -72,7 +76,8 @@ public class SecurityConfig extends VaadinWebSecurity {
         setLoginView(http, LoginView.class);
         super.configure(http);
 
-        // Allow CORS so TV app (different origin) can call the main API.
+        // JWT filter for React app, TV token filter for TV app.
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(tvTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
