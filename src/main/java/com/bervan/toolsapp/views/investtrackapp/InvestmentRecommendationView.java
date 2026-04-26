@@ -9,6 +9,7 @@ import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = InvestmentRecommendationView.ROUTE_NAME, layout = MainLayout.class)
+@Deprecated
 @RolesAllowed("USER")
 public class InvestmentRecommendationView extends AbstractInvestmentRecommendationView {
     public InvestmentRecommendationView(InvestmentRecommendationService service, BervanViewConfig bervanViewConfig, UserRepository userRepository) {

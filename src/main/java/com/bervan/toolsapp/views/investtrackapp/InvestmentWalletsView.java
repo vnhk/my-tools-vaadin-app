@@ -8,6 +8,7 @@ import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = AbstractWalletsView.ROUTE_NAME, layout = MainLayout.class)
+@Deprecated
 @RolesAllowed("USER")
 public class InvestmentWalletsView extends AbstractWalletsView {
     public InvestmentWalletsView(WalletService service, BervanViewConfig bervanViewConfig) {

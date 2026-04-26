@@ -16,6 +16,7 @@ import jakarta.annotation.security.RolesAllowed;
 import java.util.Map;
 
 @Route(value = AbstractBudgetDashboardView.ROUTE_NAME, layout = MainLayout.class)
+@Deprecated
 @RolesAllowed("USER")
 public class BudgetDashboardView extends AbstractBudgetDashboardView {
 

@@ -11,6 +11,7 @@ import jakarta.annotation.security.RolesAllowed;
 import java.util.UUID;
 
 @Route(value = AbstractImportExportData.ROUTE_NAME, layout = MainLayout.class)
+@Deprecated
 @RolesAllowed("USER")
 public class ImportExportDataView extends AbstractImportExportData {
 

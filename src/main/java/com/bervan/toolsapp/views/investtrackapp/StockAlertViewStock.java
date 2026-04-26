@@ -11,6 +11,7 @@ import jakarta.annotation.security.RolesAllowed;
 import java.util.UUID;
 
 @Route(value = AbstractStockPriceAlertsView.ROUTE_NAME, layout = MainLayout.class)
+@Deprecated
 @RolesAllowed("USER")
 public class StockAlertViewStock extends AbstractStockPriceAlertsView {
     public StockAlertViewStock(BaseService<UUID, StockPriceAlert> service, BervanViewConfig bervanViewConfig) {
