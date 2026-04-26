@@ -27,6 +27,8 @@ public class EntityConfigValidator {
         for (Map.Entry<String, ClassViewAutoConfigColumn> entry : config.entrySet()) {
             String fieldName = entry.getKey();
             ClassViewAutoConfigColumn col = entry.getValue();
+            if (!fields.containsKey(fieldName)) continue;
+
             Object raw = fields.get(fieldName);
             String value = raw != null ? raw.toString() : null;
 

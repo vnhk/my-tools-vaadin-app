@@ -10,6 +10,7 @@ import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = AbstractAllPocketItemsView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
+@Deprecated
 public class PocketItemsTableView extends AbstractAllPocketItemsView {
 
     public PocketItemsTableView(PocketItemService service, PocketService pocketService, BervanViewConfig bervanViewConfig) {

@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
+@Deprecated
 public class PocketSideMenuView extends HorizontalLayout {
     List<PocketItemsListView> pocketItemsListViews = new ArrayList<>();
 
