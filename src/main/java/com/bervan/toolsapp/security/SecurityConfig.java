@@ -14,6 +14,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends VaadinWebSecurity {
@@ -60,6 +62,7 @@ public class SecurityConfig extends VaadinWebSecurity {
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/line-awesome/**", "/static/**", "/images/**", "/player.html").permitAll();
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/api/streaming/react-player/**").permitAll();
                     authorizationManagerRequestMatcherRegistry.requestMatchers("/api/auth/**").permitAll();
+                    authorizationManagerRequestMatcherRegistry.requestMatchers("/api/config").permitAll();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {
                     httpSecurityFormLoginConfigurer.loginPage("/login").permitAll();
@@ -80,7 +83,13 @@ public class SecurityConfig extends VaadinWebSecurity {
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(tvTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+        http.cors().configurationSource(request -> {
+                    CorsConfiguration cors = new CorsConfiguration();
+                    cors.setAllowedOriginPatterns(List.of("*"));
+                    cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+                    cors.setAllowedHeaders(List.of("*"));
+                    return cors;
+                })
                 .and()
                 .csrf().disable();
 

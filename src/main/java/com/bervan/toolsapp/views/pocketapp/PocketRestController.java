@@ -3,6 +3,7 @@ package com.bervan.toolsapp.views.pocketapp;
 import com.bervan.common.service.AuthService;
 import com.bervan.pocketapp.pocket.Pocket;
 import com.bervan.pocketapp.pocket.PocketService;
+import com.bervan.toolsapp.config.EntityConfigValidator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -18,14 +19,18 @@ import java.util.*;
 public class PocketRestController {
 
     private final PocketService pocketService;
+    private final EntityConfigValidator validator;
 
-    public PocketRestController(PocketService pocketService) {
+    public PocketRestController(PocketService pocketService, EntityConfigValidator validator) {
         this.pocketService = pocketService;
+        this.validator = validator;
     }
 
     record PocketDto(UUID id, String name, Integer pocketSize, LocalDateTime creationDate, LocalDateTime modificationDate) {}
 
     record PocketCreateRequest(String name) {}
+
+    record ValidationErrorResponse(List<EntityConfigValidator.FieldError> errors) {}
 
     @GetMapping
     public ResponseEntity<Page<PocketDto>> list(
@@ -59,10 +64,13 @@ public class PocketRestController {
     }
 
     @PostMapping
-    public ResponseEntity<PocketDto> create(@RequestBody PocketCreateRequest req) {
+    public ResponseEntity<?> create(@RequestBody PocketCreateRequest req) {
         if (AuthService.getLoggedUserId() == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+        List<EntityConfigValidator.FieldError> errors = validator.validate("Pocket", Map.of("name", req.name() != null ? req.name() : ""));
+        if (!errors.isEmpty()) return ResponseEntity.badRequest().body(new ValidationErrorResponse(errors));
+
         Pocket pocket = new Pocket();
         pocket.setId(UUID.randomUUID());
         pocket.setName(req.name());
@@ -76,10 +84,13 @@ public class PocketRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PocketDto> update(@PathVariable UUID id, @RequestBody PocketCreateRequest req) {
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody PocketCreateRequest req) {
         if (AuthService.getLoggedUserId() == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+        List<EntityConfigValidator.FieldError> errors = validator.validate("Pocket", Map.of("name", req.name() != null ? req.name() : ""));
+        if (!errors.isEmpty()) return ResponseEntity.badRequest().body(new ValidationErrorResponse(errors));
+
         Optional<Pocket> match = pocketService.load(PageRequest.of(0, Integer.MAX_VALUE)).stream()
                 .filter(p -> p.getId().equals(id))
                 .findFirst();

@@ -4,6 +4,7 @@ import com.bervan.common.service.AuthService;
 import com.bervan.pocketapp.pocketitem.PocketItem;
 import com.bervan.pocketapp.pocketitem.PocketItemRepository;
 import com.bervan.pocketapp.pocketitem.PocketItemService;
+import com.bervan.toolsapp.config.EntityConfigValidator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -20,11 +21,15 @@ public class PocketItemRestController {
 
     private final PocketItemService pocketItemService;
     private final PocketItemRepository pocketItemRepository;
+    private final EntityConfigValidator validator;
 
-    public PocketItemRestController(PocketItemService pocketItemService, PocketItemRepository pocketItemRepository) {
+    public PocketItemRestController(PocketItemService pocketItemService, PocketItemRepository pocketItemRepository, EntityConfigValidator validator) {
         this.pocketItemService = pocketItemService;
         this.pocketItemRepository = pocketItemRepository;
+        this.validator = validator;
     }
+
+    record ValidationErrorResponse(List<EntityConfigValidator.FieldError> errors) {}
 
     record PocketItemDto(
             UUID id, String summary, String content, Boolean encrypted,
@@ -78,10 +83,16 @@ public class PocketItemRestController {
     }
 
     @PostMapping
-    public ResponseEntity<PocketItemDto> create(@RequestBody PocketItemCreateRequest req) {
+    public ResponseEntity<?> create(@RequestBody PocketItemCreateRequest req) {
         if (AuthService.getLoggedUserId() == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+        List<EntityConfigValidator.FieldError> errors = validator.validate("PocketItem", Map.of(
+                "summary", req.summary() != null ? req.summary() : "",
+                "content", req.content() != null ? req.content() : ""
+        ));
+        if (!errors.isEmpty()) return ResponseEntity.badRequest().body(new ValidationErrorResponse(errors));
+
         PocketItem item = new PocketItem();
         item.setId(UUID.randomUUID());
         item.setSummary(req.summary());
@@ -97,15 +108,21 @@ public class PocketItemRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PocketItemDto> update(@PathVariable UUID id, @RequestBody PocketItemUpdateRequest req) {
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody PocketItemUpdateRequest req) {
         if (AuthService.getLoggedUserId() == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+        Map<String, Object> fields = new HashMap<>();
+        if (req.summary() != null) fields.put("summary", req.summary());
+        if (req.content() != null) fields.put("content", req.content());
+        List<EntityConfigValidator.FieldError> errors = validator.validate("PocketItem", fields);
+        if (!errors.isEmpty()) return ResponseEntity.badRequest().body(new ValidationErrorResponse(errors));
+
         Optional<PocketItem> match = findOwnedItem(id);
         if (match.isEmpty()) return ResponseEntity.notFound().build();
         PocketItem item = match.get();
         if (req.summary() != null) item.setSummary(req.summary());
-        if (req.content() != null && !item.isEncrypted()) item.setContent(req.content());
+        if (req.content() != null) item.setContent(req.content());
         if (req.encrypted() != null) item.setEncrypted(req.encrypted());
         if (req.orderInPocket() != null) item.setOrderInPocket(req.orderInPocket());
         item.setModificationDate(LocalDateTime.now());
