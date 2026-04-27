@@ -10,6 +10,7 @@ import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = AbstractRecipeListView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
+@Deprecated
 public class RecipeListView extends AbstractRecipeListView {
 
     public RecipeListView(RecipeService service, RecipeImportService recipeImportService,

@@ -8,6 +8,7 @@ import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = AbstractRecipeSearchView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
+@Deprecated
 public class RecipeSearchView extends AbstractRecipeSearchView {
 
     public RecipeSearchView(RecipeMatchingEngine matchingEngine) {

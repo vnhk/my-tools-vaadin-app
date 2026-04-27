@@ -9,6 +9,7 @@ import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = AbstractShoppingCartView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
+@Deprecated
 public class ShoppingCartView extends AbstractShoppingCartView {
 
     public ShoppingCartView(ShoppingCartService shoppingCartService,

@@ -9,6 +9,7 @@ import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = AbstractDietView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
+@Deprecated
 public class DietView extends AbstractDietView {
 
     public DietView(DietService dietService, IngredientService ingredientService) {
