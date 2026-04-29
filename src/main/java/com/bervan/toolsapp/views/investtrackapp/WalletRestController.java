@@ -6,7 +6,7 @@ import com.bervan.investtrack.model.WalletSnapshot;
 import com.bervan.investtrack.service.InvestmentCalculationService;
 import com.bervan.investtrack.service.WalletService;
 import com.bervan.investtrack.service.WalletSnapshotService;
-import com.bervan.toolsapp.config.EntityConfigValidator;
+import com.bervan.common.config.EntityConfigValidator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;

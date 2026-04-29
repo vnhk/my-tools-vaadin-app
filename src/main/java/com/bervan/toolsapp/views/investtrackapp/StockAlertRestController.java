@@ -5,7 +5,7 @@ import com.bervan.investtrack.model.StockPriceAlert;
 import com.bervan.investtrack.model.StockPriceAlertConfig;
 import com.bervan.investtrack.service.StockPriceAlertConfigService;
 import com.bervan.investtrack.service.StockPriceAlertService;
-import com.bervan.toolsapp.config.EntityConfigValidator;
+import com.bervan.common.config.EntityConfigValidator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;

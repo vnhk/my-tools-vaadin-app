@@ -2,6 +2,11 @@ package com.bervan.toolsapp.security;
 
 import com.bervan.common.user.User;
 import com.bervan.common.user.UserRepository;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,7 +15,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
+import java.util.Base64;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -64,6 +74,78 @@ public class AuthController {
         // JWT is stateless — client drops the token from localStorage
         return ResponseEntity.ok(Map.of("message", "Logged out"));
     }
+
+    // ---- QR Login (REST, session-independent) ----
+
+//    private record QrEntry(int uuid, int number, String pollToken, long created,
+//                           volatile boolean done, volatile User user) {
+//        boolean expired() { return System.currentTimeMillis() - created > 300_000; }
+//    }
+//
+//    private final ConcurrentHashMap<Integer, QrEntry> qrByUuid = new ConcurrentHashMap<>();
+//    private final ConcurrentHashMap<String, QrEntry> qrByPoll = new ConcurrentHashMap<>();
+//
+//    @PostMapping("/qr/generate")
+//    public ResponseEntity<?> qrGenerate(HttpServletRequest request) {
+//        int uuid = ThreadLocalRandom.current().nextInt(1000, 9999);
+//        int attempts = 0;
+//        while (qrByUuid.containsKey(uuid) && ++attempts < 100)
+//            uuid = ThreadLocalRandom.current().nextInt(1000, 9999);
+//        int number = ThreadLocalRandom.current().nextInt(1, 100);
+//        String pollToken = UUID.randomUUID().toString();
+//        QrEntry entry = new QrEntry(uuid, number, pollToken, System.currentTimeMillis(), false, null);
+//        qrByUuid.put(uuid, entry);
+//        qrByPoll.put(pollToken, entry);
+//        qrByUuid.entrySet().removeIf(e -> e.getValue().expired());
+//
+//        String scheme = request.getHeader("X-Forwarded-Proto");
+//        if (scheme == null) scheme = request.isSecure() ? "https" : "http";
+//        String host = request.getHeader("X-Forwarded-Host");
+//        if (host == null) host = request.getHeader("Host");
+//        String qrUrl = scheme + "://" + host + "/accept-login/" + uuid;
+//
+//        try {
+//            QRCodeWriter writer = new QRCodeWriter();
+//            BitMatrix matrix = writer.encode(qrUrl, BarcodeFormat.QR_CODE, 200, 200);
+//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//            MatrixToImageWriter.writeToStream(matrix, "PNG", baos);
+//            String b64 = Base64.getEncoder().encodeToString(baos.toByteArray());
+//            return ResponseEntity.ok(Map.of("uuid", uuid, "number", number, "pollToken", pollToken, "qrImage", b64));
+//        } catch (Exception e) {
+//            return ResponseEntity.status(500).body(Map.of("error", "QR generation failed"));
+//        }
+//    }
+//
+//    @GetMapping("/qr/poll")
+//    public ResponseEntity<?> qrPoll(@RequestParam String pollToken) {
+//        QrEntry entry = qrByPoll.get(pollToken);
+//        if (entry == null || entry.expired()) return ResponseEntity.status(HttpStatus.GONE).build();
+//        if (entry.done() && entry.user() != null) {
+//            User u = entry.user();
+//            qrByPoll.remove(pollToken);
+//            qrByUuid.remove(entry.uuid());
+//            String token = jwtService.generateToken(u.getId(), u.getUsername(), u.getRole());
+//            return ResponseEntity.ok(Map.of("done", true, "token", token, "username", u.getUsername(), "role", u.getRole()));
+//        }
+//        return ResponseEntity.ok(Map.of("done", false));
+//    }
+//
+//    @PostMapping("/qr/confirm")
+//    public ResponseEntity<?> qrConfirm(@RequestParam int uuid, @RequestParam int number,
+//                                       @AuthenticationPrincipal User user) {
+//        if (user == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//        QrEntry entry = qrByUuid.get(uuid);
+//        if (entry == null || entry.expired() || entry.done())
+//            return ResponseEntity.status(HttpStatus.GONE).body(Map.of("error", "QR code expired or already used"));
+//        if (entry.number() != number)
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "Wrong number"));
+//        // mark done — need to set mutable fields via a new record
+//        QrEntry completed = new QrEntry(entry.uuid(), entry.number(), entry.pollToken(),
+//                entry.created(), true, user);
+//        qrByUuid.put(uuid, completed);
+//        qrByPoll.put(entry.pollToken(), completed);
+//        return ResponseEntity.ok(Map.of("message", "Confirmed"));
+//    }
 
     record LoginRequest(String username, String password, String otp) {}
     record LoginResponse(String token, String username, String role) {}

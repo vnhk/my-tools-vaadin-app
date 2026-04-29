@@ -3,7 +3,7 @@ package com.bervan.toolsapp.views.investtrackapp;
 import com.bervan.budget.entry.BudgetEntry;
 import com.bervan.budget.entry.BudgetEntryService;
 import com.bervan.common.service.AuthService;
-import com.bervan.toolsapp.config.EntityConfigValidator;
+import com.bervan.common.config.EntityConfigValidator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;

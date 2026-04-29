@@ -9,6 +9,7 @@ import com.bervan.toolsapp.views.MainLayout;
 
 @Route(value = AbstractInterviewQuestionsView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
+@Deprecated
 public class InterviewQuestionsView extends AbstractInterviewQuestionsView {
     public InterviewQuestionsView(InterviewQuestionService questionService, BervanViewConfig bervanViewConfig) {
         super(questionService, bervanViewConfig);

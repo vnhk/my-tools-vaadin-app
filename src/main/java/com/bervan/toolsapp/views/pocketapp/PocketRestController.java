@@ -3,7 +3,7 @@ package com.bervan.toolsapp.views.pocketapp;
 import com.bervan.common.service.AuthService;
 import com.bervan.pocketapp.pocket.Pocket;
 import com.bervan.pocketapp.pocket.PocketService;
-import com.bervan.toolsapp.config.EntityConfigValidator;
+import com.bervan.common.config.EntityConfigValidator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;

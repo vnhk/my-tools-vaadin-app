@@ -4,7 +4,7 @@ import com.bervan.common.service.AuthService;
 import com.bervan.pocketapp.pocketitem.PocketItem;
 import com.bervan.pocketapp.pocketitem.PocketItemRepository;
 import com.bervan.pocketapp.pocketitem.PocketItemService;
-import com.bervan.toolsapp.config.EntityConfigValidator;
+import com.bervan.common.config.EntityConfigValidator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
