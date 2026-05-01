@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @Route(value = AbstractAllTasksListView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
+@Deprecated
 public class AllTasksListView extends AbstractAllTasksListView {
 
     public AllTasksListView(BaseService<UUID, Task> service, BervanViewConfig bervanViewConfig) {

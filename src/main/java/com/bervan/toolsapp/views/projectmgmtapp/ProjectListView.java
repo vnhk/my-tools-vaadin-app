@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @Route(value = AbstractProjectListView.ROUTE_NAME, layout = MainLayout.class)
 @RolesAllowed("USER")
+@Deprecated
 public class ProjectListView extends AbstractProjectListView {
 
     public ProjectListView(BaseService<UUID, Project> service, BervanViewConfig bervanViewConfig) {
